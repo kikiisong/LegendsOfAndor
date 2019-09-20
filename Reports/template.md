@@ -4,8 +4,8 @@
 
 ### Group
 
- * Hexanome-*X*
- * *your-programming-in-lowercase*
+ * Hexanome-*12*
+ * *c#*
 
 ### Team Members
 
