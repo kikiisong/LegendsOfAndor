@@ -9,26 +9,24 @@
 
 ### Team Members
 
- * *Dagobert Duck*
- * *Daisy Duck*
- * *Donald Duck*
- * *Tick Duck*
- * *Trick Duck*
- * *Track Duck*
+ * *Karine Song*
+ * *Jinhao Guo*
+ * *Bogdan Pechounov*
+ * *Renata Ter*
+ * *Hehuimin Cheng*
+ * *Doreen He*
 
 ## Status
 
 ### 3 most outstanding tasks scheduled until the next report, per team member
 
- * *Dagobert Duck*
-   * *Define REST API*
-   * *Define JSON objects*
-   * *Fire animations*
- * *Daisy Duck*
+ * *Karine Song*
    * *...*
-   * *...*
-   * *...*
- * *...*
+ * *Jinhao Guo*
+ * *Bogdan Pechounov*
+ * *Renata Ter*
+ * *Hehuimin Cheng*
+ * *Doreen He*
 
 ### Tasks missed, scheduled for this report
 
@@ -58,12 +56,12 @@
 
 ### Contribution statement
 
- * *Dagobert Duck contributed 14% of the work effectuated since last week.*
- * *Daisy Duck contributed 42% of the work effectuated since last week.*
- * *Donald Duck contributed 16% of the work effectuated since last week.*
- * *Tick contributed 8% of the work effectuated since last week.*
- * *Trick contributed 8% of the work effectuated since last week.*
- * *Track contributed 20% of the work effectuated since last week.*
+ * *Karine Song contributed*
+ * *Jinhao Guo*
+ * *Bogdan Pechounov*
+ * *Renata Ter*
+ * *Hehuimin Cheng*
+ * *Doreen He*
 
 ### Team mood
 
