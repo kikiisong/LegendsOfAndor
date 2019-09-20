@@ -5,7 +5,7 @@
 ### Group
 
  * Hexanome-*X*
- * *your-programming-language-in-lowercase*
+ * *your-programming-in-lowercase*
 
 ### Team Members
 
