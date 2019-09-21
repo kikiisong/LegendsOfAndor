@@ -36,17 +36,11 @@
 
 ### Top 3 unexpected challenges encountered since last report
 
- * *reconnection of clients on connection dropout*
- * *understanding java lambdas*
- * *convince Dagobert to use maven instead of gradle*
- * *arrangement of swing elements for dynamic window resizing*
- * *builing self contained jar*
+ * *Restoring pointer references of custom classes with the Unity editor*
 
 ### Top 3 lessons learned since last report
 
- * *java singletons are not thread safe by default*
- * *never code a class before you coded the interface*
- * *write more junit tests*
+ * *ScriptableObject class, to keep pointer references during the serialization process*
 
 ### 3 most critical bugs in current functionality (optional)
 
