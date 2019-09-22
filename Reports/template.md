@@ -50,12 +50,12 @@
 
 ### Contribution statement
 
- * *Karine Song contributed*
- * *Jinhao Guo*
- * *Bogdan Pechounov*
- * *Renata Ter*
- * *Hehuimin Cheng*
- * *Doreen He*
+ * *Karine Song contributed 16% of the work effectuated since last week.*
+ * *Jinhao Guo contributed 16% of the work effectuated since last week.*
+ * *Bogdan Pechounov contributed 16% of the work effectuated since last week.*
+ * *Renata Ter contributed 16% of the work effectuated since last week.*
+ * *Hehuimin Cheng contributed 16% of the work effectuated since last week.*
+ * *Doreen He contributed 16% of the work effectuated since last week.*
 
 ### Team mood
 
