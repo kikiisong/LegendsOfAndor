@@ -34,5 +34,11 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - RPC_ChangeReadyState
+  - RPC_MasterClientGranted
+  - RPC_ReceiveMyCustomSerialization
+  - RPC_ReceivePing
+  - RPC_RequestMasterClient
+  - RPC_TypedReceiveMyCustomSerialization
   DisableAutoOpenWizard: 1
   ShowSettings: 0
