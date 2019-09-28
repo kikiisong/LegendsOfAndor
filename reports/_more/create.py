@@ -1,6 +1,7 @@
 import os
 import shutil as s
 import datetime
+from pathlib import Path
 
 def next_weekday(d, weekday):
     days_ahead = weekday - d.weekday()
@@ -12,7 +13,8 @@ d = datetime.datetime.now()
 next_monday = next_weekday(d, 0)
 name = "../" + next_monday.strftime("%Y-%m-%d") + ".md"
 
-s.copyfile("./template.md", name)
+if not Path(name).is_file():
+    s.copy("./template.md", name)
 
 
 
