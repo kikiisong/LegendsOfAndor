@@ -9,7 +9,6 @@ def next_weekday(d, weekday):
     return d + datetime.timedelta(days_ahead)
 
 d = datetime.datetime.now()
-d = datetime.date(2019, 9, 30)
 next_monday = next_weekday(d, 0)
 name = "./" + next_monday.strftime("%Y-%m-%d") + ".md"
 
