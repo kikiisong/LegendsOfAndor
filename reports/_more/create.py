@@ -12,7 +12,7 @@ d = datetime.datetime.now()
 next_monday = next_weekday(d, 0)
 name = "../" + next_monday.strftime("%Y-%m-%d") + ".md"
 
-s.copy("./template.md", name)
+s.copyfile("./template.md", name)
 
 
 
