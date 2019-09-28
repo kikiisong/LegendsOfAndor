@@ -10,9 +10,9 @@ def next_weekday(d, weekday):
 
 d = datetime.date(2011, 7, 2)
 next_monday = next_weekday(d, 0)
-name = "./" + next_monday + ".md"
+name = "./" + next_monday.strftime("%Y-%m-%d") + ".md"
 
-s.copy("./template.md", name)
+s.copy("./template.md", )
 
 
 
