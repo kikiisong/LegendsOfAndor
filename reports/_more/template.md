@@ -4,7 +4,7 @@
 
  * Hexanome-*12*
  * *c#*
-a
+
 ### Team Members
 
  * *Karine Song*
@@ -27,9 +27,9 @@ a
    * **
    * **
  * *Bogdan Pechounov*
-   * **
-   * **
-   * **
+   * *Using photon for networking*
+   * *creating ui elements in unity*
+   * *ui sketches*
  * *Renata Ter*
    * **
    * **
@@ -51,7 +51,7 @@ a
 
 ### Top 3 unexpected challenges encountered since last report
 
-  * **
+  * *Photon: roomList in update function call is empty even though a room was created*
   * **
   * **
 
