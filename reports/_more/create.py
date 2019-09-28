@@ -8,7 +8,7 @@ def next_weekday(d, weekday):
         days_ahead += 7
     return d + datetime.timedelta(days_ahead)
 
-d = datetime.date(2011, 7, 2)
+d = datetime.now()
 next_monday = next_weekday(d, 0)
 name = "./" + next_monday.strftime("%Y-%m-%d") + ".md"
 
