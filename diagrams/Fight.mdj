@@ -2551,11 +2551,11 @@
 												"$ref": "AAAAAAFtvnry8beh70U="
 											},
 											"font": "Arial;13;1",
-											"left": 252,
+											"left": 259.5,
 											"top": 459.5,
-											"width": 62,
+											"width": 96,
 											"height": 13,
-											"text": "UseHerb"
+											"text": "UseHerbInFight"
 										},
 										{
 											"_type": "LabelView",
@@ -2586,9 +2586,9 @@
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 247,
+									"left": 254.5,
 									"top": 452.5,
-									"width": 72,
+									"width": 106.78271484375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFtvnry8beimf8="
@@ -2688,7 +2688,7 @@
 							"containerChangeable": true,
 							"left": 232,
 							"top": 448,
-							"width": 102,
+							"width": 151,
 							"height": 35,
 							"nameCompartment": {
 								"$ref": "AAAAAAFtvnry8beh70U="
@@ -2732,8 +2732,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 414,
-									"top": 405,
+									"left": 431,
+									"top": 404,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -2752,8 +2752,8 @@
 										"$ref": "AAAAAAFtvntDIrfPvdk="
 									},
 									"font": "Arial;13;0",
-									"left": 383,
-									"top": 391,
+									"left": 400,
+									"top": 390,
 									"width": 55.65625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -2775,8 +2775,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 421,
-									"top": 434,
+									"left": 440,
+									"top": 433,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -2794,7 +2794,7 @@
 								"$ref": "AAAAAAFtvnry8begEwE="
 							},
 							"lineStyle": 1,
-							"points": "334:450;502:403",
+							"points": "365:447;508:403",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFtvntDI7fSlEY="
@@ -5486,7 +5486,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "UseHerb",
+					"name": "UseHerbInFight",
 					"ownedElements": [
 						{
 							"_type": "UMLInclude",
