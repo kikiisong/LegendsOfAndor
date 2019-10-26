@@ -13,6 +13,6 @@ public class CreateRoom : MonoBehaviour
     public void OnClick_CreateRoom()
     {
         RoomOptions options = new RoomOptions();
-        PhotonNetwork.JoinOrCreateRoom
+        PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, null);
     }
 }
