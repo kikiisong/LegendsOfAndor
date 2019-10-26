@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\MainLobby\UI\CreateRoomMenu.cs" />
     <Compile Include="Assets\Scripts\MainLobby\UI\CurrentRoomCanvas.cs" />
     <Compile Include="Assets\Scripts\MainLobby\UI\PlayerListing.cs" />
+    <Compile Include="Assets\Scripts\MainLobby\UI\PlayerListingsMenu.cs" />
     <Compile Include="Assets\Scripts\MainLobby\UI\RoomListing.cs" />
     <Compile Include="Assets\Scripts\MainLobby\UI\RoomListingsMenu.cs" />
     <Compile Include="Assets\Scripts\MainLobby\UI\RoomsCanvases.cs" />

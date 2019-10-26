@@ -1398,8 +1398,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1082588981}
+  - component: {fileID: 1082588982}
   m_Layer: 0
-  m_Name: RoomListings
+  m_Name: PlayerListingsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1425,6 +1426,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1082588982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082588980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9839710f3faf01e46be3b4edae9a4868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 373204484}
+  playerListing: {fileID: 1633201662383635618, guid: 223e884ac83140f4392778dd9d39e1ea,
+    type: 3}
 --- !u!1 &1301354581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,8 +1879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7fb3033784a5b544ad916ae075f8ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createOrJoinRoomCanvas: {fileID: 1663340118}
-  currentRoomCanvas: {fileID: 668687815}
+  CreateOrJoinRoomCanvas: {fileID: 1663340118}
+  CurrentRoomCanvas: {fileID: 668687815}
 --- !u!1 &1612199708
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,6 +2196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createRoomMenu: {fileID: 268658411}
+  roomListingsMenu: {fileID: 116798728}
 --- !u!1 &1781256577
 GameObject:
   m_ObjectHideFlags: 0

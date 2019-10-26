@@ -9,10 +9,10 @@ public class PlayerListing : MonoBehaviour
     [SerializeField]
     private Text _text;
 
-    private Player player;
+    public Player Player;
     public void SetPlayerInfo(Player player)
     {
-        this.player = player;
+        Player = player;
         _text.text = player.NickName;
     }
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class RoomsCanvases : MonoBehaviour
 {
-    public CreateOrJoinRoomCanvas createOrJoinRoomCanvas;
-    public CurrentRoomCanvas currentRoomCanvas;
+    public CreateOrJoinRoomCanvas CreateOrJoinRoomCanvas;
+    public CurrentRoomCanvas CurrentRoomCanvas;
 
     public void Awake()
     {
-        createOrJoinRoomCanvas.Initialize(this);
-        currentRoomCanvas.Initialize(this);
+        CreateOrJoinRoomCanvas.Initialize(this);
+        CurrentRoomCanvas.Initialize(this);
     }
 }
