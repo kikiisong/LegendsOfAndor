@@ -9,11 +9,4 @@ public class CreateOrJoinRoomCanvas : MonoBehaviour
     [SerializeField]
     private RoomListingsMenu roomListingsMenu;
 
-    private RoomsCanvases roomsCanvases;
-    public void Initialize(RoomsCanvases canvases)
-    {
-        roomsCanvases = canvases;
-        createRoomMenu.Initialize(canvases);
-        roomListingsMenu.Initialize(canvases);
-    }
 }

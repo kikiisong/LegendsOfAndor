@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 950, y: 544}
+  m_MinSize: {x: 950, y: 394}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -44,10 +44,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 731
-  m_MinSize: {x: 679, y: 494}
-  m_MaxSize: {x: 14002, y: 14044}
+  m_MinSize: {x: 683, y: 344}
+  m_MaxSize: {x: 12008, y: 8044}
   vertical: 0
-  controlID: 81
+  controlID: 109
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -67,8 +67,8 @@ MonoBehaviour:
     y: 0
     width: 360
     height: 731
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 72}
+  m_MaxSize: {x: 4002, y: 4022}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -93,8 +93,8 @@ MonoBehaviour:
     y: 0
     width: 293
     height: 443
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 222}
+  m_MaxSize: {x: 4002, y: 4022}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -119,15 +119,15 @@ MonoBehaviour:
     y: 443
     width: 1176
     height: 288
-  m_MinSize: {x: 232, y: 272}
-  m_MaxSize: {x: 10002, y: 10022}
-  m_ActualView: {fileID: 14}
+  m_MinSize: {x: 102, y: 122}
+  m_MaxSize: {x: 4002, y: 4022}
+  m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 14}
   - {fileID: 12}
   - {fileID: 19}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 2
+  m_LastSelected: 0
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -150,7 +150,7 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 781
-  m_MinSize: {x: 950, y: 544}
+  m_MinSize: {x: 950, y: 394}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &7
 MonoBehaviour:
@@ -216,10 +216,10 @@ MonoBehaviour:
     y: 0
     width: 1176
     height: 731
-  m_MinSize: {x: 404, y: 494}
-  m_MaxSize: {x: 10002, y: 14044}
+  m_MinSize: {x: 406, y: 344}
+  m_MaxSize: {x: 8006, y: 8044}
   vertical: 1
-  controlID: 82
+  controlID: 58
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -241,10 +241,10 @@ MonoBehaviour:
     y: 0
     width: 1176
     height: 443
-  m_MinSize: {x: 404, y: 222}
-  m_MaxSize: {x: 8004, y: 4022}
+  m_MinSize: {x: 406, y: 222}
+  m_MaxSize: {x: 8006, y: 4022}
   vertical: 0
-  controlID: 62
+  controlID: 36
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -312,11 +312,11 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/UI
+    - Assets/Scripts/MainLobby
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Prefabs/UI
+  - Assets/Scripts/MainLobby
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\bpech\OneDrive\Desktop\Software Project\f2019-hexanome-12\Legends
     of Andor
@@ -324,9 +324,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a6350000
-    m_LastClickedID: 13734
-    m_ExpandedIDs: 000000008a2e0000622f0000343000004c3400000835000026360000
+    m_SelectedIDs: 28360000
+    m_LastClickedID: 13864
+    m_ExpandedIDs: 000000008c2e0000642f0000363000004e3400000a35000028360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -354,7 +354,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008a2e0000622f0000343000004c3400000835000026360000
+    m_ExpandedIDs: 000000008c2e0000642f0000363000004e3400000a35000028360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -379,21 +379,21 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: b4390000
-    m_LastClickedInstanceID: 14772
+    m_SelectedInstanceIDs: 562f0000
+    m_LastClickedInstanceID: 12118
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: PlayerListing
-      m_OriginalName: PlayerListing
+      m_Name: RoomListing
+      m_OriginalName: RoomListing
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 13382
+      m_UserData: 13026
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -475,21 +475,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/MainLobby/UI
+    - Assets/Scripts/Chat
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/MainLobby/UI
+  - Assets/Scripts/Chat
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\bpech\OneDrive\Desktop\Software Project\f2019-hexanome-12\Legends
     of Andor
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 7}
-    m_SelectedIDs: 00320000
-    m_LastClickedID: 12800
-    m_ExpandedIDs: 000000008a2e0000622f0000343000004c3400000835000026360000
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 18620000
+    m_LastClickedID: 25112
+    m_ExpandedIDs: 000000008c2e00009e2e0000642f000036300000f83100000c3300002c3300004e340000a8340000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -517,7 +517,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008a2e0000622f0000343000004c3400000835000026360000
+    m_ExpandedIDs: 000000008c2e0000642f0000363000004e3400000a35000028360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -542,24 +542,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c62300000000000060300000
+    m_SelectedInstanceIDs: 32610000
+    m_LastClickedInstanceID: 24882
+    m_HadKeyboardFocusLastEvent: 0
+    m_ExpandedInstanceIDs: c62300000000000060300000d82f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Chat
+      m_OriginalName: Chat
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 25118
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 5}
     m_CreateAssetUtility:
@@ -640,9 +640,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 90390000
-      m_LastClickedID: 0
-      m_ExpandedIDs: aef9ffffbaf9ffffb4390000
+      m_SelectedIDs: 32610000
+      m_LastClickedID: 24882
+      m_ExpandedIDs: 7edfffffbce3ffff98e7ffff52e8ffff24edffffb8f2ffffecf2ffff9af4ffff9ef4ffffa2f4ffffa8f4ffff40f5ffff6efbffff7e38000092380000c2380000f038000008390000143900001e390000823c0000b03c00008c430000ec430000044400001a440000aa4a0000704b0000f45b0000ba5c0000c05c0000de5c0000465d0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -695,16 +695,16 @@ MonoBehaviour:
   m_ShowContextualTools: 0
   m_WindowGUID: 0d7acbaceb5fc3f46949224d07b8d8ca
   m_Gizmos: 1
-  m_SceneIsLit: 0
+  m_SceneIsLit: 1
   m_SceneLighting: 1
   m_2DMode: 1
   m_isRotationLocked: 0
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -140.74794, y: 37.158844, z: -15.309252}
+    m_Target: {x: 905.079, y: 139.81816, z: -152.78757}
     speed: 2
-    m_Value: {x: -101.241325, y: 26.365894, z: -11.222788}
+    m_Value: {x: 905.079, y: 139.81816, z: -152.78757}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_SceneViewState:
     showFog: 1
     showMaterialUpdate: 0
-    showSkybox: 0
+    showSkybox: 1
     showFlares: 1
     showImageEffects: 1
     showParticleSystems: 1
@@ -737,9 +737,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 947.85626
+    m_Target: 1011.1764
     speed: 2
-    m_Value: 907.0395
+    m_Value: 1011.1764
   m_Ortho:
     m_Target: 1
     speed: 2

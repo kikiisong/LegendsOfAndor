@@ -9,12 +9,9 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private Text _roomName;
-    private RoomsCanvases roomsCanvases;
+    [SceneName]
+    public string nextScene;
 
-    public void Initialize(RoomsCanvases canvases)
-    {
-        roomsCanvases = canvases;
-    }
 
     public void OnClick_CreateRoom()
     {
@@ -30,7 +27,8 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         Debug.Log("Created room successfully. ", this);
-        roomsCanvases.CurrentRoomCanvas.Show();
+        //roomsCanvases.CurrentRoomCanvas.Show();
+        PhotonNetwork.LoadLevel(nextScene);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
