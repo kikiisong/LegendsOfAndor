@@ -2904,7 +2904,7 @@ namespace Photon.Pun
             _AsyncLevelLoadingOperation = SceneManager.LoadSceneAsync(levelNumber,LoadSceneMode.Single);
         }
 
-        /// <summary>This method wraps loading a level asynchronously and pausing network messages during the process.</summary>
+        /// <summary>CAREFUL CHANGED This method wraps loading a level asynchronously and pausing network messages during the process.</summary>
         /// <remarks>
         /// While loading levels in a networked game, it makes sense to not dispatch messages received by other players.
         /// LoadLevel takes care of that by setting PhotonNetwork.IsMessageQueueRunning = false until the scene loaded.
@@ -2936,9 +2936,11 @@ namespace Photon.Pun
                 SetLevelInPropsIfSynced(levelName);
             }
 
+
             PhotonNetwork.IsMessageQueueRunning = false;
             loadingLevelAndPausedNetwork = true;
-            _AsyncLevelLoadingOperation = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Single);
+            SceneManager.LoadScene(levelName);
+            //_AsyncLevelLoadingOperation = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Single);
         }
 
         /// <summary>

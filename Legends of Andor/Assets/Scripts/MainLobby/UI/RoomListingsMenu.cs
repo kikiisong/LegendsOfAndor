@@ -20,7 +20,11 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         print("Joined room");
-        PhotonNetwork.LoadLevel(nextScene);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            print("Loading " + nextScene);
+            PhotonNetwork.LoadLevel(nextScene);
+        }
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

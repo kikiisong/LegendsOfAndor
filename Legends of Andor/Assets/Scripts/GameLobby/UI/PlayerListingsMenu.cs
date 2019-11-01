@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        print("New player " + newPlayer.NickName);
         AddPlayerListing(newPlayer);
     }
 
@@ -45,6 +47,17 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         {
             Destroy(listings[index].gameObject);
             listings.RemoveAt(index);
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player target, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        print("test");
+        int index = listings.FindIndex(x => x.Player == target);
+        print(index);
+        if(index != -1)
+        {
+            listings[index].SetPlayerInfo(target);
         }
     }
 }

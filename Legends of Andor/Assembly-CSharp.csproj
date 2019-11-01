@@ -75,9 +75,14 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
     <Compile Include="Assets\Scripts\Chat\Chat.cs" />
+    <Compile Include="Assets\Scripts\GameLobby\CharacterSelection.cs" />
     <Compile Include="Assets\Scripts\GameLobby\GameLobbyManager.cs" />
+    <Compile Include="Assets\Scripts\GameLobby\PhotonPlayer.cs" />
     <Compile Include="Assets\Scripts\GameLobby\RaiseEventExample.cs" />
+    <Compile Include="Assets\Scripts\GameLobby\RPCExample.cs" />
+    <Compile Include="Assets\Scripts\GameLobby\SetUp.cs" />
     <Compile Include="Assets\Scripts\GameLobby\UI\CurrentRoomCanvas.cs" />
+    <Compile Include="Assets\Scripts\GameLobby\UI\Message.cs" />
     <Compile Include="Assets\Scripts\GameLobby\UI\PlayerListing.cs" />
     <Compile Include="Assets\Scripts\GameLobby\UI\PlayerListingsMenu.cs" />
     <Compile Include="Assets\Scripts\Login\LoginManager.cs" />

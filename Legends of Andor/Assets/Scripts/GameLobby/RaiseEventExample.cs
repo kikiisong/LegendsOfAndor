@@ -11,19 +11,23 @@ public class RaiseEventExample : MonoBehaviourPun
     public Image image;
 
     private const byte COLOR_CHANGE_EVENT = 0;
-    
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        
+        int i = PhotonNetwork.CurrentRoom.PlayerCount;
+        print("Count " + i);
+        if (photonView.IsMine)
+        {
+            image.gameObject.transform.position = SetUp.Instance.spawnPoints[i - 1].position;
+        }
     }
 
-    private void OnEnable()
+    public void OnEnable() 
     {
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
     }

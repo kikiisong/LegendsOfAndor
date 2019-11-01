@@ -4,10 +4,17 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Chat : MonoBehaviour, IChatClientListener
 {
-    public ChatClient chatClient;
+    public InputField message;
+    public Transform content;
+    public Message messagePrefab;
+
+    private ChatClient chatClient;
+
+    private string channelName = PhotonNetwork.CurrentRoom.Name;
 
     public void Start()
     {
@@ -26,9 +33,15 @@ public class Chat : MonoBehaviour, IChatClientListener
         string chatId = PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat;
         string version = PhotonNetwork.PhotonServerSettings.AppSettings.AppVersion;
         chatClient.ChatRegion = "US";
-        chatClient.Connect(chatId, version, new AuthenticationValues("name"));
+        chatClient.Connect(chatId, version, new AuthenticationValues());
         print("Chat : Connecting " + version + ", " + chatId);
     }
+    public void OnConnected()
+    {
+        print("Chat : Connected");
+        chatClient.Subscribe(new string[] { channelName });
+    }
+
 
     public void DebugReturn(DebugLevel level, string message)
     {
@@ -38,12 +51,6 @@ public class Chat : MonoBehaviour, IChatClientListener
     public void OnChatStateChange(ChatState state)
     {
 
-    }
-
-    public void OnConnected()
-    {
-        print("Chat : Connected");
-        chatClient.Subscribe(new string[] { "testChat" });
     }
 
     public void OnDisconnected()
@@ -56,12 +63,13 @@ public class Chat : MonoBehaviour, IChatClientListener
         print("Chat - Received");
         foreach(object message in messages)
         {
-            print(message);
+            Message m = Instantiate(messagePrefab, content);
+            m.set(message);
         }
 
         foreach(string sender in senders)
         {
-            print(sender);
+            print("Sender : " + sender);
         }
     }
 
@@ -80,9 +88,8 @@ public class Chat : MonoBehaviour, IChatClientListener
         print("Chat : Subscribed");
         foreach(string c in channels)
         {
-            print(c);
+            print("channel: " + c);
         }
-        chatClient.PublishMessage("testChat", "hello there");
     }
 
     public void OnUnsubscribed(string[] channels)
@@ -100,4 +107,8 @@ public class Chat : MonoBehaviour, IChatClientListener
         throw new System.NotImplementedException();
     }
 
+    public void Click_Send()
+    {
+        chatClient.PublishMessage(channelName, message.text);
+    }
 }
