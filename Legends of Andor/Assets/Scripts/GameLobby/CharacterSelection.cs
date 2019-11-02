@@ -17,7 +17,15 @@ public class CharacterSelection : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-        SetUp.Instance.Place(image.gameObject, photonView);
+        //SetUp.Instance.Place(image.gameObject, photonView);
+        int i = PhotonNetwork.CurrentRoom.PlayerCount;
+        print(i);
+        if (photonView.IsMine)
+        {
+            print("t");
+            image.gameObject.transform.position = SetUp.Instance.spawnPoints[i - 1].position;
+            print(gameObject.transform.position.x);
+        }
         Display();
     }
 

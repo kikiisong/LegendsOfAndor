@@ -30,7 +30,8 @@ public class SetUp : MonoBehaviour
         if (photonView.IsMine)
         {
             print("t");
-            gameObject.transform.position = Instance.spawnPoints[i - 1].position;
+            characterSelect.transform.position = Instance.spawnPoints[i - 1].position;
+            print(gameObject.transform.position.x);
         }
     }
 }
