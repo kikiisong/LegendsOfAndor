@@ -58,7 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-//Second
 # =============== #
 # Unity generated #
 # =============== #
@@ -105,7 +104,7 @@ ehthumbs.db
 Corridor/Library/ShaderCache/
 Corridor/Library/metadata/
 
-//More
+# More
 Temp/
 .vs/
 Legends of Andor/Library/assetDatabase3
