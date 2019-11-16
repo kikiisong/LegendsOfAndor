@@ -14,11 +14,12 @@ public class Chat : MonoBehaviour, IChatClientListener
 
     private ChatClient chatClient;
 
-    private string channelName = PhotonNetwork.CurrentRoom.Name;
+    private string channelName;
 
     public void Start()
     {
         Application.runInBackground = true;
+        channelName = PhotonNetwork.CurrentRoom.Name;
         Connect();
     }
 
