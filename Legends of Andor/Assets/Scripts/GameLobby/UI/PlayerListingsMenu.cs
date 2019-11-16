@@ -56,6 +56,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         if(index != -1)
         {
             listings[index].SetPlayerInfo(target);
+            new Location(1, Vector3.zero);ScriptableObject.CreateInstance<Location>();
         }
     }
 }
