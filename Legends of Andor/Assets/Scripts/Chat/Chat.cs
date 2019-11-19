@@ -56,7 +56,7 @@ public class Chat : MonoBehaviour, IChatClientListener
 
     public void OnDisconnected()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void OnGetMessages(string channelName, string[] senders, object[] messages)
