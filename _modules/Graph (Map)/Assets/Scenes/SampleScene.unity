@@ -94,8 +94,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -132,14 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edbb28319ddb684095c4ce17e44a98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  v1:
-    label: 0
-    name: 
-    position: {x: 0, y: 0, z: 0}
-  v2:
-    label: 0
-    name: 
-    position: {x: 0, y: 0, z: 0}
+  v1: {fileID: 0}
+  v2: {fileID: 0}
   a: 0
 --- !u!114 &425235251
 MonoBehaviour:
@@ -153,14 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edbb28319ddb684095c4ce17e44a98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  v1:
-    label: 0
-    name: 
-    position: {x: 0, y: 0, z: 0}
-  v2:
-    label: 0
-    name: 
-    position: {x: 0, y: 0, z: 0}
+  v1: {fileID: 0}
+  v2: {fileID: 0}
   a: 0
 --- !u!114 &452778350
 MonoBehaviour:
@@ -174,14 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edbb28319ddb684095c4ce17e44a98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  v1:
-    label: 1
-    name: 
-    position: {x: -0.17316182, y: 2.2903519, z: 0}
-  v2:
-    label: 2
-    name: 
-    position: {x: 22.441214, y: -12.8462715, z: 0}
+  v1: {fileID: 0}
+  v2: {fileID: 0}
   a: 0
 --- !u!1 &588887486
 GameObject:
@@ -241,6 +223,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -475,11 +458,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 980338120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba2826314d6095c499ab1dee368fa83d, type: 3}
+  m_Script: {fileID: 11500000, guid: d7f3a61dd0ff87e40886b43edb00127a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a: 3
-  b: 2
 --- !u!4 &980338122
 Transform:
   m_ObjectHideFlags: 0
@@ -552,6 +533,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -616,15 +598,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vertices:
-  - label: 1
-    name: 
-    position: {x: -0.86555684, y: 3.3975105, z: 0}
-  - label: 2
-    name: 
-    position: {x: 22.441214, y: -12.8462715, z: 0}
-  - label: 3
-    name: 
-    position: {x: 21.175566, y: 12.868668, z: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   edges:
   - {fileID: 86695120}
   - {fileID: 425235251}
