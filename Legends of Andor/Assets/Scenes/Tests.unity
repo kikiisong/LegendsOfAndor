@@ -369,8 +369,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2133462660}
-  - component: {fileID: 2133462659}
   - component: {fileID: 2133462658}
+  - component: {fileID: 2133462659}
   m_Layer: 0
   m_Name: GIF
   m_TagString: Untagged
@@ -439,10 +439,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72b631f3f40a2443af27b950da0d97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  framesPerSecond: 1
+  framesPerSecond: 2
   frames:
-  - {fileID: 2800000, guid: 5c31558da14bf42b9ab2dc093da81cbe, type: 3}
-  - {fileID: 2800000, guid: 086c7f692ff174876933fa6626ea2948, type: 3}
+  - {fileID: 2800000, guid: ef2c1d90d2c364d629aebeafbdd4d9aa, type: 3}
+  - {fileID: 2800000, guid: 036d0c6cf3a0d46f18b1f8146fea4d75, type: 3}
+  - {fileID: 2800000, guid: 9b91cbb1a543c4867842ed267280495c, type: 3}
+  - {fileID: 2800000, guid: ecfd804ebc9d44abba8bf1924743ee78, type: 3}
+  - {fileID: 2800000, guid: f3fdf5c98b95c420f800935a25e4f483, type: 3}
+  - {fileID: 2800000, guid: 583cb353c87864eea876cdee36200339, type: 3}
+  - {fileID: 2800000, guid: 1cc376bada0584347aa201208578c997, type: 3}
+  - {fileID: 2800000, guid: 73172f6485ed7493f9c7909d8a540a0e, type: 3}
+  - {fileID: 2800000, guid: 8c2a9cd85c1ec46d1832c30b0c87969e, type: 3}
+  - {fileID: 2800000, guid: 76290a79ab3184815aa43c2ebadf90b4, type: 3}
+  - {fileID: 2800000, guid: 2442d98809090431799a07c804d8cbf9, type: 3}
+  - {fileID: 2800000, guid: 0e1e1ebcc6b044b90b7ec9f9488c0ca8, type: 3}
 --- !u!4 &2133462660
 Transform:
   m_ObjectHideFlags: 0
