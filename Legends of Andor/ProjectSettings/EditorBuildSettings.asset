@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tests.unity
     guid: b8ad25150b6212844b5b088aaf2f7e98
+  - enabled: 1
+    path: Assets/Scenes/FightScene.unity
+    guid: 1ad42e3d16ea04fa88d2b6120b9bdbfb
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 2df2c7183b13b9b4d86a49d6ff721872,
       type: 2}
