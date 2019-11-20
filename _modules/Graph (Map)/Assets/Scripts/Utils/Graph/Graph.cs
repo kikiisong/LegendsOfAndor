@@ -1,52 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 
 namespace Graph
 {
+    [System.Serializable]
     public class Graph<V, E>  : MonoBehaviour where V : Vertex where E : Edge<V>
     {
-        public V[] vertices = new V[0];
-        //Use 2d array later
-        public E[] edges = new E[0];
+        public List<V> vertices;
+        public List<E> edges; //Use 2d array later
 
-        /// <summary>
-        /// Adds a vertex. Label needs to be unique.
-        /// </summary>
         public void Add(V newVertex)
         {
-            if (!IsUnique(newVertex))
-            {
-                Debug.Log(newVertex.ToString());
-                //return;
-            }
-
-            //vertices.Add(newVertex);
-            ArrayUtility.Add<V>(ref vertices, newVertex);
+            vertices.Add(newVertex);
         }
 
-        /// <summary>
-        /// Adds a vertex.
-        /// </summary>
-        public void Add(V from, V to)
-        {
-           // edges.Add((E) new Edge(from, to));
-        }
 
         public void Add(E edge)
         {
-            //edges.Add(edge);
-            //edge.
-            if(Utils.Contains<V>(vertices, (V) edge.v1, (V)edge.v2))
-            {
-                ArrayUtility.Add<E>(ref edges, edge);
-            }
-            else
-            {
-                Debug.Log("Couldnt add edge");
-            }
-            
+           edges.Add(edge);
         }
 
         public V Find(int label)

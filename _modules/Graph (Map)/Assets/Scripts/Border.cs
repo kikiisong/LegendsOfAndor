@@ -2,25 +2,17 @@
 using System.Collections;
 using Graph;
 
-public class Border : Edge<Location>
+public class Border : Edge<Region>
 {
     public int a;
-    public Border(Location v1, Location v2) : base(v1, v2)
+    public bool isDirected;
+
+    public Border(Region v1, Region v2) : base(v1, v2)
     {
     }
 
-
-    public void Draw()
+    public Border(Region v1, Region v2, bool isDirected) : this(v1, v2)
     {
-        // Debug.DrawLine(v1.position, );
-        //Handles
-    }
-
-    public static Border Create(Location v1, Location v2)
-    {
-        Border edge = ScriptableObject.CreateInstance<Border>();
-        edge.v1 = v1;
-        edge.v2 = v2;
-        return edge;
+        this.isDirected = isDirected;
     }
 }
