@@ -4,9 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Custom;
+using UnityEngine.SceneManagement;
 
 public class TestConnect : MonoBehaviourPunCallbacks
 {
+    [SceneName]
+    public string previous;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,5 +43,11 @@ public class TestConnect : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         print("Disconnected from server for reason " + cause.ToString());
+    }
+
+    public void Click_Disconnect()
+    {
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene(previous);
     }
 }
