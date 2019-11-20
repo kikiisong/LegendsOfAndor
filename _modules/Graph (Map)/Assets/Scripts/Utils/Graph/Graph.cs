@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 
 namespace Graph
 {
@@ -23,7 +23,7 @@ namespace Graph
             }
 
             //vertices.Add(newVertex);
-            ArrayUtility.Add<V>(ref vertices, newVertex);
+            //ArrayUtility.Add<V>(ref vertices, newVertex);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Graph
             //edge.
             if(Utils.Contains<V>(vertices, (V) edge.v1, (V)edge.v2))
             {
-                ArrayUtility.Add<E>(ref edges, edge);
+                //ArrayUtility.Add<E>(ref edges, edge);
             }
             else
             {
