@@ -578,7 +578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1914463583}
   - component: {fileID: 1914463582}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ MonoBehaviour:
   - from: {fileID: 1147823079}
     to: {fileID: 1497266228}
     a: 0
-    isDirected: 0
+    isDirected: 1
   - from: {fileID: 1147823079}
     to: {fileID: 595902860}
     a: 0

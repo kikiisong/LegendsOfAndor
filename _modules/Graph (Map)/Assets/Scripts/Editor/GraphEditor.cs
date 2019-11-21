@@ -29,7 +29,6 @@ public class GraphEditor : Editor
             }
             GUIStyle style = new GUIStyle();
             style.normal.textColor = Color.blue;
-            Handles.color = Color.red;
             Handles.Label(worldPos, new GUIContent(region.ToString()), style);
             Vector3 newWorld = Handles.PositionHandle(worldPos, Quaternion.identity);
 
@@ -44,7 +43,13 @@ public class GraphEditor : Editor
             Vector3 v1 = graph.transform.TransformPoint(border.from.position);
             Vector3 v2 = graph.transform.TransformPoint(border.to.position);
             float length = (v1 - v2).magnitude;
-            Handles.color = Color.red;
+            Handles.color = border.isDirected? Color.magenta: Color.green;
+            if (border.isDirected)
+            {
+                GUIStyle style = new GUIStyle();
+                style.normal.textColor = Color.red;
+                Handles.Label(v1 - (v1 - v2) / 2, new GUIContent(border.ToString()), style);
+            }
             Handles.DrawLine(v1, v2);
         }
     }
@@ -112,6 +117,7 @@ public class GraphEditor : Editor
                 {
 
                 }
+                border.isDirected = EditorGUILayout.Toggle(border.isDirected, GUILayout.Width(20));
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
 

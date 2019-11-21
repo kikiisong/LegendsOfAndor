@@ -9,6 +9,8 @@ namespace Graph
         public V from;
         public V to;
 
+        public bool isDirected;
+
         public Edge(V v1, V v2)
         {
             from = v1;
