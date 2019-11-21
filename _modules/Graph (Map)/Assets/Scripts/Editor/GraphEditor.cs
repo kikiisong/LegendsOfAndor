@@ -14,133 +14,151 @@ public class GraphEditor : Editor
         graph = target as GameGraph;
     }
 
-    //public void ShowArrayProperty(SerializedProperty list)
-    //{
-    //    EditorGUILayout.PropertyField(list);
-    //    EditorGUI.indentLevel++;
-    //    for(int i = 0; i < list.arraySize; i++)
-    //    {
-    //        EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i), new GUIContent("hey"));
-    //    }
+    private void OnSceneGUI()
+    {
+        foreach (Region region in graph.vertices)
+        {
+            Vector3 worldPos;
+            if (Application.isPlaying)
+            {
+                worldPos = region.position;
+            }
+            else
+            {
+                worldPos = graph.transform.TransformPoint(region.position);
+            }
+            GUIStyle style = new GUIStyle();
+            style.normal.textColor = Color.blue;
+            Handles.color = Color.red;
+            Handles.Label(worldPos, new GUIContent(region.ToString()), style);
+            Vector3 newWorld = Handles.PositionHandle(worldPos, Quaternion.identity);
 
-    //    EditorGUI.indentLevel--;
-    //}
+            if (newWorld != worldPos)
+            {
+                region.position = graph.transform.InverseTransformPoint(newWorld); //why does it work
+            }
+        }
 
-    //private void OnSceneGUI()
-    //{
-    //    foreach(Region location in graph.vertices)
-    //    {
-    //        Vector3 worldPos;
-    //        if (Application.isPlaying)
-    //        {
-    //            worldPos = location.position;
-    //        }
-    //        else
-    //        {
-    //            worldPos = graph.transform.TransformPoint(location.position);
-    //        }
-    //        GUIStyle style = new GUIStyle();
-    //        //style.normal.textColor = Color.white;
-    //        Handles.Label(worldPos, new GUIContent(location.ToString()), style);
-    //        Vector3 newWorld = Handles.PositionHandle(worldPos, Quaternion.identity);
+        foreach (Border border in graph.edges)
+        {
+            Vector3 v1 = graph.transform.TransformPoint(border.from.position);
+            Vector3 v2 = graph.transform.TransformPoint(border.to.position);
+            float length = (v1 - v2).magnitude;
+            Handles.color = Color.red;
+            Handles.DrawLine(v1, v2);
+        }
+    }
 
-    //        if(newWorld != worldPos)
-    //        {
-    //            location.position = graph.transform.InverseTransformPoint(newWorld); //why does it work
-    //        }
-    //    }
-
-    //    foreach(Border border in graph.edges)
-    //    {
-    //        Vector3 v1 = graph.transform.TransformPoint(border.v1.position);
-    //        Vector3 v2 = graph.transform.TransformPoint(border.v2.position);
-    //        float length = (v1 - v2).magnitude;
-    //        Handles.DrawLine(v1, v2);
-    //    }
-    //}
-
-    //static int value = 1;
-    //private void AddLocation()
-    //{
-    //    EditorGUILayout.BeginHorizontal();
-    //    bool button = GUILayout.Button("Add region");
-    //    EditorGUIUtility.labelWidth = 50;
-    //    value = EditorGUILayout.IntField("Label: ", value, GUILayout.ExpandWidth(false));
-    //    if (button)
-    //    {
-    //        graph.Add(Region.Create(value, Vector3.zero));
-    //    }
-    //    EditorGUILayout.EndHorizontal();
-    //}
-
-    //static int first = 1;
-    //static int second = 1;
-    //private void AddEdge()
-    //{
-    //    EditorGUILayout.BeginHorizontal();
-    //    bool button = GUILayout.Button("Add edge");
-    //    first = EditorGUILayout.IntField(first, GUILayout.ExpandWidth(false));
-    //    second = EditorGUILayout.IntField(second, GUILayout.ExpandWidth(false));
-
-    //    if (button)
-    //    {
-    //        //graph.Add(new Border(graph.Find(first), graph.Find(second)));
-    //        Border border = Border.Create(graph.Find(first), graph.Find(second));
-    //        graph.Add(border);
-    //    }
-    //    EditorGUILayout.EndHorizontal();
-    //}
-
-    //public static bool show;
-    //public static bool show2;
+    public static bool show;
+    public static bool show2;
     public override void OnInspectorGUI()
     {
-        ///ShowArrayProperty(serializedObject.FindProperty("vertices"));
-        //base.OnInspectorGUI();        
+        EditorGUILayout.BeginHorizontal();
+        AddRegion();
+        AddBorder();
+        EditorGUILayout.EndHorizontal();
 
-        //AddLocation();
-        //ArrayGUI(nameof(graph.vertices), "Locations", ref show, graph.vertices);
-        //AddEdge();
-        //ArrayGUI(nameof(graph.edges), "Borders", ref show2, graph.edges);
-
-
-
-        if (true)
+        show = EditorGUILayout.Foldout(show, "Regions");
+        if (show)
         {
             foreach (Region region in graph.vertices)
-            { 
+            {
                 EditorGUILayout.BeginHorizontal();
 
-                int size = 64;
-                EditorGUILayout.BeginVertical(GUILayout.Width(size));
-                EditorGUILayout.LabelField("Region " + region.label);
+                EditorGUILayout.BeginVertical(GUILayout.Width(30));
+                EditorGUILayout.LabelField(region.ToString());
                 EditorGUILayout.EndVertical();
 
                 EditorGUILayout.BeginVertical();
-                region.position = EditorGUILayout.Vector3Field("position", region.position);
+                region.position = EditorGUILayout.Vector3Field("", region.position);
+                EditorGUILayout.EndVertical();
+
+                EditorGUILayout.BeginVertical(GUILayout.Width(10));
+                EditorGUILayout.BeginHorizontal();
+                region.label = EditorGUILayout.IntField(region.label, GUILayout.Width(20));
+                if (GUILayout.Button("R"))
+                {
+                    graph.Remove(region);
+                }
+                EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
 
                 EditorGUILayout.EndHorizontal();
             }
         }
 
+        show2 = EditorGUILayout.Foldout(show2, "Borders");
+        if (show2)
+        {
+            foreach(Border border in graph.edges)
+            {
+                EditorGUILayout.BeginHorizontal();
 
-        //    //Edges
+                EditorGUILayout.BeginVertical(GUILayout.Width(30));
+                EditorGUILayout.LabelField(border.ToString());
+                EditorGUILayout.EndVertical();
 
-        //}
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.BeginHorizontal();
+                int from = border.from.label;
+                int to = border.to.label;
+                from = EditorGUILayout.IntField(from, GUILayout.Width(20));
+                to = EditorGUILayout.IntField(to, GUILayout.Width(20));
+                if (from != border.from.label)
+                {
 
-        //private void ArrayGUI(string arrayName, string displayName, ref bool show, object[] objects)
-        //{
-        //    show = EditorGUILayout.Foldout(show, new GUIContent(displayName));
-        //    if (!show) return;
-        //    SerializedProperty array = serializedObject.FindProperty(arrayName);
+                }
+                if(to != border.to.label)
+                {
 
-        //    for (int i = 0; i < array.arraySize; i++)
-        //    {
-        //        string name = objects[i].ToString();
-        //        EditorGUILayout.PropertyField(array.GetArrayElementAtIndex(i), new GUIContent(name), true);
-        //    }
-        //    serializedObject.ApplyModifiedProperties();
+                }
+                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.EndVertical();
+
+                EditorGUILayout.BeginVertical();
+                if (GUILayout.Button("R", GUILayout.Width(20)))
+                {
+                    graph.Remove(border);
+                }
+                EditorGUILayout.EndVertical();
+
+                EditorGUILayout.EndHorizontal();
+            }
         }
     }
+
+    static int value = 1;
+    private void AddRegion()
+    {
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal();
+        bool button = GUILayout.Button("Add region");
+        EditorGUIUtility.labelWidth = 20;
+        value = EditorGUILayout.IntField("", value, GUILayout.ExpandWidth(false));
+        if (button)
+        {
+            graph.Add(Region.Create(value, Vector3.zero));
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+    }
+
+    static int first = 1;
+    static int second = 1;
+    private void AddBorder()
+    {
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal();
+        bool button = GUILayout.Button("Add edge");
+        first = EditorGUILayout.IntField(first, GUILayout.ExpandWidth(false));
+        second = EditorGUILayout.IntField(second, GUILayout.ExpandWidth(false));
+
+        if (button)
+        {
+            graph.Add(new Border(graph.Find(first), graph.Find(second)));
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+    }
+}
 

@@ -18,4 +18,9 @@ public class Region : Vertex
     {
         return ScriptableObject.CreateInstance<Region>().Init(label, vector);
     }
+
+    public override string ToString()
+    {
+        return "Region " + label;
+    }
 }
