@@ -24,13 +24,13 @@ EditorBuildSettings:
     path: Assets/Scenes/FightScene.unity
     guid: 1ad42e3d16ea04fa88d2b6120b9bdbfb
   - enabled: 1
-    path: Assets/Scenes/DistributeScene.unity
+    path: Assets/Scenes/TradeSceneWithEgal.unity
     guid: cd251152da87f4807b7e88b4679fc7cb
   - enabled: 1
     path: Assets/Scenes/TradeScene.unity
     guid: 1746ba56195c14e74aa21981ab1e373b
   - enabled: 1
-    path: Assets/Scenes/TradeWithSystem.unity
+    path: Assets/Scenes/Distribution.unity
     guid: ce0e8d0abbd144ebaaedc416cf73d3e1
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 2df2c7183b13b9b4d86a49d6ff721872,

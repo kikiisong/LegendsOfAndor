@@ -13,7 +13,7 @@ public class TradeSwitch : MonoBehaviour
 
     public void ToMap()
     {
-        SceneManager.LoadScene("TradeScene");
+        SceneManager.LoadScene("GaneLobby");
     }
 
     public void ToFight()
