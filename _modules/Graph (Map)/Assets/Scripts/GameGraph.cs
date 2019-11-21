@@ -5,6 +5,7 @@ using Graph;
 using Routines;
 using System;
 
+[System.Serializable]
 public class GameGraph : Graph<Region, Border>
 {
     public static GameGraph Instance;
@@ -12,16 +13,6 @@ public class GameGraph : Graph<Region, Border>
     void Awake()
     {
         Instance = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            Location nearest = FindNearest(Input.mousePosition);
-            //StartCoroutine(CommonRoutines.MoveTo(gameObjectTest.transform, nearest.position, 10f));
-        }*/
     }
 
     public void PlaceAt(GameObject gameObject, Region location, float time)
@@ -44,26 +35,37 @@ public class GameGraph : Graph<Region, Border>
     }
 
 
-    public Region FindNearest(Vector3 mouse)
+    public Region FindNearest(Vector3 mousePosition)
     {
+        Vector3 position = CastRay(mousePosition);
         //First find possible moves ?
         float min = Mathf.Infinity;
-        float distance = Mathf.Infinity;
 
         Region closest = null; //Carefull with current location
-
-        foreach(Region location in vertices)
+        foreach(Region region in vertices)
         {
-            distance = (mouse - location.position).sqrMagnitude;
+            float distance = (position - region.position).sqrMagnitude;
+            print(region.label + " " + position);
             if(distance < min)
             {
                 min = distance;
-                closest = location;
+                closest = region;
             }
         }
 
-        //Array.Sort()
         return closest;
+    }
+
+    public Vector3 CastRay(Vector3 mousePosition)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        if(Physics.Raycast(ray, out RaycastHit hit, LayerMask.GetMask("Graph"))){
+            return hit.point;
+        }
+        else
+        {
+            throw new Exception("Missed");
+;        }
     }
 
     public void ShowPossibleMoves()
