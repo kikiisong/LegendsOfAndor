@@ -12,7 +12,7 @@ public class Test : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Region nearest = GameGraph.Instance.FindNearest(Input.mousePosition);
-            StopAllCoroutines();
+            //StopAllCoroutines();
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, nearest.position, 2f));
         }
     }
