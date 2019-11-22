@@ -7,7 +7,7 @@ public class SetUp : MonoBehaviour
 {
     public static SetUp Instance;
 
-    public Transform[] spawnPoints;
+    public RectTransform[] spawnPoints;
 
     void Awake()
     {
