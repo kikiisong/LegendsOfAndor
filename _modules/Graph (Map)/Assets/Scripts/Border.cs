@@ -6,7 +6,6 @@ using Graph;
 public class Border : Edge<Region>
 {
     public int a;
-    public bool isDirected;
 
     public Border(Region v1, Region v2) : base(v1, v2)
     {
