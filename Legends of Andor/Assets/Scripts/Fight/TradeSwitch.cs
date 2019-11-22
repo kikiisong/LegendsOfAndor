@@ -13,6 +13,7 @@ public class TradeSwitch : MonoBehaviour
     // Start is called before the first frame update
     public void ToTrade()
     {
+        print("a");
         SceneManager.LoadScene("TradeScene");
         print("hey2");
     }
