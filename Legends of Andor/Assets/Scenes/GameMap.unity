@@ -1111,7 +1111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 81
   regionName: 
-  position: {x: -2.876122, y: -31.642126, z: -0.050209977}
+  position: {x: 33.158775, y: -33.91494, z: 0.5788707}
 --- !u!114 &1364563015
 MonoBehaviour:
   m_ObjectHideFlags: 0
