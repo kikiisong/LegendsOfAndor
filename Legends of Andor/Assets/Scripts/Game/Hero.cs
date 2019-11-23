@@ -31,7 +31,7 @@ public class Hero : MonoBehaviour
                 GameGraph.Instance.PlaceAt(gameObject, 25);
                 break;
             case CharacterType.DWARF:
-                GameGraph.Instance.PlaceAt(gameObject, 25);
+                GameGraph.Instance.PlaceAt(gameObject, 43);
                 break;
             case CharacterType.WIZARD:
                 GameGraph.Instance.PlaceAt(gameObject, 9);
