@@ -8,7 +8,6 @@ public class Hero : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameGraph.Instance.PlaceAt(gameObject, 0, 6);
     }
 
     // Update is called once per frame
@@ -23,6 +22,21 @@ public class Hero : MonoBehaviour
     public void SetUp(Character character)
     {
         GetComponent<SpriteRenderer>().sprite = character.GetSprite();
+        switch (character.type)
+        {
+            case CharacterType.ARCHER:
+                GameGraph.Instance.PlaceAt(gameObject, 53);
+                break;
+            case CharacterType.WARRIOR:
+                GameGraph.Instance.PlaceAt(gameObject, 25);
+                break;
+            case CharacterType.DWARF:
+                GameGraph.Instance.PlaceAt(gameObject, 25);
+                break;
+            case CharacterType.WIZARD:
+                GameGraph.Instance.PlaceAt(gameObject, 9);
+                break;
+        }
     }
 
     public void MoveToClick()
