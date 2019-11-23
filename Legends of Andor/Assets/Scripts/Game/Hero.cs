@@ -8,7 +8,7 @@ public class Hero : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameGraph.Instance.PlaceAt(gameObject, 0, 6);
     }
 
     // Update is called once per frame
@@ -16,14 +16,25 @@ public class Hero : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Region nearest = GameGraph.Instance.FindNearest(Input.mousePosition);
-            StopAllCoroutines();
-            StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, nearest.position, 2f));
+            MoveToClick();
         }
     }
 
     public void SetUp(Character character)
     {
         GetComponent<SpriteRenderer>().sprite = character.GetSprite();
+    }
+
+    public void MoveToClick()
+    {
+        Region current = GameGraph.Instance.FindNearest(transform.position);
+        Vector3 position = GameGraph.Instance.CastRay(Input.mousePosition);
+        Region clicked = GameGraph.Instance.FindNearest(position);
+        bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
+        if (contained && (clicked.position - position).magnitude <= 2)
+        {
+            StopAllCoroutines();
+            StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f));
+        }
     }
 }
