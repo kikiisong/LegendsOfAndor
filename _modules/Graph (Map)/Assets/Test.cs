@@ -19,7 +19,6 @@ public class Test : MonoBehaviour
             Region current = GameGraph.Instance.FindNearest(transform.position);
             Vector3 position = GameGraph.Instance.CastRay(Input.mousePosition);
             Region clicked = GameGraph.Instance.FindNearest(position);
-            print((clicked.position - position).magnitude);
             bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
             if (contained && (clicked.position - position).magnitude <= 2)
             {

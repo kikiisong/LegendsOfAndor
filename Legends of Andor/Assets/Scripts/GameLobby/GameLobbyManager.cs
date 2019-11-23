@@ -15,7 +15,8 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     public string previousScene;
 
     [Header("UI")]
-    public Button startGame;
+    public GameObject startGame;
+    public Text difficulty;
     public Button ready;
 
     [Header("Resources")]
@@ -93,5 +94,23 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
             hash.Add("character", null);
         }
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+
+    public void Click_Difficulty()
+    {
+        if (difficulty.text.Equals("Easy"))
+        {
+            difficulty.text = "Normal";
+        }
+        else
+        {
+            difficulty.text = "Easy";
+        }
+
+        Hashtable hashtable = new Hashtable()
+        {
+            {"difficulty", difficulty.text}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
     }
 }
