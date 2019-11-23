@@ -1569,7 +1569,15 @@ MonoBehaviour:
   - {fileID: 1513239995}
   - {fileID: 1364563015}
   - {fileID: 2018042544}
-  edges: []
+  edges:
+  - from: {fileID: 617256400}
+    to: {fileID: 2018042544}
+    isDirected: 1
+    a: 0
+  - from: {fileID: 1665637358}
+    to: {fileID: 2018042544}
+    isDirected: 1
+    a: 0
 --- !u!114 &1816058290
 MonoBehaviour:
   m_ObjectHideFlags: 0
