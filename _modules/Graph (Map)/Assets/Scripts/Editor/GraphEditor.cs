@@ -56,84 +56,84 @@ public class GraphEditor : Editor
 
     public static bool show;
     public static bool show2;
-    public override void OnInspectorGUI()
-    {
-        EditorGUILayout.BeginHorizontal();
-        AddRegion();
-        AddBorder();
-        EditorGUILayout.EndHorizontal();
+	public override void OnInspectorGUI()
+	{
+		EditorGUILayout.BeginHorizontal();
+		AddRegion();
+		AddBorder();
+		EditorGUILayout.EndHorizontal();
 
-        show = EditorGUILayout.Foldout(show, "Regions");
-        if (show)
-        {
-            foreach (Region region in graph.vertices)
-            {
-                EditorGUILayout.BeginHorizontal();
+		show = EditorGUILayout.Foldout(show, "Regions");
+		if (show)
+		{
+			foreach (Region region in graph.vertices)
+			{
+				EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.BeginVertical(GUILayout.Width(30));
-                EditorGUILayout.LabelField(region.ToString());
-                EditorGUILayout.EndVertical();
+				EditorGUILayout.BeginVertical(GUILayout.Width(30));
+				EditorGUILayout.LabelField(region.ToString());
+				EditorGUILayout.EndVertical();
 
-                EditorGUILayout.BeginVertical();
-                region.position = EditorGUILayout.Vector3Field("", region.position);
-                EditorGUILayout.EndVertical();
+				EditorGUILayout.BeginVertical();
+				region.position = EditorGUILayout.Vector3Field("", region.position);
+				EditorGUILayout.EndVertical();
 
-                EditorGUILayout.BeginVertical(GUILayout.Width(10));
-                EditorGUILayout.BeginHorizontal();
-                region.label = EditorGUILayout.IntField(region.label, GUILayout.Width(20));
-                if (GUILayout.Button("R"))
-                {
-                    graph.Remove(region);
-                }
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.EndVertical();
+				EditorGUILayout.BeginVertical(GUILayout.Width(10));
+				EditorGUILayout.BeginHorizontal();
+				region.label = EditorGUILayout.IntField(region.label, GUILayout.Width(20));
+				if (GUILayout.Button("R"))
+				{
+					graph.Remove(region);
+				}
+				EditorGUILayout.EndHorizontal();
+				EditorGUILayout.EndVertical();
 
-                EditorGUILayout.EndHorizontal();
-            }
-        }
+				EditorGUILayout.EndHorizontal();
+			}
+		}
 
-        show2 = EditorGUILayout.Foldout(show2, "Borders");
-        if (show2)
-        {
-            foreach(Border border in graph.edges)
-            {
-                EditorGUILayout.BeginHorizontal();
+		show2 = EditorGUILayout.Foldout(show2, "Borders");
+		if (show2)
+		{
+			foreach (Border border in graph.edges)
+			{
+				EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.BeginVertical(GUILayout.Width(30));
-                EditorGUILayout.LabelField(border.ToString());
-                EditorGUILayout.EndVertical();
+				EditorGUILayout.BeginVertical(GUILayout.Width(30));
+				EditorGUILayout.LabelField(border.ToString());
+				EditorGUILayout.EndVertical();
 
-                EditorGUILayout.BeginVertical();
-                EditorGUILayout.BeginHorizontal();
-                int from = border.from.label;
-                int to = border.to.label;
-                from = EditorGUILayout.IntField(from, GUILayout.Width(20));
-                to = EditorGUILayout.IntField(to, GUILayout.Width(20));
-                if (from != border.from.label)
-                {
+				EditorGUILayout.BeginVertical();
+				EditorGUILayout.BeginHorizontal();
+				int from = border.from.label;
+				int to = border.to.label;
+				from = EditorGUILayout.IntField(from, GUILayout.Width(20));
+				to = EditorGUILayout.IntField(to, GUILayout.Width(20));
+				if (from != border.from.label)
+				{
 
-                }
-                if(to != border.to.label)
-                {
+				}
+				if (to != border.to.label)
+				{
 
-                }
-                border.isDirected = EditorGUILayout.Toggle(border.isDirected, GUILayout.Width(20));
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.EndVertical();
+				}
+				border.isDirected = EditorGUILayout.Toggle(border.isDirected, GUILayout.Width(20));
+				EditorGUILayout.EndHorizontal();
+				EditorGUILayout.EndVertical();
 
-                EditorGUILayout.BeginVertical();
-                if (GUILayout.Button("R", GUILayout.Width(20)))
-                {
-                    graph.Remove(border);
-                }
-                EditorGUILayout.EndVertical();
+				EditorGUILayout.BeginVertical();
+				if (GUILayout.Button("R", GUILayout.Width(20)))
+				{
+					graph.Remove(border);
+				}
+				EditorGUILayout.EndVertical();
 
-                EditorGUILayout.EndHorizontal();
-            }
-        }
-    }
+				EditorGUILayout.EndHorizontal();
+			}
+		}
+	}
 
-    static int value = 1;
+	static int value = 1;
     private void AddRegion()
     {
         EditorGUILayout.BeginVertical();
