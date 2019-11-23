@@ -25,7 +25,6 @@ public class GameGraph : Graph<Region, Border>
         Region target = Find(label);
         Debug.Log(target.position.ToString());
         gameObject.transform.position = target.position;
-        Debug.Log(gameObject.transform.position.ToString());
     }
 
     public void PlaceAt(GameObject gameObject, int label, float timeTaken)
@@ -35,9 +34,9 @@ public class GameGraph : Graph<Region, Border>
     }
 
 
-    public Region FindNearest(Vector3 mousePosition)
+    public Region FindNearest(Vector3 position)
     {
-        Vector3 position = CastRay(mousePosition);
+        //Vector3 position = CastRay(mousePosition);
         //First find possible moves ?
         float min = Mathf.Infinity;
 
@@ -45,7 +44,6 @@ public class GameGraph : Graph<Region, Border>
         foreach(Region region in vertices)
         {
             float distance = (position - region.position).sqrMagnitude;
-            print(region.label + " " + position);
             if(distance < min)
             {
                 min = distance;
@@ -68,9 +66,17 @@ public class GameGraph : Graph<Region, Border>
 ;        }
     }
 
-    public void ShowPossibleMoves()
+    public List<Region> AdjacentRegions(Region region)
     {
-
+        List<Region> adjacentRegions = new List<Region>();
+        foreach(Border border in edges)
+        {
+            if(border.PartOf(region, out Region other))
+            {
+                adjacentRegions.Add(other);
+            }
+        }
+        return adjacentRegions;
     }
 
     public void DrawTest()

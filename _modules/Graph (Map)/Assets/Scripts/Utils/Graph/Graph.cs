@@ -49,6 +49,19 @@ namespace Graph
         {
             edges.Remove(edge);
         }
+
+        public List<V> AdjacentVertices(V current)
+        {
+            List<V> adjacentRegions = new List<V>();
+            foreach (E edge in edges)
+            {
+                if (edge.PartOf(current, out V other))
+                {
+                    adjacentRegions.Add(other);
+                }
+            }
+            return adjacentRegions;
+        }
     }
 }
 
