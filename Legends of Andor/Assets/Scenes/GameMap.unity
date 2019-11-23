@@ -1568,6 +1568,7 @@ MonoBehaviour:
   - {fileID: 1782779404}
   - {fileID: 1513239995}
   - {fileID: 1364563015}
+  - {fileID: 2018042544}
   edges: []
 --- !u!114 &1816058290
 MonoBehaviour:
@@ -1719,6 +1720,21 @@ MonoBehaviour:
   label: 14
   regionName: 
   position: {x: -36.085205, y: 3.8202438, z: 0}
+--- !u!114 &2018042544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da5609f8d6aab64aa0afa0c80d34e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: 0
+  regionName: 
+  position: {x: -51.41423, y: 19.489552, z: -0.89756614}
 --- !u!114 &2036377317
 MonoBehaviour:
   m_ObjectHideFlags: 0
