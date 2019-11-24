@@ -88,5 +88,5 @@ public class Character
 
 public enum CharacterType
 {
-    ARCHER, WARRIOR, MAGE, DWARF
+    ARCHER, WARRIOR, WIZARD, DWARF
 }
