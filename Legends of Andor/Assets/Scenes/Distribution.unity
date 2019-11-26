@@ -614,7 +614,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 430582276}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 594467133}
+        m_MethodName: MinusStrength
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &430582276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,6 +671,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 594467132}
+  - component: {fileID: 594467133}
   m_Layer: 0
   m_Name: AddAndMinus
   m_TagString: Untagged
@@ -681,6 +693,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &594467133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594467131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e015ab5c09c0642eb8cc831d7a333e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  w: {fileID: 892486471}
+  c: {fileID: 594934366}
 --- !u!1 &594934364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +1032,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 720430904}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 594467133}
+        m_MethodName: PLusCoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &720430904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,7 +1314,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1044592709}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 594467133}
+        m_MethodName: PlusStrength
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1044592709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,7 +1442,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1214908483}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 594467133}
+        m_MethodName: MinusCoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1214908483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1953,7 +2012,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -73, y: -73}
+  m_AnchoredPosition: {x: -89.3, y: -77}
   m_SizeDelta: {x: 90.29999, y: 90.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2099410152
