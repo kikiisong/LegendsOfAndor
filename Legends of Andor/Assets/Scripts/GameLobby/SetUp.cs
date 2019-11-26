@@ -23,12 +23,12 @@ public class SetUp : MonoBehaviour
         
     }
 
-    public void Place(GameObject characterSelect, PhotonView photonView)
+   /* public void Place(GameObject characterSelect, PhotonView photonView)
     {
         int i = PhotonNetwork.CurrentRoom.PlayerCount;
         if (photonView.IsMine)
         {
             characterSelect.transform.position = Instance.spawnPoints[i - 1].position;
         }
-    }
+    }*/
 }

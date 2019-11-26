@@ -27,7 +27,9 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        characterSelection = PhotonNetwork.Instantiate(characterSelectionPrefab.name, Vector3.zero, Quaternion.identity)
+        Vector3 position = SetUp.Instance.spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position;
+        print(position);
+        characterSelection = PhotonNetwork.Instantiate(characterSelectionPrefab.name, position, Quaternion.identity)
             .GetComponent<CharacterSelection>();
     }
 

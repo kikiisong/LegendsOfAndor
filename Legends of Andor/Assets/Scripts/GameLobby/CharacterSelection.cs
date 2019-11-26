@@ -30,7 +30,6 @@ public class CharacterSelection : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-        SetUp.Instance.Place(image.gameObject, photonView);
         Display();
         Characters = characters;
     }

@@ -22,7 +22,6 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
         print("Joined room");
         if (PhotonNetwork.IsMasterClient)
         {
-            print("Loading " + nextScene);
             PhotonNetwork.LoadLevel(nextScene);
         }
     }
