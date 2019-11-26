@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CharacterSelection : MonoBehaviourPun
+public class CharacterSelection : MonoBehaviourPun, IPunObservable
 {
     [Header("List of characters")]
     public List<Character> characters;
@@ -30,6 +30,7 @@ public class CharacterSelection : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
+        transform.parent = GameObject.Find("CurrentRoomCanvas").transform;
         Display();
         Characters = characters;
     }
@@ -60,6 +61,12 @@ public class CharacterSelection : MonoBehaviourPun
     {
         selectedCharacterIndex = (selectedCharacterIndex + 1) % characters.Count;
         Display();
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //throw new System.NotImplementedException();
+        int a = 1;
     }
 }
 
