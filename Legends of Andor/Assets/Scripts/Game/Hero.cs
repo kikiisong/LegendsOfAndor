@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Hero : MonoBehaviour
 {
+    public float radius = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +47,7 @@ public class Hero : MonoBehaviour
         Vector3 position = GameGraph.Instance.CastRay(Input.mousePosition);
         Region clicked = GameGraph.Instance.FindNearest(position);
         bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
-        if (contained && (clicked.position - position).magnitude <= 2)
+        if (contained && (clicked.position - position).magnitude <= radius)
         {
             StopAllCoroutines();
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f));

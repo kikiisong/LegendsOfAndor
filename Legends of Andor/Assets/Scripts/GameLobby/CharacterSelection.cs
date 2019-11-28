@@ -30,18 +30,26 @@ public class CharacterSelection : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        transform.parent = GameObject.Find("CurrentRoomCanvas").transform;
+        transform.SetParent(GameObject.Find("CurrentRoomCanvas").transform);
         Display();
-        Characters = characters;
+        Characters = characters; //Not single instance since multiple CharacterSelection
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && photonView.IsMine)
+        //bool amReady = (bool) PhotonNetwork.LocalPlayer.CustomProperties["isReady"];
+        if (/*!amReady &&*/ photonView.IsMine)
         {
-            Next();
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Next();
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Previous();
+            }
         }
     }
 
@@ -60,6 +68,13 @@ public class CharacterSelection : MonoBehaviourPun, IPunObservable
     private void Next()
     {
         selectedCharacterIndex = (selectedCharacterIndex + 1) % characters.Count;
+        Display();
+    }
+
+    private void Previous()
+    {
+        selectedCharacterIndex = Helper.mod(selectedCharacterIndex - 1, characters.Count);
+        print(selectedCharacterIndex);
         Display();
     }
 

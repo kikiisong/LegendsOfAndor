@@ -26,7 +26,7 @@ namespace Custom
         private static byte[] Serialize(object customObject)
         {
             Character character = (Character)customObject;
-            int position = CharacterSelection.Characters.IndexOf(character);
+            int position = CharacterSelection.Characters.FindIndex(c => c.type == character.type);
             return BitConverter.GetBytes(position);
         }
 

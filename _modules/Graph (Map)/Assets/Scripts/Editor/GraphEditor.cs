@@ -34,6 +34,7 @@ public class GraphEditor : Editor
 
             if (newWorld != worldPos)
             {
+                Undo.RecordObject(region, region.ToString());
                 region.position = graph.transform.InverseTransformPoint(newWorld); //why does it work
             }
         }
