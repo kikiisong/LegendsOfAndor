@@ -3,12 +3,13 @@ using Photon.Chat;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Chat : MonoBehaviour, IChatClientListener
 {
-    public InputField message;
+    public TMP_InputField message;
     public Transform content;
     public Message messagePrefab;
 

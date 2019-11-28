@@ -65,8 +65,19 @@ public class CharacterSelection : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        //throw new System.NotImplementedException();
-        int a = 1;
+        if (stream.IsWriting)
+        {
+            stream.SendNext(selectedCharacterIndex);
+        }
+        else
+        {
+            int i = (int) stream.ReceiveNext();
+            if(i != selectedCharacterIndex)
+            {
+                selectedCharacterIndex = i;
+                Display();
+            }
+        }
     }
 }
 
