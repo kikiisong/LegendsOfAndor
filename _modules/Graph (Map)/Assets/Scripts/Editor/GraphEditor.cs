@@ -144,6 +144,7 @@ public class GraphEditor : Editor
         value = EditorGUILayout.IntField("", value, GUILayout.ExpandWidth(false));
         if (button)
         {
+            Undo.RecordObject(graph, "Graph");
             graph.Add(Region.Create(value, Vector3.zero));
         }
         EditorGUILayout.EndHorizontal();
@@ -162,6 +163,7 @@ public class GraphEditor : Editor
 
         if (button)
         {
+            Undo.RecordObject(graph, "Graph");
             graph.Add(new Border(graph.Find(first), graph.Find(second)));
         }
         EditorGUILayout.EndHorizontal();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEditor;
-using UnityEngine;
+using UnityEditor.SceneManagement;
 
 /// <summary>
 /// SceneSwitchWindow class.
@@ -18,7 +18,7 @@ public class SceneSwitchWindow : EditorWindow
     /// <summary>
     /// Initialize window state.
     /// </summary>
-    [MenuItem("Tools/Scene Switch Window")]
+    [MenuItem("CustomTools/Scene Switch Window")]
     internal static void Init()
     {
         // EditorWindow.GetWindow() will return the open instance of the specified window or create a new
@@ -46,9 +46,9 @@ public class SceneSwitchWindow : EditorWindow
                 var pressed = GUILayout.Button(i + ": " + sceneName, new GUIStyle(GUI.skin.GetStyle("Button")) { alignment = TextAnchor.MiddleLeft });
                 if (pressed)
                 {
-                    if (EditorApplication.SaveCurrentSceneIfUserWantsTo())
+                    if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                     {
-                        EditorApplication.OpenScene(scene.path);
+                        EditorSceneManager.OpenScene(scene.path);
                     }
                 }
             }

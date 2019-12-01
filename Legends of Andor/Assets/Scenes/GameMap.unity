@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 13
   regionName: 
-  position: {x: -19.322275, y: 13.026024, z: 0.50540686}
+  position: {x: -20.583519, y: 14.349925, z: 0.48338863}
 --- !u!114 &54540584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1228,7 +1228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 29
   regionName: 
-  position: {x: -34.052956, y: -15.98336, z: -0.59448105}
+  position: {x: -34.998886, y: -15.98336, z: -0.61099476}
 --- !u!114 &918753716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 33
   regionName: 
-  position: {x: -48.69699, y: -28.381676, z: 0}
+  position: {x: -49.516796, y: -28.003418, z: -0.014311825}
 --- !u!114 &999356336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1640,7 +1640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 200
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
@@ -1658,17 +1658,17 @@ Canvas:
   m_GameObject: {fileID: 1087430903}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1087430907
 RectTransform:
@@ -1734,7 +1734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 18
   regionName: 
-  position: {x: -30.31887, y: -5.975074, z: -0.529293}
+  position: {x: -33.345848, y: -5.092472, z: -0.5821366}
 --- !u!1 &1159201691
 GameObject:
   m_ObjectHideFlags: 0
@@ -2054,7 +2054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 30
   regionName: 
-  position: {x: -39.207863, y: -24.240244, z: -0.6844729}
+  position: {x: -39.964607, y: -23.357643, z: -0.6976838}
 --- !u!114 &1456170811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3186,7 +3186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 17
   regionName: 
-  position: {x: -24.344707, y: 1.0456371, z: -0.4249988}
+  position: {x: -24.975327, y: 3.9456139, z: -0.43600783}
 --- !u!114 &1932100288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3231,7 +3231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 28
   regionName: 
-  position: {x: -22.403221, y: -11.800808, z: -0.39110515}
+  position: {x: -24.168959, y: -11.485593, z: -0.4219306}
 --- !u!114 &1996000438
 MonoBehaviour:
   m_ObjectHideFlags: 0
