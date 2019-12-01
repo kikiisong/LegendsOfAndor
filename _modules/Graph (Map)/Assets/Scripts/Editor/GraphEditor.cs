@@ -157,7 +157,7 @@ public class GraphEditor : Editor
     {
         EditorGUILayout.BeginVertical();
         EditorGUILayout.BeginHorizontal();
-        bool button = GUILayout.Button("Add edge");
+        bool button = GUILayout.Button("Add border");
         first = EditorGUILayout.IntField(first, GUILayout.ExpandWidth(false));
         second = EditorGUILayout.IntField(second, GUILayout.ExpandWidth(false));
 
