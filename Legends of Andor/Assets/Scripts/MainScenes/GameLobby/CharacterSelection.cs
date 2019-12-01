@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -30,6 +31,12 @@ public class CharacterSelection : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
+        foreach(KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
+        {
+            if (pair.Value.Equals(photonView.Owner)){
+                transform.position = SetUp.Instance.spawnPoints[pair.Key - 1].position;
+            }
+        }
         transform.SetParent(GameObject.Find("CurrentRoomCanvas").transform);
         Display();
         Characters = characters; //Not single instance since multiple CharacterSelection
@@ -74,7 +81,6 @@ public class CharacterSelection : MonoBehaviourPun, IPunObservable
     private void Previous()
     {
         selectedCharacterIndex = Helper.mod(selectedCharacterIndex - 1, characters.Count);
-        print(selectedCharacterIndex);
         Display();
     }
 
