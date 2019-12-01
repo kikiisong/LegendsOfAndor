@@ -1,23 +1,31 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SwitchSceneForOne : MonoBehaviour {
+public class SwitchSceneForOne : MonoBehaviour
+{
 
-    // Start is called before the first frame update
-    //[]
-    //public string map;
-    public void Start()
+    //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //RaycastHit hit;
+    private void OnMouseDown()
     {
-        print("Strrt");
-    }
-    public void ToMap(string m)
-    {
-        print("It work");
-        SceneManager.LoadScene(m);
-
+        SceneManager.LoadScene("FightScene");
     }
 
+    //public void Awake()
+    //{
+    //    if (Physics.Raycast(ray, out hit))
+    //    {
+    //        if (hit.transform.name == "Gor1")
+    //        {
+    //            Debug.Log("This is a Player");
+    //            SceneManager.LoadScene("FightScene");
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("This isn't a Player");
+    //        }
+    //    }
 
 
-
+    //}
 }
