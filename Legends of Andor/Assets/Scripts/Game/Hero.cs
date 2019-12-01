@@ -1,9 +1,10 @@
-﻿using Routines;
+﻿using Photon.Pun;
+using Routines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero : MonoBehaviour
+public class Hero : MonoBehaviourPun
 {
     public float radius = 3;
 
@@ -15,7 +16,7 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && photonView.IsMine)
         {
             MoveToClick();
         }
