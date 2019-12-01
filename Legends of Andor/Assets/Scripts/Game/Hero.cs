@@ -4,13 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero : MonoBehaviourPun
+public class Hero : MonoBehaviourPun, IPunObservable
 {
     public float radius = 3;
 
     // Start is called before the first frame update
     void Start()
     {
+        Character character = (Character) photonView.Owner.CustomProperties["character"];
+        print(character.type);
+        SetUp(character);
     }
 
     // Update is called once per frame
@@ -53,5 +56,10 @@ public class Hero : MonoBehaviourPun
             StopAllCoroutines();
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f));
         }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+       
     }
 }
