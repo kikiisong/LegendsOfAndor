@@ -12,7 +12,7 @@ public class SingletonScriptableObject<T> : ScriptableObject where T : Scriptabl
         {
             if(instance == null)
             {
-                instance = Resources.FindObjectsOfTypeAll<T>()[0];
+                instance = Resources.LoadAll<T>("ScriptableObjects")[0];
             }
             return instance;
         }
