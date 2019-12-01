@@ -284,7 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 60
   regionName: 
-  position: {x: 50.277313, y: 26.299013, z: 0.8777183}
+  position: {x: 52.09243, y: 28.761923, z: 0.90065503}
 --- !u!114 &293903856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 54
   regionName: 
-  position: {x: 20.336922, y: 18.645016, z: 0.35503268}
+  position: {x: 20.077621, y: 19.811655, z: 0.3517561}
 --- !u!114 &603693301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 69
   regionName: 
-  position: {x: 38.53999, y: -26.234198, z: 0.6728135}
+  position: {x: 36.660053, y: -23.706478, z: 0.6490578}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 59
   regionName: 
-  position: {x: 43.272446, y: 24.97302, z: 0.7554305}
+  position: {x: 41.846287, y: 27.889622, z: 0.73740906}
 --- !u!114 &1011209398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 51
   regionName: 
-  position: {x: 7.795817, y: 23.843021, z: 0.1360958}
+  position: {x: 5.980705, y: 22.870821, z: 0.11315924}
 --- !u!114 &1139159931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1823,7 +1823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 16
   regionName: 
-  position: {x: -13.222318, y: 6.0298233, z: 0.047237985}
+  position: {x: -12.898193, y: 6.677957, z: 0.051333748}
 --- !u!114 &1280003922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1838,7 +1838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 67
   regionName: 
-  position: {x: 45.44267, y: -17.949715, z: 0.7933173}
+  position: {x: 44.40546, y: -16.459007, z: 0.7802107}
 --- !u!114 &1303356084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1883,7 +1883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 81
   regionName: 
-  position: {x: 33.158775, y: -33.91494, z: 0.5788707}
+  position: {x: 33.158775, y: -33.46125, z: 0.5788707}
 --- !u!1001 &1347063752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2268,7 +2268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 80
   regionName: 
-  position: {x: 51.425003, y: -35.324116, z: 0.8977542}
+  position: {x: 49.28577, y: -31.370504, z: 0.870722}
 --- !u!114 &1665637358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3246,7 +3246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 50
   regionName: 
-  position: {x: -7.37385, y: 25.038042, z: -0.1287293}
+  position: {x: -6.142167, y: 24.843603, z: -0.11316521}
 --- !u!114 &2003604036
 MonoBehaviour:
   m_ObjectHideFlags: 0
