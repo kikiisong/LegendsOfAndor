@@ -5,17 +5,21 @@ using UnityEngine;
 public class ClickAndPlayAnime : MonoBehaviour
 {
 
-	Animator anim;
+    //Animator anim;
 
-	void Start()
-	{
-		anim = gameObject.GetComponent<Animator>();
-	}
-	void Update()
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			anim.SetTrigger("Active");
-		}
-	}
+    //void Start()
+    //{
+    //	anim = gameObject.GetComponent<Animator>();
+    //}
+    //void Update()
+    //{
+    //	if (Input.GetMouseButtonDown(0))
+    //	{
+    //		anim.SetTrigger("Active");
+    //	}
+    //}
+    private void OnMouseDown()
+    {
+        //TODO:do something
+    }
 }

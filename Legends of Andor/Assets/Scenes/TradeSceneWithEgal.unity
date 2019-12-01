@@ -200,7 +200,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 84438368}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2065503377}
+        m_MethodName: testA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &84438368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,8 +284,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3050, y: -1899}
-  m_SizeDelta: {x: 1154, y: 346}
+  m_AnchoredPosition: {x: 341.2, y: -198.9}
+  m_SizeDelta: {x: 94.94, y: 35.99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &113245965
 MonoBehaviour:
@@ -435,7 +446,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 116474880}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2065503377}
+        m_MethodName: testA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &116474880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,8 +530,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3429, y: 1590}
-  m_SizeDelta: {x: 685, y: 640}
+  m_AnchoredPosition: {x: 341.2, y: 169.3}
+  m_SizeDelta: {x: 73.4, y: 70.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &139885656
 MonoBehaviour:
@@ -639,7 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 349936688}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &237099328
@@ -991,7 +1013,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 376331695}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2065503377}
+        m_MethodName: testA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &376331695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1271,7 +1304,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 550535703}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2065503377}
+        m_MethodName: testA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &550535703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1388,7 +1432,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 729456939}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2065503377}
+        m_MethodName: testA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &729456939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1609,7 +1664,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &1368614453
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1772,7 +1827,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1599758453}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2065503377}
+        m_MethodName: testA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1599758453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1866,7 +1932,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 300
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1920,8 +1986,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.4, y: 0.00000047684}
-  m_SizeDelta: {x: 61.77, y: 10.97}
+  m_AnchoredPosition: {x: 0.0000019073, y: -0.0000093579}
+  m_SizeDelta: {x: 68.18, y: 10.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2013318560
 MonoBehaviour:
@@ -1943,16 +2009,16 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 8
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 160
     m_Alignment: 0
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Welcome, hero!
 --- !u!222 &2013318561
@@ -1972,8 +2038,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065503376}
+  - component: {fileID: 2065503377}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PopUpManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1993,3 +2060,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2065503377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065503375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae1e7904d1954ca89185e96c3a2609b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
