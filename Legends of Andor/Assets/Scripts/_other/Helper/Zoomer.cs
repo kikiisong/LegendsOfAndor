@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Zoomer : MonoBehaviour
 {
-    public float sensitivity = 10;
+    public float sensitivity = 1;
     public float dragSpeed = 2;
 
     private Vector3 dragOrigin;
@@ -22,10 +22,19 @@ public class Zoomer : MonoBehaviour
         Drag();
     }
 
+    private void OnGUI()
+    {
+        if(Event.current.type == EventType.ScrollWheel)
+        {
+            float scrollWheelChange = Event.current.delta.y * sensitivity;
+            Camera.main.fieldOfView += scrollWheelChange;
+        }
+    }
+
     void Zoom_FieldOfView()
     {
-        float scrollWheelChange =  - Input.GetAxis("Mouse ScrollWheel") * sensitivity;
-        Camera.main.fieldOfView += scrollWheelChange;
+        //float scrollWheelChange =  -Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+        //Camera.main.fieldOfView += scrollWheelChange;
     }
 
     void Drag()

@@ -515,7 +515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &705507994
 Light:
   m_ObjectHideFlags: 0
@@ -749,9 +749,9 @@ PolygonCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 4.83, y: 0.57, z: 6.29, w: 0.9}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 23.86, y: 14.9125}
+    oldSize: {x: 13.16, y: 14.39}
     newSize: {x: 23.86, y: 14.9125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1324,7 +1324,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0.27334446, b: 0.23113209, a: 0}
+  m_BackGroundColor: {r: 0.31132078, g: 0.101876795, b: 0.071956225, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2329,7 +2329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe2c72585f34e2459a66a6199bd103f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 10
+  sensitivity: 1
   dragSpeed: 2
 --- !u!114 &1725243287
 MonoBehaviour:
