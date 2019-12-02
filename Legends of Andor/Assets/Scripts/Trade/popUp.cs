@@ -15,9 +15,7 @@ public class popUp : MonoBehaviour
        
         showPopUp = true;
         Init();
-    
-        // put your if statement here and set showPopUp to true if the condition is true
-        // put an else statement to set the bolean to false if it is not true
+   
     }
 
     void Init()
@@ -37,7 +35,6 @@ public class popUp : MonoBehaviour
 	void ShowGUI(int windowID)
 	{
         // You may put a label to show a message to the player
-        //TODO: coin
         GUILayout.BeginHorizontal();
 		GUILayout.Label("Buying this object will cost u " + coin + " coins. Do you confirm?");
         GUILayout.EndHorizontal();
