@@ -224,7 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 57
   regionName: 
-  position: {x: 32.080307, y: 23.440298, z: 0.5600433}
+  position: {x: 32.515774, y: 23.367733, z: 0.56554615}
 --- !u!114 &184454086
 MonoBehaviour:
   m_ObjectHideFlags: 0
