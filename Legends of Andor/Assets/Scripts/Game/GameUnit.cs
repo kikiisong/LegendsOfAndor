@@ -1,5 +1,7 @@
 ﻿using System;
-public abstract class GameUnit
+using Photon.Pun;
+using Routines;
+public abstract class GameUnit: MonoBehaviourPun
 {
 
     int WP;
