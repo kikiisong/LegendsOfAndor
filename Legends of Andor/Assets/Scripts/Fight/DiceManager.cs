@@ -1,32 +1,38 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
+using Photon.Pun;
+using Routines;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class DiceRoll : MonoBehaviour
+public class DiceManager: : MonoBehaviourPun
 {
+    /**
 
-    // Start is called before the first frame update
     int numberRolling = 0;
     bool rollAll = true;
     bool rollingState = true;
 
-    private void OnMouseDown()
-    {
-        rollDice();
+    void Hero Attack(){
+    //Step1: check if the correct state
+    //Step2: perform the rolling, slient different for Archer and other profession
+    //Step3: ask for applying the rolling 
+    
     }
 
     //Character character
     void Start()
     {
-        //initialize dice number
-        //hero type
-       /* if (character.type.Equals("ARCHER"))
-        {
+
+        Character character = (Character)photonView.Owner.CustomProperties["character"];
+        print(character.type);
+        if (character.type==CharacterType.ARCHER) {
             rollAll = false;
         }
-        // TODO: Need add some attriute in the hero class
-        //For now just assume row 3 for everyone
-        */
+        
+        //hero type
+         // TODO: Need add some attriute in the hero class
+         //For now just assume row 3 for everyone
+         
         numberRolling = 3;
         
     }
@@ -34,22 +40,8 @@ public class DiceRoll : MonoBehaviour
     ArrayList result = new ArrayList();
     private bool showPopUp = false;
     // Update is called once per frame
-    private void rollDice() {
-        for (int i = this.numberRolling; i > 0; i--)
-        {
-            result.Add(randGenerator());
-        }
-        Debug.Log(result);
-        showPopUp = true;
-        
-    }
 
-    private static int randGenerator()
-    {
-        int min = 1;
-        int max = 6;
-        return Random.Range(min, max);
-    }
+
 
     
 
@@ -58,7 +50,7 @@ public class DiceRoll : MonoBehaviour
         if (showPopUp)
         {
             GUILayout.Window(0, new Rect((Screen.width / 2) - 150, (Screen.height / 2) - 75
-                   , 300, 250), ShowGUI, "RollDice");
+                   , 250, 200), ShowGUI, "RollDice");
         }
     }
 
@@ -156,5 +148,4 @@ public class DiceRoll : MonoBehaviour
 
             }
 
-    
 }
