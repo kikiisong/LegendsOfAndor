@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.49641287, b: 0.5748173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 4
   regionName: 
-  position: {x: -56.89376, y: 7.367584, z: 0}
+  position: {x: -58.69201, y: 9.251977, z: -0.022723513}
 --- !u!114 &174082215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1257,7 +1257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 22
   regionName: 
-  position: {x: -59.13213, y: -6.32832, z: -1.0323017}
+  position: {x: -59.132126, y: -6.2426653, z: -1.0323018}
 --- !u!114 &940324409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1853,7 +1853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 25
   regionName: 
-  position: {x: -66.37303, y: -19.424597, z: -1.1587098}
+  position: {x: -67.91438, y: -19.424597, z: -1.1781871}
 --- !u!114 &1330551961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3201,7 +3201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 20
   regionName: 
-  position: {x: -60.040325, y: -0.89626026, z: -1.0481565}
+  position: {x: -60.04032, y: 1.7590245, z: -1.0481564}
 --- !u!114 &1936148289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3396,7 +3396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 19
   regionName: 
-  position: {x: -51.07908, y: -3.2862902, z: -0.89171517}
+  position: {x: -51.079075, y: -0.8879736, z: -0.8917153}
 --- !u!114 &2135016289
 MonoBehaviour:
   m_ObjectHideFlags: 0
