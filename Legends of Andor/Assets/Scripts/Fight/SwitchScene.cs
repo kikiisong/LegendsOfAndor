@@ -7,10 +7,10 @@ public class SwitchScene : MonoBehaviour
 {
     // Start is called before the first frame update
     public FightManager fm;
-    public void ToOtherMao(string s)
+    public void ToOtherMap(string s)
     {
         //"TradeSceneWithEgal"
-        if (fm.getFightState == FightState.DECISION) {
+        if (fm.getFight().getFightState() == FightState.DECISION) {
 
             SceneManager.LoadScene(s);
         }

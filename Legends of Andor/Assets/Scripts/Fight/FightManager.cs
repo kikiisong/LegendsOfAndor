@@ -5,7 +5,11 @@ using System.Collections;
 public class FightManager : MonoBehaviour
 {
     Fight fight;
+    public Fight getFight()
+    {
 
+        return this.fight;
+    }
     public void heroAttack(Hero h) {
         if (fight.getFightState() != FightState.HERO) {
             return;
