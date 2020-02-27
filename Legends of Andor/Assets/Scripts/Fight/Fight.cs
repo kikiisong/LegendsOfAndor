@@ -19,11 +19,11 @@ public class Fight : MonoBehaviour
     }
 
 
-    public FightState getFightState()
+    /*public FightState getFightState()
     {
         return this.state;
 
-    }
+    }*/
 
     public int MonsterAttack() {
         int attack = 0;//roll Dice
