@@ -4,28 +4,10 @@ using System.Collections;
 
 public class FightManager : MonoBehaviour
 {
-    FightState state;
-    Hero[] heroes;
-    Monster monster;
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public FightState getFightState() {
-        return this.state;
-
-    }
+    Fight fight;
 
     public void heroAttack(Hero h) {
-        if (state != FightState.HERO) {
+        if (fight.getFightState() != FightState.HERO) {
             return;
         }
         int max = 0;
@@ -62,13 +44,7 @@ public class FightManager : MonoBehaviour
         }
     }
  
-    public int MonsterAttack() {
-        int attack = 0;//roll Dice
-        //special event check
-        int finalAttack= monster.calculateAttack(attack);
-        return finalAttack;
-        //return the finalAttack
-    }
+
 
     public static bool calculateRound(int HeroAttack, int MonsterAttack) {
 
