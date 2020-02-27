@@ -62,7 +62,7 @@ public class FightManager : MonoBehaviour
         }
     }
  
-    public static int MonsterAttack() {
+    public int MonsterAttack() {
         int attack = 0;//roll Dice
         //special event check
         int finalAttack= monster.calculateAttack(attack);
