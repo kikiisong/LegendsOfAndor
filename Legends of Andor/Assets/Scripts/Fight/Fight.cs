@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Fight : MonoBehaviour
 {
-   // FightState fightstate;
-    //Hero[] heroes;
-   // Monster monster;
+    FightState fightstate;
+    Hero[] heroes;
+    Monster monster;
     // Use this for initialization
     void Start()
     {
@@ -19,13 +19,11 @@ public class Fight : MonoBehaviour
     }
 
 
-    /*
-    //public FightState getFightState()
-    //{
-    //    return this.state;
+    /*public FightState getFightState()
+    {
+        return this.state;
 
-    //}*/
-    
+    }*/
 
     public int MonsterAttack() {
         int attack = 0;//roll Dice

@@ -11,7 +11,7 @@ public class FightManager : MonoBehaviour
         return this.fight;
     }
     public void heroAttack(Hero h) {
-        if (fight.getFightState() != FightState.HERO) {
+        /*if (fight.getFightState() != FightState.HERO) {
             return;
         }
         int max = 0;
@@ -19,7 +19,7 @@ public class FightManager : MonoBehaviour
         {
             //TODO: something different  getdice
 
-            /*
+            
                     while
                         displayone
                         if (nexxt)
@@ -33,7 +33,7 @@ public class FightManager : MonoBehaviour
                     //max update
                     //displayResult
                 }
-            */
+            
 
             //ask for technique
             //notice the constraints
@@ -45,7 +45,7 @@ public class FightManager : MonoBehaviour
 
 
 
-        }
+        }*/
     }
  
 

@@ -10,9 +10,9 @@ public class SwitchScene : MonoBehaviour
     public void ToOtherMao(string s)
     {
         //"TradeSceneWithEgal"
-        if (fm.getFightState == FightState.DECISION) {
+        /*if (fm.getFightState == FightState.DECISION) {
 
             SceneManager.LoadScene(s);
-        }
+        }*/
     }
 }
