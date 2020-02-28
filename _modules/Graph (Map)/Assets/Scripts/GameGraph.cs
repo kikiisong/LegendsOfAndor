@@ -24,7 +24,7 @@ public class GameGraph : Graph<Region, Border>
     {
         foreach(Region region in vertices)
         {
-            region.position = transform.InverseTransformPoint(region.position);
+            region.position = transform.InverseTransformPoint(region.position); //or TransformPoint
         }
     }
 
@@ -33,12 +33,12 @@ public class GameGraph : Graph<Region, Border>
         Gizmos.color = Color.cyan;
         foreach(Region region in vertices)
         {
-            Gizmos.DrawSphere(transform.InverseTransformPoint(region.position), 1);
+            Gizmos.DrawSphere(transform.TransformPoint(region.position), 1);
         }
         foreach (Border border in edges)
         {
-            Vector3 from = transform.InverseTransformPoint(border.from.position);
-            Vector3 to = transform.InverseTransformPoint(border.to.position);
+            Vector3 from = transform.TransformPoint(border.from.position);
+            Vector3 to = transform.TransformPoint(border.to.position);
             Gizmos.DrawLine(from, to);
         }
     }
