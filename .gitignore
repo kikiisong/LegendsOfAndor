@@ -106,9 +106,4 @@ Corridor/Library/metadata/
 
 Demos/
 *.dylib
-*.dylib
-*.dylib
-Legends of Andor/Builds.app/Contents/Resources/Data/globalgamemanagers
-*.dylib
-*.dylib
-*.dylib
+Builds.app/
