@@ -8,17 +8,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CharacterSelection : MonoBehaviourPun, IPunObservable
+public class HeroSelection : GameUnit, IPunObservable
 {
     [Header("List of characters")]
-    public List<Character> characters;
+    public List<HeroUIData> characters;
 
     [Header("UI")]
     public Image image;
 
     private int selectedCharacterIndex; 
     
-    public Character CurrentCharacter {
+    public HeroUIData CurrentCharacter {
         get
         {
             return characters[selectedCharacterIndex];
@@ -26,7 +26,7 @@ public class CharacterSelection : MonoBehaviourPun, IPunObservable
     }
 
     //Careful with null
-    public static List<Character> Characters;
+    public static List<HeroUIData> Characters;
 
     // Start is called before the first frame update
     void Start()
@@ -104,9 +104,9 @@ public class CharacterSelection : MonoBehaviourPun, IPunObservable
 
 
 [System.Serializable]
-public class Character
+public class HeroUIData
 {
-    public CharacterType type;
+    public HeroType type;
     public bool gender; // how to implement gender
     
     public Sprite female;
@@ -124,7 +124,7 @@ public class Character
 
 }
 
-public enum CharacterType
+public enum HeroType
 {
     ARCHER, WARRIOR, WIZARD, DWARF
 }

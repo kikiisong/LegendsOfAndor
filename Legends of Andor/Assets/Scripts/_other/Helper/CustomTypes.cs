@@ -14,19 +14,19 @@ namespace Custom
     {
         public static void Register()
         {
-            PhotonPeer.RegisterType(typeof(Character), 0, Serialize, Deserialize);
+            PhotonPeer.RegisterType(typeof(HeroUIData), 0, Serialize, Deserialize);
         }
 
         private static object Deserialize(byte[] serializedCustomObject)
         {
             int position = BitConverter.ToInt32(serializedCustomObject, 0);
-            return CharacterSelection.Characters[position];
+            return HeroSelection.Characters[position];
         }
 
         private static byte[] Serialize(object customObject)
         {
-            Character character = (Character)customObject;
-            int position = CharacterSelection.Characters.FindIndex(c => c.type == character.type);
+            HeroUIData character = (HeroUIData)customObject;
+            int position = HeroSelection.Characters.FindIndex(c => c.type == character.type);
             return BitConverter.GetBytes(position);
         }
 

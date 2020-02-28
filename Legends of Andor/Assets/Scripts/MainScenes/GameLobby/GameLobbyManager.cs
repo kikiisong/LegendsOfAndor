@@ -22,13 +22,13 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     [Header("Resources")]
     public GameObject characterSelectionPrefab;
 
-    private CharacterSelection characterSelection;
+    private HeroSelection characterSelection;
     private bool isReady;
 
     private void Start()
     {
         characterSelection = PhotonNetwork.Instantiate(characterSelectionPrefab.name, Vector3.zero, Quaternion.identity)
-            .GetComponent<CharacterSelection>();
+            .GetComponent<HeroSelection>();
     }
 
     // Update is called once per frame

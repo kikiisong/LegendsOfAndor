@@ -4,17 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero : GameUnit,IPunObservable
+public abstract class Hero : MonoBehaviourPun, IPunObservable
 {
     public float radius = 3;
-    CharacterType charactertype;
+    HeroType charactertype;
 
     int redDice;
     int blackDice;
 
     void Start()
     {
-        Character character = (Character) photonView.Owner.CustomProperties["character"];
+        HeroUIData character = (HeroUIData) photonView.Owner.CustomProperties["character"];
         SetUp(character);
     }
 
@@ -27,21 +27,21 @@ public class Hero : GameUnit,IPunObservable
         }
     }
 
-    public void SetUp(Character character)
+    public void SetUp(HeroUIData character)
     {
         GetComponent<SpriteRenderer>().sprite = character.GetSprite();
         switch (character.type)
         {
-            case CharacterType.ARCHER:
+            case HeroType.ARCHER:
                 GameGraph.Instance.PlaceAt(gameObject, 53);
                 break;
-            case CharacterType.WARRIOR:
+            case HeroType.WARRIOR:
                 GameGraph.Instance.PlaceAt(gameObject, 25);
                 break;
-            case CharacterType.DWARF:
+            case HeroType.DWARF:
                 GameGraph.Instance.PlaceAt(gameObject, 43);
                 break;
-            case CharacterType.WIZARD:
+            case HeroType.WIZARD:
                 GameGraph.Instance.PlaceAt(gameObject, 9);
                 break;
         }
@@ -68,14 +68,14 @@ public class Hero : GameUnit,IPunObservable
        
     }
 
-    public CharacterType getcharacterType() {
+    public HeroType getcharacterType() {
         return this.charactertype;
     }
 
 
     bool Magic;
     public void initializeMagic() {
-        if (this.charactertype == CharacterType.WIZARD)
+        if (this.charactertype == HeroType.WIZARD)
         {
             Magic = true;
         }
