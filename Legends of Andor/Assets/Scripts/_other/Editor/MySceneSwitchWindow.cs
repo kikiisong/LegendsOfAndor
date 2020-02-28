@@ -8,7 +8,7 @@ using UnityEditor.SceneManagement;
 /// <summary>
 /// SceneSwitchWindow class.
 /// </summary>
-public class SceneSwitchWindow : EditorWindow
+public class MySceneSwitchWindow : EditorWindow
 {
     /// <summary>
     /// Tracks scroll position.
@@ -18,13 +18,13 @@ public class SceneSwitchWindow : EditorWindow
     /// <summary>
     /// Initialize window state.
     /// </summary>
-    [MenuItem("CustomTools/Scene Switch Window")]
+    [MenuItem("CustomTools/My Scene Switch Window")]
     internal static void Init()
     {
         // EditorWindow.GetWindow() will return the open instance of the specified window or create a new
         // instance if it can't find one. The second parameter is a flag for creating the window as a
         // Utility window; Utility windows cannot be docked like the Scene and Game view windows.
-        var window = (SceneSwitchWindow)GetWindow(typeof(SceneSwitchWindow), false, "Scene Switch");
+        var window = (SceneSwitchWindow)GetWindow(typeof(SceneSwitchWindow), false, "My Scene Switch");
         window.position = new Rect(window.position.xMin + 100f, window.position.yMin + 100f, 200f, 400f);
     }
 
@@ -34,7 +34,7 @@ public class SceneSwitchWindow : EditorWindow
     internal void OnGUI()
     {
         EditorGUILayout.BeginVertical();
-        this.scrollPos = EditorGUILayout.BeginScrollView(this.scrollPos, false, false);
+        scrollPos = EditorGUILayout.BeginScrollView(this.scrollPos, false, false);
 
         GUILayout.Label("Scenes In Build", EditorStyles.boldLabel);
         for (var i = 0; i < EditorBuildSettings.scenes.Length; i++)
@@ -43,10 +43,7 @@ public class SceneSwitchWindow : EditorWindow
             if (scene.enabled)
             {
                 var sceneName = Path.GetFileNameWithoutExtension(scene.path);
-                var pressed = GUILayout.Button(i + ": " + sceneName, new GUIStyle(GUI.skin.GetStyle("Button")) {
-                    alignment = TextAnchor.MiddleLeft
-                });
- 
+                var pressed = GUILayout.Button(i + ": " + sceneName, new GUIStyle(GUI.skin.GetStyle("Button")) { alignment = TextAnchor.MiddleLeft });
                 if (pressed)
                 {
                     if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
