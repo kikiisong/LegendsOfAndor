@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Hero : MonoBehaviourPun, IPunObservable
+public class Hero : MonoBehaviourPun, IPunObservable
 {
     public float radius = 3;
     HeroType charactertype;
