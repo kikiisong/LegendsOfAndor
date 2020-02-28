@@ -15,6 +15,34 @@ public class GameGraph : Graph<Region, Border>
         Instance = this;
     }
 
+    private void Start()
+    {
+        Transform();
+    }
+
+    private void Transform()
+    {
+        foreach(Region region in vertices)
+        {
+            region.position = transform.InverseTransformPoint(region.position);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        foreach(Region region in vertices)
+        {
+            Gizmos.DrawSphere(transform.InverseTransformPoint(region.position), 1);
+        }
+        foreach (Border border in edges)
+        {
+            Vector3 from = transform.InverseTransformPoint(border.from.position);
+            Vector3 to = transform.InverseTransformPoint(border.to.position);
+            Gizmos.DrawLine(from, to);
+        }
+    }
+
     public void PlaceAt(GameObject gameObject, Region location, float time)
     {
         StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, location.position, time));

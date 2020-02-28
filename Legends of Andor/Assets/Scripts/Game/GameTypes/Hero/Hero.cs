@@ -14,8 +14,8 @@ public class Hero : MonoBehaviourPun, IPunObservable
 
     void Start()
     {
-        HeroUIData character = (HeroUIData) photonView.Owner.CustomProperties["character"];
-        SetUp(character);
+        HeroUIData heroUIData = (HeroUIData) photonView.Owner.CustomProperties[K.Player.hero];
+        SetUp(heroUIData);
     }
 
     // Update is called once per frame

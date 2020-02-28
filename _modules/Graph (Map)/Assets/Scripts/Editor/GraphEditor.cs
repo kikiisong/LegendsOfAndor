@@ -60,6 +60,7 @@ public class GraphEditor : Editor
     public static bool show2;
 	public override void OnInspectorGUI()
 	{
+        base.OnInspectorGUI();
 		EditorGUILayout.BeginHorizontal();
 		AddRegion();
 		AddBorder();

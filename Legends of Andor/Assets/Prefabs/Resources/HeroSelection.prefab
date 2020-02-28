@@ -89,9 +89,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroes:
   - type: 0
-    gender: 0
-    female: {fileID: 21300000, guid: fc1ab8b71afc447e8911991c8e3efd50, type: 3}
-    male: {fileID: 21300000, guid: fc1ab8b71afc447e8911991c8e3efd50, type: 3}
+    female: {fileID: 21300000, guid: 9934e592c9dd2134798f6892cd37928e, type: 3}
+    male: {fileID: 21300000, guid: 61e2e4fd058bb8f43b6a74fd69561435, type: 3}
+  - type: 1
+    female: {fileID: 21300000, guid: a65663de800196a4d90c0519b09aad6e, type: 3}
+    male: {fileID: 21300000, guid: 75748e866c617ae46a417106ff704bfd, type: 3}
+  - type: 2
+    female: {fileID: 21300000, guid: 41df8f951fd0e2143805a1ca023bd508, type: 3}
+    male: {fileID: 21300000, guid: 53a1922e8b0c18e47b8ffa6ab101b5f7, type: 3}
+  - type: 3
+    female: {fileID: 21300000, guid: 8d495694de52c7c48b751c70d5fd1b75, type: 3}
+    male: {fileID: 21300000, guid: c247f587b93251e46ae42bc12b9ada55, type: 3}
   image: {fileID: 7912434964590026059}
 --- !u!114 &1674936113543051317
 MonoBehaviour:

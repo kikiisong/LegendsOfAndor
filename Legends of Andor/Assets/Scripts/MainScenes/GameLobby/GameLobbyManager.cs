@@ -19,7 +19,7 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     public Text difficulty;
     public Button ready;
 
-    [Header("Resources")]
+    [Header("Hero Selection")]
     public GameObject characterSelectionPrefab;
 
     private HeroSelection heroSelection;
@@ -50,9 +50,9 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         foreach(KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
         {
             Player player = pair.Value;
-            if (player.CustomProperties.ContainsKey("isReady"))
+            if (player.CustomProperties.ContainsKey(K.Player.isReady))
             {
-                bool ready = (bool) player.CustomProperties["isReady"];
+                bool ready = (bool) player.CustomProperties[K.Player.isReady];
                 if (!ready)
                 {
                     return false;
@@ -83,15 +83,15 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         isReady = !isReady;
         Hashtable hash = new Hashtable
         {
-            { "isReady", isReady }
+            { K.Player.isReady, isReady }
         };
         if (isReady)
         {
-            hash.Add("character", heroSelection.CurrentHero);
+            hash.Add(K.Player.hero, heroSelection.CurrentHero);
         }
         else
         {
-            hash.Add("character", null);
+            hash.Add(K.Player.hero, null);
         }
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
@@ -109,7 +109,7 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
 
         Hashtable hashtable = new Hashtable()
         {
-            {"difficulty", difficulty.text}
+            {K.Room.difficulty, difficulty.text}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
     }

@@ -8,13 +8,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class HeroSelection : GameUnit, IPunObservable
+/// <summary>
+/// Used to select a hero in GameLobby.
+/// </summary>
+public class HeroSelection : MonoBehaviourPun, IPunObservable
 {
     [Header("List of heroes")]
+    [ArrayElementTitle("type")]
     public List<HeroUIData> heroes;
 
     [Header("UI")]
-    public Image image;
+    public Image image; //change image based on current hero
 
     private int selectedHeroIndex; 
     
@@ -26,7 +30,7 @@ public class HeroSelection : GameUnit, IPunObservable
     }
 
     //Careful with null
-    public static List<HeroUIData> Characters;
+    public static List<HeroUIData> Heroes;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +43,7 @@ public class HeroSelection : GameUnit, IPunObservable
         }
         transform.SetParent(GameObject.Find("CurrentRoomCanvas").transform);
         Display();
-        Characters = heroes; //Not single instance since multiple CharacterSelection
+        Heroes = heroes; //Not single instance since multiple CharacterSelection 
     }
 
 
@@ -93,7 +97,7 @@ public class HeroSelection : GameUnit, IPunObservable
         else
         {
             int i = (int) stream.ReceiveNext();
-            if(i != selectedHeroIndex)
+            if(i != selectedHeroIndex) //don't display if already correct
             {
                 selectedHeroIndex = i;
                 Display();
@@ -107,7 +111,7 @@ public class HeroSelection : GameUnit, IPunObservable
 public class HeroUIData
 {
     public HeroType type;
-    public bool gender; // how to implement gender
+    private bool gender; // how to implement gender?
     
     public Sprite female;
     public Sprite male;
@@ -123,6 +127,7 @@ public class HeroUIData
     }
 
 }
+
 
 public enum HeroType
 {

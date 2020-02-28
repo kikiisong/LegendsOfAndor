@@ -17,7 +17,7 @@ public class Connect : MonoBehaviourPunCallbacks
     void Start()
     {
         print("Connecting to server");
-        PhotonNetwork.NickName = PlayerPrefs.GetString(K.USERNAME);
+        PhotonNetwork.NickName = PlayerPrefs.GetString(K.Preferences.USERNAME);
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
         CustomTypes.Register();

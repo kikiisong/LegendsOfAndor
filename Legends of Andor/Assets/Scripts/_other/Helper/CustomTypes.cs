@@ -20,13 +20,13 @@ namespace Custom
         private static object Deserialize(byte[] serializedCustomObject)
         {
             int position = BitConverter.ToInt32(serializedCustomObject, 0);
-            return HeroSelection.Characters[position];
+            return HeroSelection.Heroes[position];
         }
 
         private static byte[] Serialize(object customObject)
         {
             HeroUIData character = (HeroUIData)customObject;
-            int position = HeroSelection.Characters.FindIndex(c => c.type == character.type);
+            int position = HeroSelection.Heroes.FindIndex(c => c.type == character.type);
             return BitConverter.GetBytes(position);
         }
 
