@@ -22,12 +22,12 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     [Header("Resources")]
     public GameObject characterSelectionPrefab;
 
-    private HeroSelection characterSelection;
+    private HeroSelection heroSelection;
     private bool isReady;
 
     private void Start()
     {
-        characterSelection = PhotonNetwork.Instantiate(characterSelectionPrefab.name, Vector3.zero, Quaternion.identity)
+        heroSelection = PhotonNetwork.Instantiate(characterSelectionPrefab.name, Vector3.zero, Quaternion.identity)
             .GetComponent<HeroSelection>();
     }
 
@@ -87,7 +87,7 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         };
         if (isReady)
         {
-            hash.Add("character", characterSelection.CurrentCharacter);
+            hash.Add("character", heroSelection.CurrentHero);
         }
         else
         {

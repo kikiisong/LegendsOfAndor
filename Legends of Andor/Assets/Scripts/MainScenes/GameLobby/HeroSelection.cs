@@ -10,18 +10,18 @@ using UnityEngine.UI;
 
 public class HeroSelection : GameUnit, IPunObservable
 {
-    [Header("List of characters")]
-    public List<HeroUIData> characters;
+    [Header("List of heroes")]
+    public List<HeroUIData> heroes;
 
     [Header("UI")]
     public Image image;
 
-    private int selectedCharacterIndex; 
+    private int selectedHeroIndex; 
     
-    public HeroUIData CurrentCharacter {
+    public HeroUIData CurrentHero {
         get
         {
-            return characters[selectedCharacterIndex];
+            return heroes[selectedHeroIndex];
         }
     }
 
@@ -39,7 +39,7 @@ public class HeroSelection : GameUnit, IPunObservable
         }
         transform.SetParent(GameObject.Find("CurrentRoomCanvas").transform);
         Display();
-        Characters = characters; //Not single instance since multiple CharacterSelection
+        Characters = heroes; //Not single instance since multiple CharacterSelection
     }
 
 
@@ -63,24 +63,24 @@ public class HeroSelection : GameUnit, IPunObservable
 
     public void Display()
     {
-        image.sprite = characters[selectedCharacterIndex].GetSprite();
+        image.sprite = heroes[selectedHeroIndex].GetSprite();
     }
 
     public void Switch()
     {
-        characters[selectedCharacterIndex].ToggleGender();
+        heroes[selectedHeroIndex].ToggleGender();
         Display();
     }
 
     private void Next()
     {
-        selectedCharacterIndex = (selectedCharacterIndex + 1) % characters.Count;
+        selectedHeroIndex = (selectedHeroIndex + 1) % heroes.Count;
         Display();
     }
 
     private void Previous()
     {
-        selectedCharacterIndex = Helper.mod(selectedCharacterIndex - 1, characters.Count);
+        selectedHeroIndex = Helper.mod(selectedHeroIndex - 1, heroes.Count);
         Display();
     }
 
@@ -88,14 +88,14 @@ public class HeroSelection : GameUnit, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(selectedCharacterIndex);
+            stream.SendNext(selectedHeroIndex);
         }
         else
         {
             int i = (int) stream.ReceiveNext();
-            if(i != selectedCharacterIndex)
+            if(i != selectedHeroIndex)
             {
-                selectedCharacterIndex = i;
+                selectedHeroIndex = i;
                 Display();
             }
         }
