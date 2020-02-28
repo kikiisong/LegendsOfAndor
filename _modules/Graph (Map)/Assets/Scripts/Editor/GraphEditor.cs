@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Graph;
+using System;
 
 [CustomEditor(typeof(GameGraph))]
 public class GraphEditor : Editor
@@ -63,8 +64,9 @@ public class GraphEditor : Editor
 		AddRegion();
 		AddBorder();
 		EditorGUILayout.EndHorizontal();
+        MoveAll();
 
-		show = EditorGUILayout.Foldout(show, "Regions");
+        show = EditorGUILayout.Foldout(show, "Regions");
 		if (show)
 		{
 			foreach (Region region in graph.vertices)
@@ -134,7 +136,27 @@ public class GraphEditor : Editor
 		}
 	}
 
-	static int value = 1;
+    static float moveX;
+    static float moveY;
+    private void MoveAll()
+    {
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal();
+        var clicked = GUILayout.Button("Move all");
+        moveX = EditorGUILayout.FloatField(moveX, GUILayout.ExpandWidth(false));
+        moveY = EditorGUILayout.FloatField(moveY, GUILayout.ExpandWidth(false));
+        if (clicked)
+        {
+            foreach(Region region in graph.vertices)
+            {
+                region.position += new Vector3(moveX, moveY, 0);
+            }
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+    }
+
+    static int value = 1;
     private void AddRegion()
     {
         EditorGUILayout.BeginVertical();
