@@ -89,17 +89,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroes:
   - type: 0
-    female: {fileID: 21300000, guid: 9934e592c9dd2134798f6892cd37928e, type: 3}
-    male: {fileID: 21300000, guid: 61e2e4fd058bb8f43b6a74fd69561435, type: 3}
+    female: {fileID: 21300000, guid: f4c95fa557723494bb91d4fff03ddf18, type: 3}
+    male: {fileID: 21300000, guid: 9dd1f822e67d0544387c6339f0c83750, type: 3}
   - type: 1
-    female: {fileID: 21300000, guid: a65663de800196a4d90c0519b09aad6e, type: 3}
-    male: {fileID: 21300000, guid: 75748e866c617ae46a417106ff704bfd, type: 3}
-  - type: 2
-    female: {fileID: 21300000, guid: 41df8f951fd0e2143805a1ca023bd508, type: 3}
-    male: {fileID: 21300000, guid: 53a1922e8b0c18e47b8ffa6ab101b5f7, type: 3}
+    female: {fileID: 21300000, guid: 8121b28b45924bf49bb11c106238eee9, type: 3}
+    male: {fileID: 21300000, guid: a6f7c80505036b943ac66494bbc95cdb, type: 3}
   - type: 3
-    female: {fileID: 21300000, guid: 8d495694de52c7c48b751c70d5fd1b75, type: 3}
-    male: {fileID: 21300000, guid: c247f587b93251e46ae42bc12b9ada55, type: 3}
+    female: {fileID: 21300000, guid: c03548761514cd04593ed2dd1af10472, type: 3}
+    male: {fileID: 21300000, guid: 8edd06fbb0421134cbd69ac6e7c45d8a, type: 3}
+  - type: 2
+    female: {fileID: 21300000, guid: 89b98c517d7c77947b6145b04869b1e5, type: 3}
+    male: {fileID: 21300000, guid: da9472309761bee48aacfb661174cf7e, type: 3}
   image: {fileID: 7912434964590026059}
 --- !u!114 &1674936113543051317
 MonoBehaviour:
