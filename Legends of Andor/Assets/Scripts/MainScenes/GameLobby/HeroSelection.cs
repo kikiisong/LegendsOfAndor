@@ -50,8 +50,12 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        //bool amReady = (bool) PhotonNetwork.LocalPlayer.CustomProperties["isReady"];
-        if (/*!amReady &&*/ photonView.IsMine)
+        bool amReady = false;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(K.Player.isReady))
+        {
+            amReady = (bool)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.isReady];
+        }
+        if (!amReady && photonView.IsMine)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
@@ -60,6 +64,10 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 Previous();
+            }else if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                CurrentHero.ToggleGender();
+                Display();
             }
         }
     }
@@ -87,6 +95,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
         selectedHeroIndex = Helper.mod(selectedHeroIndex - 1, heroes.Count);
         Display();
     }
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

@@ -34,7 +34,6 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        //Use RPC later
         if (PhotonNetwork.LocalPlayer.IsMasterClient && EveryoneReady())
         {
             startGame.gameObject.SetActive(true);
@@ -85,7 +84,7 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         {
             { K.Player.isReady, isReady }
         };
-        if (isReady)
+        if (isReady && !IsTaken(heroSelection.CurrentHero))
         {
             hash.Add(K.Player.hero, heroSelection.CurrentHero);
         }
@@ -94,6 +93,23 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
             hash.Add(K.Player.hero, null);
         }
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+
+    private bool IsTaken(HeroUIData hero)
+    {
+        foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
+        {
+            if (player != PhotonNetwork.LocalPlayer)
+            {
+                HeroUIData heroUIData = (HeroUIData)player.CustomProperties[K.Player.hero];
+                if (heroUIData != null)
+                {
+                    return heroUIData.type == hero.type;
+                }
+            }
+
+        }
+        return false;
     }
 
     public void Click_Difficulty()
