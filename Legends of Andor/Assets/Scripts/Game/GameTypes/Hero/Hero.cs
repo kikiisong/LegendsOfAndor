@@ -8,7 +8,7 @@ public class Hero : ScriptableObject
     public Data data;
 
     [System.Serializable]
-    public struct Data
+    public enum Data
     {
         /// <summary>
         /// Willpower points
@@ -19,6 +19,6 @@ public class Hero : ScriptableObject
         /// Strength points
         /// </summary>
         public int SP;
-
-    }
+    }     
+    
 }
