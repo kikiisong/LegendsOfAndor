@@ -10,7 +10,7 @@ public class FightManager : MonoBehaviour
 
         return this.fight;
     }
-    public void heroAttack(Hero h) {
+    public void heroAttack(HeroMoveController h) {
         /*if (fight.getFightState() != FightState.HERO) {
             return;
         }

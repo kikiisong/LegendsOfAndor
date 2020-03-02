@@ -29,8 +29,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
         }
     }
 
-    //Careful with null
-    public static List<HeroUIData> Heroes;
+    public static List<HeroUIData> Heroes; //Careful with null
 
     // Start is called before the first frame update
     void Start()

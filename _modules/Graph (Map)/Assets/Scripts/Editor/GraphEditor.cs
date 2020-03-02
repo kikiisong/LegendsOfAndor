@@ -60,12 +60,10 @@ public class GraphEditor : Editor
     public static bool show2;
 	public override void OnInspectorGUI()
 	{
-        base.OnInspectorGUI();
 		EditorGUILayout.BeginHorizontal();
 		AddRegion();
 		AddBorder();
 		EditorGUILayout.EndHorizontal();
-        MoveAll();
 
         show = EditorGUILayout.Foldout(show, "Regions");
 		if (show)
@@ -137,7 +135,7 @@ public class GraphEditor : Editor
 		}
 	}
 
-    static float moveX;
+    /*static float moveX;
     static float moveY;
     private void MoveAll()
     {
@@ -155,7 +153,7 @@ public class GraphEditor : Editor
         }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
-    }
+    }*/
 
     static int value = 1;
     private void AddRegion()

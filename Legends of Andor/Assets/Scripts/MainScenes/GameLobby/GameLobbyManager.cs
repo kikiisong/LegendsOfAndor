@@ -8,8 +8,7 @@ using UnityEngine.UI;
 
 public class GameLobbyManager : MonoBehaviourPunCallbacks
 {
-    [Header("Scenes")]
-    [SceneName]
+    [Header("Scenes")] [SceneName]
     public string nextScene;
     [SceneName]
     public string previousScene;

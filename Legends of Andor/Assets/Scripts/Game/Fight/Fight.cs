@@ -4,7 +4,7 @@ using System.Collections;
 public class Fight : MonoBehaviour
 {
     FightState fightstate;
-    Hero[] heroes;
+    HeroMoveController[] heroes;
     Monster monster;
     // Use this for initialization
     void Start()
