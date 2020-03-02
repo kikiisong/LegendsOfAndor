@@ -8,7 +8,6 @@ public class HeroMoveController : MonoBehaviourPun
 {
     public float radius = 3;
     public Hero hero;
-    public List<HeroMoveController.IOnMove> onMoveListeners;
 
     void Start()
     {
@@ -37,10 +36,5 @@ public class HeroMoveController : MonoBehaviourPun
             StopAllCoroutines();
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f));
         }
-    }
-
-    public interface IOnMove
-    {
-        void OnMove();
     }
 }

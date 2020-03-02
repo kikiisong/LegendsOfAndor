@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dwarf
   m_EditorClassIdentifier: 
   data:
-    WP: 0
-    SP: 0
+    WP: 7
+    SP: 1
   constants:
     StartingRegion: 43

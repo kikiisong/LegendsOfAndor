@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6944406690675305890}
   - component: {fileID: 6944406690675305901}
   m_Layer: 0
-  m_Name: Dwarf
+  m_Name: Hero_Dwarf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

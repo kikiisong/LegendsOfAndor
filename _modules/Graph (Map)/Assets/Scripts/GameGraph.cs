@@ -115,4 +115,19 @@ public class GameGraph : Graph<Region, Border>
             sphere.transform.position = location.position;
         }
     }
+
+
+    public List<M> FindObjectsOnRegion<M>(Region region) where M : MonoBehaviour
+    {
+        List<M> list = new List<M>();
+        foreach(M m in GameObject.FindObjectsOfType<M>())
+        {
+            Region r = FindNearest(m.transform.position);
+            if(r.label == region.label)
+            {
+                list.Add(m);
+            }
+        }
+        return list;
+    }
 }

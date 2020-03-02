@@ -8,6 +8,8 @@ public class Hero : ScriptableObject
     public Data data;
     public Constants constants;
 
+
+    //Easy to serialize and sync accross all players
     [System.Serializable]
     public struct Data
     {
@@ -22,6 +24,7 @@ public class Hero : ScriptableObject
         public int SP;
     }
     
+    //Values that won't change
     [System.Serializable]
     public struct Constants
     {
