@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7912434964590026056}
   - component: {fileID: 7912434964590026058}
   - component: {fileID: 7912434964590026059}
-  - component: {fileID: 4735205346973902836}
   - component: {fileID: 1674936113543051317}
+  - component: {fileID: 4735205346973902836}
   m_Layer: 5
   m_Name: HeroSelection
   m_TagString: Untagged
@@ -75,6 +75,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1674936113543051317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7912434964590026057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 4735205346973902836}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &4735205346973902836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,25 +123,3 @@ MonoBehaviour:
     female: {fileID: 21300000, guid: 89b98c517d7c77947b6145b04869b1e5, type: 3}
     male: {fileID: 21300000, guid: da9472309761bee48aacfb661174cf7e, type: 3}
   image: {fileID: 7912434964590026059}
---- !u!114 &1674936113543051317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912434964590026057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 4735205346973902836}
-  viewIdField: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0

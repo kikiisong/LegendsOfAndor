@@ -6,9 +6,10 @@ using UnityEngine;
 public class Hero : ScriptableObject
 {
     public Data data;
+    public Constants constants;
 
     [System.Serializable]
-    public enum Data
+    public struct Data
     {
         /// <summary>
         /// Willpower points
@@ -19,6 +20,13 @@ public class Hero : ScriptableObject
         /// Strength points
         /// </summary>
         public int SP;
-    }     
+    }
+    
+    [System.Serializable]
+    public struct Constants
+    {
+        public int StartingRegion;
+        //name, description, ...
+    }
     
 }

@@ -5,12 +5,36 @@ using UnityEngine;
 
 public class GameMapManager : MonoBehaviour
 {
-    public GameObject heroPrefab;
+    public GameObject archerPrefab;
+    public GameObject warriorPrefab;
+    public GameObject dwarfPrefab;
+    public GameObject wizardPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.Instantiate(heroPrefab.name, Vector3.zero, Quaternion.identity);
+        HeroUIData heroUIData = (HeroUIData) PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        GameObject prefab = null;
+        switch (heroUIData.type)
+        {
+            case HeroType.ARCHER:
+                prefab = archerPrefab;
+                break;
+            case HeroType.WARRIOR:
+                prefab = warriorPrefab;
+                break;
+            case HeroType.DWARF:
+                prefab = dwarfPrefab;
+                break;
+            case HeroType.WIZARD:
+                prefab = wizardPrefab;
+                break;
+        }
+
+        if(prefab != null)
+        {
+            PhotonNetwork.Instantiate(prefab.name, Vector3.zero, Quaternion.identity);
+        }
     }
 
     // Update is called once per frame

@@ -7,11 +7,14 @@ using UnityEngine;
 public class HeroMoveController : MonoBehaviourPun
 {
     public float radius = 3;
+    public Hero hero;
+    public List<HeroMoveController.IOnMove> onMoveListeners;
 
     void Start()
     {
         HeroUIData heroUIData = (HeroUIData) photonView.Owner.CustomProperties[K.Player.hero];
-        SetUp(heroUIData);
+        GetComponent<SpriteRenderer>().sprite = heroUIData.GetSprite();
+        GameGraph.Instance.PlaceAt(gameObject, hero.constants.StartingRegion);
     }
 
     // Update is called once per frame
@@ -20,26 +23,6 @@ public class HeroMoveController : MonoBehaviourPun
         if (Input.GetMouseButtonDown(0) && photonView.IsMine)
         {
             MoveToClick();
-        }
-    }
-
-    public void SetUp(HeroUIData character)
-    {
-        GetComponent<SpriteRenderer>().sprite = character.GetSprite();
-        switch (character.type)
-        {
-            case HeroType.ARCHER:
-                GameGraph.Instance.PlaceAt(gameObject, 53);
-                break;
-            case HeroType.WARRIOR:
-                GameGraph.Instance.PlaceAt(gameObject, 25);
-                break;
-            case HeroType.DWARF:
-                GameGraph.Instance.PlaceAt(gameObject, 43);
-                break;
-            case HeroType.WIZARD:
-                GameGraph.Instance.PlaceAt(gameObject, 9);
-                break;
         }
     }
 
@@ -54,5 +37,10 @@ public class HeroMoveController : MonoBehaviourPun
             StopAllCoroutines();
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f));
         }
+    }
+
+    public interface IOnMove
+    {
+        void OnMove();
     }
 }
