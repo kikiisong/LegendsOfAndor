@@ -20,15 +20,18 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     public Button ready;
 
     [Header("Hero Selection")]
-    public GameObject characterSelectionPrefab;
+    public GameObject heroSelectionPrefab;
+    public GameObject canvasParent;
 
     private HeroSelection heroSelection;
     private bool isReady;
 
     private void Start()
     {
-        heroSelection = PhotonNetwork.Instantiate(characterSelectionPrefab.name, Vector3.zero, Quaternion.identity)
+        heroSelection = PhotonNetwork.Instantiate(heroSelectionPrefab.name, Vector3.zero, Quaternion.identity)
             .GetComponent<HeroSelection>();
+        heroSelection.SetParentRPC(canvasParent);
+        
     }
 
     // Update is called once per frame

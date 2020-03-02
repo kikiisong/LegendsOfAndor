@@ -178,6 +178,23 @@ namespace Photon.Pun
     /// </summary>
     public class MonoBehaviourPun : MonoBehaviour
     {
+        ///////////////////////////////////////////ADDED
+        [PunRPC]
+        public void SetParentWithName(string objectName)
+        {
+            Transform parent = GameObject.Find(objectName).transform;
+            transform.SetParent(parent);
+        }
+
+        /// <summary>
+        /// Uses name to set parent.
+        /// </summary>
+        /// <param name="parent"></param>
+        public void SetParentRPC(GameObject parent)
+        {
+            photonView.RPC("SetParentWithName", RpcTarget.AllBuffered, parent.name);
+        }
+        ///////////////////////////////////////////
         /// <summary>Cache field for the PhotonView on this GameObject.</summary>
         private PhotonView pvCache;
 

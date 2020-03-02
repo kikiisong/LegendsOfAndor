@@ -41,7 +41,6 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
                 transform.position = SetUp.Instance.spawnPoints[pair.Key - 1].position;
             }
         }
-        transform.SetParent(GameObject.Find("CurrentRoomCanvas").transform);
         Display();
         Heroes = heroes; //Not single instance since multiple CharacterSelection 
     }

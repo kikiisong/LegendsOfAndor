@@ -1073,8 +1073,9 @@ MonoBehaviour:
   startGame: {fileID: 1501736641}
   difficulty: {fileID: 399663690}
   ready: {fileID: 699104214}
-  characterSelectionPrefab: {fileID: 7912434964590026057, guid: 4c0c4a998d71206478e258ef677e7769,
+  heroSelectionPrefab: {fileID: 7912434964590026057, guid: 4c0c4a998d71206478e258ef677e7769,
     type: 3}
+  canvasParent: {fileID: 1219169480}
 --- !u!4 &944461753
 Transform:
   m_ObjectHideFlags: 0

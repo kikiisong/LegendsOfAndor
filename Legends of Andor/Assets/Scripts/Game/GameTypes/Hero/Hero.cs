@@ -4,22 +4,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero : MonoBehaviourPun, IPunObservable
+public abstract class Hero : MonoBehaviourPun
 {
     public float radius = 3;
-    HeroType charactertype;
-
+    HeroType heroType;
+    
+   
     int redDice;
     int blackDice;
 
-    void Start()
+    protected virtual void Start()
     {
         HeroUIData heroUIData = (HeroUIData) photonView.Owner.CustomProperties[K.Player.hero];
         SetUp(heroUIData);
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (Input.GetMouseButtonDown(0) && photonView.IsMine)
         {
@@ -47,7 +48,7 @@ public class Hero : MonoBehaviourPun, IPunObservable
         }
 
         //save as attribute-chelly
-        charactertype = character.type;
+        heroType = character.type;
     }
 
     public void MoveToClick()
@@ -63,19 +64,12 @@ public class Hero : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-       
-    }
-
-    public HeroType getcharacterType() {
-        return this.charactertype;
-    }
+   
 
 
     bool Magic;
     public void initializeMagic() {
-        if (this.charactertype == HeroType.WIZARD)
+        if (this.heroType == HeroType.WIZARD)
         {
             Magic = true;
         }
@@ -167,5 +161,12 @@ public class Hero : MonoBehaviourPun, IPunObservable
         Helm = false;
         HerbS = false;
 
+    }
+
+    [System.Serializable]
+    public class HeroStats
+    {
+        int wp;
+        int sp;
     }
 }
