@@ -61,12 +61,6 @@
  * **
  * **
 
-### 3 most critical bugs in current functionality (optional)
-
- * **
- * **
- * **
-
 ### Contribution statement
 
  * *Karine Song contributed 16% of the work effectuated since last week.*
