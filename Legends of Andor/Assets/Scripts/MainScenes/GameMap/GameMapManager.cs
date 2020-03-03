@@ -5,35 +5,36 @@ using UnityEngine;
 
 public class GameMapManager : MonoBehaviour
 {
-    public GameObject archerPrefab;
-    public GameObject warriorPrefab;
-    public GameObject dwarfPrefab;
-    public GameObject wizardPrefab;
+    public GameObject[] archerPrefabs;
+    public GameObject[] warriorPrefabs;
+    public GameObject[] dwarfPrefabs;
+    public GameObject[] wizardPrefabs;
 
     // Start is called before the first frame update
     void Start()
     {
         HeroUIData heroUIData = (HeroUIData) PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-        GameObject prefab = null;
         switch (heroUIData.type)
         {
             case HeroType.ARCHER:
-                prefab = archerPrefab;
+                Instantiate(archerPrefabs);
                 break;
             case HeroType.WARRIOR:
-                prefab = warriorPrefab;
+                Instantiate(warriorPrefabs);
                 break;
             case HeroType.DWARF:
-                prefab = dwarfPrefab;
+                Instantiate(dwarfPrefabs);
                 break;
             case HeroType.WIZARD:
-                prefab = wizardPrefab;
+                Instantiate(wizardPrefabs);
                 break;
         }
+    }
 
-        if(prefab != null)
+    private void Instantiate(GameObject[] prefabs) {
+        foreach(GameObject prefab in prefabs)
         {
-            PhotonNetwork.Instantiate(prefab.name, Vector3.zero, Quaternion.identity);
+            PhotonNetwork.Instantiate(prefab);
         }
     }
 

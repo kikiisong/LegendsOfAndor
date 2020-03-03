@@ -33,9 +33,10 @@ public class HeroMoveController : MonoBehaviourPun
         bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
         if (contained && (clicked.position - position).magnitude <= radius)
         {
-            StopAllCoroutines();
-            StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f));
-            TurnManager.Instance.MoveRPC();
+            //StopAllCoroutines();
+            StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f, () => {
+                TurnManager.Instance.MoveRPC(clicked);
+            }));           
         }
     }
 }

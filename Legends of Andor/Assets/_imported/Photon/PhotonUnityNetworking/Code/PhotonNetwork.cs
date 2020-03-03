@@ -2336,6 +2336,16 @@ namespace Photon.Pun
             return NetworkInstantiate(netParams, false);
         }
 
+        /// <summary>
+        /// ADDED
+        /// </summary>
+        /// <param name="prefabName"></param>
+        /// <returns></returns>
+        public static GameObject Instantiate(GameObject gameobject)
+        {
+            return Instantiate(gameobject.name, gameobject.transform.position, gameobject.transform.rotation);
+        }
+
         public static GameObject InstantiateSceneObject(string prefabName, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
         {
             if (LocalPlayer.IsMasterClient)

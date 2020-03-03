@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnManager : MonoBehaviourPun, TurnManager.IOnMove
+public class TurnManager : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnTurnCompleted
 {
     public static TurnManager Instance;
 
@@ -13,7 +13,7 @@ public class TurnManager : MonoBehaviourPun, TurnManager.IOnMove
 
     void Awake()
     {
-        if(Instance != null)
+        if(Instance == null)
         {
             Instance = this;
         }
@@ -25,7 +25,7 @@ public class TurnManager : MonoBehaviourPun, TurnManager.IOnMove
 
     private void Start()
     {
-        Register(this);
+        Register(onMove: this);
     }
 
     // Update is called once per frame
@@ -35,17 +35,17 @@ public class TurnManager : MonoBehaviourPun, TurnManager.IOnMove
     }
 
     [PunRPC]
-    public void HeroMoved(Player player)
+    public void HeroMoved(Player player, int currentRegion)
     {
         foreach(IOnMove onMove in onMoves)
         {
-            onMove.OnMove(player);
+            onMove.OnMove(player, GameGraph.Instance.Find(currentRegion));
         }
     }
 
-    public void MoveRPC()
+    public void MoveRPC(Region currentRegion)
     {
-        photonView.RPC("HeroMoved", RpcTarget.All, PhotonNetwork.LocalPlayer);
+        photonView.RPC("HeroMoved", RpcTarget.All, PhotonNetwork.LocalPlayer, currentRegion.label);
     }
 
 
@@ -54,13 +54,31 @@ public class TurnManager : MonoBehaviourPun, TurnManager.IOnMove
         Instance.onMoves.Add(onMove);
     }
 
-    public void OnMove(Player player)
+    public static void Register(IOnTurnCompleted onTurnCompleted)
     {
-        print("Turn");
+        //Instance.
     }
 
+    public void OnMove(Player player, Region currentRegion)
+    {
+        print("Move " + player.NickName);
+    }
+
+    public void OnTurnCompleted()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    /// <summary>
+    /// Hero moves once
+    /// </summary>
     public interface IOnMove
     {
-        void OnMove(Player player);
+        void OnMove(Player player, Region currentRegion);
+    }
+
+    public interface IOnTurnCompleted
+    {
+        void OnTurnCompleted();
     }
 }
