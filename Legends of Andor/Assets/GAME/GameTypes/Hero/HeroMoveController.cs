@@ -19,7 +19,7 @@ public class HeroMoveController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && photonView.IsMine)
+        if (photonView.IsMine && TurnManager.IsMyTurn() && Input.GetMouseButtonDown(0))
         {
             MoveToClick();
         }
@@ -35,7 +35,7 @@ public class HeroMoveController : MonoBehaviourPun
         {
             //StopAllCoroutines();
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f, () => {
-                TurnManager.Instance.MoveRPC(clicked);
+                TurnManager.TriggerEvent_Move(clicked);
             }));           
         }
     }

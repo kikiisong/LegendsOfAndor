@@ -19,6 +19,7 @@ MonoBehaviour:
     numHours: 0
   constants:
     StartingRegion: 43
+    rank: 7
   ui:
     female: {fileID: 21300000, guid: c03548761514cd04593ed2dd1af10472, type: 3}
     male: {fileID: 21300000, guid: 8edd06fbb0421134cbd69ac6e7c45d8a, type: 3}

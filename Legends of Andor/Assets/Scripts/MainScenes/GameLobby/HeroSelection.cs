@@ -89,7 +89,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
 
     private void Previous()
     {
-        selectedHeroIndex = Helper.mod(selectedHeroIndex - 1, heroes.Count);
+        selectedHeroIndex = Helper.Mod(selectedHeroIndex - 1, heroes.Count);
         Display();
     }
 

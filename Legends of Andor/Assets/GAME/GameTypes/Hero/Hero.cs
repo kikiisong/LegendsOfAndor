@@ -32,6 +32,7 @@ public class Hero : ScriptableObject
     public struct Constants
     {
         public int StartingRegion;
+        public int rank;
         //name, description, ...
     }
 

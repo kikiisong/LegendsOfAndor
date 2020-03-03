@@ -51,7 +51,6 @@ public class GameGraph : Graph<Region, Border>
     public void PlaceAt(GameObject gameObject, int label)
     {
         Region target = Find(label);
-        Debug.Log(target.position.ToString());
         gameObject.transform.position = target.position;
     }
 
