@@ -69,6 +69,11 @@ public class TurnManager : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IO
         throw new System.NotImplementedException();
     }
 
+    public enum Events
+    {
+        HeroMoved
+    }
+
     /// <summary>
     /// Hero moves once
     /// </summary>

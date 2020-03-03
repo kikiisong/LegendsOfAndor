@@ -5,27 +5,45 @@ using UnityEngine;
 
 public class GameMapManager : MonoBehaviour
 {
+    public static GameMapManager Instance;
+
+    [Header("Instantiate")]
     public GameObject[] archerPrefabs;
     public GameObject[] warriorPrefabs;
     public GameObject[] dwarfPrefabs;
     public GameObject[] wizardPrefabs;
 
+    [Header("TimeMarkers")]
+    public List<Transform> timeMarkerTransforms;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Not singleton");
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        HeroUIData heroUIData = (HeroUIData) PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-        switch (heroUIData.type)
+        Hero hero = (Hero) PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        switch (hero.type)
         {
-            case HeroType.ARCHER:
+            case Hero.Type.ARCHER:
                 Instantiate(archerPrefabs);
                 break;
-            case HeroType.WARRIOR:
+            case Hero.Type.WARRIOR:
                 Instantiate(warriorPrefabs);
                 break;
-            case HeroType.DWARF:
+            case Hero.Type.DWARF:
                 Instantiate(dwarfPrefabs);
                 break;
-            case HeroType.WIZARD:
+            case Hero.Type.WIZARD:
                 Instantiate(wizardPrefabs);
                 break;
         }

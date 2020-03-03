@@ -2339,8 +2339,6 @@ namespace Photon.Pun
         /// <summary>
         /// ADDED
         /// </summary>
-        /// <param name="prefabName"></param>
-        /// <returns></returns>
         public static GameObject Instantiate(GameObject gameobject)
         {
             return Instantiate(gameobject.name, gameobject.transform.position, gameobject.transform.rotation);

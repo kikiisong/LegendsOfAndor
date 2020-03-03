@@ -11,9 +11,9 @@ public class HeroMoveController : MonoBehaviourPun
 
     void Start()
     {
-        HeroUIData heroUIData = (HeroUIData) photonView.Owner.CustomProperties[K.Player.hero];
-        GetComponent<SpriteRenderer>().sprite = heroUIData.GetSprite();
-        GameGraph.Instance.PlaceAt(gameObject, hero.constants.StartingRegion);
+        Hero hero = (Hero) photonView.Owner.CustomProperties[K.Player.hero];
+        GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
+        GameGraph.Instance.PlaceAt(gameObject, this.hero.constants.StartingRegion);
     }
 
     // Update is called once per frame

@@ -4,8 +4,9 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove
+public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove 
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,10 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove
     public void OnMove(Player player, Region currentRegion)
     {
         if (photonView.Owner == player) {
-            transform.position += Vector3.up;
+            Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+            Vector3 position = GameMapManager.Instance.timeMarkerTransforms[hero.data.numHours].position;
+            transform.position = position;
+            hero.data.numHours++;
         }
     }
 }

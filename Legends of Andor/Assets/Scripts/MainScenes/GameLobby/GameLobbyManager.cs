@@ -97,13 +97,13 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
-    private bool IsTaken(HeroUIData hero)
+    private bool IsTaken(Hero hero)
     {
         foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
         {
             if (player != PhotonNetwork.LocalPlayer)
             {
-                HeroUIData heroUIData = (HeroUIData)player.CustomProperties[K.Player.hero];
+                Hero heroUIData = (Hero)player.CustomProperties[K.Player.hero];
                 if (heroUIData != null)
                 {
                     return heroUIData.type == hero.type;

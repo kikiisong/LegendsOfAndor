@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 6007742235842389979, guid: 1e94290d65eec984c8dd81355c769607,
         type: 3}
       propertyPath: m_Name
-      value: TimeMarker Variant
+      value: TimeMarker_Warrior
       objectReference: {fileID: 0}
     - target: {fileID: 6007742235842389981, guid: 1e94290d65eec984c8dd81355c769607,
         type: 3}
@@ -35,12 +35,12 @@ PrefabInstance:
     - target: {fileID: 6007742235842389983, guid: 1e94290d65eec984c8dd81355c769607,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.33
+      value: -11.23
       objectReference: {fileID: 0}
     - target: {fileID: 6007742235842389983, guid: 1e94290d65eec984c8dd81355c769607,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.15
+      value: 28.33
       objectReference: {fileID: 0}
     - target: {fileID: 6007742235842389983, guid: 1e94290d65eec984c8dd81355c769607,
         type: 3}

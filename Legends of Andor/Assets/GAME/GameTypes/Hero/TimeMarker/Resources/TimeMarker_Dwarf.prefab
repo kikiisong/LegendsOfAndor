@@ -10,12 +10,12 @@ PrefabInstance:
     - target: {fileID: 3560116326588994329, guid: 0ce3970e4622a0b46b56db83715220cd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.33
+      value: -8.79
       objectReference: {fileID: 0}
     - target: {fileID: 3560116326588994329, guid: 0ce3970e4622a0b46b56db83715220cd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.15
+      value: 30.51
       objectReference: {fileID: 0}
     - target: {fileID: 3560116326588994329, guid: 0ce3970e4622a0b46b56db83715220cd,
         type: 3}
@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 3560116326588994333, guid: 0ce3970e4622a0b46b56db83715220cd,
         type: 3}
       propertyPath: m_Name
-      value: TimeMarker Variant
+      value: TimeMarker_Dwarf
       objectReference: {fileID: 0}
     - target: {fileID: 8012042170140933280, guid: 0ce3970e4622a0b46b56db83715220cd,
         type: 3}

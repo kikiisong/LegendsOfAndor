@@ -14,22 +14,21 @@ using UnityEngine.UI;
 public class HeroSelection : MonoBehaviourPun, IPunObservable
 {
     [Header("List of heroes")]
-    [ArrayElementTitle("type")]
-    public List<HeroUIData> heroes;
+    public List<Hero> heroes;
 
     [Header("UI")]
     public Image image; //change image based on current hero
 
     private int selectedHeroIndex; 
     
-    public HeroUIData CurrentHero {
+    public Hero CurrentHero {
         get
         {
             return heroes[selectedHeroIndex];
         }
     }
 
-    public static List<HeroUIData> Heroes; //Careful with null
+    public static List<Hero> Heroes; //Careful with null
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +63,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
                 Previous();
             }else if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                CurrentHero.ToggleGender();
+                CurrentHero.ui.ToggleGender();
                 Display();
             }
         }
@@ -73,12 +72,12 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
 
     public void Display()
     {
-        image.sprite = heroes[selectedHeroIndex].GetSprite();
+        image.sprite = heroes[selectedHeroIndex].ui.GetSprite();
     }
 
     public void Switch()
     {
-        heroes[selectedHeroIndex].ToggleGender();
+        heroes[selectedHeroIndex].ui.ToggleGender();
         Display();
     }
 
@@ -111,32 +110,4 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
             }
         }
     }
-}
-
-
-[System.Serializable]
-public class HeroUIData
-{
-    public HeroType type;
-    private bool gender; // how to implement gender?
-    
-    public Sprite female;
-    public Sprite male;
-
-    public Sprite GetSprite()
-    {
-        return gender ? male : female;
-    }
-
-    public void ToggleGender()
-    {
-        gender = !gender;
-    }
-
-}
-
-
-public enum HeroType
-{
-    ARCHER, WARRIOR, WIZARD, DWARF
 }

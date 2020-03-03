@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02660ce892e7b06438293ae001dc176e, type: 3}
   m_Name: Wizard
   m_EditorClassIdentifier: 
+  type: 2
   data:
     WP: 7
     SP: 1
+    numHours: 0
   constants:
     StartingRegion: 9
+  ui:
+    female: {fileID: 21300000, guid: 8121b28b45924bf49bb11c106238eee9, type: 3}
+    male: {fileID: 21300000, guid: a6f7c80505036b943ac66494bbc95cdb, type: 3}

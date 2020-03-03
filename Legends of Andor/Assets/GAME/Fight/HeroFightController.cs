@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Hero;
 
 public class HeroFightController : MonoBehaviour
 {
-    HeroType heroType;
+    Type heroType;
 
     int redDice;
     int blackDice;
@@ -24,7 +25,7 @@ public class HeroFightController : MonoBehaviour
     bool Magic;
     public void initializeMagic()
     {
-        if (this.heroType == HeroType.WIZARD)
+        if (this.heroType == Type.WIZARD)
         {
             Magic = true;
         }
