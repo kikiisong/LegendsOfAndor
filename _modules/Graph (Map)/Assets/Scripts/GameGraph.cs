@@ -24,7 +24,7 @@ public class GameGraph : Graph<Region, Border>
     {
         foreach(Region region in vertices)
         {
-            region.position = transform.InverseTransformPoint(region.position); //or TransformPoint
+            region.position = transform.InverseTransformPoint(region.position); //or TransformPoint?
         }
     }
 

@@ -1974,7 +1974,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1159201692}
+  - component: {fileID: 1159201695}
   - component: {fileID: 1159201693}
+  - component: {fileID: 1159201694}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2016,6 +2018,40 @@ MonoBehaviour:
     type: 3}
   wizardPrefab: {fileID: 7969643378180960824, guid: a89d2a5ac4bd3a747a85e09c7d2f6384,
     type: 3}
+--- !u!114 &1159201694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159201691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e241512882ba6f48afd5f0d2e81a6e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1159201695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159201691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &1192339124
 MonoBehaviour:
   m_ObjectHideFlags: 0

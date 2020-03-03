@@ -37,5 +37,6 @@ MonoBehaviour:
   - Change
   - test
   - SetParentWithName
+  - HeroMoved
   DisableAutoOpenWizard: 1
   ShowSettings: 1

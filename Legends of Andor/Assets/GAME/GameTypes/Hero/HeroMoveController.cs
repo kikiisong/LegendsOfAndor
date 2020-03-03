@@ -35,6 +35,7 @@ public class HeroMoveController : MonoBehaviourPun
         {
             StopAllCoroutines();
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f));
+            TurnManager.Instance.MoveRPC();
         }
     }
 }
