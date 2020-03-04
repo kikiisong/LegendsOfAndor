@@ -5,20 +5,21 @@ using UnityEngine.UI;
 
 public class Farmer : MonoBehaviour
 {
-    public int numberOfFarmer;
+    [SerializeField] public int numberOfFarmer;
     public Transform textOfFarmer;
     private Renderer farmerPic;
-    [SerializeField] public int region;
+    public int region;
     [SerializeField] private GameObject Graph;
     public GameGraph gameGraph;
 
     public void Start()
     {
-        numberOfFarmer = 1;
+      //  numberOfFarmer = 0;
         textOfFarmer = transform.Find("Text");
         textOfFarmer.gameObject.SetActive(false);
         farmerPic = GetComponent<Renderer>();
         farmerPic.enabled = false;
+        Graph = GameObject.Find("Graph");
         gameGraph = Graph.GetComponent<GameGraph>();
         gameGraph.PlaceAt(gameObject, region);
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
