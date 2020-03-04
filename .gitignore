@@ -107,4 +107,4 @@ Corridor/Library/metadata/
 Demos/
 *.dylib
 Builds.app/
-Legends of Andor/mono_crash.115869ea88.0.json
+Legends of Andor/mono_crash*.json
