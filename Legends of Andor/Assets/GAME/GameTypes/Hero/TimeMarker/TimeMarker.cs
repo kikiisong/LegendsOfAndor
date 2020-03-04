@@ -4,13 +4,15 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove 
+public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnEndDay
 {
+    Vector3 startingPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         TurnManager.Register(this);
+        startingPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -23,9 +25,24 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove
     {
         if (photonView.Owner == player) {
             Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
-            Vector3 position = GameMapManager.Instance.timeMarkerTransforms[hero.data.numHours].position;
+            List<Transform> transforms = GameMapManager.Instance.timeMarkerTransforms;
+            Vector3 position = transforms[hero.data.numHours].position;
             transform.position = position;
             hero.data.numHours++;
+            if(photonView.IsMine && hero.data.numHours == transforms.Count)
+            {
+                TurnManager.TriggerEvent_EndDay(player);
+            }
+        }
+    }
+
+    public void OnEndDay(Player player)
+    {
+        if (photonView.Owner == player)
+        {
+            Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+            hero.data.numHours = 0;
+            transform.position = startingPosition;
         }
     }
 }

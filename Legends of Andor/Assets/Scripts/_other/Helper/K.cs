@@ -21,7 +21,7 @@ public class K
     /// </summary>
     public static class Player
     {
-        public static readonly string isReady = "isReady";
+        public static readonly string isReady = "isReady"; //to remove
         public static readonly string hero = "currentHero";
     }
 
