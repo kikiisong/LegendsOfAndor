@@ -31,6 +31,7 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
             hero.data.numHours++;
             if(photonView.IsMine && hero.data.numHours == transforms.Count)
             {
+                //or buy more hours, do it in OnEndTurn instead
                 TurnManager.TriggerEvent_EndDay(player);
             }
         }
