@@ -1,18 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Farmer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public int numberOfFarmer;
+    public Transform textOfFarmer;
+    private Renderer farmerPic;
+    public int region;
+    [SerializeField] private GameObject Graph;
+    public GameGraph gameGraph;
+
+    public void Start()
     {
+      //  numberOfFarmer = 0;
+        textOfFarmer = transform.Find("Text");
+        textOfFarmer.gameObject.SetActive(false);
+        farmerPic = GetComponent<Renderer>();
+        farmerPic.enabled = false;
+        Graph = GameObject.Find("Graph");
+        gameGraph = Graph.GetComponent<GameGraph>();
+        gameGraph.PlaceAt(gameObject, region);
+        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
+
+      // displayNum();
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        
+        displayNum();
+    }
+
+    public void displayNum()
+    {
+        if(numberOfFarmer > 0)
+        {
+            farmerPic.enabled = true;
+            textOfFarmer.gameObject.SetActive(true);
+            textOfFarmer.gameObject.GetComponent<TextMesh>().text = numberOfFarmer.ToString();
+        }
+        else
+        {
+            farmerPic.enabled = false;
+            textOfFarmer.gameObject.SetActive(false);
+        }
+    }
+
+    public void setNumOfFarmer(int num)
+    {
+        numberOfFarmer = num;
+
+    }
+
+    public int getNumOfFarmer()
+    {
+        return numberOfFarmer;
     }
 }
