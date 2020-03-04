@@ -21,7 +21,14 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
 
     public void OnSunrise()
     {
-        Region next = GameGraph.Instance.NextEnemyRegion(GameGraph.Instance.FindNearest(transform.position));
-        transform.position = next.position;
+        try
+        {
+            Region next = GameGraph.Instance.NextEnemyRegion(GameGraph.Instance.FindNearest(transform.position));
+            transform.position = next.position;
+        }
+        catch (GameGraph.NoNextRegionException)
+        {
+            //damage castle
+        }
     }
 }
