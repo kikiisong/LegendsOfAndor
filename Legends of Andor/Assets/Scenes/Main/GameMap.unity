@@ -219,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 16465287}
   m_Layer: 0
-  m_Name: Units
+  m_Name: GameUnits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2050,7 +2050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 655722767}
   m_Layer: 0
-  m_Name: MonsterList
+  m_Name: Monsters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
