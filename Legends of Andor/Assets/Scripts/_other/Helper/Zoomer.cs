@@ -9,16 +9,13 @@ public class Zoomer : MonoBehaviour
 
     private Vector3 dragOrigin;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //Constraints
+    public float maxSize;
+    public float minSize;
 
     // Update is called once per frame
     void Update()
     {
-        Zoom_FieldOfView();
         Drag();
     }
 
@@ -27,14 +24,8 @@ public class Zoomer : MonoBehaviour
         if(Event.current.type == EventType.ScrollWheel)
         {
             float scrollWheelChange = Event.current.delta.y * sensitivity;
-            Camera.main.fieldOfView += scrollWheelChange;
+            Camera.main.orthographicSize = Helper.Constrain(Camera.main.orthographicSize + scrollWheelChange, minSize, maxSize);
         }
-    }
-
-    void Zoom_FieldOfView()
-    {
-        //float scrollWheelChange =  -Input.GetAxis("Mouse ScrollWheel") * sensitivity;
-        //Camera.main.fieldOfView += scrollWheelChange;
     }
 
     void Drag()
@@ -50,29 +41,6 @@ public class Zoomer : MonoBehaviour
             Vector3 move = new Vector3(-pos.x * factor, -pos.y * factor, 0);
             Camera.main.transform.position += move;
             dragOrigin = Input.mousePosition;
-        }
-    }
-
-    void Zoom()
-    {
-        float scrollWheelChange = Input.GetAxis("Mouse ScrollWheel");
-        if(scrollWheelChange != 0)
-        {
-            float radius = scrollWheelChange * 15;
-            float posX = Camera.main.transform.eulerAngles.x + 90;
-            float posY = -(Camera.main.transform.eulerAngles.y - 90);
-            posX = posX / 180 * Mathf.PI;
-            posY = posY / 180 * Mathf.PI;
-
-            float x = radius * Mathf.Sin(posX) * Mathf.Cos(posY);
-            float y = radius * Mathf.Cos(posX);
-            float z = radius = Mathf.Sin(posX) * Mathf.Sin(posY);
-
-            float camX = Camera.main.transform.position.x;
-            float camY = Camera.main.transform.position.y;
-            float camZ = Camera.main.transform.position.z;
-
-            Camera.main.transform.position = new Vector3(camX + x, camY + y, camZ + z);
         }
     }
 }
