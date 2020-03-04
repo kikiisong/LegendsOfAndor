@@ -9,11 +9,14 @@ public class TurnManager : MonoBehaviourPun
     public static TurnManager Instance;
 
     private List<Player> players = new List<Player>();
+    private List<Player> waiting = new List<Player>();
     private int turnIndex = 0;
 
     //Listeners
     List<IOnMove> onMoves = new List<IOnMove>();
     List<IOnTurnCompleted> onTurnCompleteds = new List<IOnTurnCompleted>();
+    List<IOnEndDay> onEndDays = new List<IOnEndDay>();
+    List<IOnSunrise> onSunrises = new List<IOnSunrise>();
 
     void Awake()
     {
@@ -29,8 +32,7 @@ public class TurnManager : MonoBehaviourPun
 
     private void Test()
     {
-        Register(onMove: new TestTurn());
-        Register(onTurnCompleted: new TestTurn());
+        Register(new TestTurn());
     }
 
     private void Start()
@@ -45,7 +47,7 @@ public class TurnManager : MonoBehaviourPun
         {
             Hero h1 = (Hero)p1.CustomProperties[K.Player.hero];
             Hero h2 = (Hero)p2.CustomProperties[K.Player.hero];
-            return h1.constants.rank - h2.constants.rank;
+            return h2.constants.rank - h1.constants.rank;
         });
     }
 
@@ -54,13 +56,14 @@ public class TurnManager : MonoBehaviourPun
         //better way?
         if (IsMyTurn() && Input.GetKey(KeyCode.Return))
         {
-            TriggerEvent_EndTurn(photonView.Owner);
+            TriggerEvent_EndTurn(PhotonNetwork.LocalPlayer);
         }
     }
 
     //Turn
     public static bool IsMyTurn()
     {
+        if (Instance.players.Count == 0) return false;
         return Instance.players[Instance.turnIndex] == PhotonNetwork.LocalPlayer;
     }
 
@@ -74,9 +77,54 @@ public class TurnManager : MonoBehaviourPun
         turnIndex = Helper.Mod(turnIndex + 1, players.Count);
     }
 
-    public void TriggerEvent_EndTurn(Player player)
+    public static void TriggerEvent_EndTurn(Player player)
     {
         Instance.photonView.RPC("NextTurn", RpcTarget.All, player);
+    }
+
+    //Day
+    [PunRPC]
+    public void EndDay(Player player)
+    {
+        foreach(IOnEndDay onEndDay in onEndDays)
+        {
+            onEndDay.OnEndDay(player);
+        }
+
+        players.Remove(player);
+        waiting.Add(player);
+    }
+
+    public static void TriggerEvent_EndDay(Player player)
+    {
+        Instance.photonView.RPC("EndDay", RpcTarget.All, player);
+        if(Instance.players.Count == 0)
+        {
+            TriggerEvent_Sunrise();
+        }
+    }
+
+    //Sunrise
+    [PunRPC]
+    public void Sunrise()
+    {
+        foreach(IOnSunrise onSunrise in onSunrises)
+        {
+            onSunrise.OnSunrise();
+        }
+
+        //Reset
+        turnIndex = 0;
+        foreach(Player player in waiting)
+        {
+            players.Add(player);
+        }
+        waiting.Clear();
+    }
+
+    public static void TriggerEvent_Sunrise()
+    {
+        Instance.photonView.RPC("Sunrise", RpcTarget.All);
     }
 
 
@@ -96,30 +144,43 @@ public class TurnManager : MonoBehaviourPun
     }
 
     //Register
-    public static void Register(IOnMove onMove)
+    static void AddNotNull<I>(I i, List<I> list)
     {
-        Instance.onMoves.Add(onMove);
+        if (i != null) list.Add(i);
     }
 
-    public static void Register(IOnTurnCompleted onTurnCompleted)
+    public interface IEvent { }
+    public static void Register(IEvent e)
     {
-        Instance.onTurnCompleteds.Add(onTurnCompleted);
+        AddNotNull(e as IOnMove, Instance.onMoves);
+        AddNotNull(e as IOnTurnCompleted, Instance.onTurnCompleteds);
+        AddNotNull(e as IOnEndDay, Instance.onEndDays);
+        AddNotNull(e as IOnSunrise, Instance.onSunrises);
     }
-
 
     //Interfaces
-    public interface IOnMove
+    public interface IOnMove : IEvent
     {
         void OnMove(Player player, Region currentRegion);
     }
 
-    public interface IOnTurnCompleted
+    public interface IOnTurnCompleted : IEvent
     {
         void OnTurnCompleted(Player player);
     }
+
+    public interface IOnEndDay : IEvent
+    {
+        void OnEndDay(Player player);
+    }
+
+    public interface IOnSunrise : IEvent
+    {
+        void OnSunrise();
+    }
 }
 
-public class TestTurn: TurnManager.IOnMove, TurnManager.IOnTurnCompleted
+public class TestTurn: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
 {
     public void OnMove(Player player, Region currentRegion)
     {
@@ -128,6 +189,16 @@ public class TestTurn: TurnManager.IOnMove, TurnManager.IOnTurnCompleted
 
     public void OnTurnCompleted(Player player)
     {
-        Debug.Log("Turn completed " + PhotonNetwork.LocalPlayer.NickName);
+        Debug.Log("Turn completed " + player.NickName);
+    }
+
+    public void OnEndDay(Player player)
+    {
+        Debug.Log("End day " + player.NickName);
+    }
+
+    public void OnSunrise()
+    {
+        Debug.Log("Sunrise");
     }
 }

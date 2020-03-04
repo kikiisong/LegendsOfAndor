@@ -39,7 +39,17 @@ public class GameGraph : Graph<Region, Border>
         {
             Vector3 from = transform.TransformPoint(border.from.position);
             Vector3 to = transform.TransformPoint(border.to.position);
-            Gizmos.DrawLine(from, to);
+            if (border.isDirected)
+            {
+                Gizmos.color = Color.red;
+                DrawArrow.ForGizmo(from, to - from);
+            }
+            else
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawLine(from, to);
+            }
+            
         }
     }
 
@@ -128,5 +138,25 @@ public class GameGraph : Graph<Region, Border>
             }
         }
         return list;
+    }
+
+    public Region NextEnemyRegion(Region currentRegion) 
+    {
+        foreach(Border border in edges)
+        {
+            if (border.isDirected)
+            {
+                if (border.from.label == currentRegion.label)
+                {
+                    return border.to;
+                }
+            }
+        }
+        throw  new NoNextRegionException();
+    }
+
+    public class NoNextRegionException : System.Exception
+    {
+
     }
 }
