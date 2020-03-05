@@ -69,7 +69,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
                     if (currentRegion.label == 0)
                     {
-                        extraShileds.increaseShieldsNum();
+                        //extraShileds.increaseShieldsNum();
                     }
                     else
                     {
