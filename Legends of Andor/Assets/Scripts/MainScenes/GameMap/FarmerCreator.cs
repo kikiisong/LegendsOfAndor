@@ -7,21 +7,21 @@ using UnityEngine.UI;
 
 public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 {
-    
+
     [SerializeField] public GameGraph gameGraph;
-    [SerializeField] public GameGraph extraShileds;
+    [SerializeField] public GameObject extraShileds;
     public GameObject pickUpButton;
     public GameObject dropDownButton;
-    
+
 
     void Start()
     {
-       
+
         pickUpButton = GameObject.Find("pickUpFarmerButton");
         dropDownButton = GameObject.Find("dropDownFarmerButton");
         pickUpButton.SetActive(false);
         dropDownButton.SetActive(false);
-        
+
         TurnManager.Register(this);
     }
 
@@ -44,7 +44,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                 pickUpButton.GetComponent<Button>().onClick.RemoveAllListeners();
                 pickUpButton.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    
+
                     hero.data.numFarmers++;
                     temp.decreaseNumOfFarmer();
                     if (temp.numberOfFarmer == 0)
@@ -69,7 +69,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
                     if (currentRegion.label == 0)
                     {
-                        //extraShileds.increaseShieldsNum();
+                        extraShileds.GetComponent<ExtraShield>().increaseShieldsNum();
                     }
                     else
                     {
@@ -80,12 +80,16 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                     {
                         dropDownButton.SetActive(false);
                     }
-                    pickUpButton.SetActive(true);
+
+                    if(currentRegion.label != 0)
+                    {
+                        pickUpButton.SetActive(true);
+                    }
                 });
             }
         }
-        
 
-    
+
+
 
 }
