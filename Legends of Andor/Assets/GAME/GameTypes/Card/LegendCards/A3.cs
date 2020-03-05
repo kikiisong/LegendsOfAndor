@@ -52,9 +52,9 @@ namespace Card
             {
                 foreach (int r in new int[] { 8, 20, 21, 26, 48 })
                 {
-                    GameObject gor = PhotonNetwork.Instantiate(gameObject);
+                    GameObject gor = PhotonNetwork.Instantiate(gorPrefab);
                     //gor.GetComponent<MonsterMoveController>().SetParentRPC()
-                    GameGraph.Instance.PlaceAt(gor, r);
+                    //GameGraph.Instance.PlaceAt(gor, r);
                 }
             }  
         }
