@@ -94,7 +94,6 @@ Assets/AssetStoreTools*
 # OS generated #
 # ============ #
 .DS_Store*
-._*
 .Spotlight-V100
 .Trashes
 # Icon?
@@ -104,4 +103,8 @@ ehthumbs.db
 Corridor/Library/ShaderCache/
 Corridor/Library/metadata/
 
+# More
 Demos/
+*.dylib
+Builds.app/
+Legends of Andor/mono_crash*.json

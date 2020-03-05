@@ -43,7 +43,10 @@ public class SceneSwitchWindow : EditorWindow
             if (scene.enabled)
             {
                 var sceneName = Path.GetFileNameWithoutExtension(scene.path);
-                var pressed = GUILayout.Button(i + ": " + sceneName, new GUIStyle(GUI.skin.GetStyle("Button")) { alignment = TextAnchor.MiddleLeft });
+                var pressed = GUILayout.Button(i + ": " + sceneName, new GUIStyle(GUI.skin.GetStyle("Button")) {
+                    alignment = TextAnchor.MiddleLeft
+                });
+ 
                 if (pressed)
                 {
                     if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())

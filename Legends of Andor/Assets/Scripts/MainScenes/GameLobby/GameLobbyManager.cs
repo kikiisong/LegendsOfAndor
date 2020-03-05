@@ -8,8 +8,7 @@ using UnityEngine.UI;
 
 public class GameLobbyManager : MonoBehaviourPunCallbacks
 {
-    [Header("Scenes")]
-    [SceneName]
+    [Header("Scenes")] [SceneName]
     public string nextScene;
     [SceneName]
     public string previousScene;
@@ -19,22 +18,24 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     public Text difficulty;
     public Button ready;
 
-    [Header("Resources")]
-    public GameObject characterSelectionPrefab;
+    [Header("Hero Selection")]
+    public GameObject heroSelectionPrefab;
+    public GameObject canvasParent;
 
-    private CharacterSelection characterSelection;
+    private HeroSelection heroSelection;
     private bool isReady;
 
     private void Start()
     {
-        characterSelection = PhotonNetwork.Instantiate(characterSelectionPrefab.name, Vector3.zero, Quaternion.identity)
-            .GetComponent<CharacterSelection>();
+        heroSelection = PhotonNetwork.Instantiate(heroSelectionPrefab.name, Vector3.zero, Quaternion.identity)
+            .GetComponent<HeroSelection>();
+        heroSelection.SetParentRPC(canvasParent);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Use RPC later
         if (PhotonNetwork.LocalPlayer.IsMasterClient && EveryoneReady())
         {
             startGame.gameObject.SetActive(true);
@@ -50,9 +51,9 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         foreach(KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
         {
             Player player = pair.Value;
-            if (player.CustomProperties.ContainsKey("isReady"))
+            if (player.CustomProperties.ContainsKey(K.Player.isReady))
             {
-                bool ready = (bool) player.CustomProperties["isReady"];
+                bool ready = (bool) player.CustomProperties[K.Player.isReady];
                 if (!ready)
                 {
                     return false;
@@ -83,17 +84,34 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         isReady = !isReady;
         Hashtable hash = new Hashtable
         {
-            { "isReady", isReady }
+            { K.Player.isReady, isReady }
         };
-        if (isReady)
+        if (isReady && !IsTaken(heroSelection.CurrentHero))
         {
-            hash.Add("character", characterSelection.CurrentCharacter);
+            hash.Add(K.Player.hero, heroSelection.CurrentHero);
         }
         else
         {
-            hash.Add("character", null);
+            hash.Add(K.Player.hero, null);
         }
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+
+    private bool IsTaken(Hero hero)
+    {
+        foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
+        {
+            if (player != PhotonNetwork.LocalPlayer)
+            {
+                Hero heroUIData = (Hero)player.CustomProperties[K.Player.hero];
+                if (heroUIData != null)
+                {
+                    return heroUIData.type == hero.type;
+                }
+            }
+
+        }
+        return false;
     }
 
     public void Click_Difficulty()
@@ -109,7 +127,7 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
 
         Hashtable hashtable = new Hashtable()
         {
-            {"difficulty", difficulty.text}
+            {K.Room.difficulty, difficulty.text}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
     }

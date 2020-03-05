@@ -14,40 +14,38 @@ namespace Custom
     {
         public static void Register()
         {
-            PhotonPeer.RegisterType(typeof(Character), 0, Serialize, Deserialize);
+            PhotonPeer.RegisterType(typeof(Hero), 0, Serialize, Deserialize);
         }
 
         private static object Deserialize(byte[] serializedCustomObject)
         {
             int position = BitConverter.ToInt32(serializedCustomObject, 0);
-            return CharacterSelection.Characters[position];
+            return HeroSelection.Heroes[position];
         }
 
         private static byte[] Serialize(object customObject)
         {
-            Character character = (Character)customObject;
-            int position = CharacterSelection.Characters.FindIndex(c => c.type == character.type);
+            Hero hero = (Hero)customObject;
+            int position = HeroSelection.Heroes.FindIndex(h => h.type == hero.type);
             return BitConverter.GetBytes(position);
         }
 
-        /*public static object Deserialize(byte[] data)
+        public static object Deserialize_BF(byte[] data)
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            AddSurrogates(binaryFormatter);
             MemoryStream memoryStream = new MemoryStream(data);
             return binaryFormatter.Deserialize(memoryStream);
         }
 
-        public static byte[] Serialize(object customType)
+        public static byte[] Serialize_BF(object obj)
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            AddSurrogates(binaryFormatter);
             MemoryStream memoryStream = new MemoryStream();
-            binaryFormatter.Serialize(memoryStream, customType);
+            binaryFormatter.Serialize(memoryStream, obj);
             return memoryStream.GetBuffer();
         }
 
-        private static void AddSurrogates(BinaryFormatter binaryFormatter)
+        /*private static void AddSurrogates(BinaryFormatter binaryFormatter)
         {
             SurrogateSelector surrogateSelector = new SurrogateSelector();
             surrogateSelector.AddSurrogate(typeof(Sprite), new StreamingContext(StreamingContextStates.All),
