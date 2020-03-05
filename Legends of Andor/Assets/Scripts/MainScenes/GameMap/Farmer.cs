@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +13,7 @@ public class Farmer : MonoBehaviour
     public int region;
     [SerializeField] private GameObject Graph;
     public GameGraph gameGraph;
+    public GameObject pickUpButton;
 
     public void Start()
     {
@@ -22,8 +25,9 @@ public class Farmer : MonoBehaviour
         Graph = GameObject.Find("Graph");
         gameGraph = Graph.GetComponent<GameGraph>();
         gameGraph.PlaceAt(gameObject, region);
+        //
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
-
+        
       // displayNum();
         
     }
@@ -54,8 +58,28 @@ public class Farmer : MonoBehaviour
 
     }
 
+    [PunRPC]
+    public void decreaseNumOfFarmer()
+    {
+        if (numberOfFarmer > 0)
+        {
+            numberOfFarmer = numberOfFarmer - 1;
+        }
+    }
+
+    [PunRPC]
+    public void increaseNumOfFarmer()
+    {
+        if(numberOfFarmer < 2)
+        {
+            numberOfFarmer = numberOfFarmer + 1;
+        }
+    }
+
     public int getNumOfFarmer()
     {
         return numberOfFarmer;
     }
+
+    
 }
