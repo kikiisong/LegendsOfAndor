@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -994,7 +994,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 740.4, y: -640}
+  m_AnchoredPosition: {x: 755, y: -428.90002}
   m_SizeDelta: {x: 279, y: 95.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &297249280
@@ -4161,7 +4161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d93e31c8694fc2a79afa3f6a63a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfShileds: 1
+  numberOfShileds: 0
   textOfShileds: {fileID: 0}
 --- !u!114 &940324409
 MonoBehaviour:
@@ -6692,7 +6692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 755.4, y: -531.1}
+  m_AnchoredPosition: {x: 770, y: -320}
   m_SizeDelta: {x: 249, y: 95.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1616984833
@@ -8515,6 +8515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameGraph: {fileID: 1813410491}
+  extraShileds: {fileID: 939365464}
   pickUpButton: {fileID: 0}
   dropDownButton: {fileID: 0}
 --- !u!114 &1942968646

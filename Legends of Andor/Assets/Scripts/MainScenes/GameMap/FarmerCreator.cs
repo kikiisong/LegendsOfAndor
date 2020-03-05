@@ -9,7 +9,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 {
     
     [SerializeField] public GameGraph gameGraph;
-    [SerializeField] public GameGraph extraShileds;
+    [SerializeField] public GameObject extraShileds;
     public GameObject pickUpButton;
     public GameObject dropDownButton;
     
@@ -69,7 +69,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
                     if (currentRegion.label == 0)
                     {
-                        extraShileds.increaseShieldsNum();
+                        extraShileds.GetComponent<ExtraShield>().increaseShieldsNum();
                     }
                     else
                     {
@@ -80,7 +80,11 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                     {
                         dropDownButton.SetActive(false);
                     }
-                    pickUpButton.SetActive(true);
+
+                    if(currentRegion.label != 0)
+                    {
+                        pickUpButton.SetActive(true);
+                    }
                 });
             }
         }
