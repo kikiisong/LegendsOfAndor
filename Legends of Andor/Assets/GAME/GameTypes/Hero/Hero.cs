@@ -25,6 +25,9 @@ public class Hero : ScriptableObject
         public int SP;
 
         public int numHours; //0 or 1?
+
+        // number of carried farmers
+        public int numFarmers; // 0 or 1 or 2
     }
     
     //Values that won't change
