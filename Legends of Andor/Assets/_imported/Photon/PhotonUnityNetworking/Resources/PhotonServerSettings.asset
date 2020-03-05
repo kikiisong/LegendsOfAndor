@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 69ace1bf-c57f-4d25-a3b7-a1b833e95b6f
-    AppIdChat: edf4f5fd-3ebf-4317-9da5-c55c6388e655
+    AppIdRealtime: 
+    AppIdChat: 
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
@@ -28,24 +28,6 @@ MonoBehaviour:
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
-  RpcList:
-  - Change
-  - ClickRpc
-  - DestroyRpc
-  - DestroySpaceship
-  - Fire
-  - RespawnSpaceship
-<<<<<<< HEAD:Legends of Andor/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
-=======
-  - Change
-  - test
-  - SetParentWithName
-  - HeroMoved
-  - NextTurn
-  - EndDay
-  - Sunrise
-  - decreaseNumOfFarmer
-  - increaseNumOfFarmer
->>>>>>> fa7f87b37aefc362f9dcf430db8df1b38b3537df:Legends of Andor/Assets/_imported/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
-  DisableAutoOpenWizard: 1
+  RpcList: []
+  DisableAutoOpenWizard: 0
   ShowSettings: 0

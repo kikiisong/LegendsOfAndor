@@ -1215,6 +1215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed010f3e26b96f74980862f6861d8b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterParent: {fileID: 655722766}
+  gorPrefab: {fileID: 7212973014301622452, guid: c8dcc999392c15749a74b16e631faa99,
+    type: 3}
 --- !u!114 &328684575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2382,7 +2385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 655722767}
   m_Layer: 0
-  m_Name: MonsterList
+  m_Name: Monsters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
