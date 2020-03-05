@@ -125,20 +125,30 @@ public class GameGraph : Graph<Region, Border>
         }
     }
 
+<<<<<<< HEAD:_modules/Graph (Map)/Assets/Scripts/GameGraph.cs
+    public List<M> FindObjectOnRegion<M> (Region region) where M: MonoBehaviour
+=======
 
     public List<M> FindObjectsOnRegion<M>(Region region) where M : MonoBehaviour
+>>>>>>> fa7f87b37aefc362f9dcf430db8df1b38b3537df:Legends of Andor/Assets/_modules/Graph/GameGraph.cs
     {
         List<M> list = new List<M>();
         foreach(M m in GameObject.FindObjectsOfType<M>())
         {
             Region r = FindNearest(m.transform.position);
+<<<<<<< HEAD:_modules/Graph (Map)/Assets/Scripts/GameGraph.cs
+            if (r.label == region.label)
+=======
             if(r.label == region.label)
+>>>>>>> fa7f87b37aefc362f9dcf430db8df1b38b3537df:Legends of Andor/Assets/_modules/Graph/GameGraph.cs
             {
                 list.Add(m);
             }
         }
         return list;
     }
+<<<<<<< HEAD:_modules/Graph (Map)/Assets/Scripts/GameGraph.cs
+=======
 
     public Region NextEnemyRegion(Region currentRegion) 
     {
@@ -159,4 +169,5 @@ public class GameGraph : Graph<Region, Border>
     {
 
     }
+>>>>>>> fa7f87b37aefc362f9dcf430db8df1b38b3537df:Legends of Andor/Assets/_modules/Graph/GameGraph.cs
 }
