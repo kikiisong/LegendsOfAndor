@@ -9,6 +9,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 {
     
     [SerializeField] public GameGraph gameGraph;
+    [SerializeField] public GameGraph extraShileds;
     public GameObject pickUpButton;
     public GameObject dropDownButton;
     
@@ -16,7 +17,6 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
     void Start()
     {
        
-
         pickUpButton = GameObject.Find("pickUpFarmerButton");
         dropDownButton = GameObject.Find("dropDownFarmerButton");
         pickUpButton.SetActive(false);
@@ -40,11 +40,11 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
             }
             if (temp.numberOfFarmer > 0)
             {
-                Debug.Log("farmer > 0");
                 pickUpButton.SetActive(true);
                 pickUpButton.GetComponent<Button>().onClick.RemoveAllListeners();
                 pickUpButton.GetComponent<Button>().onClick.AddListener(() =>
                 {
+                    
                     hero.data.numFarmers++;
                     temp.decreaseNumOfFarmer();
                     if (temp.numberOfFarmer == 0)
@@ -52,12 +52,11 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                         pickUpButton.SetActive(false);
                     }
                     dropDownButton.SetActive(true);
-                    Debug.Log("farmer number is " + hero.data.numFarmers);
+
                 });
             }
             else
             {
-                Debug.Log("farmer = 0");
                 pickUpButton.SetActive(false);
             }
 
@@ -67,7 +66,16 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                 dropDownButton.GetComponent<Button>().onClick.AddListener(() =>
                 {
                     hero.data.numFarmers--;
-                    temp.increaseNumOfFarmer();
+
+                    if (currentRegion.label == 0)
+                    {
+                        extraShileds.increaseShieldsNum();
+                    }
+                    else
+                    {
+                        temp.increaseNumOfFarmer();
+                    }
+
                     if (hero.data.numFarmers == 0)
                     {
                         dropDownButton.SetActive(false);
