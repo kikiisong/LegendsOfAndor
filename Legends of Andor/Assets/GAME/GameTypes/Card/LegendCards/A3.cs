@@ -11,6 +11,7 @@ namespace Card
 
         public GameObject monsterParent;
         public GameObject gorPrefab;
+        public GameObject skralPrefab;
 
         // Start is called before the first frame update
         void Start()
@@ -53,10 +54,14 @@ namespace Card
                 foreach (int r in new int[] { 8, 20, 21, 26, 48 })
                 {
                     GameObject gor = PhotonNetwork.Instantiate(gorPrefab);
-                    //gor.GetComponent<MonsterMoveController>().SetParentRPC()
-                    //GameGraph.Instance.PlaceAt(gor, r);
+                    gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                    GameGraph.Instance.PlaceAt(gor, r);
                 }
-            }  
+            }
+
+            GameObject skral = PhotonNetwork.Instantiate(skralPrefab);
+            skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+            GameGraph.Instance.PlaceAt(skral, 19);
         }
     }
 }
