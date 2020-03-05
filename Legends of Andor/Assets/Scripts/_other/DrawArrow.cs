@@ -12,8 +12,8 @@ public static class DrawArrow
         //Vector3 left = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 - arrowHeadAngle, 0) * new Vector3(0, 0, 1);
         Vector3 right = Quaternion.Euler(0, 0, arrowHeadAngle) * -direction.normalized;
         Vector3 left = Quaternion.Euler(0, 0, -arrowHeadAngle) * -direction.normalized;
-        Gizmos.DrawRay(pos + direction, right * arrowHeadLength);
-        Gizmos.DrawRay(pos + direction, left * arrowHeadLength);
+        Gizmos.DrawRay(pos + direction/2, right * arrowHeadLength);
+        Gizmos.DrawRay(pos + direction/2, left * arrowHeadLength);
     }
 
     /*public static void ForGizmo(Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
