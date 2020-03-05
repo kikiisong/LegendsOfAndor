@@ -8,12 +8,12 @@ namespace Card
     {
         public abstract Name CardName { get; }
 
-        public abstract void Event();
-
-        protected virtual void Start()
+        public LegendCard()
         {
             LegendCardManager.Cards[CardName] = this;
         }
+
+        public abstract void Event();
 
         public enum Name
         {
