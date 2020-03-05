@@ -4,8 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Hero : MonoBehaviourPun, IPunObservable
 {
+    // define a class holding global variables of a hero
+    static class HeroAttribute
+    {
+        public static double gold = 5;
+        public static int wp;
+        public static int sp;
+        public static bool moveCompleted;
+    }
+
     public float radius = 3;
 
     // Start is called before the first frame update
