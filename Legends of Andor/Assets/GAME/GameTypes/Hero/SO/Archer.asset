@@ -16,7 +16,8 @@ MonoBehaviour:
   data:
     WP: 7
     SP: 1
-    numHours: 1
+    numHours: 0
+    numFarmers: 0
   constants:
     StartingRegion: 53
     rank: 25

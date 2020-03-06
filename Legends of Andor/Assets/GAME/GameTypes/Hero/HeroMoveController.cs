@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using Routines;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ public class HeroMoveController : MonoBehaviourPun
 {
     public float radius = 3;
     public Hero hero;
+
+    bool isMoving = false;
 
     void Start()
     {
@@ -19,8 +22,9 @@ public class HeroMoveController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine && TurnManager.IsMyTurn() && Input.GetMouseButtonDown(0))
+        if (!isMoving && photonView.IsMine && TurnManager.IsMyTurn() && Input.GetMouseButtonDown(0))
         {
+            isMoving = true;
             MoveToClick();
         }
     }
@@ -33,9 +37,9 @@ public class HeroMoveController : MonoBehaviourPun
         bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
         if (contained && (clicked.position - position).magnitude <= radius)
         {
-            //StopAllCoroutines();
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f, () => {
                 TurnManager.TriggerEvent_Move(clicked);
+                isMoving = false;
             }));           
         }
     }

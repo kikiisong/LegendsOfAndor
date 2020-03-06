@@ -10,11 +10,15 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
 {
     Vector3 startingPosition;
 
+    CoroutineQueue coroutineQueue;
+
     // Start is called before the first frame update
     void Start()
     {
         TurnManager.Register(this);
         startingPosition = transform.position;
+        coroutineQueue = new CoroutineQueue(this);
+        coroutineQueue.StartLoop();
     }
 
     // Update is called once per frame
@@ -29,7 +33,7 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
             Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
             List<Transform> transforms = GameMapManager.Instance.timeMarkerTransforms;
             Vector3 position = transforms[hero.data.numHours].position;
-            StartCoroutine(CommonRoutines.MoveTo(transform, position, 2));
+            coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, position, 2));
             hero.data.numHours++;
             if(photonView.IsMine && hero.data.numHours == transforms.Count)
             {
@@ -45,8 +49,7 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
         {
             Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
             hero.data.numHours = 0;
-            Coroutine c = StartCoroutine(CommonRoutines.MoveTo(transform, startingPosition, 2));
-           
+            coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, startingPosition, 2));           
         }
     }
 
