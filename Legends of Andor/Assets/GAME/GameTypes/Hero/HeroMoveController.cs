@@ -24,7 +24,6 @@ public class HeroMoveController : MonoBehaviourPun
     {
         if (!isMoving && photonView.IsMine && TurnManager.IsMyTurn() && Input.GetMouseButtonDown(0))
         {
-            isMoving = true;
             MoveToClick();
         }
     }
@@ -37,6 +36,7 @@ public class HeroMoveController : MonoBehaviourPun
         bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
         if (current.label != clicked.label && contained && (clicked.position - position).magnitude <= radius)
         {
+            isMoving = true;
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f, () => {
                 TurnManager.TriggerEvent_Move(clicked);
                 isMoving = false;
