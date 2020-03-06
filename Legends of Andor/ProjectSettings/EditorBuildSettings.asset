@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/FightScene.unity
     guid: 1ad42e3d16ea04fa88d2b6120b9bdbfb
   - enabled: 1
-    path: Assets/Scenes/TradeSceneWithEgal.unity
+    path: Assets/Scenes/MerchantScene.unity
     guid: cd251152da87f4807b7e88b4679fc7cb
   - enabled: 1
     path: Assets/Scenes/TradeScene.unity

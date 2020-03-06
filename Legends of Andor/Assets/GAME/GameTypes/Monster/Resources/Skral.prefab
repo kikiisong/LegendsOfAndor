@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7212973014301622449, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6972f61f38acdc947afecfa84a07089b,
+        type: 3}
+    - target: {fileID: 7212973014301622450, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212973014301622450, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.21
+      objectReference: {fileID: 0}
     - target: {fileID: 7212973014301622451, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 7212973014301622452, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: m_Name
-      value: Scral
+      value: Skral
       objectReference: {fileID: 0}
     - target: {fileID: 7684283073591853297, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
