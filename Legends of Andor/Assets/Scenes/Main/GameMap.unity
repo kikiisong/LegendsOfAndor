@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1218,7 +1218,8 @@ MonoBehaviour:
   monsterParent: {fileID: 655722766}
   gorPrefab: {fileID: 7212973014301622452, guid: c8dcc999392c15749a74b16e631faa99,
     type: 3}
-  skralPrefab: {fileID: 0}
+  skralPrefab: {fileID: 1594729090229919968, guid: b126bebfc04f4f34aab824f3144485e2,
+    type: 3}
 --- !u!114 &328684575
 MonoBehaviour:
   m_ObjectHideFlags: 0
