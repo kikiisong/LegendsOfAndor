@@ -91,7 +91,12 @@ public class TurnManager : MonoBehaviourPun
             onEndDay.OnEndDay(player);
         }
 
+        //Reset index, better solution?
+        int i = players.IndexOf(player);
+        Player next = players[Helper.Mod(i + 1, players.Count)];
+
         players.Remove(player);
+        turnIndex = players.IndexOf(next);
         waiting.Add(player);
     }
 

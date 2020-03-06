@@ -65,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 7212973014301622452, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: m_Name
-      value: Gor Variant
+      value: Scral
       objectReference: {fileID: 0}
     - target: {fileID: 7684283073591853297, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
