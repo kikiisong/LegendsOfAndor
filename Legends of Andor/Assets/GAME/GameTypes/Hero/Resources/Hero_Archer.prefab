@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 7351001240829586639}
   - component: {fileID: 7351001240829586638}
   - component: {fileID: 7351001240829586625}
+  - component: {fileID: 7159097710935661524}
   m_Layer: 0
   m_Name: Hero_Archer
   m_TagString: Untagged
@@ -215,3 +216,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   hero: {fileID: 11400000, guid: 8bca29af4cc90c54a8500305434ddecc, type: 2}
+--- !u!114 &7159097710935661524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7351001240829586624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240ea74bbcb9f4b66be31965dbbea58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hero: {fileID: 0}
