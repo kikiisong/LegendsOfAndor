@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -826,7 +826,7 @@ PrefabInstance:
     - target: {fileID: 6726940894370840368, guid: 0186dda5d58a04976ac5f528aff425fc,
         type: 3}
       propertyPath: m_Name
-      value: Merchant
+      value: Merchant1
       objectReference: {fileID: 0}
     - target: {fileID: 6726940894370840369, guid: 0186dda5d58a04976ac5f528aff425fc,
         type: 3}

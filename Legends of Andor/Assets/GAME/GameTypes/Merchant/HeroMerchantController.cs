@@ -3,6 +3,7 @@ using Routines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HeroMerchantController : MonoBehaviourPun
 {
@@ -23,6 +24,7 @@ public class HeroMerchantController : MonoBehaviourPun
     {
 
         Region current = GameGraph.Instance.FindNearest(transform.position);
+
         if (photonView.IsMine && Input.GetMouseButtonDown(0))
         {
             if (current.label == merchants[0].regionLabel)
@@ -35,6 +37,7 @@ public class HeroMerchantController : MonoBehaviourPun
                 if (col.OverlapPoint(click))
                 {
                     //open menu
+                    SceneManager.LoadScene(5);
                     merchants[0].openMenu(hero);
 
                 }
