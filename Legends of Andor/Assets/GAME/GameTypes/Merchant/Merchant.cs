@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Merchant : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class Merchant : MonoBehaviour
 
     public void openMenu(Hero h)
     {
+
+
+        SceneManager.LoadScene(5);
         //buySP(h, amt)
         //buyWineSkin()
         //buyShield()

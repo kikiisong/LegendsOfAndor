@@ -23,7 +23,7 @@ public class HeroMerchantController : MonoBehaviourPun
     {
 
         Region current = GameGraph.Instance.FindNearest(transform.position);
-        if (Input.GetMouseButtonDown(0))
+        if (photonView.IsMine && Input.GetMouseButtonDown(0))
         {
             if (current.label == merchants[0].regionLabel)
             {
