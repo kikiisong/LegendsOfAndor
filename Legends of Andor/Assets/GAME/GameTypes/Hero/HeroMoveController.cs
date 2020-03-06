@@ -35,7 +35,7 @@ public class HeroMoveController : MonoBehaviourPun
         Vector3 position = GameGraph.Instance.CastRay(Input.mousePosition);
         Region clicked = GameGraph.Instance.FindNearest(position);
         bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
-        if (contained && (clicked.position - position).magnitude <= radius)
+        if (current.label != clicked.label && contained && (clicked.position - position).magnitude <= radius)
         {
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f, () => {
                 TurnManager.TriggerEvent_Move(clicked);
