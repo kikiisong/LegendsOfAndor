@@ -24,37 +24,39 @@ public class HeroMerchantController : MonoBehaviourPun
     {
 
         Region current = GameGraph.Instance.FindNearest(transform.position);
+       
 
         if (photonView.IsMine && Input.GetMouseButtonDown(0))
         {
-            if (current.label == merchants[0].regionLabel)
-            {
 
+           foreach (Merchant m in merchants){
 
-                Vector3 click = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-                BoxCollider2D col = merchants[0].gameObject.GetComponent<BoxCollider2D>();
-
-                if (col.OverlapPoint(click))
+                if (current.label == m.regionLabel)
                 {
-                    //open menu
-                    SceneManager.LoadScene(5);
-                    merchants[0].openMenu(hero);
+
+                    
+                    Vector3 click = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                    click = transform.TransformPoint(click);
+                
+                    BoxCollider2D col = m.gameObject.GetComponent<BoxCollider2D>();
+
+                    if (col.OverlapPoint(click))
+                    {
+                        //open menu
+
+                   
+                        SceneManager.LoadScene(5);
+                        //m.openMenu(hero);       
+
+                    }
 
                 }
 
             }
 
-            else if (current.label == merchants[1].regionLabel)
-            {
-                Vector3 click = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-                BoxCollider2D col = merchants[1].gameObject.GetComponent<BoxCollider2D>();
 
-                if (col.OverlapPoint(click))
-                {
-                    //open menu
-                    merchants[1].openMenu(hero);
-                }
-            }
+           
         }
     }
 }
+
