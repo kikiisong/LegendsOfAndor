@@ -89,12 +89,13 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         if (isReady && !IsTaken(heroSelection.CurrentHero))
         {
             hash.Add(K.Player.hero, heroSelection.CurrentHero);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         }
         else
         {
-            hash.Add(K.Player.hero, null);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable());
+            isReady = !isReady;
         }
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
     private bool IsTaken(Hero hero)
@@ -103,10 +104,10 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         {
             if (player != PhotonNetwork.LocalPlayer)
             {
-                Hero heroUIData = (Hero)player.CustomProperties[K.Player.hero];
-                if (heroUIData != null)
+                Hero h = (Hero)player.CustomProperties[K.Player.hero];
+                if (h != null)
                 {
-                    return heroUIData.type == hero.type;
+                    return h.type == hero.type;
                 }
             }
 

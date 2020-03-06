@@ -63,10 +63,16 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
                 Previous();
             }else if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                CurrentHero.ui.ToggleGender();
-                Display();
+                photonView.RPC("ToggleGender", RpcTarget.AllBuffered);
             }
         }
+    }
+
+    [PunRPC]
+    public void ToggleGender()
+    {
+        CurrentHero.ui.ToggleGender();
+        Display();
     }
 
 
