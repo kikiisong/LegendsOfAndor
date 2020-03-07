@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3843,7 +3843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 0, z: -10}
+  m_FollowOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -6801,7 +6801,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1676669743}
-  - component: {fileID: 1676669744}
   m_Layer: 0
   m_Name: Camera+Zoom+Other
   m_TagString: Untagged
@@ -6830,22 +6829,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1676669744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676669742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fe2c72585f34e2459a66a6199bd103f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensitivity: 1
-  dragSpeed: 2
-  maxSize: 34
-  minSize: 3
 --- !u!4 &1679268517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
@@ -9161,7 +9144,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 2101670402}
+  m_Follow: {fileID: 963194228}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 34
@@ -9184,7 +9167,7 @@ MonoBehaviour:
   sensitivity: 1
   dragSpeed: 20
   vcam: {fileID: 2057644126}
-  follow: {fileID: 2101670401}
+  follow: {fileID: 963194225}
   maxSize: 34
   minSize: 3
 --- !u!114 &2057644128
