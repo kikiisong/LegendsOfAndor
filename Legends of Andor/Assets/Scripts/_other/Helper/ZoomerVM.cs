@@ -10,6 +10,7 @@ public class ZoomerVM : MonoBehaviour
 
     public CinemachineVirtualCamera vcam;
     public GameObject follow;
+    public PolygonCollider2D polygonCollider;
 
     private Vector3 dragOrigin;
 
@@ -40,11 +41,15 @@ public class ZoomerVM : MonoBehaviour
         }
         else if (Input.GetMouseButton(1))
         {
-            Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-            float factor = dragSpeed;// * Camera.main.fieldOfView;
-            Vector3 move = new Vector3(-pos.x * factor, -pos.y * factor, 0);
-            follow.transform.position += move;
-            dragOrigin = Input.mousePosition;
+            if (polygonCollider.bounds.Contains(follow.transform.position))
+            {
+                Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+                float factor = dragSpeed;
+                Vector3 move = new Vector3(-pos.x * factor, -pos.y * factor, 0);
+                follow.transform.position += move;
+                dragOrigin = Input.mousePosition;
+            }
+            
         }
     }
 }
