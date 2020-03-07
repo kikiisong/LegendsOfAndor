@@ -41,15 +41,15 @@ public class ZoomerVM : MonoBehaviour
         }
         else if (Input.GetMouseButton(1))
         {
-            if (polygonCollider.bounds.Contains(follow.transform.position))
+            Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+            float factor = dragSpeed;
+            Vector3 move = new Vector3(-pos.x * factor, -pos.y * factor, 0);
+            Vector3 next = follow.transform.position + move;
+            dragOrigin = Input.mousePosition;
+            if (polygonCollider.bounds.Contains(next))
             {
-                Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-                float factor = dragSpeed;
-                Vector3 move = new Vector3(-pos.x * factor, -pos.y * factor, 0);
-                follow.transform.position += move;
-                dragOrigin = Input.mousePosition;
+                follow.transform.position = next;
             }
-            
         }
     }
 }

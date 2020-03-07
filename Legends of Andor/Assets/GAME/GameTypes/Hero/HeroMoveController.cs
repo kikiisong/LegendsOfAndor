@@ -8,7 +8,6 @@ using UnityEngine;
 public class HeroMoveController : MonoBehaviourPun
 {
     public float radius = 3;
-    public Hero hero;
 
     bool isMoving = false;
 
@@ -16,7 +15,7 @@ public class HeroMoveController : MonoBehaviourPun
     {
         Hero hero = (Hero) photonView.Owner.CustomProperties[K.Player.hero];
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
-        GameGraph.Instance.PlaceAt(gameObject, this.hero.constants.StartingRegion);
+        GameGraph.Instance.PlaceAt(gameObject, hero.constants.StartingRegion);
     }
 
     // Update is called once per frame

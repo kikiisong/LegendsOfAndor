@@ -81,20 +81,26 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
 
     public void Click_Ready()
     {
-        isReady = !isReady;
-        Hashtable hash = new Hashtable
+        if (!isReady && !IsTaken(heroSelection.CurrentHero))
         {
-            { K.Player.isReady, isReady }
-        };
-        if (isReady && !IsTaken(heroSelection.CurrentHero))
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+            {
+                { K.Player.isReady, true },
+                { K.Player.hero, heroSelection.CurrentHero }
+            });
+            print('1');
+        }
+        else if (isReady)
         {
-            hash.Add(K.Player.hero, heroSelection.CurrentHero);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+            {
+                { K.Player.isReady, false }
+            });
+            print(2);
         }
         else
         {
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable());
-            isReady = !isReady;
         }
     }
 

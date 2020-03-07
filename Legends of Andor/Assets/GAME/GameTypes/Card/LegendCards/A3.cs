@@ -30,7 +30,7 @@ namespace Card
             HeroMoveController[] controllers = GameObject.FindObjectsOfType<HeroMoveController>();
             foreach (HeroMoveController controller in controllers)
             {
-                Hero hero = controller.hero;
+                Hero hero = (Hero)controller.photonView.Owner.CustomProperties[K.Player.hero];
                 switch (hero.type)
                 {
                     case Hero.Type.DWARF:

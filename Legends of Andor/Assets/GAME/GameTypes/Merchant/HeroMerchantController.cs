@@ -3,13 +3,12 @@ using Routines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class HeroMerchantController : MonoBehaviourPun
 {
     Merchant[] merchants;
-    public Hero hero;
 
+    Hero hero;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,39 +23,35 @@ public class HeroMerchantController : MonoBehaviourPun
     {
 
         Region current = GameGraph.Instance.FindNearest(transform.position);
-       
-
-        if (photonView.IsMine && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
+            if (current.label == merchants[0].regionLabel)
+            {
 
-           foreach (Merchant m in merchants){
 
-                if (current.label == m.regionLabel)
+                Vector3 click = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                BoxCollider2D col = merchants[0].gameObject.GetComponent<BoxCollider2D>();
+
+                if (col.OverlapPoint(click))
                 {
-
-                    
-                    Vector3 click = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-                    click = transform.TransformPoint(click);
-                
-                    BoxCollider2D col = m.gameObject.GetComponent<BoxCollider2D>();
-
-                    if (col.OverlapPoint(click))
-                    {
-                        //open menu
-
-                   
-                        SceneManager.LoadScene(5);
-                        //m.openMenu(hero);       
-
-                    }
+                    //open menu
+                    merchants[0].openMenu(hero);
 
                 }
 
             }
 
+            else if (current.label == merchants[1].regionLabel)
+            {
+                Vector3 click = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                BoxCollider2D col = merchants[1].gameObject.GetComponent<BoxCollider2D>();
 
-           
+                if (col.OverlapPoint(click))
+                {
+                    //open menu
+                    merchants[1].openMenu(hero);
+                }
+            }
         }
     }
 }
-

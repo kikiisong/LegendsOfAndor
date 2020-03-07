@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6726940894370840369}
   - component: {fileID: 6726940894370840375}
   - component: {fileID: 5697915409178644798}
+  - component: {fileID: 1208394493}
   m_Layer: 0
   m_Name: Merchant
   m_TagString: Untagged
@@ -25,9 +26,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6726940894370840368}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -29.84, y: -4.92, z: 0}
-  m_LocalScale: {x: 0.304458, y: 0.25665626, z: 1}
+  m_LocalScale: {x: 0.30445802, y: 0.25665626, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -67,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1478140479
+  m_SortingLayer: 3
   m_SortingOrder: 30
   m_Sprite: {fileID: 21300000, guid: 1924e07c7a6df4937818f6cb1dd2c9c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -107,3 +108,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.2998075, y: 11.604106}
   m_EdgeRadius: 0
+--- !u!114 &1208394493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726940894370840368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b455d5bfd759540aa999be3f9c114348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDawrf: 0
+  regionLabel: 18
