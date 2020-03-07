@@ -14,7 +14,7 @@ public class HeroMerchantController : MonoBehaviourPun
     {
         merchants = GameObject.FindObjectsOfType<Merchant>();
 
-        hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+        hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
 
     }
 

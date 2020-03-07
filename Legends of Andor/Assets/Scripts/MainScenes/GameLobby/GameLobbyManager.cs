@@ -88,7 +88,7 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
                 { K.Player.isReady, true },
                 { K.Player.hero, heroSelection.CurrentHero }
             });
-            print('1');
+            isReady = true;
         }
         else if (isReady)
         {
@@ -96,7 +96,7 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
             {
                 { K.Player.isReady, false }
             });
-            print(2);
+            isReady = false;
         }
         else
         {

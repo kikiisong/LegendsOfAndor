@@ -13,7 +13,7 @@ public class HeroMoveController : MonoBehaviourPun
 
     void Start()
     {
-        Hero hero = (Hero) photonView.Owner.CustomProperties[K.Player.hero];
+        Hero hero = (Hero) PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
         GameGraph.Instance.PlaceAt(gameObject, hero.constants.StartingRegion);
     }

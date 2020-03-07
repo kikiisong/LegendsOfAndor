@@ -28,7 +28,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public static List<Hero> Heroes; //Careful with null
+    public static List<Hero> Heroes = new List<Hero>();
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +40,13 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
             }
         }
         Display();
-        Heroes = heroes; //Not single instance since multiple CharacterSelection 
+        if (photonView.IsMine)
+        {
+            foreach(Hero hero in heroes)
+            {
+                Heroes.Add(hero);
+            }
+        }
     }
 
 

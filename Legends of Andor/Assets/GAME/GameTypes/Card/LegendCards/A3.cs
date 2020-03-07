@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,21 +31,27 @@ namespace Card
             HeroMoveController[] controllers = GameObject.FindObjectsOfType<HeroMoveController>();
             foreach (HeroMoveController controller in controllers)
             {
-                Hero hero = (Hero)controller.photonView.Owner.CustomProperties[K.Player.hero];
-                switch (hero.type)
+                foreach(Player player in PhotonNetwork.CurrentRoom.Players.Values)
                 {
-                    case Hero.Type.DWARF:
-                        GameGraph.Instance.PlaceAt(controller.gameObject, 7);
-                        break;
-                    case Hero.Type.WARRIOR:
-                        GameGraph.Instance.PlaceAt(controller.gameObject, 14);
-                        break;
-                    case Hero.Type.ARCHER:
-                        GameGraph.Instance.PlaceAt(controller.gameObject, 25);
-                        break;
-                    case Hero.Type.WIZARD:
-                        GameGraph.Instance.PlaceAt(controller.gameObject, 34);
-                        break;
+                    if(player == controller.photonView.Owner)
+                    {
+                        Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+                        switch (hero.type)
+                        {
+                            case Hero.Type.DWARF:
+                                GameGraph.Instance.PlaceAt(controller.gameObject, 7);
+                                break;
+                            case Hero.Type.WARRIOR:
+                                GameGraph.Instance.PlaceAt(controller.gameObject, 14);
+                                break;
+                            case Hero.Type.ARCHER:
+                                GameGraph.Instance.PlaceAt(controller.gameObject, 25);
+                                break;
+                            case Hero.Type.WIZARD:
+                                GameGraph.Instance.PlaceAt(controller.gameObject, 34);
+                                break;
+                        }
+                    }
                 }
             }
 
