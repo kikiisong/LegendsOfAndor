@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Routines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
         try
         {
             Region next = GameGraph.Instance.NextEnemyRegion(GameGraph.Instance.FindNearest(transform.position));
-            transform.position = next.position;
+            StartCoroutine(CommonRoutines.MoveTo(transform, next.position, 1));
         }
         catch (GameGraph.NoNextRegionException)
         {

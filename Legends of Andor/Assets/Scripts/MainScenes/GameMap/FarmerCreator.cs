@@ -27,9 +27,13 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
     public void OnMove(Player player, Region currentRegion)
     {
+        //if(photonView.IsMine)
             Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
 
             List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(currentRegion);
+            //
+            //if (farmerOnRegion.Count == 0) return;
+            //
             Farmer temp = farmerOnRegion[0];
 
             // unfinished, need to see if there is a monster on the map
