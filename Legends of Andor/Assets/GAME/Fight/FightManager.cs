@@ -134,21 +134,7 @@ public class FightManager : MonoBehaviour
         GUILayout.EndHorizontal();
     }
 
-    
-    string printArrayList(ArrayList a) {
-        string r = "";
-        int max = 0;
-        for (int i = 0; i < numberRolling; i++) {
-            r += a[i] + " ";
-            if ((int)a[i] > max)
-            {
-                max = (int)a[i];
-
-            }
-        }
-        r += ". The max is " + max + " .";
-        return r;
-    }
+   
 
 
     //TODO: consider that change result how to update GUI

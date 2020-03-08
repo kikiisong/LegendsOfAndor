@@ -3,7 +3,7 @@ using Photon.Pun;
 using Routines;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class Dice : MonoBehaviourPun
 {
     /**
@@ -11,29 +11,28 @@ public class Dice : MonoBehaviourPun
      * therefore, if isBlack is true, we know that the hero want to use the black Dice
      */
 
-    bool isBlack;
-    ArrayList result;
+    public List<int> a = new List<int>();
 
-    public Dice(bool isBlack){
-        this.isBlack = isBlack;
-        
-        result = new ArrayList();
-    }
 
-    public void rollDice(int numDice){
+    public void rollDice(int numRed, int numBlack){
         
-        for (int i = numDice; i > 0; i--)
+        for (int i = numRed; i > 0; i--)
         {
-            result.Add(randGenerator());
+            a.Add(randGenerator(false));
         }
-        Debug.Log(result);
+
+        for (int i = numBlack; i > 0; i--)
+        {
+            a.Add(randGenerator(true));
+        }
+        Debug.Log(a);
     }
 
-    public ArrayList getResult() {
-        return result;
+    public List<int> getResult() {
+        return a;
     }
 
-    private int randGenerator()
+    private int randGenerator(bool isBlack)
     {
 
         if(!isBlack){
@@ -47,6 +46,31 @@ public class Dice : MonoBehaviourPun
             return temp[Random.Range(1, 6)];
 
         }
+    }
+
+    public int getSum() {
+        int m = getMax();
+        a.Remove(m);
+        int n = getMax();
+        a.Add(m);
+        return m + n;
+    }
+
+    public int getMax() {
+        return a.Max();
+    }
+
+    public string printArrayList()
+    {
+        string r = "";
+        //int max = 0;
+        for (int i = 0; i < a.Count; i++)
+        {
+            r += a[i] + " ";
+        }
+        a.Clear();
+        return r;
+        
     }
 
 

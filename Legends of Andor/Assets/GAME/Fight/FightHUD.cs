@@ -42,4 +42,8 @@ public class FightHUD: MonoBehaviour
     {
         gameState.text = "What a pity, you lose!";
     }
+
+    public void rollResult(string a) {
+        gameState.text = a;
+    }
 }
