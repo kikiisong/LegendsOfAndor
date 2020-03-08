@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 1478140479
   m_SortingLayer: 3
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f4c95fa557723494bb91d4fff03ddf18, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8121b28b45924bf49bb11c106238eee9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -135,7 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 3
-  hero: {fileID: 11400000, guid: 53dbce89018ccb440998c0fc2ef61730, type: 2}
 --- !u!114 &9169406847210669056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240ea74bbcb9f4b66be31965dbbea58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hero: {fileID: 11400000, guid: 53dbce89018ccb440998c0fc2ef61730, type: 2}
 --- !u!1 &3109069622565103886
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,34 +1,76 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum FightState
+{
+    START,
+    HERO,
+    //hero roll dice
+    MONSTER,
+    //monster roll dice
+    CHECK,
+    //check who wins
+    COOP,
+    //wait for other seletction
+    WIN,
+    //label if hero wins
+    LOSE,
+   
+}
+
 public class Fight : MonoBehaviour
 {
-    FightState fightstate;
-    HeroMoveController[] heroes;
-    Monster monster;
+    public FightState fightstate;
+
+    public GameObject[] heroes= new GameObject[4];
+   
+    public Transform[] transforms = new Transform[4];
+
+    public Transform monsterStation;
+    public GameObject monster;
+
+
+    Hero[] aHeroes;
+    Monster aMonster;
+
+
     // Use this for initialization
     void Start()
     {
-
+        fightstate = FightState.START;
+        setUpBattle();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        
+    }
 
+    private void setUpBattle()
+    {   aHeroes = new Hero[heroes.Length];
+        for (int i=0;i<heroes.Length;i++) {
+            GameObject playerGo = Instantiate(heroes[i], transforms[i]);
+            aHeroes[i] = playerGo.GetComponent<Hero>();
+         }
+        GameObject monsterGo = Instantiate(monster,monsterStation);
+        aMonster = monsterGo.GetComponent<Monster>();
+
+        fightstate = FightState.HERO;
     }
 
 
-    /*public FightState getFightState()
+    public FightState getFightState()
     {
-        return this.state;
+        return this.fightstate;
 
-    }*/
+    }
 
     public int MonsterAttack() {
         int attack = 0;//roll Dice
         //special event check
-        int finalAttack= monster.calculateAttack(attack);
+        int finalAttack = 0;
         return finalAttack;
         //return the finalAttack
     }

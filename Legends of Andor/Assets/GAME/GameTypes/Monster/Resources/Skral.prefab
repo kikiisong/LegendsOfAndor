@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5837384214984143667, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: maxWP
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7212973014301622449, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: m_Sprite
@@ -26,12 +31,12 @@ PrefabInstance:
     - target: {fileID: 7212973014301622451, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.73
+      value: -13.76
       objectReference: {fileID: 0}
     - target: {fileID: 7212973014301622451, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.8
+      value: 8.33
       objectReference: {fileID: 0}
     - target: {fileID: 7212973014301622451, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}

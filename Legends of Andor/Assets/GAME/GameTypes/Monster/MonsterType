@@ -3,7 +3,6 @@ public enum MonsterType
 {
     Gor,
     Skral,
-    Troll,
-    None
+    Troll
 
 }
