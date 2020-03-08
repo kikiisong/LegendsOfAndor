@@ -71,5 +71,11 @@ public class Merchant : MonoBehaviour
 
     }
 
+    private void OnMouseDown()
+    {
+        print("Working");
+        SceneManager.LoadSceneAsync("MerchantScene", LoadSceneMode.Additive);
+    }
+
 
 }
