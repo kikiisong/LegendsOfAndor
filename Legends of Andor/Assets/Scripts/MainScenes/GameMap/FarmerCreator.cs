@@ -28,7 +28,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
     public void OnMove(Player player, Region currentRegion)
     {
         //if(photonView.IsMine)
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
 
             List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(currentRegion);
             //
