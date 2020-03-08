@@ -27,10 +27,11 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
     public void OnMove(Player player, Region currentRegion)
     {
-        //if(photonView.IsMine)
+        if (photonView.IsMine)
+        {
             Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
 
-        List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(currentRegion);
+            List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(currentRegion);
             //
             //if (farmerOnRegion.Count == 0) return;
             //
@@ -42,15 +43,19 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
             {
                 hero.data.numFarmers = 0;
             }
+
+            // should have a while loop here, inorder to make the user to pick up and drop many times as they want
+
             if (temp.numberOfFarmer > 0)
             {
                 pickUpButton.SetActive(true);
                 pickUpButton.GetComponent<Button>().onClick.RemoveAllListeners();
                 pickUpButton.GetComponent<Button>().onClick.AddListener(() =>
                 {
-
+                    print("pickupHave been pressed at region " + currentRegion.label);
                     hero.data.numFarmers++;
                     temp.decreaseNumOfFarmer();
+                    print("After pick up there are " + temp.numberOfFarmer + " farmers on cureent region.");
                     if (temp.numberOfFarmer == 0)
                     {
                         pickUpButton.SetActive(false);
@@ -69,6 +74,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                 dropDownButton.GetComponent<Button>().onClick.RemoveAllListeners();
                 dropDownButton.GetComponent<Button>().onClick.AddListener(() =>
                 {
+                    print("Drop down Have been pressed , at region " + currentRegion.label);
                     hero.data.numFarmers--;
 
                     if (currentRegion.label == 0)
@@ -78,6 +84,8 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                     else
                     {
                         temp.increaseNumOfFarmer();
+
+                        print("After drop down there are " + temp.numberOfFarmer + " farmers on cureent region.");
                     }
 
                     if (hero.data.numFarmers == 0)
@@ -85,7 +93,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                         dropDownButton.SetActive(false);
                     }
 
-                    if(currentRegion.label != 0)
+                    if (currentRegion.label != 0)
                     {
                         pickUpButton.SetActive(true);
                     }
@@ -94,6 +102,6 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
         }
 
 
-
+    }
 
 }

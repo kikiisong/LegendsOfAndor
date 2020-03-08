@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class ExtraShield : MonoBehaviour
@@ -39,13 +40,15 @@ public class ExtraShield : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void increaseShieldsNum()
     {
-        numberOfShileds++;
+        this.numberOfShileds++;
     }
 
+    [PunRPC]
     public void decreaseShieldsNum()
     {
-        numberOfShileds--;
+        this.numberOfShileds--;
     }
 }
