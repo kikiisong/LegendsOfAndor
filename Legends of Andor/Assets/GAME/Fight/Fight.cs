@@ -39,7 +39,7 @@ public class Fight : MonoBehaviour
     void Start()
     {
         fightstate = FightState.START;
-        setUpBattle();
+        StartCoroutine(setUpBattle());
     }
 
     // Update is called once per frame
@@ -49,7 +49,7 @@ public class Fight : MonoBehaviour
         
     }
 
-    private void setUpBattle()
+    IEnumerator setUpBattle()
     {   aHeroes = new HeroFightController[heroes.Length];
         for (int i=0;i<heroes.Length;i++) {
             GameObject playerGo = Instantiate(heroes[i], transforms[i]);
@@ -58,10 +58,13 @@ public class Fight : MonoBehaviour
         GameObject monsterGo = Instantiate(monster,monsterStation);
         aMonster = monsterGo.GetComponent<Monster>();
 
-        fightstate = FightState.HERO;
+       
         mHUD.setMonsterHUD(aMonster);
         //TODO:only initiate yourself
         hHUD.setMonsterHUD(aHeroes[1]);
+
+        fightstate = FightState.HERO;
+        yield return new WaitForSeconds(2f);
     }
 
 

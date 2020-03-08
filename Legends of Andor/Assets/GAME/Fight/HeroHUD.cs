@@ -13,7 +13,7 @@ public class HeroHUD : MonoBehaviour
     public Button magic;
     public Button helm;
     public Button sheild;
-    public Button wineskin;
+    public Button brew;
     public Button herbWill;
     public Button herbStrength;
 
@@ -21,6 +21,7 @@ public class HeroHUD : MonoBehaviour
     public Button falcon;
     public Button leave;
     public Button continueF;
+    public Button RollDice;
 
 
     public void changeColor(Button b) {
@@ -35,6 +36,12 @@ public class HeroHUD : MonoBehaviour
         currentWillpower.text = "" + h.currentWP;
         strengthPower.text = "" + h.currentSP;
 
+        if (!h.magic) changeColor(magic);
+        if (!h.sheild) changeColor(sheild);
+        if (!h.helm) changeColor(helm);
+        if (!h.herbS) changeColor(herbStrength);
+        if (!h.herbW) changeColor(herbWill);
+        if (!h.brew) changeColor(brew);
 
     }
 
