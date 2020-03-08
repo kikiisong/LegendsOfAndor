@@ -12,6 +12,21 @@ PrefabInstance:
       propertyPath: maxWP
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5837384214984143667, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: rewardc
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5837384214984143667, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: rewardw
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5837384214984143667, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: maxSP
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7212973014301622449, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: m_Sprite

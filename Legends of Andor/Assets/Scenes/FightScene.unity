@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 168672548}
   - component: {fileID: 168672547}
   m_Layer: 0
-  m_Name: BottonManager
+  m_Name: HeroHUDManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -404,12 +404,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168672546}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 457.02502, y: 258.9748, z: -9157.123}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -140.62517, y: 73.17173, z: -4956.4946}
+  m_LocalScale: {x: 0.54127204, y: 0.54127204, z: 0.54127204}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 886563382}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &201556167
 GameObject:
@@ -963,6 +963,7 @@ RectTransform:
   - {fileID: 1362850381}
   - {fileID: 1968061794}
   - {fileID: 1282950745}
+  - {fileID: 2048174839}
   m_Father: {fileID: 98960577}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2424,6 +2425,7 @@ RectTransform:
   - {fileID: 600386066}
   - {fileID: 792691129}
   - {fileID: 1538221938}
+  - {fileID: 168672548}
   m_Father: {fileID: 98960577}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4012,7 +4014,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 85, y: 71}
+  m_AnchoredPosition: {x: 87.4, y: 98.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1714460230
@@ -4494,6 +4496,7 @@ MonoBehaviour:
   - {fileID: 754449957}
   monsterStation: {fileID: 1647799617}
   monster: {fileID: 4858113096683849937, guid: dcaea54e850af45fc98ff764bce8ea75, type: 3}
+  mHUD: {fileID: 2048174840}
 --- !u!4 &1987893036
 Transform:
   m_ObjectHideFlags: 0
@@ -4502,11 +4505,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987893034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -136, y: 496.45316, z: -19200.227}
+  m_LocalPosition: {x: 248, y: 496.45316, z: -19200.227}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022304608
 GameObject:
@@ -4637,6 +4640,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022304608}
   m_CullTransparentMesh: 0
+--- !u!1 &2048174838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2048174839}
+  - component: {fileID: 2048174840}
+  m_Layer: 5
+  m_Name: MonsterPanelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2048174839
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048174838}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 317030649}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2048174840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048174838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5ebff96fa0e448fba933160646af23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reward: {fileID: 1362850382}
+  currentWillpower: {fileID: 1968061795}
+  strengthPower: {fileID: 1282950746}
 --- !u!1 &2058555499
 GameObject:
   m_ObjectHideFlags: 0

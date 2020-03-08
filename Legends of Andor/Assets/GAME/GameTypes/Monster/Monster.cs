@@ -12,10 +12,9 @@ public class Monster : MonoBehaviour
 {
     [Header("Basic INFO")]
     [SerializeField]
-    int maxWP, maxSP, redDice, blackDice;
+    int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
 
     int regionLabel;
-    int currentWP;
 
     public int calculateAttack(int dice)
     {
@@ -37,11 +36,6 @@ public class Monster : MonoBehaviour
         return this.redDice;
     }
 
-    public int getBlackDice()
-    {
-        return this.blackDice;
-    }
-
     public int getRegionLabel()
     {
         return this.regionLabel;
@@ -52,16 +46,24 @@ public class Monster : MonoBehaviour
         this.regionLabel = newPosition;
     }
 
+    public int getCurrentWP() {
+        return this.currentWP;
+    }
+
+    public int getRewardc() {
+        return this.rewardc;
+    }
+
+    public int getRewardw() {
+        return this.rewardw;
+    }
+
+
     public void Attacked(int damage)
     {
-        if (currentWP == 0)
-        {
-            //not has been initialized case
-            currentWP = maxSP - damage;
-        }
-        else {
-            currentWP -= damage;
-        }
+        
+           currentWP -= damage;
+        
 
     }
 

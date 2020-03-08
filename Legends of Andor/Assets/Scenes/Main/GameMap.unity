@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -843,6 +843,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 399278439}
     m_Modifications:
+    - target: {fileID: 5697915409178644798, guid: 0186dda5d58a04976ac5f528aff425fc,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6726940894370840368, guid: 0186dda5d58a04976ac5f528aff425fc,
         type: 3}
       propertyPath: m_Name
@@ -7938,6 +7943,12 @@ MonoBehaviour:
     isDirected: 0
   - from: {fileID: 1011209398}
     to: {fileID: 994562509}
+    isDirected: 0
+  - from: {fileID: 2036377317}
+    to: {fileID: 225209966}
+    isDirected: 0
+  - from: {fileID: 1134027281}
+    to: {fileID: 464853636}
     isDirected: 0
 --- !u!114 &1816058290
 MonoBehaviour:

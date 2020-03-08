@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 574989623454935875}
   - component: {fileID: 574989623454935885}
   - component: {fileID: 574989623454935884}
+  - component: {fileID: 2534014586325892422}
   m_Layer: 5
   m_Name: Archer
   m_TagString: Untagged
@@ -73,3 +74,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2534014586325892422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574989623454935874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6daaada8c9180640b6dba86165b6d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroType: 0
+  maxWP: 20
+  currentWP: 7
+  currentSP: 1
+  redDice: 4
+  blackDice: 0
+  magic: 0
+  herbS: 1
+  brew: 0
+  helm: 0
+  sheild: 0
+  herbW: 1
+  bow: 1

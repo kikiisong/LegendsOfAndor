@@ -28,9 +28,10 @@ public class Fight : MonoBehaviour
 
     public Transform monsterStation;
     public GameObject monster;
+    public MonsterHUD mHUD;
 
 
-    Hero[] aHeroes;
+    HeroFightController[] aHeroes;
     Monster aMonster;
 
 
@@ -49,15 +50,16 @@ public class Fight : MonoBehaviour
     }
 
     private void setUpBattle()
-    {   aHeroes = new Hero[heroes.Length];
+    {   aHeroes = new HeroFightController[heroes.Length];
         for (int i=0;i<heroes.Length;i++) {
             GameObject playerGo = Instantiate(heroes[i], transforms[i]);
-            aHeroes[i] = playerGo.GetComponent<Hero>();
+            aHeroes[i] = playerGo.GetComponent<HeroFightController>();
          }
         GameObject monsterGo = Instantiate(monster,monsterStation);
         aMonster = monsterGo.GetComponent<Monster>();
 
         fightstate = FightState.HERO;
+        mHUD.setMonsterHUD(aMonster);
     }
 
 

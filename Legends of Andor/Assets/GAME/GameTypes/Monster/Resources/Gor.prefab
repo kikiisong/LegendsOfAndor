@@ -196,7 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02068ae9b39884555a7f73c0849d1a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWP: 2
-  maxSP: 6
+  maxWP: 4
+  maxSP: 2
   redDice: 2
-  blackDice: 0
+  currentWP: 4
+  rewardc: 2
+  rewardw: 2
