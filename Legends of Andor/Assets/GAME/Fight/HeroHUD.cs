@@ -30,7 +30,7 @@ public class HeroHUD : MonoBehaviour
         Debug.Log(b);
     }
 
-    public void setMonsterHUD(HeroFightController h)
+    public void setHeroHUD(HeroFightController h)
     {
         dice.text = h.redDice + " /" + h.blackDice;
         currentWillpower.text = "" + h.currentWP;
@@ -44,9 +44,5 @@ public class HeroHUD : MonoBehaviour
         if (!h.brew) changeColor(brew);
 
     }
-
-
-
-
 
 }

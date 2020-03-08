@@ -1,22 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum FightState
-{
-    START,
-    HERO,
-    //hero roll dice
-    MONSTER,
-    //monster roll dice
-    CHECK,
-    //check who wins
-    COOP,
-    //wait for other seletction
-    WIN,
-    //label if hero wins
-    LOSE,
-   
-}
+    public enum FightState
+    {
+        START,
+        HERO,
+        //hero roll dice
+        MONSTER,
+        //monster roll dice
+        CHECK,
+        //check who wins
+        COOP,
+        //wait for other seletction
+        WIN,
+        //label if hero wins
+        LOSE,
+
+    }
+
 
 public class Fight : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class Fight : MonoBehaviour
     public GameObject monster;
     public MonsterHUD mHUD;
     public HeroHUD hHUD;
+    public FightHUD fHUD;
 
     HeroFightController[] aHeroes;
     Monster aMonster;
@@ -61,12 +63,20 @@ public class Fight : MonoBehaviour
        
         mHUD.setMonsterHUD(aMonster);
         //TODO:only initiate yourself
-        hHUD.setMonsterHUD(aHeroes[1]);
-
+        hHUD.setHeroHUD(aHeroes[1]);
+        fHUD.setFightHUD_START();
         fightstate = FightState.HERO;
         yield return new WaitForSeconds(2f);
+
+        playerturn();
     }
 
+    void playerturn() {
+        //roll the dice
+        //confirm the action 
+        fHUD.setFightHUD_PLAYER();
+
+    }
 
     public FightState getFightState()
     {
