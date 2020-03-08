@@ -133,9 +133,7 @@ public class GameGraph : Graph<Region, Border>
             if (r.label == region.label)
             {
                 list.Add(m);
-            }
-           
-           
+            }           
         }
         return list;
     }
