@@ -29,7 +29,7 @@ public class Fight : MonoBehaviour
     public Transform monsterStation;
     public GameObject monster;
     public MonsterHUD mHUD;
-
+    public HeroHUD hHUD;
 
     HeroFightController[] aHeroes;
     Monster aMonster;
@@ -60,6 +60,8 @@ public class Fight : MonoBehaviour
 
         fightstate = FightState.HERO;
         mHUD.setMonsterHUD(aMonster);
+        //TODO:only initiate yourself
+        hHUD.setMonsterHUD(aHeroes[1]);
     }
 
 

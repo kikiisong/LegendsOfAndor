@@ -88,9 +88,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroType: 3
   maxWP: 20
-  currentWP: 0
-  currentSP: 0
-  redDice: 0
+  currentWP: 7
+  currentSP: 1
+  redDice: 2
   blackDice: 0
   magic: 0
   herbS: 0

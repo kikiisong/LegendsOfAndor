@@ -86,15 +86,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6daaada8c9180640b6dba86165b6d1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroType: 0
+  heroType: 2
   maxWP: 20
-  currentWP: 0
-  currentSP: 0
-  redDice: 0
+  currentWP: 7
+  currentSP: 1
+  redDice: 1
   blackDice: 0
-  magic: 0
+  magic: 1
   herbS: 0
-  brew: 0
+  brew: 1
   helm: 0
   sheild: 0
   herbW: 0

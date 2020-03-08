@@ -10,29 +10,7 @@ public class HeroFightController : MonoBehaviour
     public int  maxWP,currentWP,currentSP,redDice,blackDice;
     public bool magic, herbS,brew,helm,sheild,herbW,bow;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    
-    //public bool useMagic()
-    //{
-    //    //check for prefession
-    //    if (Magic)
-    //    {
-    //        Magic = false;
-    //        return true;
-    //    }
-    //    return false;
-    //}
 
     public void initializeHerbS()
     {

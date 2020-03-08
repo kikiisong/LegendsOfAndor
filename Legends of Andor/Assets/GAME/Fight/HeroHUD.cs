@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HeroHUD : MonoBehaviour
 {
 
-    public Text reward;
+    public Text dice;
     public Text currentWillpower;
     public Text strengthPower;
 
@@ -29,8 +29,17 @@ public class HeroHUD : MonoBehaviour
         Debug.Log(b);
     }
 
+    public void setMonsterHUD(HeroFightController h)
+    {
+        dice.text = h.redDice + " /" + h.blackDice;
+        currentWillpower.text = "" + h.currentWP;
+        strengthPower.text = "" + h.currentSP;
 
-    
 
-    
+    }
+
+
+
+
+
 }
