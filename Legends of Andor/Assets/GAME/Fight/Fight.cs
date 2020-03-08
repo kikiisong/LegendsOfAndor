@@ -62,7 +62,8 @@ public class Fight : MonoBehaviour
 
        
         mHUD.setMonsterHUD(aMonster);
-        //TODO:only initiate yourself
+
+        //TODO:only initiate yourself for your pannel
         hHUD.setHeroHUD(aHeroes[1]);
         fHUD.setFightHUD_START();
         fightstate = FightState.HERO;
@@ -90,5 +91,22 @@ public class Fight : MonoBehaviour
         int finalAttack = 0;
         return finalAttack;
         //return the finalAttack
+    }
+
+    public void OnRollDice() {
+        if (fightstate != FightState.HERO) {
+            return;
+
+        }
+        StartCoroutine(HeroAttack());
+
+    }
+
+    IEnumerator HeroAttack() {
+
+        
+
+        aMonster.Attacked(1);
+        yield return new WaitForSeconds(2f);
     }
 }
