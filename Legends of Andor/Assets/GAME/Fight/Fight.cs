@@ -3,7 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-
+using Photon.Pun;
+using Photon.Realtime;
 
 public enum FightState
     {
@@ -24,7 +25,7 @@ public enum FightState
     }
 
 
-public class Fight : MonoBehaviour
+public class Fight : MonoBehaviourPun
 {
     public FightState fightstate;
 
@@ -48,6 +49,9 @@ public class Fight : MonoBehaviour
     Monster aMonster;
     HeroFightController thisHero;
 
+
+
+
     // Use this for initialization
     void Start()
     {
@@ -66,11 +70,13 @@ public class Fight : MonoBehaviour
         //print("disable2");
         myArcherYesButton.gameObject.SetActive(false);
 
+        //TODO: get heroes from Photon?
         aHeroes = new HeroFightController[heroes.Length];
         for (int i=0;i<heroes.Length;i++) {
             GameObject playerGo = Instantiate(heroes[i], transforms[i]);
             aHeroes[i] = playerGo.GetComponent<HeroFightController>();
          }
+        //TODO: get this monster from Photon
         GameObject monsterGo = Instantiate(monster,monsterStation);
         aMonster = monsterGo.GetComponent<Monster>();
 
@@ -78,12 +84,13 @@ public class Fight : MonoBehaviour
         mHUD.setMonsterHUD(aMonster);
 
         //TODO:only initiate yourself for your pannel
+        //TODO:Does PHOTON know this?
         thisHero = aHeroes[0];
         hHUD.setHeroHUD(thisHero);
         fHUD.setFightHUD_START();
         fightstate = FightState.HERO;
         yield return new WaitForSeconds(2f);
-
+        print("Here");
         playerturn();
     }
 
@@ -92,7 +99,7 @@ public class Fight : MonoBehaviour
     //--------MESSAGE--------//
     void playerturn() {
         //roll the dice
-        //confirm the action 
+        //confirm the action
         fHUD.setFightHUD_PLAYER();
         times = thisHero.redDice;
         btimes = thisHero.blackDice;
@@ -147,8 +154,13 @@ public class Fight : MonoBehaviour
     IEnumerator HeroAttack()
     {
         //return the finalAttack
-        //TODO:check CO-OP
         //LOOP to the the total?
+            //how to distinguish between the current and others. Dont have to?
+        //for (int i = 0; i < aHeroes.Length; i++) {
+        //    //diceNum+= (HeroFightController) curernt.getRemoteDiceNum();
+        //    //this dice will be final cooperative damage
+        //}
+
         diceNum += thisHero.currentSP;
         fightstate = FightState.MONSTER;
         fHUD.setFightHUD_MONSTER();
@@ -201,8 +213,11 @@ public class Fight : MonoBehaviour
     IEnumerator Check() {
         if (damage > diceNum)
         {
-            thisHero.Attacked(damage-diceNum);
-            hHUD.basicInfoUpdate(thisHero);
+            for (int i = 0; i < aHeroes.Length; i++)
+            {
+                aHeroes[i].Attacked(damage - diceNum);
+                hHUD.basicInfoUpdate(aHeroes[i]);
+            }
         }
         else if (damage < diceNum)
         {
@@ -215,7 +230,7 @@ public class Fight : MonoBehaviour
             fightstate = FightState.WIN;
             fHUD.setFightHUD_WIN();
             yield return new WaitForSeconds(2f);
-            //TODO:destory
+            //TODO: desotry Monster
             Destroy(aMonster);
             //TODO: solveOverlap
             //TODO: how could LoadScneneknows the maximum reward.
@@ -344,6 +359,7 @@ public class Fight : MonoBehaviour
     }
 
 
+    //Handling  the turn manager
     /*Four button*/
     public void OnLeaveClick() {
         if (fightstate != FightState.DECISION) {
@@ -352,6 +368,7 @@ public class Fight : MonoBehaviour
         //Initialize the mosnter
         aMonster.currentWP = aMonster.maxWP;
         SceneManager.UnloadSceneAsync("FightScene");
+        
     }
 
     public void OnConitnueClick()

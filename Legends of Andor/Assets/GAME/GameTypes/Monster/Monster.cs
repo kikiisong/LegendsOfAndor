@@ -12,7 +12,7 @@ public class Monster : MonoBehaviour
 {
     public int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
 
-    int regionLabel;
+    public int regionLabel;
 
     public void desotry() {
         Destroy(gameObject);

@@ -42,4 +42,21 @@ public class HeroMoveController : MonoBehaviourPun
             }));           
         }
     }
+
+
+    public void OnClickMonster(Monster aMonster)
+    {
+        Region current = GameGraph.Instance.FindNearest(transform.position);
+        if (!isMoving && photonView.IsMine && TurnManager.IsMyTurn()&& current.label == aMonster.regionLabel) { 
+            // add them to a list passed into fight seen
+                //-how to use Photon to passed
+            //invite the area around it also to fight
+                // how to get surronding area
+                // how to ask surronding hero
+                    //-give them a button and preesed means join in
+                    //-join them into the list as well
+               
+
+        }
+    }
 }

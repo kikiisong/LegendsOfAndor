@@ -19,6 +19,8 @@ public class MonsterHUD : MonoBehaviour
     }
 
     public void basicInfo(Monster m) {
-
+        reward.text = m.rewardc + " /" + m.rewardw;
+        currentWillpower.text = "" + m.currentWP;
+        strengthPower.text = "" + m.maxSP;
     }
 }
