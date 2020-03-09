@@ -18,11 +18,6 @@ public class WellController : MonoBehaviourPun, TurnManager.IOnMove
          drinkButton.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void OnMove(Player player, Region currentRegion)
     {
