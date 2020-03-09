@@ -25,14 +25,13 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-           // if (PhotonNetwork.LocalPlayer.)
-            //{
+            photonView.RequestOwnership();
             drop();
-          //  }
             
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
+            photonView.RequestOwnership();
             pickup();
         }
     }
@@ -50,7 +49,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
 
         if (g.goldValue == 0)
         {
-            photonView.RequestOwnership();
+
             PhotonNetwork.Destroy(g.gameObject);
         }
         photonView.RPC("increm", RpcTarget.All, PhotonNetwork.LocalPlayer);
