@@ -24,7 +24,11 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            drop();
+           // if (PhotonNetwork.LocalPlayer.)
+            //{
+                drop();
+          //  }
+            
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
@@ -42,42 +46,27 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
 
         g.decrement();
         g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
-        Debug.Log("before the photon view");
-        
-        Debug.Log("after the photon view");
+
         if (g.goldValue == 0)
         {
-            //   list.Remove(g);
             Destroy(g.gameObject);
-            // Destroy(g.GetComponentInChildren<TMPro.TextMeshProUGUI>());    
-            Debug.Log("list size after removing the obejct  " + list.Count);
-
-            // g.GetComponent<Renderer>().enabled = false;
-            // g.GetComponentInChildren<TMPro.TextMeshProUGUI>().enabled = false;
-
         }
         photonView.RPC("increm", RpcTarget.All, PhotonNetwork.LocalPlayer);
-        ///notify everyone else? 
-
     }
 
     [PunRPC]
     //drop gold function 
     void drop()
     {
-        //check if containts gold already
 
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
-        Debug.Log("list size before the instantiating a gold object " + list.Count);
+        
         if (list.Count == 0)
         {
- 
             GameObject g = PhotonNetwork.Instantiate("Gold", transform.position, Quaternion.identity, 0);
             GameGraph.Instance.PlaceAt(g, current.label);
             g.GetComponent<Gold>().increment();
             g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.GetComponent<Gold>().goldValue;
-            
-
         }
         else
         {
@@ -85,9 +74,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
             g.increment();
             g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
 
-            //decrement for the player
-          //  PhotonView photonView = PhotonView.Get(this);
-             photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer) ;
+            photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer) ;
 
         }
     }
@@ -117,10 +104,10 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
             }
 
         }
-        //current = GameGraph.Instance.FindNearest(transform.position);
+  
         string regionNum = Regex.Replace(current.ToString(), "[^0-9]", "");
         myBtn.GetComponentInChildren<Text>().text = regionNum;
-        Debug.Log("this is,m,mn,mn,m from aosk" + regionNum);
+        Debug.Log("this is region number: " + regionNum);
     }
     public void OnMove(Player player, Region currentRegion)
     {

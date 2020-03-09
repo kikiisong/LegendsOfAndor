@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+<<<<<<< HEAD
+using Photon.Pun;
+=======
+>>>>>>> 5289f4d5818528ba3a92c41b6e4ec7cc09803f68
 using Photon.Realtime;
 
 public class WellController : MonoBehaviour, TurnManager.IOnMove
