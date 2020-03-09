@@ -73,6 +73,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
         {
             Debug.Log("we're inside list count 1");
             Gold g = list[0];
+            g.photonView.RequestOwnership();
             g.increment();
             g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
 
