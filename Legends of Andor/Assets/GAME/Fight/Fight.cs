@@ -36,11 +36,15 @@ public class Fight : MonoBehaviour
     public HeroHUD hHUD;
     public FightHUD fHUD;
     public Dice dice;
+    public Button myArcherYesButton;
+    public Button mySkillYesButton;
 
+
+    int times;
+    int btimes;
     HeroFightController[] aHeroes;
     Monster aMonster;
     HeroFightController thisHero;
-
 
     // Use this for initialization
     void Start()
@@ -57,7 +61,14 @@ public class Fight : MonoBehaviour
     }
 
     IEnumerator setUpBattle()
-    {   aHeroes = new HeroFightController[heroes.Length];
+    {
+
+        //print("disable1");
+        mySkillYesButton.gameObject.SetActive(false);
+        //print("disable2");
+        myArcherYesButton.gameObject.SetActive(false);
+
+        aHeroes = new HeroFightController[heroes.Length];
         for (int i=0;i<heroes.Length;i++) {
             GameObject playerGo = Instantiate(heroes[i], transforms[i]);
             aHeroes[i] = playerGo.GetComponent<HeroFightController>();
@@ -82,7 +93,8 @@ public class Fight : MonoBehaviour
         //roll the dice
         //confirm the action 
         fHUD.setFightHUD_PLAYER();
-
+        times = thisHero.redDice;
+        btimes = thisHero.blackDice;
     }
 
     public FightState getFightState()
@@ -105,57 +117,35 @@ public class Fight : MonoBehaviour
     int diceNum;
     int damage;
 
-    /* Listener Practice
-     */
-
-    public Button myArcherYesButton;
-    public Button mySkillYesButton;
-    public Transform Roll;
-    public Transform Yes;
-
-    public void WaitForUser(string question, UnityAction yesEvent)
-    {
-        //Add the actions passed to a UI object, for example a button.
-        //Show some UI dialog, or anything that prompts user feedback.
-
-        //Remove all listeners first
-        myArcherYesButton.onClick.RemoveAllListeners();
-        myArcherYesButton.onClick.RemoveAllListeners();
-
-        //Add the new events
-        myArcherYesButton.onClick.AddListener(yesEvent);
-
-    }
-
-    public void PromptUser()
-    {
-        WaitForUser("Continue rolling/fighting?", new UnityAction(() => {
-            //Your Yes Action
-        }));
-    }
-
-
-
     IEnumerator HeroRoll() {
-        Instantiate(mySkillYesButton, Yes);
-        //TODO: archer special case
-        //if (thisHero.heroType == Hero.Type.ARCHER) {
-        //    int times = thisHero.redDice;
-        //    int btimes = thisHero.blackDice;
+       
+        if (thisHero.heroType == Hero.Type.ARCHER) {
 
-        //    while (btimes > 0) {
-        //        dice.rollDice(0, 1);
-        //        fHUD.rollResult(dice.printArrayList());
-        //    }
-
-
-        //    int diceNum = dice.getMax();
-        //}
-        //else { 
+            myArcherYesButton.gameObject.SetActive(true);
+            if (btimes > 0)
+            {
+                diceNum = dice.getOne(true);
+                btimes--;
+                fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
+                
+            }
+            else if (times > 0)
+            {
+                diceNum = dice.getOne(false);
+                times--;
+                fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
+                
+            }
+            else {
+                OnYesClick();
+            }
+        }
+        else {
+            mySkillYesButton.gameObject.SetActive(true);
             dice.rollDice(thisHero.redDice, thisHero.blackDice);
             diceNum = dice.getMax();
             fHUD.rollResult(dice.printArrayList()+"Max:"+ diceNum);
-        //}
+        }
         yield return new WaitForSeconds(4f);
         //TODO: initiate a confirm button
     }
@@ -163,11 +153,19 @@ public class Fight : MonoBehaviour
     IEnumerator HeroAttack()
     {
         aMonster.Attacked(diceNum);
+        print("Work1");
         mHUD.setMonsterHUD(aMonster);
         yield return new WaitForSeconds(4f);
     }
 
+
+    public void OnYesClick() {
+        myArcherYesButton.gameObject.SetActive(false);
+        mySkillYesButton.gameObject.SetActive(true);
+    }
+
     public void OnConfirmClick() {
+        mySkillYesButton.gameObject.SetActive(false);
         StartCoroutine(HeroAttack());
     }
 
