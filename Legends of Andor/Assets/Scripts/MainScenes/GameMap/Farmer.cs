@@ -61,7 +61,7 @@ public class Farmer : MonoBehaviour
     public void DecreaseNumOfFarmer()
     {
         PhotonView photonView = PhotonView.Get(this);
-        photonView.RPC("decrease", RpcTarget.All);
+        photonView.RPC("decrease", RpcTarget.AllBuffered);
     }
 
     [PunRPC]

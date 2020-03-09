@@ -13,6 +13,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
     public GameObject pickUpButton;
     public GameObject dropDownButton;
 
+    public Farmer tempFarmer;
 
     void Start()
     {
@@ -36,7 +37,8 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
             //if (farmerOnRegion.Count == 0) return;
             //
             Farmer temp = farmerOnRegion[0];
-           
+            tempFarmer = temp;
+
             // unfinished, need to see if there is a monster on the map
             List<Monster> monsterOnRegion = gameGraph.FindObjectsOnRegion<Monster>(currentRegion);
             if (monsterOnRegion.Count > 0 && monsterOnRegion[0] != null)
@@ -54,9 +56,9 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                 {
                     print("pickupHave been pressed at region " + currentRegion.label);
                     hero.data.numFarmers++;
-                    temp.DecreaseNumOfFarmer();
+                   // temp.DecreaseNumOfFarmer();
 
-                    photonView.RPC("decrease", RpcTarget.All, temp);
+                    photonView.RPC("decrease", RpcTarget.AllBuffered);
 
                     print("After pick up there are " + temp.numberOfFarmer + " farmers on cureent region.");
                     if (temp.numberOfFarmer == 0)
@@ -86,9 +88,9 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                     }
                     else
                     {
-                       temp.IncreaseNumOfFarmer();
+                     //  temp.IncreaseNumOfFarmer();
 
-                       // photonView.RPC("increase", RpcTarget.All, temp);
+                        photonView.RPC("increase", RpcTarget.AllBuffered);
 
                         print("After drop down there are " + temp.numberOfFarmer + " farmers on cureent region.");
                     }
@@ -109,4 +111,21 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
     }
 
+    [PunRPC]
+    public void decrease()
+    {
+        if (tempFarmer.numberOfFarmer > 0)
+        {
+            tempFarmer.numberOfFarmer = tempFarmer.numberOfFarmer - 1;
+        }
+    }
+
+    [PunRPC]
+    public void increase()
+    {
+        if (tempFarmer.numberOfFarmer < 2)
+        {
+            tempFarmer.numberOfFarmer = tempFarmer.numberOfFarmer + 1;
+        }
+    }
 }
