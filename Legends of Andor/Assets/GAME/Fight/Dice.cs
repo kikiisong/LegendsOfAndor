@@ -37,7 +37,7 @@ public class Dice : MonoBehaviourPun
 
         if(!isBlack){
             int min = 1;
-            int max = 6;
+            int max = 7;
             return Random.Range(min, max);
         }
         else{
@@ -58,6 +58,10 @@ public class Dice : MonoBehaviourPun
 
     public int getMax() {
         return a.Max();
+    }
+
+    public int getOne(bool isBlack) {
+        return randGenerator(isBlack);
     }
 
     public string printArrayList()
