@@ -58,6 +58,37 @@ public class Farmer : MonoBehaviour
 
     }
 
+    public void DecreaseNumOfFarmer()
+    {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("decrease", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void decrease()
+    {
+        if (numberOfFarmer > 0)
+        {
+            numberOfFarmer = numberOfFarmer - 1;
+        }
+    }
+
+
+    public void IncreaseNumOfFarmer()
+    {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("increase", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void increase()
+    {
+        if(numberOfFarmer < 2)
+        {
+            numberOfFarmer = numberOfFarmer + 1;
+        }
+    }
+
     public int getNumOfFarmer()
     {
         return numberOfFarmer;

@@ -54,8 +54,8 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                 {
                     print("pickupHave been pressed at region " + currentRegion.label);
                     hero.data.numFarmers++;
-                  //  tempFarmer.DecreaseNumOfFarmer();
-                  //  PhotonView photonView = PhotonView.Get(this);
+                    temp.DecreaseNumOfFarmer();
+
                     photonView.RPC("decrease", RpcTarget.All, temp);
 
                     print("After pick up there are " + temp.numberOfFarmer + " farmers on cureent region.");
@@ -86,9 +86,9 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                     }
                     else
                     {
-                        //   tempFarmer.IncreaseNumOfFarmer();
-                //        PhotonView photonView = PhotonView.Get(this);
-                        photonView.RPC("increase", RpcTarget.All, temp);
+                       temp.IncreaseNumOfFarmer();
+
+                       // photonView.RPC("increase", RpcTarget.All, temp);
 
                         print("After drop down there are " + temp.numberOfFarmer + " farmers on cureent region.");
                     }
@@ -109,21 +109,4 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
     }
 
-    [PunRPC]
-    public void decrease(Farmer tempFarmer)
-    {
-        if (tempFarmer.numberOfFarmer > 0)
-        {
-            tempFarmer.numberOfFarmer = tempFarmer.numberOfFarmer - 1;
-        }
-    }
-
-    [PunRPC]
-    public void increase(Farmer tempFarmer)
-    {
-        if (tempFarmer.numberOfFarmer < 2)
-        {
-            tempFarmer.numberOfFarmer = tempFarmer.numberOfFarmer + 1;
-        }
-    }
 }
