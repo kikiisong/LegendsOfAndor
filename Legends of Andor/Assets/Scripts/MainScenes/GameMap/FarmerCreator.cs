@@ -17,7 +17,6 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
     void Start()
     {
-
         pickUpButton = GameObject.Find("pickUpFarmerButton");
         dropDownButton = GameObject.Find("dropDownFarmerButton");
         pickUpButton.SetActive(false);

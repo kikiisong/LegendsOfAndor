@@ -49,5 +49,8 @@ MonoBehaviour:
   - increaseShield
   - increaseShieldsNum
   - ToggleGender
+  - Minus
+  - Plus
+  - Empty
   DisableAutoOpenWizard: 1
   ShowSettings: 0

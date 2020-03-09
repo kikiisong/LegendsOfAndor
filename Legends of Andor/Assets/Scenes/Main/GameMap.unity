@@ -242,6 +242,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 939365466}
+  - {fileID: 228638063}
   m_Father: {fileID: 399278439}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -911,6 +912,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0186dda5d58a04976ac5f528aff425fc, type: 3}
+--- !u!1 &228638062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 228638063}
+  - component: {fileID: 228638064}
+  m_Layer: 0
+  m_Name: Castle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &228638063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228638062}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -36.78, y: 17.54, z: -891.101}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 16465287}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &228638064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228638062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7e4ae4c88ac43e4a68f32c64c5ee3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraShiled: {fileID: 939365467}
+  gameGraph: {fileID: 1813410491}
 --- !u!4 &230998097 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
@@ -1231,6 +1277,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297249278}
   m_CullTransparentMesh: 0
+--- !u!1 &317576955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 317576957}
+  - component: {fileID: 317576956}
+  m_Layer: 0
+  m_Name: WellController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &317576956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317576955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1acaa019f2266674c9d47612ff165cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drinkButton: {fileID: 2132491628}
+  gameGraph: {fileID: 1813410491}
+--- !u!4 &317576957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317576955}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.922673, y: 4.709089, z: -891.101}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &317590790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4466,6 +4557,11 @@ PrefabInstance:
       propertyPath: region
       value: 35
       objectReference: {fileID: 0}
+    - target: {fileID: 4719029179090015659, guid: 674cccfaeab2e8445a2f799b9ed04e03,
+        type: 3}
+      propertyPath: isFilled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5640554689278113949, guid: 674cccfaeab2e8445a2f799b9ed04e03,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4705,6 +4801,11 @@ PrefabInstance:
         type: 3}
       propertyPath: region
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4719029179090015659, guid: 674cccfaeab2e8445a2f799b9ed04e03,
+        type: 3}
+      propertyPath: isFilled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5640554689278113949, guid: 674cccfaeab2e8445a2f799b9ed04e03,
         type: 3}
@@ -4994,6 +5095,11 @@ PrefabInstance:
         type: 3}
       propertyPath: region
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4719029179090015659, guid: 674cccfaeab2e8445a2f799b9ed04e03,
+        type: 3}
+      propertyPath: isFilled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5640554689278113949, guid: 674cccfaeab2e8445a2f799b9ed04e03,
         type: 3}
@@ -9182,7 +9288,6 @@ MonoBehaviour:
   extraShileds: {fileID: 939365464}
   pickUpButton: {fileID: 0}
   dropDownButton: {fileID: 0}
-  tempFarmer: {fileID: 0}
 --- !u!114 &1942968646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10460,7 +10565,7 @@ GameObject:
   - component: {fileID: 2132491631}
   - component: {fileID: 2132491630}
   m_Layer: 5
-  m_Name: Button
+  m_Name: drinkButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10483,7 +10588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 758, y: -215}
   m_SizeDelta: {x: 280, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2132491630
@@ -10631,6 +10736,11 @@ PrefabInstance:
         type: 3}
       propertyPath: region
       value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4719029179090015659, guid: 674cccfaeab2e8445a2f799b9ed04e03,
+        type: 3}
+      propertyPath: isFilled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5640554689278113949, guid: 674cccfaeab2e8445a2f799b9ed04e03,
         type: 3}
