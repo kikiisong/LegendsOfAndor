@@ -3,6 +3,7 @@ using Routines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
 {
@@ -31,5 +32,12 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
         {
             //damage castle
         }
+    }
+
+    public void OnMouseDown()
+    {
+        //In order to enter the fight scene
+
+        SceneManager.LoadSceneAsync("FightScene", LoadSceneMode.Additive);
     }
 }

@@ -56,6 +56,18 @@ public class Dice : MonoBehaviourPun
         return m + n;
     }
 
+    public bool CheckRepet ()
+    {
+        int m = getMax();
+        a.Remove(m);
+        int n = getMax();
+        a.Add(m);
+        if (m == n) {
+            return true;
+        }
+        return false;
+    }
+
     public int getMax() {
         return a.Max();
     }

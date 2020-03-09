@@ -10,53 +10,55 @@ using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
-    [Header("Basic INFO")]
-    [SerializeField]
-    int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
+    public int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
 
     int regionLabel;
 
-    public int calculateAttack(int dice)
-    {
-        return dice + maxSP;
+    public void desotry() {
+        Destroy(gameObject);
     }
 
-    public int getMaxSP()
-    {
-        return this.maxSP;
-    }
+    //public int calculateAttack(int dice)
+    //{
+    //    return dice + maxSP;
+    //}
 
-    public int getMaxWP()
-    {
-        return this.maxWP;
-    }
+    //public int getMaxSP()
+    //{
+    //    return this.maxSP;
+    //}
 
-    public int getRedDice()
-    {
-        return this.redDice;
-    }
+    //public int getMaxWP()
+    //{
+    //    return this.maxWP;
+    //}
 
-    public int getRegionLabel()
-    {
-        return this.regionLabel;
-    }
+    //public int getRedDice()
+    //{
+    //    return this.redDice;
+    //}
 
-    public void setRegionLabel(int newPosition)
-    {
-        this.regionLabel = newPosition;
-    }
+    //public int getRegionLabel()
+    //{
+    //    return this.regionLabel;
+    //}
 
-    public int getCurrentWP() {
-        return this.currentWP;
-    }
+    //public void setRegionLabel(int newPosition)
+    //{
+    //    this.regionLabel = newPosition;
+    //}
 
-    public int getRewardc() {
-        return this.rewardc;
-    }
+    //public int getCurrentWP() {
+    //    return this.currentWP;
+    //}
 
-    public int getRewardw() {
-        return this.rewardw;
-    }
+    //public int getRewardc() {
+    //    return this.rewardc;
+    //}
+
+    //public int getRewardw() {
+    //    return this.rewardw;
+    //}
 
 
     public void Attacked(int damage)

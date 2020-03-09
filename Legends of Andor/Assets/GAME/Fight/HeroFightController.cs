@@ -12,67 +12,8 @@ public class HeroFightController : MonoBehaviour
 
 
 
-    public void initializeHerbS()
-    {
-        //TODO: if have herbs then true
-        /*
-            if (numHerb > 0)
-        {
-           HerbS = true;
-
-        }
-        else{
-            HerbS = false;
-        }
-         */
-
+    public void Attacked(int damage) {
+        currentWP -= damage;
     }
-    //public int useHerbStrength()
-    //{
-    //    //TODO: return number of increase strength
-    //    //0 means not able to use herb
-    //    if (HerbS)
-    //    {
-    //        HerbS = false;
-    //        int herb = 0;//get number of herbs
-    //        //set number of herbs to 0
-    //        return herb;
-    //    }
-
-    //    return 0;
-
-
-    //}
-
-    //public void initializeBrew()
-    //{
-    //    //TODO: same logic
-    //}
-
-    //public void useBrew()
-    //{
-    //    if (Helm != true)
-    //    {
-    //        Brew = true;
-    //    }
-    //    else
-    //    {
-    //        //Maybe pop some warning message
-    //    }
-
-    //}
-
-    //public void useHelm()
-    //{
-    //    if (Brew != true)
-    //    {
-    //        Helm = true;
-    //    }
-    //    else
-    //    {
-    //        // maybe pop some warning
-    //    }
-
-    //}
 
 }
