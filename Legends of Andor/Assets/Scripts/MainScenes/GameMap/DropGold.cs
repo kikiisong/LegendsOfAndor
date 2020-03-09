@@ -16,7 +16,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         myBtn = GameObject.Find("DropButton").GetComponent<Button>();
         TurnManager.Register(this);
-        photonView.OwnershipTransfer = OwnershipOption.Request;
+        //photonView.OwnershipTransfer = OwnershipOption.Request;
 
     }
 
