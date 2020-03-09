@@ -16,9 +16,9 @@ MonoBehaviour:
     AppIdRealtime: d7b95e6d-c558-425b-bc75-a8f40619d9d8
     AppIdChat: d55a30a3-6d99-4634-977f-2abbeb7fe75d
     AppIdVoice: 
-    AppVersion: 1
+    AppVersion: 
     UseNameServer: 1
-    FixedRegion: cae
+    FixedRegion: 
     Server: 
     Port: 0
     Protocol: 0
@@ -33,29 +33,24 @@ MonoBehaviour:
   - ClickRpc
   - decreaseNumOfFarmer
   - DestroyRpc
-  - DestroySpaceship
   - EndDay
-  - Fire
   - HeroMoved
   - increaseNumOfFarmer
   - NextTurn
-  - RespawnSpaceship
   - SetParentWithName
   - Sunrise
-  - ToggleGender
-  - decreaseShieldsNum
-  - increaseShieldsNum
-  - decrese
-  - increase
-  - decrease
-  - Plus
-  - Minus
-  - Decrease
   - decrem
+  - increm
   - drop
+  - pickup
+  - Decrease
+  - decreaseShieldsNum
   - Increase
   - increaseShield
-  - increm
-  - pickup
+  - increaseShieldsNum
+  - ToggleGender
+  - Minus
+  - Plus
+  - Empty
   DisableAutoOpenWizard: 1
-  ShowSettings: 1
+  ShowSettings: 0
