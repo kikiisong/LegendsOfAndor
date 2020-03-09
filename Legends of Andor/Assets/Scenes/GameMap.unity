@@ -1778,8 +1778,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844c77fca58e2824699fc20dcb0f020f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroPrefab: {fileID: 6952302989137142023, guid: 2b6ab8352301a6a419543ad5595b4801,
-    type: 3}
+  archerPrefabs: []
+  warriorPrefabs: []
+  dwarfPrefabs: []
+  wizardPrefabs: []
+  timeMarkerTransforms: []
 --- !u!114 &1192339124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2332,6 +2335,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 1
   dragSpeed: 2
+  maxSize: 0
+  minSize: 0
 --- !u!114 &1725243287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2488,631 +2493,474 @@ MonoBehaviour:
   - from: {fileID: 617256400}
     to: {fileID: 2018042544}
     isDirected: 1
-    a: 0
   - from: {fileID: 1665637358}
     to: {fileID: 2018042544}
     isDirected: 1
-    a: 0
   - from: {fileID: 472874221}
     to: {fileID: 2018042544}
     isDirected: 1
-    a: 0
   - from: {fileID: 169962039}
     to: {fileID: 2018042544}
     isDirected: 1
-    a: 0
   - from: {fileID: 74740195}
     to: {fileID: 2018042544}
     isDirected: 1
-    a: 0
   - from: {fileID: 225209966}
     to: {fileID: 2018042544}
     isDirected: 1
-    a: 0
   - from: {fileID: 1330551961}
     to: {fileID: 2018042544}
     isDirected: 1
-    a: 0
   - from: {fileID: 1836081603}
     to: {fileID: 1330551961}
     isDirected: 1
-    a: 0
   - from: {fileID: 970142420}
     to: {fileID: 225209966}
     isDirected: 1
-    a: 0
   - from: {fileID: 1464357735}
     to: {fileID: 225209966}
     isDirected: 1
-    a: 0
   - from: {fileID: 2036377317}
     to: {fileID: 225209966}
     isDirected: 1
-    a: 0
   - from: {fileID: 5969562}
     to: {fileID: 617256400}
     isDirected: 1
-    a: 0
   - from: {fileID: 1261897466}
     to: {fileID: 5969562}
     isDirected: 1
-    a: 0
   - from: {fileID: 1906039794}
     to: {fileID: 617256400}
     isDirected: 1
-    a: 0
   - from: {fileID: 2003604036}
     to: {fileID: 1665637358}
     isDirected: 1
-    a: 0
   - from: {fileID: 1139159931}
     to: {fileID: 2003604036}
     isDirected: 1
-    a: 0
   - from: {fileID: 918753716}
     to: {fileID: 1456170811}
     isDirected: 1
-    a: 0
   - from: {fileID: 1456170811}
     to: {fileID: 472874221}
     isDirected: 1
-    a: 0
   - from: {fileID: 1407970326}
     to: {fileID: 169962039}
     isDirected: 1
-    a: 0
   - from: {fileID: 1932100288}
     to: {fileID: 1456170811}
     isDirected: 1
-    a: 0
   - from: {fileID: 2103814513}
     to: {fileID: 1407970326}
     isDirected: 1
-    a: 0
   - from: {fileID: 921012602}
     to: {fileID: 2126495066}
     isDirected: 1
-    a: 0
   - from: {fileID: 344746142}
     to: {fileID: 2126495066}
     isDirected: 1
-    a: 0
   - from: {fileID: 2126495066}
     to: {fileID: 1456170811}
     isDirected: 1
-    a: 0
   - from: {fileID: 293903856}
     to: {fileID: 1261897466}
     isDirected: 1
-    a: 0
   - from: {fileID: 1856123050}
     to: {fileID: 1261897466}
     isDirected: 1
-    a: 0
   - from: {fileID: 1208993659}
     to: {fileID: 1261897466}
     isDirected: 1
-    a: 0
   - from: {fileID: 2060247172}
     to: {fileID: 1139159931}
     isDirected: 1
-    a: 0
   - from: {fileID: 1972668195}
     to: {fileID: 1139159931}
     isDirected: 1
-    a: 0
   - from: {fileID: 861639949}
     to: {fileID: 1972668195}
     isDirected: 1
-    a: 0
   - from: {fileID: 1431024267}
     to: {fileID: 861639949}
     isDirected: 1
-    a: 0
   - from: {fileID: 1487983360}
     to: {fileID: 344746142}
     isDirected: 1
-    a: 0
   - from: {fileID: 1303356084}
     to: {fileID: 2103814513}
     isDirected: 1
-    a: 0
   - from: {fileID: 2135016289}
     to: {fileID: 344746142}
     isDirected: 1
-    a: 0
   - from: {fileID: 1011209398}
     to: {fileID: 344746142}
     isDirected: 1
-    a: 0
   - from: {fileID: 1113045107}
     to: {fileID: 1303356084}
     isDirected: 1
-    a: 0
   - from: {fileID: 1936148289}
     to: {fileID: 1303356084}
     isDirected: 1
-    a: 0
   - from: {fileID: 994562509}
     to: {fileID: 1431024267}
     isDirected: 1
-    a: 0
   - from: {fileID: 1594770502}
     to: {fileID: 755073644}
     isDirected: 1
-    a: 0
   - from: {fileID: 755073644}
     to: {fileID: 160791727}
     isDirected: 1
-    a: 0
   - from: {fileID: 160791727}
     to: {fileID: 54540584}
     isDirected: 1
-    a: 0
   - from: {fileID: 54540584}
     to: {fileID: 1208993659}
     isDirected: 1
-    a: 0
   - from: {fileID: 786103057}
     to: {fileID: 54540584}
     isDirected: 1
-    a: 0
   - from: {fileID: 1192339124}
     to: {fileID: 54540584}
     isDirected: 1
-    a: 0
   - from: {fileID: 2037466074}
     to: {fileID: 1192339124}
     isDirected: 1
-    a: 0
   - from: {fileID: 603693301}
     to: {fileID: 2037466074}
     isDirected: 1
-    a: 0
   - from: {fileID: 1489983111}
     to: {fileID: 786103057}
     isDirected: 1
-    a: 0
   - from: {fileID: 147602397}
     to: {fileID: 786103057}
     isDirected: 1
-    a: 0
   - from: {fileID: 978922105}
     to: {fileID: 1489983111}
     isDirected: 1
-    a: 0
   - from: {fileID: 1493364998}
     to: {fileID: 1489983111}
     isDirected: 1
-    a: 0
   - from: {fileID: 2065023273}
     to: {fileID: 1493364998}
     isDirected: 1
-    a: 0
   - from: {fileID: 1280003922}
     to: {fileID: 2065023273}
     isDirected: 1
-    a: 0
   - from: {fileID: 2067866668}
     to: {fileID: 1280003922}
     isDirected: 1
-    a: 0
   - from: {fileID: 656211464}
     to: {fileID: 2067866668}
     isDirected: 1
-    a: 0
   - from: {fileID: 1888283110}
     to: {fileID: 656211464}
     isDirected: 1
-    a: 0
   - from: {fileID: 1334574190}
     to: {fileID: 1888283110}
     isDirected: 1
-    a: 0
   - from: {fileID: 1782779404}
     to: {fileID: 1334574190}
     isDirected: 1
-    a: 0
   - from: {fileID: 1364563015}
     to: {fileID: 1782779404}
     isDirected: 1
-    a: 0
   - from: {fileID: 464853636}
     to: {fileID: 1261897466}
     isDirected: 1
-    a: 0
   - from: {fileID: 940324409}
     to: {fileID: 464853636}
     isDirected: 1
-    a: 0
   - from: {fileID: 1996000438}
     to: {fileID: 464853636}
     isDirected: 1
-    a: 0
   - from: {fileID: 1134027281}
     to: {fileID: 464853636}
     isDirected: 1
-    a: 0
   - from: {fileID: 2084890022}
     to: {fileID: 1816058290}
     isDirected: 1
-    a: 0
   - from: {fileID: 513129742}
     to: {fileID: 1816058290}
     isDirected: 1
-    a: 0
   - from: {fileID: 943441902}
     to: {fileID: 1134027281}
     isDirected: 1
-    a: 0
   - from: {fileID: 814144976}
     to: {fileID: 1996000438}
     isDirected: 1
-    a: 0
   - from: {fileID: 1816058290}
     to: {fileID: 603693301}
     isDirected: 1
-    a: 0
   - from: {fileID: 251442606}
     to: {fileID: 1816058290}
     isDirected: 1
-    a: 0
   - from: {fileID: 325883329}
     to: {fileID: 251442606}
     isDirected: 1
-    a: 0
   - from: {fileID: 174082215}
     to: {fileID: 513129742}
     isDirected: 1
-    a: 0
   - from: {fileID: 279842379}
     to: {fileID: 999356336}
     isDirected: 1
-    a: 0
   - from: {fileID: 999356336}
     to: {fileID: 174082215}
     isDirected: 1
-    a: 0
   - from: {fileID: 184454086}
     to: {fileID: 338945449}
     isDirected: 1
-    a: 0
   - from: {fileID: 1725243287}
     to: {fileID: 338945449}
     isDirected: 1
-    a: 0
   - from: {fileID: 338945449}
     to: {fileID: 174082215}
     isDirected: 1
-    a: 0
   - from: {fileID: 472874221}
     to: {fileID: 169962039}
     isDirected: 0
-    a: 0
   - from: {fileID: 472874221}
     to: {fileID: 1665637358}
     isDirected: 0
-    a: 0
   - from: {fileID: 1665637358}
     to: {fileID: 1456170811}
     isDirected: 0
-    a: 0
   - from: {fileID: 1665637358}
     to: {fileID: 617256400}
     isDirected: 0
-    a: 0
   - from: {fileID: 1456170811}
     to: {fileID: 2003604036}
     isDirected: 0
-    a: 0
   - from: {fileID: 169962039}
     to: {fileID: 1932100288}
     isDirected: 0
-    a: 0
   - from: {fileID: 169962039}
     to: {fileID: 1456170811}
     isDirected: 0
-    a: 0
   - from: {fileID: 169962039}
     to: {fileID: 74740195}
     isDirected: 0
-    a: 0
   - from: {fileID: 617256400}
     to: {fileID: 1330551961}
     isDirected: 0
-    a: 0
   - from: {fileID: 617256400}
     to: {fileID: 2003604036}
     isDirected: 0
-    a: 0
   - from: {fileID: 225209966}
     to: {fileID: 1330551961}
     isDirected: 0
-    a: 0
   - from: {fileID: 970142420}
     to: {fileID: 1330551961}
     isDirected: 0
-    a: 0
   - from: {fileID: 970142420}
     to: {fileID: 1464357735}
     isDirected: 0
-    a: 0
   - from: {fileID: 1464357735}
     to: {fileID: 2036377317}
     isDirected: 0
-    a: 0
   - from: {fileID: 918753716}
     to: {fileID: 2003604036}
     isDirected: 0
-    a: 0
   - from: {fileID: 918753716}
     to: {fileID: 1139159931}
     isDirected: 0
-    a: 0
   - from: {fileID: 918753716}
     to: {fileID: 2126495066}
     isDirected: 0
-    a: 0
   - from: {fileID: 1836081603}
     to: {fileID: 5969562}
     isDirected: 0
-    a: 0
   - from: {fileID: 5969562}
     to: {fileID: 1906039794}
     isDirected: 0
-    a: 0
   - from: {fileID: 2003604036}
     to: {fileID: 1906039794}
     isDirected: 0
-    a: 0
   - from: {fileID: 1261897466}
     to: {fileID: 1906039794}
     isDirected: 0
-    a: 0
   - from: {fileID: 1906039794}
     to: {fileID: 1139159931}
     isDirected: 0
-    a: 0
   - from: {fileID: 1906039794}
     to: {fileID: 1856123050}
     isDirected: 0
-    a: 0
   - from: {fileID: 1139159931}
     to: {fileID: 2126495066}
     isDirected: 0
-    a: 0
   - from: {fileID: 2126495066}
     to: {fileID: 1932100288}
     isDirected: 0
-    a: 0
   - from: {fileID: 1932100288}
     to: {fileID: 1407970326}
     isDirected: 0
-    a: 0
   - from: {fileID: 1932100288}
     to: {fileID: 921012602}
     isDirected: 0
-    a: 0
   - from: {fileID: 921012602}
     to: {fileID: 1407970326}
     isDirected: 0
-    a: 0
   - from: {fileID: 921012602}
     to: {fileID: 344746142}
     isDirected: 0
-    a: 0
   - from: {fileID: 921012602}
     to: {fileID: 2103814513}
     isDirected: 0
-    a: 0
   - from: {fileID: 344746142}
     to: {fileID: 2060247172}
     isDirected: 0
-    a: 0
   - from: {fileID: 344746142}
     to: {fileID: 2103814513}
     isDirected: 0
-    a: 0
   - from: {fileID: 344746142}
     to: {fileID: 1303356084}
     isDirected: 0
-    a: 0
   - from: {fileID: 1303356084}
     to: {fileID: 1011209398}
     isDirected: 0
-    a: 0
   - from: {fileID: 1113045107}
     to: {fileID: 1936148289}
     isDirected: 0
-    a: 0
   - from: {fileID: 1936148289}
     to: {fileID: 1011209398}
     isDirected: 0
-    a: 0
   - from: {fileID: 1011209398}
     to: {fileID: 2135016289}
     isDirected: 0
-    a: 0
   - from: {fileID: 994562509}
     to: {fileID: 2135016289}
     isDirected: 0
-    a: 0
   - from: {fileID: 1972668195}
     to: {fileID: 2060247172}
     isDirected: 0
-    a: 0
   - from: {fileID: 1972668195}
     to: {fileID: 1856123050}
     isDirected: 0
-    a: 0
   - from: {fileID: 1972668195}
     to: {fileID: 1208993659}
     isDirected: 0
-    a: 0
   - from: {fileID: 1431024267}
     to: {fileID: 2135016289}
     isDirected: 0
-    a: 0
   - from: {fileID: 1431024267}
     to: {fileID: 1487983360}
     isDirected: 0
-    a: 0
   - from: {fileID: 293903856}
     to: {fileID: 1208993659}
     isDirected: 0
-    a: 0
   - from: {fileID: 1487983360}
     to: {fileID: 2135016289}
     isDirected: 0
-    a: 0
   - from: {fileID: 1856123050}
     to: {fileID: 1208993659}
     isDirected: 0
-    a: 0
   - from: {fileID: 1192339124}
     to: {fileID: 786103057}
     isDirected: 0
-    a: 0
   - from: {fileID: 786103057}
     to: {fileID: 2037466074}
     isDirected: 0
-    a: 0
   - from: {fileID: 2037466074}
     to: {fileID: 1489983111}
     isDirected: 0
-    a: 0
   - from: {fileID: 1489983111}
     to: {fileID: 603693301}
     isDirected: 0
-    a: 0
   - from: {fileID: 603693301}
     to: {fileID: 978922105}
     isDirected: 0
-    a: 0
   - from: {fileID: 978922105}
     to: {fileID: 1493364998}
     isDirected: 0
-    a: 0
   - from: {fileID: 978922105}
     to: {fileID: 325883329}
     isDirected: 0
-    a: 0
   - from: {fileID: 1493364998}
     to: {fileID: 1513239995}
     isDirected: 0
-    a: 0
   - from: {fileID: 978922105}
     to: {fileID: 1725243287}
     isDirected: 0
-    a: 0
   - from: {fileID: 1725243287}
     to: {fileID: 184454086}
     isDirected: 0
-    a: 0
   - from: {fileID: 1816058290}
     to: {fileID: 464853636}
     isDirected: 0
-    a: 0
   - from: {fileID: 464853636}
     to: {fileID: 2084890022}
     isDirected: 0
-    a: 0
   - from: {fileID: 940324409}
     to: {fileID: 1996000438}
     isDirected: 0
-    a: 0
   - from: {fileID: 1996000438}
     to: {fileID: 1134027281}
     isDirected: 0
-    a: 0
   - from: {fileID: 1134027281}
     to: {fileID: 814144976}
     isDirected: 0
-    a: 0
   - from: {fileID: 1134027281}
     to: {fileID: 2084890022}
     isDirected: 0
-    a: 0
   - from: {fileID: 814144976}
     to: {fileID: 943441902}
     isDirected: 0
-    a: 0
   - from: {fileID: 2084890022}
     to: {fileID: 513129742}
     isDirected: 0
-    a: 0
   - from: {fileID: 513129742}
     to: {fileID: 943441902}
     isDirected: 0
-    a: 0
   - from: {fileID: 943441902}
     to: {fileID: 174082215}
     isDirected: 0
-    a: 0
   - from: {fileID: 943441902}
     to: {fileID: 2084890022}
     isDirected: 0
-    a: 0
   - from: {fileID: 174082215}
     to: {fileID: 251442606}
     isDirected: 0
-    a: 0
   - from: {fileID: 174082215}
     to: {fileID: 325883329}
     isDirected: 0
-    a: 0
   - from: {fileID: 251442606}
     to: {fileID: 513129742}
     isDirected: 0
-    a: 0
   - from: {fileID: 338945449}
     to: {fileID: 325883329}
     isDirected: 0
-    a: 0
   - from: {fileID: 338945449}
     to: {fileID: 999356336}
     isDirected: 0
-    a: 0
   - from: {fileID: 338945449}
     to: {fileID: 279842379}
     isDirected: 0
-    a: 0
   - from: {fileID: 861639949}
     to: {fileID: 1487983360}
     isDirected: 0
-    a: 0
   - from: {fileID: 1330551961}
     to: {fileID: 5969562}
     isDirected: 0
-    a: 0
   - from: {fileID: 1487983360}
     to: {fileID: 2060247172}
     isDirected: 0
-    a: 0
   - from: {fileID: 861639949}
     to: {fileID: 2060247172}
     isDirected: 0
-    a: 0
   - from: {fileID: 1139159931}
     to: {fileID: 1856123050}
     isDirected: 0
-    a: 0
   - from: {fileID: 1407970326}
     to: {fileID: 74740195}
     isDirected: 0
-    a: 0
   - from: {fileID: 1725243287}
     to: {fileID: 325883329}
     isDirected: 0
-    a: 0
   - from: {fileID: 184454086}
     to: {fileID: 279842379}
     isDirected: 0
-    a: 0
   - from: {fileID: 1011209398}
     to: {fileID: 994562509}
     isDirected: 0
-    a: 0
 --- !u!114 &1816058290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3323,6 +3171,7 @@ GameObject:
   - component: {fileID: 1987729497}
   - component: {fileID: 1987729496}
   - component: {fileID: 1987729495}
+  - component: {fileID: 1987729499}
   m_Layer: 5
   m_Name: DropButton
   m_TagString: Untagged
@@ -3441,6 +3290,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987729493}
   m_CullTransparentMesh: 0
+--- !u!114 &1987729499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987729493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6cf671e94527346aa639edfd0ba953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: {fileID: 0}
 --- !u!114 &1996000438
 MonoBehaviour:
   m_ObjectHideFlags: 0
