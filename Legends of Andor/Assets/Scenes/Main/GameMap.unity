@@ -1433,6 +1433,7 @@ GameObject:
   - component: {fileID: 328684573}
   - component: {fileID: 328684575}
   - component: {fileID: 328684574}
+  - component: {fileID: 328684576}
   m_Layer: 0
   m_Name: Card Manager
   m_TagString: Untagged
@@ -1483,6 +1484,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb03537ffef1e44baa40d486bd014f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &328684576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328684572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6cf671e94527346aa639edfd0ba953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: {fileID: 0}
 --- !u!4 &329153908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
@@ -4709,7 +4723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -11.018517, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1676669743}
@@ -6042,11 +6056,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 399278439}
     m_Modifications:
-    - target: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99,
-        type: 3}
-      propertyPath: gameGraph
-      value: 
-      objectReference: {fileID: 1813410491}
     - target: {fileID: 7212973014301622451, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: m_LocalPosition.x
