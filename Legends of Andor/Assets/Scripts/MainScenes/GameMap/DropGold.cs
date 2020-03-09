@@ -16,6 +16,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         myBtn = GameObject.Find("DropButton").GetComponent<Button>();
         TurnManager.Register(this);
+        photonView.OwnershipTransfer = OwnershipOption.Request;
 
     }
 
@@ -49,6 +50,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
 
         if (g.goldValue == 0)
         {
+            photonView.RequestOwnership();
             PhotonNetwork.Destroy(g.gameObject);
         }
         photonView.RPC("increm", RpcTarget.All, PhotonNetwork.LocalPlayer);
