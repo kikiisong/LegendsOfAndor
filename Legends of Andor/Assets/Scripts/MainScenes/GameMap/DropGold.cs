@@ -6,7 +6,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+//public GameObject myBtn;
 public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
 {
     Button myBtn;
