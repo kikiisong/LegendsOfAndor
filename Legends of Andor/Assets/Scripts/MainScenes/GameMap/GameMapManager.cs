@@ -14,7 +14,8 @@ public class GameMapManager : MonoBehaviour
     public GameObject[] wizardPrefabs;
 
     [Header("TimeMarkers")]
-    public List<Transform> timeMarkerTransforms;
+    public List<Transform> timeMarkerUpdatePositions;
+    public List<Transform> timeMarkerInitialPositions;
 
     private void Awake()
     {

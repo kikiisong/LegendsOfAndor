@@ -8,38 +8,38 @@ using Routines;
 
 public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
-    Vector3 startingPosition;
-
     CoroutineQueue coroutineQueue;
 
     // Start is called before the first frame update
     void Start()
     {
+        int i = TurnManager.Instance.GetWaitIndex(photonView.Owner);
+        if(i != -1)
+        {
+            transform.position = GameMapManager.Instance.timeMarkerInitialPositions[i].position;
+        }
         TurnManager.Register(this);
-        startingPosition = transform.position;
         coroutineQueue = new CoroutineQueue(this);
         coroutineQueue.StartLoop();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     public void OnMove(Player player, Region currentRegion)
     {
         if (photonView.Owner == player) {
-            Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
-            List<Transform> transforms = GameMapManager.Instance.timeMarkerTransforms;
-            Vector3 position = transforms[hero.data.numHours].position;
+            Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+            var transforms = GameMapManager.Instance.timeMarkerUpdatePositions;
+            var position = transforms[hero.data.numHours - 1].position;
             coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, position, 2));
-            hero.data.numHours++;
-            if(photonView.IsMine && hero.data.numHours == transforms.Count)
+        }
+        else
+        {   
+            int i = TurnManager.Instance.GetWaitIndex(photonView.Owner);
+            if (i != -1)
             {
-                //or buy more hours, do it in OnEndTurn instead
-                TurnManager.TriggerEvent_EndTurn(player);
-            }
+                Vector3 waitPosition = GameMapManager.Instance.timeMarkerInitialPositions[i].position;
+                coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, waitPosition, 2));
+            }            
         }
     }
 
@@ -47,9 +47,11 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
     {
         if (photonView.Owner == player)
         {
-            Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+            Hero hero = (Hero)player.CustomProperties[K.Player.hero];
             hero.data.numHours = 0;
-            coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, startingPosition, 2));           
+            int i = TurnManager.Instance.GetWaitIndex(photonView.Owner);
+            Vector3 waitPosition = GameMapManager.Instance.timeMarkerInitialPositions[i].position;
+            coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, waitPosition, 2));           
         }
     }
 
@@ -57,8 +59,8 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
     {
         if (photonView.Owner == player)
         {
-            Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
-            List<Transform> transforms = GameMapManager.Instance.timeMarkerTransforms;
+            Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+            List<Transform> transforms = GameMapManager.Instance.timeMarkerUpdatePositions;
             if (photonView.IsMine && hero.data.numHours == transforms.Count)
             {
                 //or buy more hours, do it in OnEndTurn instead

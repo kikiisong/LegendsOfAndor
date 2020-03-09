@@ -1,11 +1,6 @@
 ﻿using Photon.Pun;
-using Photon.Realtime;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -24,7 +19,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
     public Hero CurrentHero {
         get
         {
-            return heroes[selectedHeroIndex];
+            return Heroes[selectedHeroIndex];
         }
     }
 
@@ -33,20 +28,15 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        foreach(KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
-        {
-            if (pair.Value.Equals(photonView.Owner)){
-                transform.position = SetUp.Instance.spawnPoints[pair.Key - 1].position;
-            }
-        }
-        Display();
+        transform.position = SetUp.Instance.spawnPoints[photonView.Owner.ActorNumber - 1].position;
         if (photonView.IsMine)
         {
             foreach(Hero hero in heroes)
             {
-                Heroes.Add(hero);
+                Heroes.Add(Instantiate(hero));
             }
         }
+        Display();
     }
 
 
@@ -84,24 +74,24 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
 
     public void Display()
     {
-        image.sprite = heroes[selectedHeroIndex].ui.GetSprite();
+        image.sprite = Heroes[selectedHeroIndex].ui.GetSprite();
     }
 
     public void Switch()
     {
-        heroes[selectedHeroIndex].ui.ToggleGender();
+        Heroes[selectedHeroIndex].ui.ToggleGender();
         Display();
     }
 
     private void Next()
     {
-        selectedHeroIndex = (selectedHeroIndex + 1) % heroes.Count;
+        selectedHeroIndex = (selectedHeroIndex + 1) % Heroes.Count;
         Display();
     }
 
     private void Previous()
     {
-        selectedHeroIndex = Helper.Mod(selectedHeroIndex - 1, heroes.Count);
+        selectedHeroIndex = Helper.Mod(selectedHeroIndex - 1, Heroes.Count);
         Display();
     }
 
@@ -115,11 +105,8 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
         else
         {
             int i = (int) stream.ReceiveNext();
-            if(i != selectedHeroIndex) //don't display if already correct
-            {
-                selectedHeroIndex = i;
-                Display();
-            }
+            selectedHeroIndex = i;
+            Display();
         }
     }
 }

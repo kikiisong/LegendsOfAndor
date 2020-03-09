@@ -16,10 +16,12 @@ MonoBehaviour:
   data:
     WP: 7
     SP: 1
+    gold: 0
     numHours: 0
+    numFarmers: 0
   constants:
     StartingRegion: 9
     rank: 34
   ui:
-    female: {fileID: 21300000, guid: 8121b28b45924bf49bb11c106238eee9, type: 3}
-    male: {fileID: 21300000, guid: a6f7c80505036b943ac66494bbc95cdb, type: 3}
+    female: {fileID: 21300000, guid: 89b98c517d7c77947b6145b04869b1e5, type: 3}
+    male: {fileID: 21300000, guid: da9472309761bee48aacfb661174cf7e, type: 3}
