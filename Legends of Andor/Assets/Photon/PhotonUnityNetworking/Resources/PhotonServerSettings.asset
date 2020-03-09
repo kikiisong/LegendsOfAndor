@@ -43,5 +43,11 @@ MonoBehaviour:
   - increm
   - drop
   - pickup
+  - Decrease
+  - decreaseShieldsNum
+  - Increase
+  - increaseShield
+  - increaseShieldsNum
+  - ToggleGender
   DisableAutoOpenWizard: 1
   ShowSettings: 0
