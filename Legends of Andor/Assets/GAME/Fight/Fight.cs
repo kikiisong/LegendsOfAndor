@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 
 public enum FightState
@@ -187,17 +188,18 @@ public class Fight : MonoBehaviour
         yield return new WaitForSeconds(4f);
         fightstate = FightState.CHECK;
         fHUD.setFightHUD_CHECK();
-        Check();
+        StartCoroutine( Check());
         yield return new WaitForSeconds(2f);
     }
 
-    public void Check() {
+    IEnumerator Check() {
         if (damage > diceNum)
         {
             thisHero.Attacked(damage);
             hHUD.basicInfoUpdate(thisHero);
         }
-        else {
+        else if (damage < diceNum)
+        {
             aMonster.Attacked(diceNum);
             mHUD.basicInfo(aMonster);
         }
@@ -205,13 +207,17 @@ public class Fight : MonoBehaviour
         {
             fightstate = FightState.WIN;
             fHUD.setFightHUD_WIN();
-            //TODO: goto distribution;
+            yield return new WaitForSeconds(2f);
+            //TODO: solveOverlap
+            SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);
+            
         }
         else if(thisHero.currentWP<=0)
         {
             fightstate = FightState.LOSE;
             fHUD.setFightHUD_LOSE();
-            //TODO: goto map;
+            yield return new WaitForSeconds(2f);
+            SceneManager.UnloadSceneAsync("FightScene");
         }
 
         print("test end");
