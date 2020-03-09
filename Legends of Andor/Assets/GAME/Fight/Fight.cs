@@ -53,12 +53,8 @@ public class Fight : MonoBehaviour
         StartCoroutine(setUpBattle());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-        
-    }
+
+    //--------START--------//
 
     IEnumerator setUpBattle()
     {
@@ -89,6 +85,9 @@ public class Fight : MonoBehaviour
         playerturn();
     }
 
+
+    //--------HERO--------//
+    //--------MESSAGE--------//
     void playerturn() {
         //roll the dice
         //confirm the action 
@@ -96,14 +95,6 @@ public class Fight : MonoBehaviour
         times = thisHero.redDice;
         btimes = thisHero.blackDice;
     }
-
-    public FightState getFightState()
-    {
-        return this.fightstate;
-
-    }
-
-
     public void OnRollDice() {
         if (fightstate != FightState.HERO) {
             return;
@@ -117,6 +108,7 @@ public class Fight : MonoBehaviour
     int diceNum;
     int damage;
 
+    //--------ROLL--------//
     IEnumerator HeroRoll() {
        
         if (thisHero.heroType == Hero.Type.ARCHER) {
@@ -147,26 +139,89 @@ public class Fight : MonoBehaviour
             fHUD.rollResult(dice.printArrayList()+"Max:"+ diceNum);
         }
         yield return new WaitForSeconds(4f);
-        //TODO: initiate a confirm button
     }
 
+    //--------ATTACK--------//
     IEnumerator HeroAttack()
     {
-        aMonster.Attacked(diceNum);
-        print("Work1");
-        mHUD.setMonsterHUD(aMonster);
-        yield return new WaitForSeconds(4f);
+        //return the finalAttack
+        //TODO:check CO-OP
+        //LOOP to the the total?
+
+        fightstate = FightState.MONSTER;
+        fHUD.setFightHUD_MONSTER();
+
+        yield return new WaitForSeconds(2f);
+
+        MonsterAttack();
+
     }
 
+
+    public void MonsterAttack()
+    {
+        if (fightstate != FightState.MONSTER)
+        {
+            return;
+
+        }
+        StartCoroutine(MonsterRoll());
+
+
+    }
+
+    IEnumerator MonsterRoll()
+    {
+
+        dice.rollDice(aMonster.redDice, 0);
+        if (dice.CheckRepet())
+        {
+            damage = dice.getSum();
+        }
+        else
+        {
+            damage = dice.getMax();
+        }
+
+        fHUD.rollResult(dice.printArrayList() + "Max:" + damage);
+        yield return new WaitForSeconds(4f);
+        fightstate = FightState.CHECK;
+        fHUD.setFightHUD_CHECK();
+        Check();
+        yield return new WaitForSeconds(2f);
+    }
+
+    public void Check() {
+        if (damage > diceNum)
+        {
+            thisHero.Attacked(damage);
+            hHUD.basicInfoUpdate(thisHero);
+        }
+        else {
+            aMonster.Attacked(diceNum);
+            mHUD.basicInfo(aMonster);
+        }
+        if (aMonster.currentWP <= 0)
+        {
+            fightstate = FightState.WIN;
+            fHUD.setFightHUD_WIN();
+            //TODO: goto distribution;
+        }
+        else if(thisHero.currentWP<=0)
+        {
+            fightstate = FightState.LOSE;
+            fHUD.setFightHUD_LOSE();
+            //TODO: goto map;
+        }
+
+        print("test end");
+    }
+
+    /*bunch of listener*/
 
     public void OnYesClick() {
         myArcherYesButton.gameObject.SetActive(false);
         mySkillYesButton.gameObject.SetActive(true);
-    }
-
-    public void OnConfirmClick() {
-        mySkillYesButton.gameObject.SetActive(false);
-        StartCoroutine(HeroAttack());
     }
 
     public void onMagicClick() {
@@ -253,15 +308,16 @@ public class Fight : MonoBehaviour
     }
 
     public void onSkillClick() {
+        mySkillYesButton.gameObject.SetActive(false);
         StartCoroutine(HeroAttack());
     }
 
-    public int MonsterAttack()
+   /*Get method*/
+    public FightState getFightState()
     {
-        int attack = 0;//roll Dice
-        //special event check
-        int finalAttack = 0;
-        return finalAttack;
-        //return the finalAttack
+        return this.fightstate;
+
     }
+
+
 }

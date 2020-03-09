@@ -11,11 +11,14 @@ public class MonsterHUD : MonoBehaviour
     public Text strengthPower;
     
     public void setMonsterHUD(Monster m) {
-        reward.text = m.getRewardc() + " /" + m.getRewardw();
-        currentWillpower.text = ""+m.getCurrentWP();
-        strengthPower.text = "" + m.getMaxSP();
+        reward.text = m.rewardc + " /" + m.rewardw;
+        currentWillpower.text = ""+m.currentWP;
+        strengthPower.text = "" + m.maxSP;
 
 
     }
 
+    public void basicInfo(Monster m) {
+
+    }
 }
