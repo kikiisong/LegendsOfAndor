@@ -195,12 +195,12 @@ public class Fight : MonoBehaviour
     IEnumerator Check() {
         if (damage > diceNum)
         {
-            thisHero.Attacked(damage);
+            thisHero.Attacked(damage-diceNum);
             hHUD.basicInfoUpdate(thisHero);
         }
         else if (damage < diceNum)
         {
-            aMonster.Attacked(diceNum);
+            aMonster.Attacked(diceNum-damage);
             mHUD.basicInfo(aMonster);
         }
         if (aMonster.currentWP <= 0)
@@ -221,6 +221,8 @@ public class Fight : MonoBehaviour
         }
 
         print("test end");
+        //should listen to the event, check if user wanna do something else
+        
     }
 
     /*bunch of listener*/
