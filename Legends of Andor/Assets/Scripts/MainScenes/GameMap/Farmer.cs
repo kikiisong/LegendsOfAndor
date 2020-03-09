@@ -58,8 +58,14 @@ public class Farmer : MonoBehaviour
 
     }
 
+    public void DecreaseNumOfFarmer()
+    {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("decrease", RpcTarget.All);
+    }
+
     [PunRPC]
-    public void decreaseNumOfFarmer()
+    public void decrease()
     {
         if (numberOfFarmer > 0)
         {
@@ -67,8 +73,15 @@ public class Farmer : MonoBehaviour
         }
     }
 
+
+    public void IncreaseNumOfFarmer()
+    {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("increase", RpcTarget.All);
+    }
+
     [PunRPC]
-    public void increaseNumOfFarmer()
+    public void increase()
     {
         if(numberOfFarmer < 2)
         {

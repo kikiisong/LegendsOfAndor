@@ -52,4 +52,11 @@ public class HeroHUD : MonoBehaviour
 
     }
 
+    public void basicInfoUpdate(HeroFightController h) {
+        dice.text = h.redDice + " /" + h.blackDice;
+        currentWillpower.text = "" + h.currentWP;
+        strengthPower.text = "" + h.currentSP;
+
+    }
+
 }

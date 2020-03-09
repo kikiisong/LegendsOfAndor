@@ -43,5 +43,10 @@ MonoBehaviour:
   - SetParentWithName
   - Sunrise
   - ToggleGender
+  - decreaseShieldsNum
+  - increaseShieldsNum
+  - decrese
+  - increase
+  - decrease
   DisableAutoOpenWizard: 1
   ShowSettings: 1
