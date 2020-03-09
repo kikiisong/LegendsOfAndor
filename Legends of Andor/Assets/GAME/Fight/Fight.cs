@@ -19,6 +19,7 @@ public enum FightState
         WIN,
         //label if hero wins
         LOSE,
+        DECISION
 
     }
 
@@ -148,7 +149,7 @@ public class Fight : MonoBehaviour
         //return the finalAttack
         //TODO:check CO-OP
         //LOOP to the the total?
-
+        diceNum += thisHero.currentSP;
         fightstate = FightState.MONSTER;
         fHUD.setFightHUD_MONSTER();
 
@@ -184,14 +185,19 @@ public class Fight : MonoBehaviour
             damage = dice.getMax();
         }
 
+
+
         fHUD.rollResult(dice.printArrayList() + "Max:" + damage);
+        damage += aMonster.maxSP;
         yield return new WaitForSeconds(4f);
         fightstate = FightState.CHECK;
-        fHUD.setFightHUD_CHECK();
+        fHUD.setFightHUD_CHECK(diceNum,damage);
         StartCoroutine( Check());
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
     }
 
+
+    //--------CHECK--------//
     IEnumerator Check() {
         if (damage > diceNum)
         {
@@ -203,22 +209,32 @@ public class Fight : MonoBehaviour
             aMonster.Attacked(diceNum-damage);
             mHUD.basicInfo(aMonster);
         }
+        yield return new WaitForSeconds(2f);
         if (aMonster.currentWP <= 0)
         {
             fightstate = FightState.WIN;
             fHUD.setFightHUD_WIN();
             yield return new WaitForSeconds(2f);
+            //TODO:destory
+            Destroy(aMonster);
             //TODO: solveOverlap
+            //TODO: how could LoadScneneknows the maximum reward.
             SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);
-            
+
         }
-        else if(thisHero.currentWP<=0)
+        else if (thisHero.currentWP <= 0)
         {
             fightstate = FightState.LOSE;
             fHUD.setFightHUD_LOSE();
             yield return new WaitForSeconds(2f);
             SceneManager.UnloadSceneAsync("FightScene");
         }
+        else {
+            fightstate = FightState.DECISION;
+            fHUD.setFightHUD_DICISION();
+            yield return new WaitForSeconds(2f);
+        }
+
 
         print("test end");
         //should listen to the event, check if user wanna do something else
@@ -327,5 +343,60 @@ public class Fight : MonoBehaviour
 
     }
 
+
+    /*Four button*/
+    public void OnLeaveClick() {
+        if (fightstate != FightState.DECISION) {
+            return;
+        }
+        //Initialize the mosnter
+        aMonster.currentWP = aMonster.maxWP;
+        SceneManager.UnloadSceneAsync("FightScene");
+    }
+
+    public void OnConitnueClick()
+    {
+        if (fightstate != FightState.DECISION)
+        {
+            return;
+        }
+        //TODO: replace this by a functions correlated with WP
+        times = thisHero.redDice;
+        btimes = thisHero.blackDice;
+        fightstate = FightState.HERO;
+        //Reinitialize something
+        //Button?
+        diceNum = 0;
+        damage = 0;
+        
+        if (thisHero.heroType == Hero.Type.WIZARD)
+        {
+            hHUD.backColorMagic();
+        }
+        
+        playerturn();
+
+
+    }
+
+    public void OnFalconClick()
+    {
+        if (fightstate != FightState.DECISION)
+        {
+            return;
+        }
+        //Initialize the mosnter
+        print("Falcon");
+    }
+
+    public void OnTradeClick()
+    {
+        if (fightstate != FightState.DECISION)
+        {
+            return;
+        }
+        //Initialize the mosnter
+        print("Trade");
+    }
 
 }

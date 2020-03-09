@@ -45,10 +45,11 @@ public class HeroHUD : MonoBehaviour
 
     }
 
-    public void backColor(Button b) {
-        Image image = b.GetComponent<Image>();
+    public void backColorMagic()
+    {
+        Image image = magic.GetComponent<Image>();
         image.color = new Color((float)1, (float)1, (float)1);
-        Debug.Log(b);
+        Debug.Log(magic);
 
     }
 

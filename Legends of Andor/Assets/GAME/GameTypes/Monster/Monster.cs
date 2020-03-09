@@ -14,6 +14,10 @@ public class Monster : MonoBehaviour
 
     int regionLabel;
 
+    public void desotry() {
+        Destroy(gameObject);
+    }
+
     //public int calculateAttack(int dice)
     //{
     //    return dice + maxSP;

@@ -29,9 +29,9 @@ public class FightHUD: MonoBehaviour
         gameState.text = "Other Hero Turn: the other heroes is helping you.";
     }
 
-    public void setFightHUD_CHECK()
+    public void setFightHUD_CHECK(int a, int b )
     {
-        gameState.text = "Check the Fight Result.";
+        gameState.text = "Check the Fight Result. Player vs. Monster:" + a +"/" +b;
     }
 
     public void setFightHUD_WIN()
@@ -41,6 +41,11 @@ public class FightHUD: MonoBehaviour
     public void setFightHUD_LOSE()
     {
         gameState.text = "What a pity, you lose!";
+    }
+
+    public void setFightHUD_DICISION()
+    {
+        gameState.text = "Choose one of the four buttons.";
     }
 
     public void rollResult(string a) {
