@@ -30,8 +30,6 @@ public class Hero : ScriptableObject
 
         // number of carried farmers
         public int numFarmers; // 0 or 1 or 2
-
-        public int gold;
     }
     
     //Values that won't change
