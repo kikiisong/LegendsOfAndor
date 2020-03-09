@@ -25,13 +25,11 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            photonView.RequestOwnership();
             drop();
             
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
-            photonView.RequestOwnership();
             pickup();
         }
     }
@@ -44,6 +42,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
         Gold g = list[0];
 
+        g.photonView.RequestOwnership();
         g.decrement();
         g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
 

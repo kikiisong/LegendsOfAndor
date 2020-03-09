@@ -7,7 +7,7 @@ using Photon.Realtime;
 using Photon.Pun;
 using System;
 
-public class Gold : MonoBehaviour, IPunObservable   
+public class Gold : MonoBehaviourPun, IPunObservable   
 {
     public TextMeshProUGUI text;
     public int goldValue;
