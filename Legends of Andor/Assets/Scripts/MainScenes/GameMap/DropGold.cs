@@ -26,7 +26,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
         {
            // if (PhotonNetwork.LocalPlayer.)
             //{
-                drop();
+            drop();
           //  }
             
         }
@@ -60,9 +60,10 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
 
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
-        
+        Debug.Log("list count = " + list.Count);
         if (list.Count == 0)
         {
+            Debug.Log("we're inside list count 0");
             GameObject g = PhotonNetwork.Instantiate("Gold", transform.position, Quaternion.identity, 0);
             GameGraph.Instance.PlaceAt(g, current.label);
             g.GetComponent<Gold>().increment();
@@ -70,6 +71,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
         }
         else
         {
+            Debug.Log("we're inside list count 1");
             Gold g = list[0];
             g.increment();
             g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
