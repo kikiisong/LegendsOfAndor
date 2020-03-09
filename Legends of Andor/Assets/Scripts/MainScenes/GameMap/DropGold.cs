@@ -49,7 +49,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
 
         if (g.goldValue == 0)
         {
-            Destroy(g.gameObject);
+            PhotonNetwork.Destroy(g.gameObject);
         }
         photonView.RPC("increm", RpcTarget.All, PhotonNetwork.LocalPlayer);
     }
