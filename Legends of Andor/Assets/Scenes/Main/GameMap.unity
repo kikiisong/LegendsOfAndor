@@ -6247,7 +6247,6 @@ GameObject:
   - component: {fileID: 1426917565}
   - component: {fileID: 1426917564}
   - component: {fileID: 1426917563}
-  - component: {fileID: 1426917567}
   m_Layer: 5
   m_Name: DropButton
   m_TagString: Untagged
@@ -6284,9 +6283,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1426917561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f4703b84339b954899b2d7a30afa037, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e6cf671e94527346aa639edfd0ba953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gold: {fileID: 0}
 --- !u!114 &1426917564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6366,19 +6366,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426917561}
   m_CullTransparentMesh: 0
---- !u!114 &1426917567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426917561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e6cf671e94527346aa639edfd0ba953, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gold: {fileID: 0}
 --- !u!1 &1429634613
 GameObject:
   m_ObjectHideFlags: 0

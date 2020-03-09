@@ -41,5 +41,7 @@ MonoBehaviour:
   - Sunrise
   - decrem
   - increm
+  - drop
+  - pickup
   DisableAutoOpenWizard: 1
   ShowSettings: 0

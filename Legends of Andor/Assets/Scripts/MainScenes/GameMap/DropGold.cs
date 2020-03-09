@@ -22,54 +22,56 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G)) {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
             drop();
-            Debug.Log("clicked g");
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("clicked p");
             pickup();
         }
     }
 
+    [PunRPC]
     //pick up function
     void pickup()
     {
-      
+
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
         Gold g = list[0];
-        
+
         g.decrement();
         g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
         Debug.Log("before the photon view");
-       // photonView.RPC("increm", RpcTarget.All, PhotonNetwork.LocalPlayer);
+        
         Debug.Log("after the photon view");
         if (g.goldValue == 0)
         {
-            foreach(var i in list)
-            {
-                Destroy(i);
-            }
-            
-           // g.GetComponent<Renderer>().enabled = false;
-           // g.GetComponentInChildren<TMPro.TextMeshProUGUI>().enabled = false;
+            //   list.Remove(g);
+            Destroy(g.gameObject);
+            // Destroy(g.GetComponentInChildren<TMPro.TextMeshProUGUI>());    
+            Debug.Log("list size after removing the obejct  " + list.Count);
+
+            // g.GetComponent<Renderer>().enabled = false;
+            // g.GetComponentInChildren<TMPro.TextMeshProUGUI>().enabled = false;
 
         }
+        photonView.RPC("increm", RpcTarget.All, PhotonNetwork.LocalPlayer);
         ///notify everyone else? 
 
     }
 
+    [PunRPC]
     //drop gold function 
     void drop()
     {
         //check if containts gold already
 
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
-
+        Debug.Log("list size before the instantiating a gold object " + list.Count);
         if (list.Count == 0)
         {
-            Debug.Log("inside drop gold == 0");
+ 
             GameObject g = PhotonNetwork.Instantiate("Gold", transform.position, Quaternion.identity, 0);
             GameGraph.Instance.PlaceAt(g, current.label);
             g.GetComponent<Gold>().increment();
@@ -85,7 +87,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
 
             //decrement for the player
           //  PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer) ;
+             photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer) ;
 
         }
     }
@@ -124,6 +126,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         // throw new System.NotImplementedException();
         updateRegionButton();
+
     }
 
 
