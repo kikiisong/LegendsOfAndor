@@ -6,7 +6,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+//public GameObject myBtn;
 public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
 {
     Button myBtn;
@@ -16,6 +16,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         myBtn = GameObject.Find("DropButton").GetComponent<Button>();
         TurnManager.Register(this);
+        //photonView.OwnershipTransfer = OwnershipOption.Request;
 
     }
 
@@ -24,10 +25,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-           // if (PhotonNetwork.LocalPlayer.)
-            //{
-                drop();
-          //  }
+            drop();
             
         }
         else if (Input.GetKeyDown(KeyCode.P))
@@ -44,12 +42,14 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
         Gold g = list[0];
 
+        g.photonView.RequestOwnership();
         g.decrement();
         g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
 
         if (g.goldValue == 0)
         {
-            Destroy(g.gameObject);
+
+            PhotonNetwork.Destroy(g.gameObject);
         }
         photonView.RPC("increm", RpcTarget.All, PhotonNetwork.LocalPlayer);
     }
@@ -60,9 +60,10 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
 
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
-        
+        Debug.Log("list count = " + list.Count);
         if (list.Count == 0)
         {
+            Debug.Log("we're inside list count 0");
             GameObject g = PhotonNetwork.Instantiate("Gold", transform.position, Quaternion.identity, 0);
             GameGraph.Instance.PlaceAt(g, current.label);
             g.GetComponent<Gold>().increment();
@@ -70,7 +71,9 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
         }
         else
         {
+            Debug.Log("we're inside list count 1");
             Gold g = list[0];
+            g.photonView.RequestOwnership();
             g.increment();
             g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
 

@@ -14,7 +14,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
     [Header("UI")]
     public Image image; //change image based on current hero
 
-    private int selectedHeroIndex; 
+    private int selectedHeroIndex = 0; 
     
     public Hero CurrentHero {
         get
