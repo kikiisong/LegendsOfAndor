@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour,TurnManager.IOnSunrise
 {
     public int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
 
@@ -17,6 +17,10 @@ public class Monster : MonoBehaviour
     int damage;
     public void desotry() {
         Destroy(gameObject);
+    }
+    public void Start()
+    {
+        TurnManager.Register(this);
     }
 
     public void Attacked(int damage)
@@ -45,6 +49,11 @@ public class Monster : MonoBehaviour
             damage = dice.getMax();
         }
         return damage;
+    }
+
+    public void OnSunrise()
+    {
+        return;
     }
 
 

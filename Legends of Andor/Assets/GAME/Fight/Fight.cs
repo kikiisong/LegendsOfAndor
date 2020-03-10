@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using ExitGames.Client.Photon;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -28,6 +29,11 @@ public enum FightState
 public class Fight : MonoBehaviourPun
 {
     public FightState fightstate;
+
+    public GameObject archerPrefabs;
+    public GameObject warriorPrefabs;
+    public GameObject dwarfPrefabs;
+    public GameObject wizardPrefabs;
 
     public GameObject[] heroes = new GameObject[4];
 
@@ -60,19 +66,37 @@ public class Fight : MonoBehaviourPun
 
     IEnumerator setUpBattle()
     {
-
-        //print("disable1");
-        mySkillYesButton.gameObject.SetActive(false);
-        //print("disable2");
-        myArcherYesButton.gameObject.SetActive(false);
-
-        //TODO: get heroes from Photon?
         aHeroes = new HeroFightController[heroes.Length];
-        for (int i = 0; i < heroes.Length; i++)
+        mySkillYesButton.gameObject.SetActive(false);
+        myArcherYesButton.gameObject.SetActive(false);
+        int i = 0;
+        if (PhotonNetwork.LocalPlayer.IsMasterClient &&
+            (bool) PhotonNetwork.LocalPlayer.CustomProperties[K.Player.isFight])
         {
-            GameObject playerGo = Instantiate(heroes[i], transforms[i]);
-            aHeroes[i] = playerGo.GetComponent<HeroFightController>();
+
+            HeroFightController hero = (HeroFightController)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            thisHero = hero; 
+
+            switch (hero.heroType)
+            {
+                case Hero.Type.ARCHER:
+                    Instantiate(archerPrefabs, transforms[0]);
+                    break;
+                case Hero.Type.WARRIOR:
+                    Instantiate(warriorPrefabs, transforms[1]);
+                    break;
+                case Hero.Type.DWARF:
+                    Instantiate(dwarfPrefabs, transforms[2]);
+                    break;
+                case Hero.Type.WIZARD:
+                    Instantiate(wizardPrefabs, transforms[3]);
+                    break;
+            }
         }
+
+        GameObject playerGo = Instantiate(heroes[i], transforms[i]);
+        aHeroes[i] = playerGo.GetComponent<HeroFightController>();
+        
         //TODO: get this monster from Photon
         GameObject monsterGo = Instantiate(monster, monsterStation);
         aMonster = monsterGo.GetComponent<Monster>();
@@ -102,6 +126,8 @@ public class Fight : MonoBehaviourPun
         //TODO: turn maganer
 
     }
+
+ 
 
     public void OnRollDice()
     {

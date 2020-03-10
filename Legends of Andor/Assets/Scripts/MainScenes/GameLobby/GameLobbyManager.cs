@@ -30,7 +30,9 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         heroSelection = PhotonNetwork.Instantiate(heroSelectionPrefab.name, Vector3.zero, Quaternion.identity)
             .GetComponent<HeroSelection>();
         heroSelection.SetParentRPC(canvasParent);
-        
+        //?
+        //PhotonNetwork.automaticallySyncScene = true;
+
     }
 
     // Update is called once per frame
@@ -70,13 +72,8 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     //room open false
     public void Click_Start()
     {
+        
         PhotonNetwork.LoadLevel(nextScene);
-    }
-
-    public void Click_LeaveRoom()
-    {
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel(previousScene);
     }
 
     public void Click_Ready()

@@ -18,6 +18,7 @@ public class GameGraph : Graph<Region, Border>
     private void Start()
     {
         Transform();
+
     }
 
     private void Transform()
@@ -153,8 +154,11 @@ public class GameGraph : Graph<Region, Border>
         throw  new NoNextRegionException();
     }
 
+
     public class NoNextRegionException : System.Exception
     {
 
     }
+
+    
 }
