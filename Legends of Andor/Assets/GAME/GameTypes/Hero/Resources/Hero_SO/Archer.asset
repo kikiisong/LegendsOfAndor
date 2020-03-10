@@ -16,8 +16,10 @@ MonoBehaviour:
   data:
     WP: 7
     SP: 1
-    gold: 0
     numHours: 0
+    gold: 0
+    numWineskin: 0
+    regionNumber: 0
     numFarmers: 0
   constants:
     StartingRegion: 53
@@ -25,3 +27,4 @@ MonoBehaviour:
   ui:
     female: {fileID: 21300000, guid: f4c95fa557723494bb91d4fff03ddf18, type: 3}
     male: {fileID: 21300000, guid: 9dd1f822e67d0544387c6339f0c83750, type: 3}
+    color: {fileID: 2100000, guid: 86bd614ff041feb499f763366c2b5750, type: 2}

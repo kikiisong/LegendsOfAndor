@@ -13,6 +13,8 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
     // Start is called before the first frame update
     void Start()
     {
+        Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+        GetComponent<MeshRenderer>().material = hero.ui.color;
         int i = TurnManager.Instance.GetWaitIndex(photonView.Owner);
         if(i != -1)
         {
