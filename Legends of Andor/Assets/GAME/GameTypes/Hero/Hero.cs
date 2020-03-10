@@ -145,6 +145,6 @@ public class Hero : ScriptableObject
 
     public void Attacked(int damage)
     {
-        data.WP -= damage;
+        data.WP = data.WP-damage;
     }
 }

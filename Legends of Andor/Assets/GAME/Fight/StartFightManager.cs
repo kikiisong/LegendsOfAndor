@@ -70,11 +70,14 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                         ready.GetComponent<Button>().onClick.AddListener(() =>
                         {
                             start.SetActive(false);
-                            if (PhotonNetwork.IsMasterClient)
+                            Debug.Log(photonView.IsMine);
+                            if (photonView.IsMine)
                             {
                                 SceneManager.LoadScene(nextScene);
                             }
-                            
+                            else {
+                                print("CO-OP");
+                            }
                         });
                     });
 

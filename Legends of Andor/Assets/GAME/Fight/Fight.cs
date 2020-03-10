@@ -70,8 +70,6 @@ public class Fight : MonoBehaviourPun
             }
         }
     }
-
-
             //--------START--------//
 
             IEnumerator setUpBattle()
@@ -224,7 +222,7 @@ public class Fight : MonoBehaviourPun
             //    aHeroes[i].Attacked(damage - diceNum);
             //    hHUD.basicInfoUpdate(aHeroes[i]);
             //}
-                    hero.Attacked(damage-diceNum);
+                    hero.data.WP-=damage-diceNum;
                 }
                 else if (damage < diceNum)
                 {
