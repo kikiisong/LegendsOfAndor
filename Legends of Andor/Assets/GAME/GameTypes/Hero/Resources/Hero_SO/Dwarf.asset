@@ -10,16 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02660ce892e7b06438293ae001dc176e, type: 3}
-  m_Name: Warrior
+  m_Name: Dwarf
   m_EditorClassIdentifier: 
-  type: 1
+  type: 3
   data:
     WP: 7
     SP: 1
     numHours: 0
+    gold: 0
+    numWineskin: 0
+    regionNumber: 0
+    numFarmers: 0
   constants:
-    StartingRegion: 25
-    rank: 14
+    StartingRegion: 43
+    rank: 7
   ui:
-    female: {fileID: 21300000, guid: 8121b28b45924bf49bb11c106238eee9, type: 3}
-    male: {fileID: 21300000, guid: a6f7c80505036b943ac66494bbc95cdb, type: 3}
+    female: {fileID: 21300000, guid: c03548761514cd04593ed2dd1af10472, type: 3}
+    male: {fileID: 21300000, guid: 8edd06fbb0421134cbd69ac6e7c45d8a, type: 3}
+    color: {fileID: 2100000, guid: 7c6e37bc3aa72d44c8b93c36ca40fae9, type: 2}

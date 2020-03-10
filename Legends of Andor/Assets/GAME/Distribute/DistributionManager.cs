@@ -30,7 +30,7 @@ public class DistributionManager : MonoBehaviour
     {
         GameObject r = PhotonNetwork.Instantiate(resourcePrefab);
         r.GetComponent<ResourcesManager>().SetParentRPC(parent);
-        next.enabled = false;
+        next.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -38,7 +38,7 @@ public class DistributionManager : MonoBehaviour
     {
         if(PhotonNetwork.IsMasterClient && gold.amount == 0 && wineskin.amount == 0)
         {
-            next.enabled = true;
+            next.gameObject.SetActive(true);
         }
     }
 
