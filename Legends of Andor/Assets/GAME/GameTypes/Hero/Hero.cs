@@ -77,7 +77,7 @@ public class Hero : ScriptableObject
         foreach (Hero hero in Resources.FindObjectsOfTypeAll<Hero>())
         {
             Debug.Log(hero.type);
-            if (hero.type == type) return hero;
+            if (hero.type == type) return Instantiate(hero);
         }
         throw new Exception("Hero not found in Resources");
     }

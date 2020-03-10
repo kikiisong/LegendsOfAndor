@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Used to select a hero in GameLobby.
-/// </summary>
-/// 
+/// </summary> 
 public class HeroSelection : MonoBehaviourPun, IPunObservable
 {
     [Header("UI")]
