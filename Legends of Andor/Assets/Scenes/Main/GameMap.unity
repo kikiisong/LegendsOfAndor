@@ -6137,18 +6137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844c77fca58e2824699fc20dcb0f020f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  archerPrefabs:
-  - {fileID: 7351001240829586624, guid: 18cc0c7a9cfb3be4193dcc376636208f, type: 3}
-  - {fileID: 5355231163757492325, guid: b7d3d402ddcc9f947ba9f959bfcd4cab, type: 3}
-  warriorPrefabs:
-  - {fileID: 3109069621042694671, guid: 22f778ebd517b4c4b9e8862662ee59d7, type: 3}
-  - {fileID: 8093919853335954549, guid: e34631b95763f404281576366ae70287, type: 3}
-  dwarfPrefabs:
-  - {fileID: 6944406690675305900, guid: b27a1deabdbb71446839a2fd70b38fbb, type: 3}
-  - {fileID: 6890429386238136485, guid: f190dfa5405a1c048bde501d87cb701d, type: 3}
-  wizardPrefabs:
-  - {fileID: 7969643378180960824, guid: a89d2a5ac4bd3a747a85e09c7d2f6384, type: 3}
-  - {fileID: 3560116326588994333, guid: 0ce3970e4622a0b46b56db83715220cd, type: 3}
+  heroPrefab: {fileID: 7351001240829586624, guid: 18cc0c7a9cfb3be4193dcc376636208f,
+    type: 3}
+  timeMarkerPrefab: {fileID: 6007742235842389979, guid: 1e94290d65eec984c8dd81355c769607,
+    type: 3}
   timeMarkerUpdatePositions:
   - {fileID: 1744878464}
   - {fileID: 2052190128}

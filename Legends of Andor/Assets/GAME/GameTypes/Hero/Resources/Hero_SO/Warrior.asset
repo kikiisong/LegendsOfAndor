@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02660ce892e7b06438293ae001dc176e, type: 3}
-  m_Name: Wizard
+  m_Name: Warrior
   m_EditorClassIdentifier: 
-  type: 2
+  type: 1
   data:
     WP: 7
     SP: 1
-    gold: 0
     numHours: 0
+    gold: 0
+    numWineskin: 0
+    regionNumber: 0
     numFarmers: 0
   constants:
-    StartingRegion: 9
-    rank: 34
+    StartingRegion: 25
+    rank: 14
   ui:
-    female: {fileID: 21300000, guid: 89b98c517d7c77947b6145b04869b1e5, type: 3}
-    male: {fileID: 21300000, guid: da9472309761bee48aacfb661174cf7e, type: 3}
+    female: {fileID: 21300000, guid: 8121b28b45924bf49bb11c106238eee9, type: 3}
+    male: {fileID: 21300000, guid: a6f7c80505036b943ac66494bbc95cdb, type: 3}
+    color: {fileID: 2100000, guid: c694f7d881b540140b17e7ec22af5a70, type: 2}
