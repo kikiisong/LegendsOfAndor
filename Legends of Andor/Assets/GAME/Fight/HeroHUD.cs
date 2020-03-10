@@ -30,18 +30,18 @@ public class HeroHUD : MonoBehaviour
         Debug.Log(b);
     }
 
-    public void setHeroHUD(HeroFightController h)
+    public void setHeroHUD(Hero h)
     {
-        dice.text = h.redDice + " /" + h.blackDice;
-        currentWillpower.text = "" + h.currentWP;
-        strengthPower.text = "" + h.currentSP;
+        dice.text = h.getDiceNum() + " /" + h.data.blackDice;
+        currentWillpower.text = "" + h.data.WP;
+        strengthPower.text = "" + h.data.SP;
 
-        if (!h.magic) changeColor(magic);
-        if (!h.sheild) changeColor(sheild);
-        if (!h.helm) changeColor(helm);
-        if (!h.herbS) changeColor(herbStrength);
-        if (!h.herbW) changeColor(herbWill);
-        if (!h.brew) changeColor(brew);
+        if (!h.data.magic) changeColor(magic);
+        if (!h.data.sheild) changeColor(sheild);
+        if (!h.data.helm) changeColor(helm);
+        if (!h.data.herbS) changeColor(herbStrength);
+        if (!h.data.herbW) changeColor(herbWill);
+        if (!h.data.brew) changeColor(brew);
 
     }
 
@@ -53,10 +53,10 @@ public class HeroHUD : MonoBehaviour
 
     }
 
-    public void basicInfoUpdate(HeroFightController h) {
-        dice.text = h.redDice + " /" + h.blackDice;
-        currentWillpower.text = "" + h.currentWP;
-        strengthPower.text = "" + h.currentSP;
+    public void basicInfoUpdate(Hero h) {
+        dice.text = h.getDiceNum() + " /" + h.data.blackDice;
+        currentWillpower.text = "" + h.data.WP;
+        strengthPower.text = "" + h.data.SP;
 
     }
 
