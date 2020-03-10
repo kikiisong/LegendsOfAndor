@@ -12,10 +12,9 @@ public class HeroFightController : MonoBehaviourPun
 {
     
     public Type heroType;
-    public int  maxWP,currentWP,currentSP,redDice,blackDice;
     public bool magic, herbS,brew,helm,sheild,herbW,bow;
     public Dice dice;
-
+    public Hero hero;
     int times;
     int btimes;
 
@@ -24,17 +23,18 @@ public class HeroFightController : MonoBehaviourPun
     public void Start()
     {
         times = getDiceNum();
-        btimes = blackDice;
+        btimes = hero.data.blackDice;
+        hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
     }
 
     public int getDiceNum() {
         switch (heroType) {
             case (Type.ARCHER):
-                if (currentWP > 13)
+                if (hero.data.WP > 13)
                 {
                     return 5;
                 }
-                else if (currentWP > 6)
+                else if (hero.data.WP > 6)
                 {
                     return 4;
                 }
@@ -42,10 +42,10 @@ public class HeroFightController : MonoBehaviourPun
                     return 3;
                 }
             case (Type.DWARF):
-                if (currentWP > 13) {
+                if (hero.data.WP > 13) {
                     return 3;
                 }
-                else if (currentWP > 6)
+                else if (hero.data.WP > 6)
                 {
                     return 2;
                 }
@@ -54,11 +54,11 @@ public class HeroFightController : MonoBehaviourPun
                     return 1;
                 }
             case (Type.WARRIOR):
-                if (currentWP > 13)
+                if (hero.data.WP > 13)
                 {
                     return 4;
                 }
-                else if (currentWP > 6)
+                else if (hero.data.WP > 6)
                 {
                     return 3;
                 }
@@ -72,7 +72,7 @@ public class HeroFightController : MonoBehaviourPun
     }
 
     public void Attacked(int damage) {
-        currentWP -= damage;
+        hero.data.WP -= damage;
     }
 
     public void OnRollDice(Button myArcherYesButton, Button mySkillYesButton, FightHUD fHUD)
@@ -82,7 +82,7 @@ public class HeroFightController : MonoBehaviourPun
     }
     public void cleartimes() {
         times = getDiceNum();
-        btimes = blackDice;
+        btimes = hero.data.blackDice;
     }
 
     IEnumerator HeroRoll(Button myArcherYesButton, Button mySkillYesButton, FightHUD fHUD)
@@ -114,7 +114,7 @@ public class HeroFightController : MonoBehaviourPun
         else
         {
             mySkillYesButton.gameObject.SetActive(true);
-            dice.rollDice(redDice, blackDice);
+            dice.rollDice(getDiceNum(), hero.data.blackDice);
             diceNum = dice.getMax();
             fHUD.rollResult(dice.printArrayList() + "Max:" + diceNum);
         }
@@ -192,7 +192,7 @@ public class HeroFightController : MonoBehaviourPun
             return false;
         }
 
-        currentWP += 2;
+        hero.data.WP += 2;
         herbW = false;
         return true;
 

@@ -18,7 +18,7 @@ public class Hero : ScriptableObject
         /// Willpower points
         /// </summary>
         public int WP;
-
+        public int blackDice;
         /// <summary>
         /// Strength points
         /// </summary>
@@ -29,7 +29,10 @@ public class Hero : ScriptableObject
         public int numHours;
         public int regionNumber;
         // number of carried farmers
+
         public int numFarmers; // 0 or 1 or 2
+
+        public bool magic, herbS, brew, helm, sheild, herbW, bow;
     }
     
     //Values that won't change
@@ -65,5 +68,59 @@ public class Hero : ScriptableObject
     public enum Type
     {
         ARCHER, WARRIOR, WIZARD, DWARF
+    }
+
+    public int getDiceNum()
+    {
+        switch (type)
+        {
+            case (Type.ARCHER):
+                if (data.WP > 13)
+                {
+                    return 5;
+                }
+                else if (data.WP > 6)
+                {
+                    return 4;
+                }
+                else
+                {
+                    return 3;
+                }
+            case (Type.DWARF):
+                if (data.WP > 13)
+                {
+                    return 3;
+                }
+                else if (data.WP > 6)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 1;
+                }
+            case (Type.WARRIOR):
+                if (data.WP > 13)
+                {
+                    return 4;
+                }
+                else if (data.WP > 6)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 2;
+                }
+            default:
+                return 1;
+        }
+    }
+
+
+    public void Attacked(int damage)
+    {
+        data.WP -= damage;
     }
 }

@@ -139,6 +139,12 @@ public class GameGraph : Graph<Region, Border>
         return list;
     }
 
+    public bool FindMonsterOnRegion()
+    {
+
+        return true;
+    }
+
     public Region NextEnemyRegion(Region currentRegion) 
     {
         foreach(Border border in edges)
