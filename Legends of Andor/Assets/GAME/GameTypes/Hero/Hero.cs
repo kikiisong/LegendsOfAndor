@@ -27,7 +27,7 @@ public class Hero : ScriptableObject
         public int gold;
 
         public int numHours;
-
+        public int regionNumber;
         // number of carried farmers
         public int numFarmers; // 0 or 1 or 2
     }
