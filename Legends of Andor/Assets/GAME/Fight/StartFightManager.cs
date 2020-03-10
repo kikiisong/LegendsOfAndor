@@ -4,7 +4,7 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 {
     // Start is called before the first frame update
@@ -70,7 +70,18 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                         ready.GetComponent<Button>().onClick.AddListener(() =>
                         {
                             start.SetActive(false);
-                            PhotonNetwork.LoadLevel(nextScene);
+                            if (PhotonNetwork.IsMasterClient)
+                            {
+                                SceneManager.LoadScene(nextScene);
+                            }
+                            else {
+                                print("not master client join the fight");
+                                PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+                                {
+                                    { K.Player.isFight, true }
+                                  });
+                            }
+                            
                         });
                     });
 
