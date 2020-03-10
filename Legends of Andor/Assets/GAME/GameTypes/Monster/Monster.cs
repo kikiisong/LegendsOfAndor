@@ -8,58 +8,20 @@ using UnityEngine.UI;
 
 
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour,TurnManager.IOnSunrise
 {
     public int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
 
     public int regionLabel;
-
+    public Dice dice;
+    int damage;
     public void desotry() {
         Destroy(gameObject);
     }
-
-    //public int calculateAttack(int dice)
-    //{
-    //    return dice + maxSP;
-    //}
-
-    //public int getMaxSP()
-    //{
-    //    return this.maxSP;
-    //}
-
-    //public int getMaxWP()
-    //{
-    //    return this.maxWP;
-    //}
-
-    //public int getRedDice()
-    //{
-    //    return this.redDice;
-    //}
-
-    //public int getRegionLabel()
-    //{
-    //    return this.regionLabel;
-    //}
-
-    //public void setRegionLabel(int newPosition)
-    //{
-    //    this.regionLabel = newPosition;
-    //}
-
-    //public int getCurrentWP() {
-    //    return this.currentWP;
-    //}
-
-    //public int getRewardc() {
-    //    return this.rewardc;
-    //}
-
-    //public int getRewardw() {
-    //    return this.rewardw;
-    //}
-
+    public void Start()
+    {
+        TurnManager.Register(this);
+    }
 
     public void Attacked(int damage)
     {
@@ -67,6 +29,31 @@ public class Monster : MonoBehaviour
            currentWP -= damage;
         
 
+    }
+    public string printRoll()
+    {
+
+        return dice.printArrayList();
+    }
+
+    public int MonsterRoll()
+    {
+
+        dice.rollDice(redDice, 0);
+        if (dice.CheckRepet())
+        {
+            damage = dice.getSum();
+        }
+        else
+        {
+            damage = dice.getMax();
+        }
+        return damage;
+    }
+
+    public void OnSunrise()
+    {
+        return;
     }
 
 

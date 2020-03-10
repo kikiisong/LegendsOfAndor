@@ -6,6 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Used to select a hero in GameLobby.
 /// </summary>
+/// 
 public class HeroSelection : MonoBehaviourPun, IPunObservable
 {
     [Header("List of heroes")]

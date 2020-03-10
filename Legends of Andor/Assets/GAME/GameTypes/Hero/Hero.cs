@@ -29,10 +29,11 @@ public class Hero : ScriptableObject
         public int gold;
         public int numWineskin;
 
+        public int regionNumber;
         // number of carried farmers
         public int numFarmers; // 0 or 1 or 2
     }
-    
+
     //Values that won't change
     [System.Serializable]
     public struct Constants

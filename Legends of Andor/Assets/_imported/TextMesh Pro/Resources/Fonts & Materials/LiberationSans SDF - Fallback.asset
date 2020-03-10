@@ -382,6 +382,7 @@ MonoBehaviour:
   m_KerningTable:
     kerningPairs: []
   m_FontFeatureTable:
+
     m_GlyphPairAdjustmentRecords:
     - m_FirstAdjustmentRecord:
         m_GlyphIndex: 53

@@ -24,9 +24,9 @@ public class Castle : MonoBehaviour
         Region temp = gameGraph.FindNearest(gameObject.transform.position);
         List<MonsterMoveController> monsterOnRegion = gameGraph.FindObjectsOnRegion<MonsterMoveController>(temp);
 
-        if(monsterOnRegion.Count >= 3)
-        {
-            print("Game Over");
-        }
+        //if(monsterOnRegion.Count >= 3)
+        //{
+        //    print("Game Over");
+        //}
     }
 }
