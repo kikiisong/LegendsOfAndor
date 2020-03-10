@@ -6,13 +6,24 @@ using UnityEngine;
 
 public class OwnershipTransfer : MonoBehaviourPun, IPunOwnershipCallbacks
 {
+    void Awake()
+    {
+        PhotonNetwork.AddCallbackTarget(this);
+    }
+
+    void OnDestroy()
+    {
+        PhotonNetwork.RemoveCallbackTarget(this);
+    }
+
     public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
     {
+        print("\t Request");
         photonView.TransferOwnership(requestingPlayer);
     }
 
     public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
     {
-        print("Ownership Transfered");
+        print("\t Ownership Transfered");
     }
 }
