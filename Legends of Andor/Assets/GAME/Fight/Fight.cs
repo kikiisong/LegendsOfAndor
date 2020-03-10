@@ -223,7 +223,8 @@ public class Fight : MonoBehaviourPun
             //    hHUD.basicInfoUpdate(aHeroes[i]);
             //}
                     hero.data.WP-=damage-diceNum;
-                }
+                    hHUD.basicInfoUpdate(hero);
+        }
                 else if (damage < diceNum)
                 {
                     aMonster.Attacked(diceNum - damage);
