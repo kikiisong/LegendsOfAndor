@@ -33,7 +33,7 @@ public class Well : MonoBehaviour, TurnManager.IOnSunrise
             if (heroes.Count == 0)
             {
                 isFilled = true;
-                //wellIcon.gameObject.enabled = true;
+                wellIcon.enabled = true;
             }
         }
     }

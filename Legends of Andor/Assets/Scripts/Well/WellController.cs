@@ -13,9 +13,9 @@ public class WellController : MonoBehaviourPun, TurnManager.IOnMove
     // Start is called before the first frame update
     void Start()
     {
-         TurnManager.Register(this);
          drinkButton = GameObject.Find("drinkButton");
          drinkButton.SetActive(false);
+         TurnManager.Register(this);
     }
 
     // Update is called once per frame
@@ -41,7 +41,9 @@ public class WellController : MonoBehaviourPun, TurnManager.IOnMove
                     drinkButton.GetComponent<Button>().onClick.RemoveAllListeners();
                     drinkButton.GetComponent<Button>().onClick.AddListener(() =>
                     {
+                        //Debug.Log(hero.data.WP);
                         hero.data.WP += 3;
+                        //Debug.Log(hero.data.WP);
 
                         photonView.RPC("Empty", RpcTarget.AllBuffered, currentRegion.label);
 
@@ -49,6 +51,10 @@ public class WellController : MonoBehaviourPun, TurnManager.IOnMove
                     });
                 }
 
+            }
+            else
+            {
+                drinkButton.SetActive(false);
             }
         }
 
