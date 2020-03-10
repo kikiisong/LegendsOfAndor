@@ -92,3 +92,5 @@ MonoBehaviour:
   currentWP: 4
   rewardc: 2
   rewardw: 2
+  regionLabel: 0
+  dice: {fileID: 2952251657372633682, guid: 4514c5379f49d438ba00ad6976d6156c, type: 3}

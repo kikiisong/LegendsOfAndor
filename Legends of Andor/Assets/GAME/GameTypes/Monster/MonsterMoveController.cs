@@ -37,7 +37,7 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
     public void OnMouseDown()
     {
         //In order to enter the fight scene
-
+        print("called");
         SceneManager.LoadSceneAsync("FightScene", LoadSceneMode.Additive);
     }
 }

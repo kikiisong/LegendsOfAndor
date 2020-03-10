@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5114,7 +5114,6 @@ MonoBehaviour:
   mHUD: {fileID: 2048174840}
   hHUD: {fileID: 168672547}
   fHUD: {fileID: 453933363}
-  dice: {fileID: 2070564567}
   myArcherYesButton: {fileID: 398354685539841886}
   mySkillYesButton: {fileID: 189760077}
 --- !u!4 &1987893036
@@ -5405,18 +5404,6 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 3050911576872939158}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2070564567 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2952251657372633682, guid: 4514c5379f49d438ba00ad6976d6156c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3050911576872939158}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f4860f32e36f42bc86ec09d73afdc3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2079634329
 GameObject:
   m_ObjectHideFlags: 0
