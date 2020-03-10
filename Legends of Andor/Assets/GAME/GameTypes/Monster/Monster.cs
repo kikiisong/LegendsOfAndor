@@ -51,7 +51,7 @@ public class Monster : MonoBehaviour,TurnManager.IOnSunrise
         return damage;
     }
 
-    public void OnSunrise()s
+    public void OnSunrise()
     {
         return;
     }
