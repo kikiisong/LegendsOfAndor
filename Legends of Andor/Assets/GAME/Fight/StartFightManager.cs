@@ -64,21 +64,16 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                             { K.Player.isFight, true },
                             { K.Player.isAsked, true }
                         });
-                        
-                        Debug.Log("???");
-                        ready.GetComponent<Button>().onClick.RemoveAllListeners();
-                        ready.GetComponent<Button>().onClick.AddListener(() =>
-                        {
-                            start.SetActive(false);
-                            Debug.Log(photonView.IsMine);
-                            if (photonView.IsMine)
-                            {
-                                SceneManager.LoadScene(nextScene);
-                            }
-                            else {
-                                print("CO-OP");
-                            }
-                        });
+                        start.SetActive(false);
+                        isFight = true;
+                        //Debug.Log("???");
+                        //ready.GetComponent<Button>().onClick.RemoveAllListeners();
+                        //ready.GetComponent<Button>().onClick.AddListener(() =>
+                        //{
+                        //    start.SetActive(false);
+                        //    SceneManager.LoadSceneAsync(nextScene);
+
+                        //});
                     });
 
                 }
@@ -92,26 +87,26 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     }
 
 
-    private bool EveryoneAsked()
-    {
-        foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
-        {
-            Player player = pair.Value;
-            if (player.CustomProperties.ContainsKey(K.Player.isAsked))
-            {
-                bool ready = (bool)player.CustomProperties[K.Player.isAsked];
-                if (!ready)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-        return true;
-    }
+    //private bool EveryoneAsked()
+    //{
+    //    foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
+    //    {
+    //        Player player = pair.Value;
+    //        if (player.CustomProperties.ContainsKey(K.Player.isAsked))
+    //        {
+    //            bool ready = (bool)player.CustomProperties[K.Player.isAsked];
+    //            if (!ready)
+    //            {
+    //                return false;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            return false;
+    //        }
+    //    }
+    //    return true;
+    //}
 
     public void Click_Ready()
     {
@@ -130,19 +125,9 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     public void Click_Start()
     {
-        PhotonNetwork.LoadLevel(nextScene);
+        if(isFight){ 
+        SceneManager.LoadSceneAsync(nextScene,LoadSceneMode.Additive);
+        }//PhotonNetwork.LoadLevel(nextScene);
     }
 
-    public void OnJoinClick()
-    {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-        if (!isFight)
-        {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-            {
-                { K.Player.isFight, true }
-            });
-            isFight = true;
-        }
-    }
 }
