@@ -24,9 +24,10 @@ public class Hero : ScriptableObject
         /// </summary>
         public int SP;
 
-        public int gold;
-
         public int numHours;
+
+        public int gold;
+        public int numWineskin;
 
         // number of carried farmers
         public int numFarmers; // 0 or 1 or 2

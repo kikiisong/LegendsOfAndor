@@ -25,17 +25,21 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
 
     public static List<Hero> Heroes = new List<Hero>();
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        transform.position = SetUp.Instance.spawnPoints[photonView.Owner.ActorNumber - 1].position;
         if (photonView.IsMine)
         {
-            foreach(Hero hero in heroes)
+            foreach (Hero hero in heroes)
             {
                 Heroes.Add(Instantiate(hero));
             }
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        transform.position = SetUp.Instance.spawnPoints[photonView.Owner.ActorNumber - 1].position;
         Display();
     }
 
@@ -74,7 +78,8 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
 
     public void Display()
     {
-        image.sprite = Heroes[selectedHeroIndex].ui.GetSprite();
+        print(photonView.Owner.NickName + " " + selectedHeroIndex + "," + Heroes.Count);
+        image.sprite = heroes[selectedHeroIndex].ui.GetSprite();
     }
 
     public void Switch()
