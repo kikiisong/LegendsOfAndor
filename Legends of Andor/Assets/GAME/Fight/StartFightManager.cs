@@ -125,8 +125,8 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     public void Click_Start()
     {
-        if(isFight){ 
-        SceneManager.LoadSceneAsync(nextScene,LoadSceneMode.Additive);
+        if(isFight){
+            PhotonNetwork.LoadLevel(nextScene);
         }//PhotonNetwork.LoadLevel(nextScene);
     }
 
