@@ -74,13 +74,6 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                             {
                                 SceneManager.LoadScene(nextScene);
                             }
-                            else {
-                                print("not master client join the fight");
-                                PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-                                {
-                                    { K.Player.isFight, true }
-                                  });
-                            }
                             
                         });
                     });
@@ -94,8 +87,6 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
         }
 
     }
-
-
 
 
     private bool EveryoneAsked()
@@ -123,26 +114,14 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     {
 
         //TODO:check same region
-        if (!isFight)
-        {
+
+            print("join the fight");
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
             {
-                { K.Player.isAsked, true }
+                { K.Player.isFight, true }
             });
             isFight = true;
-        }
-        else if (isFight)
-        {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-            {
-                { K.Player.isAsked, false }
-            });
-            isFight = false;
-        }
-        else
-        {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable());
-        }
+        
     }
 
 
