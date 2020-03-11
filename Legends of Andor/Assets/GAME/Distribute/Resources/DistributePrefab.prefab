@@ -799,7 +799,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 5793736352081899607}
-  amount: 0
   resource: {fileID: 0}
 --- !u!114 &5428428641782006099
 MonoBehaviour:
@@ -1204,7 +1203,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1318733257207219656}
-  amount: 0
   resource: {fileID: 0}
 --- !u!114 &1043156603964003962
 MonoBehaviour:
