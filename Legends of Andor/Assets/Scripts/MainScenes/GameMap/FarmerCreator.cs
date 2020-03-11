@@ -38,11 +38,11 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 //            tempFarmer = temp;
 
             // unfinished, need to see if there is a monster on the map
-            List<Monster> monsterOnRegion = gameGraph.FindObjectsOnRegion<Monster>(currentRegion);
-            if (monsterOnRegion.Count > 0 && monsterOnRegion[0] != null)
-            {
-                hero.data.numFarmers = 0;
-            }
+          //  List<Monster> monsterOnRegion = gameGraph.FindObjectsOnRegion<Monster>(currentRegion);
+          //  if (monsterOnRegion.Count > 0 && monsterOnRegion[0] != null)
+          //  {
+          //      hero.data.numFarmers = 0;
+          //  }
 
             // should have a while loop here, inorder to make the user to pick up and drop many times as they want
 
@@ -54,7 +54,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                 {
                     print("pickupHave been pressed at region " + currentRegion.label);
                     hero.data.numFarmers++;
-
+                    print("the hero's num is " + hero.data.numFarmers);
                     photonView.RPC("Decrease", RpcTarget.AllBuffered, currentRegion.label);
 
                     print("After pick up there are " + temp.numberOfFarmer + " farmers on cureent region.");
