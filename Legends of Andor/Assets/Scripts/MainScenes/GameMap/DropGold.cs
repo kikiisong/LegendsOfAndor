@@ -43,6 +43,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
 
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
+        if (list.Count == 0) return;
         Gold g = list[0];
 
         g.photonView.RequestOwnership();
