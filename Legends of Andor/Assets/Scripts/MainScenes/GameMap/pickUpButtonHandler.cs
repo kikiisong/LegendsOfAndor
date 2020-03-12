@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FightTurnManager : MonoBehaviour
+public class pickUpButtonHandler : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

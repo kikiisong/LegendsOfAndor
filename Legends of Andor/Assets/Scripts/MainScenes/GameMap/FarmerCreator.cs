@@ -34,15 +34,19 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
             List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(currentRegion);
 
+            if(farmerOnRegion.Count == 0)
+            {
+                return;
+            }
             Farmer temp = farmerOnRegion[0];
-//            tempFarmer = temp;
+            //            tempFarmer = temp;
 
             // unfinished, need to see if there is a monster on the map
-            List<Monster> monsterOnRegion = gameGraph.FindObjectsOnRegion<Monster>(currentRegion);
-            if (monsterOnRegion.Count > 0 && monsterOnRegion[0] != null)
-            {
-                hero.data.numFarmers = 0;
-            }
+            //  List<Monster> monsterOnRegion = gameGraph.FindObjectsOnRegion<Monster>(currentRegion);
+            //  if (monsterOnRegion.Count > 0 && monsterOnRegion[0] != null)
+            //  {
+            //      hero.data.numFarmers = 0;
+            //  }
 
             // should have a while loop here, inorder to make the user to pick up and drop many times as they want
 
@@ -54,7 +58,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                 {
                     print("pickupHave been pressed at region " + currentRegion.label);
                     hero.data.numFarmers++;
-
+                    print("the hero's num is " + hero.data.numFarmers);
                     photonView.RPC("Decrease", RpcTarget.AllBuffered, currentRegion.label);
 
                     print("After pick up there are " + temp.numberOfFarmer + " farmers on cureent region.");
@@ -112,6 +116,10 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
     {
         List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(GameGraph.Instance.Find(currentRegion));
 
+        if (farmerOnRegion.Count == 0)
+        {
+            return;
+        }
         Farmer temp = farmerOnRegion[0];
 
         temp.decrease();
@@ -121,6 +129,11 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
     public void Increase(int currentRegion)
     {
         List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(GameGraph.Instance.Find(currentRegion));
+
+        if (farmerOnRegion.Count == 0)
+        {
+            return;
+        }
 
         Farmer temp = farmerOnRegion[0];
 
@@ -133,4 +146,10 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
         extraShileds.GetComponent<ExtraShield>().increaseShieldsNum();
     }
 
+
+    public void SetFarmerRPC()
+    {
+        photonView.RPC("Increase", RpcTarget.AllBuffered, 24);
+        photonView.RPC("Increase", RpcTarget.AllBuffered, 32);
+    }
 }

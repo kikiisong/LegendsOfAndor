@@ -64,29 +64,51 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                             { K.Player.isFight, true },
                             { K.Player.isAsked, true }
                         });
+                        
+                        Debug.Log("???");
+                        ready.GetComponent<Button>().onClick.RemoveAllListeners();
+                        ready.GetComponent<Button>().onClick.AddListener(() =>
+                        {
+                            start.SetActive(false);
+                            if (PhotonNetwork.IsMasterClient)
+                            {
+                                SceneManager.LoadScene(nextScene);
+                            }
+                            
+                        });
+                    });
 
-                        start.SetActive(false);
-                        isFight = true;
-                        //Debug.Log("???");
-                        //ready.GetComponent<Button>().onClick.RemoveAllListeners();
-                        //ready.GetComponent<Button>().onClick.AddListener(() =>
-                        //{
-                        //    start.SetActive(false);
-                        //    SceneManager.LoadSceneAsync(nextScene);
-
-                        //});
-
-                });
                 }
                 else
                 {
                     start.SetActive(false);
                 }
-            
-   			}
-   		}
+            }
+        }
+
     }
 
+
+    private bool EveryoneAsked()
+    {
+        foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
+        {
+            Player player = pair.Value;
+            if (player.CustomProperties.ContainsKey(K.Player.isAsked))
+            {
+                bool ready = (bool)player.CustomProperties[K.Player.isAsked];
+                if (!ready)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void Click_Ready()
     {
@@ -102,14 +124,22 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
         
     }
 
-    [PunRPC]
+
     public void Click_Start()
     {
-        if(isFight){
-            if (PhotonNetwork.IsConnected)
-                //PhotonNetwork.LoadLevel(nextScene);
-                SceneManager.LoadSceneAsync(5, LoadSceneMode.Additive);
-        }
+        PhotonNetwork.LoadLevel(nextScene);
     }
 
+    public void OnJoinClick()
+    {
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        if (!isFight)
+        {
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+            {
+                { K.Player.isFight, true }
+            });
+            isFight = true;
+        }
+    }
 }
