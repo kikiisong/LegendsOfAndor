@@ -15,12 +15,20 @@ MonoBehaviour:
   type: 2
   data:
     WP: 7
+    blackDice: 0
     SP: 1
     numHours: 0
     gold: 0
     numWineskin: 0
     regionNumber: 0
     numFarmers: 0
+    magic: 1
+    herbS: 0
+    brew: 0
+    helm: 0
+    sheild: 0
+    herbW: 0
+    bow: 0
   constants:
     StartingRegion: 9
     rank: 34

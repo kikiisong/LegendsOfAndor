@@ -205,7 +205,7 @@ public class TurnManager : MonoBehaviourPun
     }
 }
 
-public class TestTurn: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
+public class TestTurnFIGHT: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
 {
     public void OnMove(Player player, Region currentRegion)
     {

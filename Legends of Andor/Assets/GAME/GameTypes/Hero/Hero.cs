@@ -31,8 +31,8 @@ public class Hero : ScriptableObject
         public int numWineskin;
 
         public int regionNumber;
-        // number of carried farmers
 
+        // number of carried farmers
         public int numFarmers; // 0 or 1 or 2
 
         public bool magic, herbS, brew, helm, sheild, herbW, bow;
@@ -55,6 +55,8 @@ public class Hero : ScriptableObject
         public Sprite female;
         public Sprite male;
         public Material color;
+        public Sprite fightfemale;
+        public Sprite fightmale;
 
         public Sprite GetSprite()
         {
@@ -143,8 +145,5 @@ public class Hero : ScriptableObject
     }
 
 
-    public void Attacked(int damage)
-    {
-        data.WP -= damage;
-    }
+
 }
