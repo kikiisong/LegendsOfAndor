@@ -23,9 +23,12 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G) )
         {
-            drop();
+            Hero oh = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            if (oh.data.gold > 0) {
+                drop();
+            }
             
         }
         else if (Input.GetKeyDown(KeyCode.P))
@@ -40,6 +43,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
 
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
+        if (list.Count == 0) return;
         Gold g = list[0];
 
         g.photonView.RequestOwnership();
@@ -68,6 +72,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
             GameGraph.Instance.PlaceAt(g, current.label);
             g.GetComponent<Gold>().increment();
             g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.GetComponent<Gold>().goldValue;
+            photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer);
         }
         else
         {
@@ -86,6 +91,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         Hero h = (Hero) player.CustomProperties[K.Player.hero];
         h.data.gold--;
+        updateRegionButton();
     }
 
     //incrememt hero's money balance since picked up gold 
@@ -94,9 +100,11 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         Hero h = (Hero)player.CustomProperties[K.Player.hero];
         h.data.gold++;
+        updateRegionButton();
     }
     void updateRegionButton()
     {
+        int goldVal = 0;
         //extract current player's region
         foreach (HeroMoveController c in GameObject.FindObjectsOfType<HeroMoveController>())
         {
@@ -104,14 +112,18 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
             {
                 //cc = c.photonView.Owner;
                 current = GameGraph.Instance.FindNearest(c.transform.position);
+                Hero oh = (Hero) PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+                goldVal  = oh.data.gold;
             }
 
         }
   
         string regionNum = Regex.Replace(current.ToString(), "[^0-9]", "");
-        myBtn.GetComponentInChildren<Text>().text = regionNum;
+        myBtn.GetComponentInChildren<Text>().text = regionNum + " \n" + "Gold: " + goldVal ;
         Debug.Log("this is region number: " + regionNum);
     }
+
+ 
     public void OnMove(Player player, Region currentRegion)
     {
         // throw new System.NotImplementedException();

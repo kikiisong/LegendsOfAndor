@@ -64,6 +64,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                             { K.Player.isFight, true },
                             { K.Player.isAsked, true }
                         });
+
                         start.SetActive(false);
                         isFight = true;
                         //Debug.Log("???");
@@ -74,6 +75,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                         //    SceneManager.LoadSceneAsync(nextScene);
 
                         //});
+
                     });
 
                 }
