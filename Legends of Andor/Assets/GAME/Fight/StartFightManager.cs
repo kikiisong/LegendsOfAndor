@@ -70,15 +70,9 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                         ready.GetComponent<Button>().onClick.AddListener(() =>
                         {
                             start.SetActive(false);
-                            if (photonView.IsMine)
+                            if (PhotonNetwork.IsMasterClient)
                             {
                                 SceneManager.LoadScene(nextScene);
-                            }
-                            else {
-                                PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-                                    {
-                                        { K.Player.isFight, true }
-                                    });
                             }
                             
                         });
