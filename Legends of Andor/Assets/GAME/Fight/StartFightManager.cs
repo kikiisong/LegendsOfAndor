@@ -108,8 +108,9 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     {
         if(isFight){
             if (PhotonNetwork.IsConnected)
+                //PhotonNetwork.LoadLevel(nextScene);
                 SceneManager.LoadSceneAsync(5, LoadSceneMode.Additive);
-        }//PhotonNetwork.LoadLevel(nextScene);
+        }
     }
 
 }

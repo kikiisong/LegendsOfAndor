@@ -93,7 +93,7 @@ public class Fight : MonoBehaviourPun
 
     //--------HERO--------//
     //--------MESSAGE--------//
-            [PunRPC]
+            //[PunRPC]
             void playerturn()
             {
                 //roll the dice
