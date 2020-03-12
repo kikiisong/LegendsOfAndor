@@ -70,8 +70,6 @@ public class Fight : MonoBehaviourPun
             }
         }
     }
-
-
             //--------START--------//
 
             IEnumerator setUpBattle()
@@ -93,9 +91,9 @@ public class Fight : MonoBehaviourPun
 
 
 
-            //--------HERO--------//
-            //--------MESSAGE--------//
-
+    //--------HERO--------//
+    //--------MESSAGE--------//
+            //[PunRPC]
             void playerturn()
             {
                 //roll the dice
@@ -152,10 +150,10 @@ public class Fight : MonoBehaviourPun
                 }
                 yield return new WaitForSeconds(4f);
             }
-
-            //--------ATTACK--------//
+               
+    //--------ATTACK--------//
             IEnumerator HeroAttack()
-            {
+                {
                 //return the finalAttack
                 //LOOP to the the total?
                 //how to distinguish between the current and others. Dont have to?
@@ -224,8 +222,9 @@ public class Fight : MonoBehaviourPun
             //    aHeroes[i].Attacked(damage - diceNum);
             //    hHUD.basicInfoUpdate(aHeroes[i]);
             //}
-                    hero.Attacked(damage-diceNum);
-                }
+                    hero.data.WP-=damage-diceNum;
+                    hHUD.basicInfoUpdate(hero);
+        }
                 else if (damage < diceNum)
                 {
                     aMonster.Attacked(diceNum - damage);
@@ -375,8 +374,9 @@ public class Fight : MonoBehaviourPun
             }
 
 
-            //Handling  the turn manager
-            /*Four button*/
+    //Handling  the turn manager
+    /*Four button*/
+            [PunRPC]
             public void OnLeaveClick()
             {
                 if (fightstate != FightState.DECISION)

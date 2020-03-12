@@ -58,5 +58,8 @@ MonoBehaviour:
   - increm
   - pickup
   - Empty
+  - Click_Start
+  - OnLeaveClick
+  - playerturn
   DisableAutoOpenWizard: 1
   ShowSettings: 1
