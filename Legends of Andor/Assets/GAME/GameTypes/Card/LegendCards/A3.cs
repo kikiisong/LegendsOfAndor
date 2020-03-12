@@ -13,8 +13,6 @@ namespace Card
         public GameObject monsterParent;
         public GameObject gorPrefab;
         public GameObject skralPrefab;
-        [SerializeField] public FarmerCreator farmerCreator;
-
 
         // Start is called before the first frame update
         void Start()
@@ -65,9 +63,6 @@ namespace Card
             GameObject skral = PhotonNetwork.Instantiate(skralPrefab);
             skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
             GameGraph.Instance.PlaceAt(skral, 19);
-
-
-            farmerCreator.SetFarmerRPC();
         }
     }
 }

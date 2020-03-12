@@ -956,7 +956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   extraShiled: {fileID: 939365467}
-  nextScene: EndScene
+  gameGraph: {fileID: 1813410491}
 --- !u!4 &230998097 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
@@ -1309,7 +1309,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drinkButton: {fileID: 2132491628}
   gameGraph: {fileID: 1813410491}
-  text: {fileID: 1588394409}
 --- !u!4 &317576957
 Transform:
   m_ObjectHideFlags: 0
@@ -1500,7 +1499,6 @@ MonoBehaviour:
     type: 3}
   skralPrefab: {fileID: 1594729090229919968, guid: b126bebfc04f4f34aab824f3144485e2,
     type: 3}
-  farmerCreator: {fileID: 1942968645}
 --- !u!114 &328684575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1886,7 +1884,6 @@ Transform:
   - {fileID: 20633603}
   - {fileID: 1999952964}
   - {fileID: 317576957}
-  - {fileID: 2102606795}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2242,10 +2239,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -3992,7 +3989,7 @@ PrefabInstance:
     - target: {fileID: 8759363441600987593, guid: 8105aba088aef45c68321fbcdd16a68a,
         type: 3}
       propertyPath: numberOfFarmer
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
         type: 3}
@@ -4103,8 +4100,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 448.9, y: -335.04}
-  m_SizeDelta: {x: 288.07, y: 44.478}
+  m_AnchoredPosition: {x: 490, y: -284}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &868307769
 MonoBehaviour:
@@ -4951,7 +4948,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939365464}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36.9, y: 18.3, z: -1}
+  m_LocalPosition: {x: -38.96, y: 18.04, z: -1}
   m_LocalScale: {x: 5.047, y: 5.324, z: 1}
   m_Children:
   - {fileID: 1276795104}
@@ -5878,7 +5875,6 @@ RectTransform:
   - {fileID: 868307768}
   - {fileID: 390211265}
   - {fileID: 1879693953}
-
   - {fileID: 1147902032}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -7994,83 +7990,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 98.61, y: 64.76096, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1588394407
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1588394408}
-  - component: {fileID: 1588394410}
-  - component: {fileID: 1588394409}
-  m_Layer: 5
-  m_Name: WPText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1588394408
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588394407}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 56}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1087430907}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -771, y: 370}
-  m_SizeDelta: {x: 300, y: 200}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1588394409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588394407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 0
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'WP:'
---- !u!222 &1588394410
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588394407}
-  m_CullTransparentMesh: 0
 --- !u!114 &1594770502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8276,18 +8195,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1616984834}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1616984834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8525,7 +8433,7 @@ PrefabInstance:
     - target: {fileID: 8759363441600987593, guid: 8105aba088aef45c68321fbcdd16a68a,
         type: 3}
       propertyPath: numberOfFarmer
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
         type: 3}
@@ -11354,50 +11262,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8105aba088aef45c68321fbcdd16a68a, type: 3}
---- !u!1 &2102606794
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2102606795}
-  - component: {fileID: 2102606796}
-  m_Layer: 0
-  m_Name: WPManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2102606795
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102606794}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 399278439}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2102606796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102606794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b5add4a0eff3948a0842675c7aee8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 1588394409}
 --- !u!114 &2103814513
 MonoBehaviour:
   m_ObjectHideFlags: 0
