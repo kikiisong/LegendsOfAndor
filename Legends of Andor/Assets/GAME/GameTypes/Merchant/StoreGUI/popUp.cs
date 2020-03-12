@@ -96,10 +96,12 @@ public class popUp : MonoBehaviour
         if (heroLocationLabel == locationLabel) //at the shop
         {
             bool isEnough = hero.data.gold >= 2 || (hero.type == Hero.Type.DWARF && isDawrf == true && hero.data.gold >= 1);
-
+            print(isEnough);
 
             if (!isEnough)
             {
+
+                print("not enough!");
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Buying this object will cost u " + amt + " coins. You don't have enough gold!");
                 GUILayout.EndHorizontal();
@@ -132,10 +134,9 @@ public class popUp : MonoBehaviour
 
 
                     // you may put other code to run according to your game
-                    if (item != null)
-                    {
-                        buyItem(item);
-                    }
+                  
+                    buyItem("SP");
+                    
          
 
 
