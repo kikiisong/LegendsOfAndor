@@ -25,7 +25,7 @@ public class Merchant : MonoBehaviour
     public void openMenu(Hero h)
     {
         print("Working");
-        SceneManager.LoadScene("MerchantScene", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("MerchantScene", LoadSceneMode.Additive);
         
         //buySP(h, amt)
         //buyWineSkin()

@@ -30,7 +30,6 @@ public class HeroMerchantController : MonoBehaviourPun
 
 
                 Vector3 click = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-                click = transform.TransformPoint(click);
                 BoxCollider2D col = merchants[0].gameObject.GetComponent<BoxCollider2D>();
 
                 if (col.OverlapPoint(click))
@@ -45,15 +44,12 @@ public class HeroMerchantController : MonoBehaviourPun
             else if (current.label == merchants[1].regionLabel)
             {
                 Vector3 click = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-                click = transform.TransformPoint(click);
                 BoxCollider2D col = merchants[1].gameObject.GetComponent<BoxCollider2D>();
 
                 if (col.OverlapPoint(click))
                 {
                     //open menu
-
                     merchants[1].openMenu(hero);
-                    print("Merchant area!!");
                 }
             }
         }
