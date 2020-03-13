@@ -8,13 +8,12 @@ public class GameMapManager : MonoBehaviour
     public static GameMapManager Instance;
 
     [Header("Instantiate")]
-    public GameObject[] archerPrefabs;
-    public GameObject[] warriorPrefabs;
-    public GameObject[] dwarfPrefabs;
-    public GameObject[] wizardPrefabs;
+    public GameObject heroPrefab;
+    public GameObject timeMarkerPrefab;
 
     [Header("TimeMarkers")]
-    public List<Transform> timeMarkerTransforms;
+    public List<Transform> timeMarkerUpdatePositions;
+    public List<Transform> timeMarkerInitialPositions;
 
     private void Awake()
     {
@@ -31,29 +30,8 @@ public class GameMapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Hero hero = (Hero) PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-        switch (hero.type)
-        {
-            case Hero.Type.ARCHER:
-                Instantiate(archerPrefabs);
-                break;
-            case Hero.Type.WARRIOR:
-                Instantiate(warriorPrefabs);
-                break;
-            case Hero.Type.DWARF:
-                Instantiate(dwarfPrefabs);
-                break;
-            case Hero.Type.WIZARD:
-                Instantiate(wizardPrefabs);
-                break;
-        }
-    }
-
-    private void Instantiate(GameObject[] prefabs) {
-        foreach(GameObject prefab in prefabs)
-        {
-            PhotonNetwork.Instantiate(prefab);
-        }
+        PhotonNetwork.Instantiate(heroPrefab);
+        PhotonNetwork.Instantiate(timeMarkerPrefab);
     }
 
     // Update is called once per frame

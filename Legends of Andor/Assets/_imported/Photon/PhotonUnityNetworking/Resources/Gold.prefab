@@ -63,7 +63,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: N
+  m_text: jnjn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2039862325216993388}
-    characterCount: 1
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 6944734074392085968}
   - component: {fileID: 698924393570873867}
   - component: {fileID: 285548103408718192}
-  - component: {fileID: 2596062996920296677}
+  - component: {fileID: 804363594386391626}
   m_Layer: 0
   m_Name: Gold
   m_TagString: Untagged
@@ -226,8 +226,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1478140479
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 956d1b1bad25443cba595f5e1765f44e, type: 3}
   m_Color: {r: 0.7607844, g: 0.7607844, b: 0.7607844, a: 1}
@@ -256,9 +256,10 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 2
   ObservedComponents:
   - {fileID: 698924393570873867}
+  - {fileID: 285548103408718192}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -275,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
+  m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
 --- !u!114 &285548103408718192
 MonoBehaviour:
@@ -284,26 +285,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737781504787830960}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0af1bff9a8bc70f47a00d869b13c1cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 2039862325216993388}
   goldValue: 0
---- !u!114 &2596062996920296677
+--- !u!114 &804363594386391626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737781504787830960}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e6cf671e94527346aa639edfd0ba953, type: 3}
+  m_Script: {fileID: 11500000, guid: 70274d36a193f8347bbe0b2a6c7b0060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: {fileID: 0}
 --- !u!1 &6929327692459834037
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +361,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1478140479
   m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &2946946591811953335

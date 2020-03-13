@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Realtime;
+using Photon.Pun;
+using System;
 
-public class Gold : MonoBehaviour
+public class Gold : MonoBehaviourPun, IPunObservable   
 {
     public TextMeshProUGUI text;
     public int goldValue;
@@ -40,5 +43,24 @@ public class Gold : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(goldValue);
+        }
+        else
+        {
+            int i = (int)stream.ReceiveNext();
+            goldValue = i;
+            Display();
+        }
+    }
+
+    private void Display()
+    {
+        text.text = "" + goldValue;
     }
 }

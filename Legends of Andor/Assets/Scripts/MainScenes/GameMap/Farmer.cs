@@ -58,8 +58,7 @@ public class Farmer : MonoBehaviour
 
     }
 
-    [PunRPC]
-    public void decreaseNumOfFarmer()
+    public void decrease()
     {
         if (numberOfFarmer > 0)
         {
@@ -67,8 +66,7 @@ public class Farmer : MonoBehaviour
         }
     }
 
-    [PunRPC]
-    public void increaseNumOfFarmer()
+    public void increase()
     {
         if(numberOfFarmer < 2)
         {

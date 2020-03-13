@@ -6,7 +6,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+//public GameObject myBtn;
 public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
 {
     Button myBtn;
@@ -16,15 +16,20 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         myBtn = GameObject.Find("DropButton").GetComponent<Button>();
         TurnManager.Register(this);
+        //photonView.OwnershipTransfer = OwnershipOption.Request;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G) )
         {
-            drop();
+            Hero oh = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            if (oh.data.gold > 0) {
+                drop();
+            }
+            
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
@@ -38,56 +43,46 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
 
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
+        if (list.Count == 0) return;
         Gold g = list[0];
 
+        g.photonView.RequestOwnership();
         g.decrement();
         g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
-        Debug.Log("before the photon view");
-        
-        Debug.Log("after the photon view");
+
         if (g.goldValue == 0)
         {
-            //   list.Remove(g);
-            Destroy(g.gameObject);
-            // Destroy(g.GetComponentInChildren<TMPro.TextMeshProUGUI>());    
-            Debug.Log("list size after removing the obejct  " + list.Count);
 
-            // g.GetComponent<Renderer>().enabled = false;
-            // g.GetComponentInChildren<TMPro.TextMeshProUGUI>().enabled = false;
-
+            PhotonNetwork.Destroy(g.gameObject);
         }
         photonView.RPC("increm", RpcTarget.All, PhotonNetwork.LocalPlayer);
-        ///notify everyone else? 
-
     }
 
     [PunRPC]
     //drop gold function 
     void drop()
     {
-        //check if containts gold already
 
         List<Gold> list = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
-        Debug.Log("list size before the instantiating a gold object " + list.Count);
+        Debug.Log("list count = " + list.Count);
         if (list.Count == 0)
         {
- 
+            Debug.Log("we're inside list count 0");
             GameObject g = PhotonNetwork.Instantiate("Gold", transform.position, Quaternion.identity, 0);
             GameGraph.Instance.PlaceAt(g, current.label);
             g.GetComponent<Gold>().increment();
             g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.GetComponent<Gold>().goldValue;
-            
-
+            photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer);
         }
         else
         {
+            Debug.Log("we're inside list count 1");
             Gold g = list[0];
+            g.photonView.RequestOwnership();
             g.increment();
             g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.goldValue;
 
-            //decrement for the player
-          //  PhotonView photonView = PhotonView.Get(this);
-             photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer) ;
+            photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer) ;
 
         }
     }
@@ -96,6 +91,7 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         Hero h = (Hero) player.CustomProperties[K.Player.hero];
         h.data.gold--;
+        updateRegionButton();
     }
 
     //incrememt hero's money balance since picked up gold 
@@ -104,9 +100,11 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
     {
         Hero h = (Hero)player.CustomProperties[K.Player.hero];
         h.data.gold++;
+        updateRegionButton();
     }
     void updateRegionButton()
     {
+        int goldVal = 0;
         //extract current player's region
         foreach (HeroMoveController c in GameObject.FindObjectsOfType<HeroMoveController>())
         {
@@ -114,14 +112,18 @@ public class DropGold : MonoBehaviourPun, TurnManager.IOnMove
             {
                 //cc = c.photonView.Owner;
                 current = GameGraph.Instance.FindNearest(c.transform.position);
+                Hero oh = (Hero) PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+                goldVal  = oh.data.gold;
             }
 
         }
-        //current = GameGraph.Instance.FindNearest(transform.position);
+  
         string regionNum = Regex.Replace(current.ToString(), "[^0-9]", "");
-        myBtn.GetComponentInChildren<Text>().text = regionNum;
-        Debug.Log("this is,m,mn,mn,m from aosk" + regionNum);
+        myBtn.GetComponentInChildren<Text>().text = regionNum + " \n" + "Gold: " + goldVal ;
+        Debug.Log("this is region number: " + regionNum);
     }
+
+ 
     public void OnMove(Player player, Region currentRegion)
     {
         // throw new System.NotImplementedException();
