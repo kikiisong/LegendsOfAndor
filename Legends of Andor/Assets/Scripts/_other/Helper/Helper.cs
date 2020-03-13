@@ -13,7 +13,7 @@ public static class Helper
     public static float Constrain(float f, float min, float max)
     {
         if (f > min && f < max) return f;
-        else if (f <= min) return min;
+        else if (f < min) return min;
         else return max;
     }
 }
