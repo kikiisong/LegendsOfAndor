@@ -9,20 +9,10 @@ public class Merchant : MonoBehaviour
     public bool isDawrf;
     public int regionLabel;
 
-
-
-   
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
-       
-           GameGraph.Instance.PlaceAt(gameObject, regionLabel);
-       
+        GameGraph.Instance.PlaceAt(gameObject, regionLabel);
     }
 
     // Update is called once per frame
@@ -35,7 +25,7 @@ public class Merchant : MonoBehaviour
     public void openMenu(Hero h)
     {
         print("Working");
-        //SceneManager.LoadSceneAsync("MerchantScene", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("MerchantScene", LoadSceneMode.Additive);
         
         //buySP(h, amt)
         //buyWineSkin()
@@ -84,23 +74,8 @@ public class Merchant : MonoBehaviour
     private void OnMouseDown()
     {
         print("Working");
-
-        popUp.locationLabel = regionLabel;
-        popUp.isDawrf = this.isDawrf;
-
-
-
         SceneManager.LoadSceneAsync("MerchantScene", LoadSceneMode.Additive);
-
     }
-
-
-
-
-
-
-
-
 
 
 }
