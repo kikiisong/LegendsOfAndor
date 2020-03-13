@@ -13,43 +13,10 @@ namespace Card
         public GameObject monsterParent;
         public GameObject gorPrefab;
         public GameObject skralPrefab;
-        [SerializeField] public FarmerCreator farmerCreator;
-
-
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-           
-        }
 
         public override void Event()
         {
-            //Hero
-            HeroMoveController[] controllers = GameObject.FindObjectsOfType<HeroMoveController>();
-            foreach (HeroMoveController controller in controllers)
-            {                
-                Hero hero = (Hero)controller.photonView.Owner.CustomProperties[K.Player.hero];
-                switch (hero.type)
-                {
-                    case Hero.Type.DWARF:
-                        GameGraph.Instance.PlaceAt(controller.gameObject, 7);
-                        break;
-                    case Hero.Type.WARRIOR:
-                        GameGraph.Instance.PlaceAt(controller.gameObject, 14);
-                        break;
-                    case Hero.Type.ARCHER:
-                        GameGraph.Instance.PlaceAt(controller.gameObject, 25);
-                        break;
-                    case Hero.Type.WIZARD:
-                        GameGraph.Instance.PlaceAt(controller.gameObject, 34);
-                        break;
-                }               
-            }
+            photonView.RPC("MoveHeroes", RpcTarget.All);
 
             //Monsters
             if (PhotonNetwork.IsMasterClient)
@@ -68,6 +35,35 @@ namespace Card
 
 
             farmerCreator.SetFarmerRPC();
+        }
+
+        [PunRPC]
+        public void MoveHeroes()
+        {
+            //Hero
+            HeroMoveController[] controllers = GameObject.FindObjectsOfType<HeroMoveController>();
+            foreach (HeroMoveController controller in controllers)
+            {
+                if (controller.photonView.IsMine)
+                {
+                    Hero hero = (Hero)controller.photonView.Owner.CustomProperties[K.Player.hero];
+                    switch (hero.type)
+                    {
+                        case Hero.Type.DWARF:
+                            GameGraph.Instance.PlaceAt(controller.gameObject, 7);
+                            break;
+                        case Hero.Type.WARRIOR:
+                            GameGraph.Instance.PlaceAt(controller.gameObject, 14);
+                            break;
+                        case Hero.Type.ARCHER:
+                            GameGraph.Instance.PlaceAt(controller.gameObject, 25);
+                            break;
+                        case Hero.Type.WIZARD:
+                            GameGraph.Instance.PlaceAt(controller.gameObject, 34);
+                            break;
+                    }
+                }
+            }
         }
     }
 }

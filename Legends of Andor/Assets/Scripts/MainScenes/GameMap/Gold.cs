@@ -9,58 +9,39 @@ using System;
 
 public class Gold : MonoBehaviourPun, IPunObservable   
 {
-    public TextMeshProUGUI text;
-    public int goldValue;
-    public int GV
-    { 
-        get { return goldValue; }
-        set
-        {
-            goldValue = value;
-        }
-
-    }
-
+    public TextMeshProUGUI textUI;
+    public int Amount
+    {
+        get;
+        private set;
+    } = 0;
   
-    public void increment()
+    public void Increment()
     {
-        goldValue++;
-    }
-    public void decrement()
-    {
-        goldValue--;
+        Amount++;
     }
 
-    
-
-    // Start is called before the first frame update
-    void Start()
+    public void Decrement()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Amount--;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(goldValue);
+            stream.SendNext(Amount);
         }
         else
         {
             int i = (int)stream.ReceiveNext();
-            goldValue = i;
+            Amount = i;
             Display();
         }
     }
 
     private void Display()
     {
-        text.text = "" + goldValue;
+        textUI.text = "" + Amount;
     }
 }

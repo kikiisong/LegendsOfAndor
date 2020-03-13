@@ -58,5 +58,6 @@ MonoBehaviour:
   - increm
   - pickup
   - Empty
+  - MoveHeroes
   DisableAutoOpenWizard: 1
   ShowSettings: 1

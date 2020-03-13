@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Card
 {
-    public abstract class LegendCard : MonoBehaviour
+    public abstract class LegendCard : MonoBehaviourPun
     {
         public abstract Name CardName { get; }
 
