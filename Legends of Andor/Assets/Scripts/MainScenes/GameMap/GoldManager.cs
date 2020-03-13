@@ -54,28 +54,19 @@ public class GoldManager : MonoBehaviourPun, TurnManager.IOnMove
         Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
         if (hero.data.gold > 0)
         {
-            DropGold();
-        }
-        List<Gold> golds = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
-        if (golds.Count == 0)
-        {
-            Debug.Log("we're inside list count 0");
-            GameObject g = PhotonNetwork.Instantiate("Gold", transform.position, Quaternion.identity, 0);
-            GameGraph.Instance.PlaceAt(g, current.label);
-            g.GetComponent<Gold>().Increment();
-            g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.GetComponent<Gold>().Amount;
-            photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer);
-        }
-        else if(golds.Count == 1)
-        {
-            Debug.Log("we're inside list count 1");
-            Gold g = golds[0];
-            g.photonView.RequestOwnership();
-            g.Increment();
-            g.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "" + g.Amount;
-
-            photonView.RPC("decrem", RpcTarget.All, PhotonNetwork.LocalPlayer) ;
-
+            List<Gold> golds = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
+            if (golds.Count == 0)
+            {
+                Gold g = PhotonNetwork.Instantiate(goldPrefab).GetComponent<Gold>();
+                GameGraph.Instance.PlaceAt(g.gameObject, current.label);
+                g.Increment();
+            }
+            else if (golds.Count == 1)
+            {
+                Gold g = golds[0];
+                g.Increment();
+            }
+            photonView.RPC("DecremHero", RpcTarget.All, PhotonNetwork.LocalPlayer);
         }
     }
 
@@ -87,7 +78,6 @@ public class GoldManager : MonoBehaviourPun, TurnManager.IOnMove
     {
         Hero h = (Hero)player.CustomProperties[K.Player.hero];
         h.data.gold++;
-        UpdateRegion();
     }
 
     [PunRPC]
@@ -95,10 +85,9 @@ public class GoldManager : MonoBehaviourPun, TurnManager.IOnMove
     {
         Hero h = (Hero)player.CustomProperties[K.Player.hero];
         h.data.gold--;
-        UpdateRegion();
     }
-
-    void UpdateRegion()
+ 
+    public void OnMove(Player player, Region currentRegion)
     {
         //extract current player's region
         foreach (HeroMoveController c in GameObject.FindObjectsOfType<HeroMoveController>())
@@ -108,14 +97,5 @@ public class GoldManager : MonoBehaviourPun, TurnManager.IOnMove
                 current = GameGraph.Instance.FindNearest(c.transform.position);
             }
         }
-  
-        //string regionNum = Regex.Replace(current.ToString(), "[^0-9]", "");
-        //Debug.Log("this is region number: " + regionNum);
-    }
-
- 
-    public void OnMove(Player player, Region currentRegion)
-    {
-        UpdateRegion();
     }
 }

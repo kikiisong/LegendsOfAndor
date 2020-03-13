@@ -9,7 +9,8 @@ using System;
 
 public class Gold : MonoBehaviourPun, IPunObservable   
 {
-    public TextMeshProUGUI textUI;
+    [SerializeField] TextMeshProUGUI textUI;
+
     public int Amount
     {
         get;
@@ -18,12 +19,16 @@ public class Gold : MonoBehaviourPun, IPunObservable
   
     public void Increment()
     {
+        photonView.RequestOwnership();
         Amount++;
+        Display();
     }
 
     public void Decrement()
     {
+        photonView.RequestOwnership();
         Amount--;
+        Display();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
