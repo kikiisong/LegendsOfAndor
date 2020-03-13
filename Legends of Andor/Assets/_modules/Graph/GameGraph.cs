@@ -139,6 +139,23 @@ public class GameGraph : Graph<Region, Border>
         return list;
     }
 
+
+
+
+    public List<M> FindObjectsOnRegion<M>(int regionNumber) where M : MonoBehaviour
+    {
+        List<M> list = new List<M>();
+        foreach (M m in GameObject.FindObjectsOfType<M>())
+        {
+            Region region = FindNearest(m.transform.position);
+            if (regionNumber == region.label)
+            {
+                list.Add(m);
+            }
+        }
+        return list;
+    }
+
     public bool FindMonsterOnRegion()
     {
 
