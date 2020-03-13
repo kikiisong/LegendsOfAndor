@@ -61,5 +61,8 @@ MonoBehaviour:
   - Click_Start
   - OnLeaveClick
   - playerturn
+  - SwitchScene
+  - lightUpJoin
+  - LightUpJoin
   DisableAutoOpenWizard: 1
   ShowSettings: 1

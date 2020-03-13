@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4093,7 +4093,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 868307767}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e6cf671e94527346aa639edfd0ba953, type: 3}
   m_Name: 
@@ -6092,6 +6092,7 @@ GameObject:
   - component: {fileID: 1147902035}
   - component: {fileID: 1147902034}
   - component: {fileID: 1147902033}
+  - component: {fileID: 1147902036}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -6209,6 +6210,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147902031}
   m_CullTransparentMesh: 0
+--- !u!114 &1147902036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147902031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 7
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1159201691
 GameObject:
   m_ObjectHideFlags: 0
@@ -7358,6 +7381,8 @@ GameObject:
   - component: {fileID: 1379744361}
   - component: {fileID: 1379744363}
   - component: {fileID: 1379744362}
+  - component: {fileID: 1379744365}
+  - component: {fileID: 1379744364}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -7424,6 +7449,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379744360}
   m_CullTransparentMesh: 0
+--- !u!114 &1379744364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379744360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
+--- !u!114 &1379744365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379744360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 5
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!4 &1387531193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
@@ -9846,6 +9908,7 @@ GameObject:
   - component: {fileID: 1879693956}
   - component: {fileID: 1879693955}
   - component: {fileID: 1879693954}
+  - component: {fileID: 1879693957}
   m_Layer: 5
   m_Name: JoinFight
   m_TagString: Untagged
@@ -9963,6 +10026,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879693952}
   m_CullTransparentMesh: 0
+--- !u!114 &1879693957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879693952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 6
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &1888283110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11643,17 +11728,22 @@ PrefabInstance:
         type: 3}
       propertyPath: start
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1147902031}
     - target: {fileID: 4428820037423206485, guid: 5c9d0415ef15c4287ba55950ba3ec23c,
         type: 3}
       propertyPath: ready
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1879693952}
     - target: {fileID: 4428820037423206485, guid: 5c9d0415ef15c4287ba55950ba3ec23c,
         type: 3}
       propertyPath: nextScene
       value: FightScene
       objectReference: {fileID: 0}
+    - target: {fileID: 4428820037423206485, guid: 5c9d0415ef15c4287ba55950ba3ec23c,
+        type: 3}
+      propertyPath: fight
+      value: 
+      objectReference: {fileID: 390211264}
     - target: {fileID: 5893617943372060094, guid: 5c9d0415ef15c4287ba55950ba3ec23c,
         type: 3}
       propertyPath: m_Name
@@ -11722,9 +11812,37 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 8912940627994974704}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8912940627994974706}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecce4b9075b244380a4a026fe1f75b40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8912940627994974706 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5893617943372060094, guid: 5c9d0415ef15c4287ba55950ba3ec23c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8912940627994974704}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8912940627994974707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8912940627994974706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 8
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

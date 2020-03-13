@@ -376,7 +376,7 @@ public class Fight : MonoBehaviourPun
 
     //Handling  the turn manager
     /*Four button*/
-            [PunRPC]
+            
             public void OnLeaveClick()
             {
                 if (fightstate != FightState.DECISION)
@@ -388,6 +388,7 @@ public class Fight : MonoBehaviourPun
                 SceneManager.UnloadSceneAsync("FightScene");
 
             }
+
 
             public void OnConitnueClick()
             {
