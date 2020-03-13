@@ -9,6 +9,7 @@ public class WellController : MonoBehaviourPun, TurnManager.IOnMove
 {
     public GameObject drinkButton;
     public GameGraph gameGraph;
+    public Text text;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,8 @@ public class WellController : MonoBehaviourPun, TurnManager.IOnMove
                     {
                         //Debug.Log(hero.data.WP);
                         hero.data.WP += 3;
+                        string wp = hero.data.WP.ToString();
+                        text.text = "WP: " + wp;
                         //Debug.Log(hero.data.WP);
 
                         photonView.RPC("Empty", RpcTarget.AllBuffered, currentRegion.label);

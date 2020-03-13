@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class HeroMoveController : MonoBehaviourPun
 {
     public float radius = 3;
+    public float animation_time = 1;
     bool isMoving = false;
 
     void Start()
@@ -43,7 +44,7 @@ public class HeroMoveController : MonoBehaviourPun
         {
             hero.data.regionNumber = clicked.label;
            isMoving = true;
-            StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, 2f, () => {
+            StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, animation_time, () => {
                 TurnManager.TriggerEvent_Move(clicked);
                 isMoving = false;
             }));

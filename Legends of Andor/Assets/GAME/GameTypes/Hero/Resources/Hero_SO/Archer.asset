@@ -23,12 +23,12 @@ MonoBehaviour:
     regionNumber: 0
     numFarmers: 0
     magic: 0
-    herbS: 1
+    herbS: 0
     brew: 0
     helm: 0
     sheild: 0
     herbW: 0
-    bow: 1
+    bow: 0
   constants:
     StartingRegion: 53
     rank: 25
