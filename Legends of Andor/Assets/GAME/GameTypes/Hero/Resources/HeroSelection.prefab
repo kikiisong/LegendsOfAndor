@@ -109,4 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9506ff75cbc2c4a96e5721d74684cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heroes:
+  - {fileID: 11400000, guid: 8bca29af4cc90c54a8500305434ddecc, type: 2}
+  - {fileID: 11400000, guid: 297eb074c4e7e87449189a3957325c61, type: 2}
+  - {fileID: 11400000, guid: 53dbce89018ccb440998c0fc2ef61730, type: 2}
+  - {fileID: 11400000, guid: 201df36d7c3b4614db3634f8d9398cd9, type: 2}
   image: {fileID: 7912434964590026059}

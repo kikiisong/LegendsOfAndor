@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +11,6 @@ namespace Card
 
         public GameObject monsterParent;
         public GameObject gorPrefab;
-        public GameObject skralPrefab;
-        [SerializeField] public FarmerCreator farmerCreator;
-
 
         // Start is called before the first frame update
         void Start()
@@ -32,8 +28,8 @@ namespace Card
             //Hero
             HeroMoveController[] controllers = GameObject.FindObjectsOfType<HeroMoveController>();
             foreach (HeroMoveController controller in controllers)
-            {                
-                Hero hero = (Hero)controller.photonView.Owner.CustomProperties[K.Player.hero];
+            {
+                Hero hero = controller.hero;
                 switch (hero.type)
                 {
                     case Hero.Type.DWARF:
@@ -48,7 +44,7 @@ namespace Card
                     case Hero.Type.WIZARD:
                         GameGraph.Instance.PlaceAt(controller.gameObject, 34);
                         break;
-                }               
+                }
             }
 
             //Monsters
@@ -57,17 +53,10 @@ namespace Card
                 foreach (int r in new int[] { 8, 20, 21, 26, 48 })
                 {
                     GameObject gor = PhotonNetwork.Instantiate(gorPrefab);
-                    gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-                    GameGraph.Instance.PlaceAt(gor, r);
+                    //gor.GetComponent<MonsterMoveController>().SetParentRPC()
+                    //GameGraph.Instance.PlaceAt(gor, r);
                 }
-            }
-
-            GameObject skral = PhotonNetwork.Instantiate(skralPrefab);
-            skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-            GameGraph.Instance.PlaceAt(skral, 19);
-
-
-            farmerCreator.SetFarmerRPC();
+            }  
         }
     }
 }
