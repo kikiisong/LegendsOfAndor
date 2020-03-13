@@ -733,7 +733,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3da5609f8d6aab64aa0afa0c80d34e1d, type: 3}
-  m_Name: 
   m_Name:
   m_EditorClassIdentifier:
   label: 62
