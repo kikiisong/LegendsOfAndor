@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class WellManager : MonoBehaviourPun, TurnManager.IOnMove
 {
     public Button drinkButton;
-    public Text text;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +42,6 @@ public class WellManager : MonoBehaviourPun, TurnManager.IOnMove
                         //Debug.Log(hero.data.WP);
                         hero.data.WP += 3;
                         string wp = hero.data.WP.ToString();
-                        text.text = "WP: " + wp;
                         //Debug.Log(hero.data.WP);
 
                         photonView.RPC("Empty", RpcTarget.AllBuffered, currentRegion.label);
