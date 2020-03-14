@@ -9,7 +9,7 @@ using System;
 
 public class Gold : MonoBehaviourPun, IPunObservable   
 {
-    [SerializeField] TextMeshProUGUI textUI;
+    [SerializeField] TextMeshPro textUI;
 
     public int Amount
     {

@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Well : MonoBehaviour, TurnManager.IOnSunrise
 {
-    public bool isFilled;
     public int region;
+
     private Renderer wellIcon;
+    public bool IsFilled
+    {
+        get;
+        private set;
+    } = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,22 +30,22 @@ public class Well : MonoBehaviour, TurnManager.IOnSunrise
 
     public void OnSunrise()
     {
-        if (!isFilled)
+        if (!IsFilled)
         {
             Region currentRegion = GameGraph.Instance.FindNearest(transform.position);
             List<HeroMoveController> heroes = GameGraph.Instance.FindObjectsOnRegion<HeroMoveController>(currentRegion);
 
             if (heroes.Count == 0)
             {
-                isFilled = true;
+                IsFilled = true;
                 wellIcon.enabled = true;
             }
         }
     }
 
-    public void drunk()
+    public void Drunk()
     {
-        isFilled = false;
+        IsFilled = false;
         wellIcon.enabled = false;
     }
 

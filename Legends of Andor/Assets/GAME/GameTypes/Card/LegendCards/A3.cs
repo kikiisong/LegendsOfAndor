@@ -34,7 +34,7 @@ namespace Card
             GameGraph.Instance.PlaceAt(skral, 19);
 
 
-            farmerCreator.SetFarmerRPC();
+            FarmerManager.Instance.SetFarmerRPC();
         }
 
         [PunRPC]

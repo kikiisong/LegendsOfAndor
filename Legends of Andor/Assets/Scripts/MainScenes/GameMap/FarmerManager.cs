@@ -5,22 +5,23 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
+public class FarmerManager : MonoBehaviourPun, TurnManager.IOnMove
 {
+    public static FarmerManager Instance;
 
-    [SerializeField] public GameGraph gameGraph;
-    [SerializeField] public GameObject extraShileds;
-    public GameObject pickUpButton;
-    public GameObject dropDownButton;
+    public GameObject extraShileds;
+    public Button pickUpButton;
+    public Button dropDownButton;
 
-  //  public Farmer tempFarmer;
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
-        pickUpButton = GameObject.Find("pickUpFarmerButton");
-        dropDownButton = GameObject.Find("dropDownFarmerButton");
-        pickUpButton.SetActive(false);
-        dropDownButton.SetActive(false);
+        pickUpButton.gameObject.SetActive(false);
+        dropDownButton.gameObject.SetActive(false);
 
         TurnManager.Register(this);
     }
@@ -32,7 +33,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
             print("the player made a move");
             Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
 
-            List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(currentRegion);
+            List<Farmer> farmerOnRegion = GameGraph.Instance.FindObjectsOnRegion<Farmer>(currentRegion);
 
             if(farmerOnRegion.Count == 0)
             {
@@ -52,9 +53,9 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
             if (temp.numberOfFarmer > 0)
             {
-                pickUpButton.SetActive(true);
-                pickUpButton.GetComponent<Button>().onClick.RemoveAllListeners();
-                pickUpButton.GetComponent<Button>().onClick.AddListener(() =>
+                pickUpButton.gameObject.SetActive(true);
+                pickUpButton.onClick.RemoveAllListeners();
+                pickUpButton.onClick.AddListener(() =>
                 {
                     print("pickupHave been pressed at region " + currentRegion.label);
                     hero.data.numFarmers++;
@@ -64,21 +65,21 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
                     print("After pick up there are " + temp.numberOfFarmer + " farmers on cureent region.");
                     if (temp.numberOfFarmer == 0)
                     {
-                        pickUpButton.SetActive(false);
+                        pickUpButton.gameObject.SetActive(false);
                     }
-                    dropDownButton.SetActive(true);
+                    dropDownButton.gameObject.SetActive(true);
                 });
 
             }
             else
             {
-                pickUpButton.SetActive(false);
+                pickUpButton.gameObject.SetActive(false);
             }
 
             if (hero.data.numFarmers > 0)
             {
-                dropDownButton.GetComponent<Button>().onClick.RemoveAllListeners();
-                dropDownButton.GetComponent<Button>().onClick.AddListener(() =>
+                dropDownButton.onClick.RemoveAllListeners();
+                dropDownButton.onClick.AddListener(() =>
                 {
                     print("Drop down Have been pressed , at region " + currentRegion.label);
                     hero.data.numFarmers--;
@@ -97,12 +98,12 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
 
                     if (hero.data.numFarmers == 0)
                     {
-                        dropDownButton.SetActive(false);
+                        dropDownButton.gameObject.SetActive(false);
                     }
 
                     if (currentRegion.label != 0)
                     {
-                        pickUpButton.SetActive(true);
+                        pickUpButton.gameObject.SetActive(true);
                     }
                 });
             }
@@ -114,7 +115,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
     [PunRPC]
     public void Decrease(int currentRegion)
     {
-        List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(GameGraph.Instance.Find(currentRegion));
+        List<Farmer> farmerOnRegion = GameGraph.Instance.FindObjectsOnRegion<Farmer>(GameGraph.Instance.Find(currentRegion));
 
         if (farmerOnRegion.Count == 0)
         {
@@ -128,7 +129,7 @@ public class FarmerCreator : MonoBehaviourPun, TurnManager.IOnMove
     [PunRPC]
     public void Increase(int currentRegion)
     {
-        List<Farmer> farmerOnRegion = gameGraph.FindObjectsOnRegion<Farmer>(GameGraph.Instance.Find(currentRegion));
+        List<Farmer> farmerOnRegion = GameGraph.Instance.FindObjectsOnRegion<Farmer>(GameGraph.Instance.Find(currentRegion));
 
         if (farmerOnRegion.Count == 0)
         {

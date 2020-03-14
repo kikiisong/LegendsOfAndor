@@ -10,33 +10,69 @@ using UnityEngine.UI;
 /// Drop gold, pick up gold
 /// Singleton
 /// </summary>
-public class GoldManager : MonoBehaviourPun, TurnManager.IOnMove
+public class GoldManager : MonoBehaviourPun
 {
     public GameObject goldPrefab;
+    public Button pickUp, drop;
 
-    Region current;
+    Region Current
+    {
+        get
+        {
+            //Extract current player's region
+            foreach (HeroMoveController c in GameObject.FindObjectsOfType<HeroMoveController>())
+            {
+                if (c.photonView.Owner == PhotonNetwork.LocalPlayer)
+                {
+                    return GameGraph.Instance.FindNearest(c.transform.position);
+                }
+            }
+            throw new System.Exception("No current region");
+        }
+    }
 
     void Start()
     {
-        TurnManager.Register(this);
+        pickUp.gameObject.SetActive(false);
+        drop.gameObject.SetActive(false);
+        pickUp.onClick.AddListener(() => PickupGold());
+        drop.onClick.AddListener(() => DropGold());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G) )
+        UpdateActive(); //inneficient
+        if (Input.GetKeyDown(KeyCode.P)) PickupGold();
+        else if (Input.GetKeyDown(KeyCode.G)) DropGold();
+    }
+
+    void UpdateActive()
+    {
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        if(hero.data.gold > 0)
         {
-            DropGold();
+            drop.gameObject.SetActive(true);
         }
-        else if (Input.GetKeyDown(KeyCode.P))
+        else
         {
-            PickupGold();
+            drop.gameObject.SetActive(false);
+        }
+
+        List<Gold> golds = GameGraph.Instance.FindObjectsOnRegion<Gold>(Current);
+        if (golds.Count == 1)
+        {
+            pickUp.gameObject.SetActive(true);
+        }
+        else
+        {
+            pickUp.gameObject.SetActive(false);
         }
     }
 
     void PickupGold()
     {
-        List<Gold> golds = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
+        List<Gold> golds = GameGraph.Instance.FindObjectsOnRegion<Gold>(Current);
         if(golds.Count == 1)
         {
             Gold g = golds[0];
@@ -54,11 +90,11 @@ public class GoldManager : MonoBehaviourPun, TurnManager.IOnMove
         Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
         if (hero.data.gold > 0)
         {
-            List<Gold> golds = GameGraph.Instance.FindObjectsOnRegion<Gold>(current);
+            List<Gold> golds = GameGraph.Instance.FindObjectsOnRegion<Gold>(Current);
             if (golds.Count == 0)
             {
                 Gold g = PhotonNetwork.Instantiate(goldPrefab).GetComponent<Gold>();
-                GameGraph.Instance.PlaceAt(g.gameObject, current.label);
+                GameGraph.Instance.PlaceAt(g.gameObject, Current.label);
                 g.Increment();
             }
             else if (golds.Count == 1)
@@ -85,17 +121,5 @@ public class GoldManager : MonoBehaviourPun, TurnManager.IOnMove
     {
         Hero h = (Hero)player.CustomProperties[K.Player.hero];
         h.data.gold--;
-    }
- 
-    public void OnMove(Player player, Region currentRegion)
-    {
-        //extract current player's region
-        foreach (HeroMoveController c in GameObject.FindObjectsOfType<HeroMoveController>())
-        {
-            if (c.photonView.Owner == PhotonNetwork.LocalPlayer)
-            {
-                current = GameGraph.Instance.FindNearest(c.transform.position);
-            }
-        }
     }
 }
