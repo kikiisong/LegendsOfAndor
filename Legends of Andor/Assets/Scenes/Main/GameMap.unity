@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -703,6 +703,7 @@ GameObject:
   - component: {fileID: 151124942}
   - component: {fileID: 151124941}
   - component: {fileID: 151124940}
+  - component: {fileID: 151124943}
   m_Layer: 5
   m_Name: PickUpGold
   m_TagString: Untagged
@@ -773,7 +774,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 542299321}
         m_MethodName: 
         m_Mode: 1
         m_Arguments:
@@ -820,6 +821,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151124938}
   m_CullTransparentMesh: 0
+--- !u!114 &151124943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151124938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734e1cc11de30405c994b2bbe4a7ea5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropDownButton: {fileID: 1600366609}
 --- !u!114 &160791727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2619,6 +2633,8 @@ GameObject:
   - component: {fileID: 542299325}
   - component: {fileID: 542299324}
   - component: {fileID: 542299323}
+  - component: {fileID: 542299326}
+  - component: {fileID: 542299327}
   m_Layer: 5
   m_Name: PickUpFarmer
   m_TagString: Untagged
@@ -2689,12 +2705,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 542299326}
+        m_MethodName: pickUpFarmer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2736,6 +2752,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 542299321}
   m_CullTransparentMesh: 0
+--- !u!114 &542299326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542299321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734e1cc11de30405c994b2bbe4a7ea5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropDownButton: {fileID: 1600366609}
+--- !u!114 &542299327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542299321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &578716291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5576,7 +5627,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drinkButton: {fileID: 1098488245}
-  text: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -5646,7 +5696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.81578827, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1676669743}
@@ -8785,6 +8835,8 @@ GameObject:
   - component: {fileID: 1600366611}
   - component: {fileID: 1600366610}
   - component: {fileID: 1600366609}
+  - component: {fileID: 1600366612}
+  - component: {fileID: 1600366613}
   m_Layer: 5
   m_Name: DropDownFarmer
   m_TagString: Untagged
@@ -8854,7 +8906,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1600366610}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1600366613}
+        m_MethodName: dropDownFarmer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1600366610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8891,6 +8954,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600366607}
   m_CullTransparentMesh: 0
+--- !u!114 &1600366612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600366607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 4
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &1600366613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600366607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c16c414b49244c85a7e48b368b1423e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpButton: {fileID: 542299323}
+  extraShileds: {fileID: 939365464}
 --- !u!1 &1612879501
 GameObject:
   m_ObjectHideFlags: 0
@@ -11217,6 +11316,7 @@ Transform:
   - {fileID: 1806989362}
   - {fileID: 2002419345}
   - {fileID: 457387009}
+  - {fileID: 1994572108}
   m_Father: {fileID: 399278439}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11464,6 +11564,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
     type: 3}
   m_PrefabInstance: {fileID: 2030494458}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1994572108 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2049153749}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1996000438
 MonoBehaviour:
@@ -11982,6 +12088,80 @@ MonoBehaviour:
   label: 44
   regionName: 
   position: {x: 11.068596, y: -1.1360879, z: 0.25668415}
+--- !u!1001 &2049153749
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1942968644}
+    m_Modifications:
+    - target: {fileID: 8759363441600987588, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_Name
+      value: Farmer (72)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987593, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: region
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8105aba088aef45c68321fbcdd16a68a, type: 3}
 --- !u!1 &2052190127
 GameObject:
   m_ObjectHideFlags: 0
