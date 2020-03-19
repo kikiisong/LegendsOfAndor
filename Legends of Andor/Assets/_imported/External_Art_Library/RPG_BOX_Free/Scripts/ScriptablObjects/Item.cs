@@ -23,7 +23,32 @@ public class Item : ScriptableObject
     public GearMainType gearMainType;
 
     public List<ItemAttribute> Attributes;
+
+    //bag - ?
+   // public Dictionary<string, int> stats = new Dictionary<string, int>();
+    public int id;
+    //constructor - for inventory 
+    //public Item(int id, string title, Dictionary<string ,int> stats, bool stackable)
+    public Item(int id, string title, bool stackable)
+    {
+        this.id = id;
+        itemIcon = Resources.Load<Sprite>("Assets/_imported/External_Art_Library/RPG_BOX_Free/Resources/ItemsIcons/" + title);
+        itemName = title;
+        IsStackable = stackable;
+        //this.stats = stats;
+        
+    }
+
+    //constructor - for inventory 
+    public Item(Item item)
+    {
+        itemIcon = Resources.Load<Sprite>("Assets/_imported/External_Art_Library/RPG_BOX_Free/Resources/ItemsIcons/" + itemName);
+        itemName = item.itemName;
+        IsStackable = item.IsStackable;
+
+    }
 }
+
 
 public enum Rarity
 {
