@@ -35,11 +35,9 @@ public class pickUpButtonHandler : MonoBehaviourPun
                 print("pickupHave been pressed at region " + currentRegion.label);
                 hero.data.numFarmers++;
                 print("the hero has farmer num of " + hero.data.numFarmers);
+                photonView.RPC("Decrease", RpcTarget.All, currentRegion.label);
 
-
-            // photonView.RPC("Decrease", RpcTarget.All, currentRegion.label);
-
-                Decrease(currentRegion.label);
+              //  Decrease(currentRegion.label);
 
                 print("After pick up there are " + temp.numberOfFarmer + " farmers on current region.");
                 if (temp.numberOfFarmer == 0)

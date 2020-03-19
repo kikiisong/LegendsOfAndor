@@ -9,6 +9,30 @@ public class drapDownButtonHandler : MonoBehaviourPun
     public Button pickUpButton;
     public GameObject extraShileds;
 
+    private void Update()
+    {
+        detectIfThereAMonster();
+    }
+
+    private void detectIfThereAMonster()
+    {
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
+
+        Region currentRegion = findCurrentRegion();
+
+        List<Monster> MonsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<Monster>(currentRegion);
+
+        if (MonsterOnRegion.Count == 0)
+        {
+            return;
+        }
+        else
+        {
+            hero.data.numFarmers = 0;
+            gameObject.SetActive(false);
+        }
+    }
+
     public void dropDownFarmer()
     {
         Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
@@ -17,7 +41,7 @@ public class drapDownButtonHandler : MonoBehaviourPun
 
         List<Farmer> farmerOnRegion = GameGraph.Instance.FindObjectsOnRegion<Farmer>(currentRegion);
 
-        if(farmerOnRegion.Count == 0)
+        if(farmerOnRegion == null)
         {
             return;
         }
