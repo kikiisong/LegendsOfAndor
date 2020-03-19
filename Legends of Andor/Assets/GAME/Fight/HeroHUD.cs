@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class HeroHUD : MonoBehaviour
 {
-
+    [Header("Text")]
     public Text dice;
     public Text currentWillpower;
     public Text strengthPower;
 
+    [Header("SkillButton")]
     public Button magic;
     public Button helm;
     public Button sheild;
@@ -17,6 +18,7 @@ public class HeroHUD : MonoBehaviour
     public Button herbWill;
     public Button herbStrength;
 
+    [Header("EventButton")]
     public Button trade;
     public Button falcon;
     public Button leave;

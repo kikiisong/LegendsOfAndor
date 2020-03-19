@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
+using Routines;
 using System.Collections.Generic;
 
 public enum FightState
@@ -27,23 +28,35 @@ public enum FightState
     }
 
 
-public class Fight : MonoBehaviourPun
+public class Fight : MonoBehaviourPun, FightTurnManager.IOnMove
 {
     public FightState fightstate;
 
-   
+    [Header("Monster")]
     public Transform monsterStation;
     public GameObject monster;
+
+    [Header("HUD")]
     public MonsterHUD mHUD;
     public HeroHUD hHUD;
     public FightHUD fHUD;
+
+    [Header("ArcherSpecial")]
     public Button myArcherYesButton;
     public Button mySkillYesButton;
+
+    [Header("Dice")]
     public Dice dice;
     public List<Hero> aHeroes;
 
-    Monster aMonster;
+    [Header("Prefabs")]
+    public GameObject archerPrefabs;
+    public GameObject warriorPrefabs;
+    public GameObject dwarfPrefabs;
+    public GameObject wizardPrefabs;
+    public Transform[] transforms = new Transform[4];
 
+    public Monster aMonster;
     public Hero hero;
     public int diceNum;
     int damage;
@@ -53,105 +66,136 @@ public class Fight : MonoBehaviourPun
     // Use this for initialization
     void Start()
     {
+        FightTurnManager.Register(this);
+        plotCharacter();
         fightstate = FightState.START;
-
-        foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
-        {
-            Player player = pair.Value;
-            if (player.CustomProperties.ContainsKey(K.Player.isFight))
-            {
-                bool fight = (bool)player.CustomProperties[K.Player.isFight];
-                if (fight) {
-                    hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-                    aHeroes.Add(hero);
-                }
-                StartCoroutine(setUpBattle());
-
-            }
-        }
+        StartCoroutine(setUpBattle());
     }
 
 
             //--------START--------//
-
-            IEnumerator setUpBattle()
+    void plotCharacter() {
+        int i = 0;
+        foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
+        {
+            if (player.CustomProperties.ContainsKey(K.Player.isFight))
             {
+                Hero hero = (Hero)player.CustomProperties[K.Player.hero];
 
-                mySkillYesButton.gameObject.SetActive(false);
-                myArcherYesButton.gameObject.SetActive(false);
+                switch (hero.type)
+                {
+                    case Hero.Type.ARCHER:
+                        GameObject go1 = PhotonNetwork.Instantiate(archerPrefabs);
+                        go1.transform.position = transforms[i].position;
+                        go1.SetActive(true);
+                        i++;
+                        break;
+                    case Hero.Type.WARRIOR:
+                        GameObject go2 = PhotonNetwork.Instantiate(warriorPrefabs);
+                        go2.transform.position = transforms[i].position;
+                        go2.SetActive(true);
+                        i++;
+                        break;
+                    case Hero.Type.DWARF:
+                        GameObject go3 = PhotonNetwork.Instantiate(dwarfPrefabs);
+                        go3.transform.position = transforms[i].position;
+                        go3.SetActive(true);
+                        i++;
+                        break;
+                    case Hero.Type.WIZARD:
+                        GameObject go4 = PhotonNetwork.Instantiate(wizardPrefabs);
+                        go4.transform.position = transforms[i].position;
+                        go4.SetActive(true);
+                        i++;
+                        break;
+                }
+
+
 
                 GameObject monsterGo = Instantiate(monster, monsterStation);
                 aMonster = monsterGo.GetComponent<Monster>();
-                mHUD.setMonsterHUD(aMonster);
                 hHUD.setHeroHUD(hero);
-                fHUD.setFightHUD_START();
-                fightstate = FightState.HERO;
-                yield return new WaitForSeconds(2f);
-                print("Here");
-                playerturn();
+                mHUD.setMonsterHUD(aMonster);
             }
+        }
+
+    }
+
+    IEnumerator setUpBattle()
+    {
+                
+        fHUD.setFightHUD_START();
+        fightstate = FightState.HERO;
+        yield return new WaitForSeconds(2f);
+
+        //OnMove(player);
+    }
 
 
 
-            //--------HERO--------//
-            //--------MESSAGE--------//
+    //--------HERO--------//
+    //--------MESSAGE--------//
 
-            void playerturn()
-            {
-                //roll the dice
-                //confirm the action 
-                fHUD.setFightHUD_PLAYER();
-                times = hero.getDiceNum();
-                btimes = hero.data.blackDice;
-            }
-            public void OnRollDice()
-            {
-                if (fightstate != FightState.HERO)
-                {
-                    return;
+    public void OnMove(Player player)
+    {
+        //roll the dice
+        //confirm the action
+        Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+        fHUD.setFightHUD_PLAYER();
+        hero.data.times = hero.getDiceNum();
+        hero.data.btimes = hero.data.blackDice;
+        OnRollDice();
+    }
 
-                }
-                StartCoroutine(HeroRoll());
+    public void OnRollDice()
+    {
+        if (fightstate != FightState.HERO && FightTurnManager.IsMyTurn())
+        {
+            return;
 
-            }
+        }
+
+        StartCoroutine(HeroRoll());
+
+    }
             
 
             //--------ROLL--------//
-            IEnumerator HeroRoll()
+        IEnumerator HeroRoll()
+        {
+
+            if (hero.type == Hero.Type.ARCHER)
             {
 
-                if (hero.type == Hero.Type.ARCHER)
+                myArcherYesButton.gameObject.SetActive(true);
+                if (btimes > 0)
                 {
+                    diceNum = dice.getOne(true);
+                    btimes--;
+                    fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
 
-                    myArcherYesButton.gameObject.SetActive(true);
-                    if (btimes > 0)
-                    {
-                        diceNum = dice.getOne(true);
-                        btimes--;
-                        fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
+                }
+                else if (times > 0)
+                {
+                    diceNum = dice.getOne(false);
+                    times--;
+                    fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
 
-                    }
-                    else if (times > 0)
-                    {
-                        diceNum = dice.getOne(false);
-                        times--;
-                        fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
-
-                    }
-                    else
-                    {
-                        OnYesClick();
-                    }
                 }
                 else
                 {
-                    mySkillYesButton.gameObject.SetActive(true);
-                    dice.rollDice(hero.getDiceNum(), hero.data.blackDice);
-                    diceNum = dice.getMax();
-                    fHUD.rollResult(dice.printArrayList() + "Max:" + diceNum);
+                    OnYesClick();
                 }
-                yield return new WaitForSeconds(4f);
             }
+            else
+            {
+                mySkillYesButton.gameObject.SetActive(true);
+                dice.rollDice(hero.getDiceNum(), hero.data.blackDice);
+                diceNum = dice.getMax();
+                fHUD.rollResult(dice.printArrayList() + "Max:" + diceNum);
+            }
+            yield return new WaitForSeconds(4f);
+        }
 
             //--------ATTACK--------//
             IEnumerator HeroAttack()
@@ -411,7 +455,7 @@ public class Fight : MonoBehaviourPun
                     hHUD.backColorMagic();
                 }
 
-                playerturn();
+                //OnMove();
 
 
             }

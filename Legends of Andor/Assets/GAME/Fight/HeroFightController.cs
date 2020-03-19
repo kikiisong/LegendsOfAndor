@@ -27,6 +27,7 @@ public class HeroFightController : MonoBehaviourPun
         hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
     }
 
+
     public int getDiceNum() {
         switch (heroType) {
             case (Type.ARCHER):
@@ -80,6 +81,7 @@ public class HeroFightController : MonoBehaviourPun
         StartCoroutine(HeroRoll(myArcherYesButton, mySkillYesButton,fHUD));
         
     }
+
     public void cleartimes() {
         times = getDiceNum();
         btimes = hero.data.blackDice;
@@ -120,6 +122,8 @@ public class HeroFightController : MonoBehaviourPun
         }
         yield return new WaitForSeconds(4f);
     }
+
+
 
     public void OnYesClick(Button myArcherYesButton,Button mySkillYesButton)
     {
