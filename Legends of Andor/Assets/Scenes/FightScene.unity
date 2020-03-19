@@ -1482,7 +1482,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402533806}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &402533808
 Camera:
   m_ObjectHideFlags: 0
@@ -5160,20 +5160,6 @@ MonoBehaviour:
   mySkillYesButton: {fileID: 189760077}
   dice: {fileID: 2952251657372633682, guid: 4514c5379f49d438ba00ad6976d6156c, type: 3}
   aHeroes: []
-  archerPrefabs: {fileID: 5904007845418553197, guid: 05d537d5a61b24caea7399d228950275,
-    type: 3}
-  warriorPrefabs: {fileID: 2794928651808161829, guid: 820d1340efaaa49f3b4a4b11ebfcbb5e,
-    type: 3}
-  dwarfPrefabs: {fileID: 8934514833290792749, guid: 7c630847697624bc6a605748fa27707e,
-    type: 3}
-  wizardPrefabs: {fileID: 4394642116526511494, guid: 461497ccd253f4b5e810af95cbed0307,
-    type: 3}
-  transforms:
-  - {fileID: 1596874844}
-  - {fileID: 1705254592}
-  - {fileID: 1622760270}
-  - {fileID: 754449957}
-  aMonster: {fileID: 0}
   hero: {fileID: 0}
   diceNum: 0
 --- !u!4 &1987893036

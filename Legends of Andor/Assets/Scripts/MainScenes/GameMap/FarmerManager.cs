@@ -54,21 +54,21 @@ public class FarmerManager : MonoBehaviourPun, TurnManager.IOnMove
             if (temp.numberOfFarmer > 0)
             {
                 pickUpButton.gameObject.SetActive(true);
-            //    pickUpButton.onClick.RemoveAllListeners();
-            //    pickUpButton.onClick.AddListener(() =>
-            //    {
-            //        print("pickupHave been pressed at region " + currentRegion.label);
-            //       hero.data.numFarmers++;
-            //        print("the hero's num is " + hero.data.numFarmers);
-            //        photonView.RPC("Decrease", RpcTarget.AllBuffered, currentRegion.label);
-            //
-            //        print("After pick up there are " + temp.numberOfFarmer + " farmers on cureent region.");
-            //        if (temp.numberOfFarmer == 0)
-            //        {
-            //            pickUpButton.gameObject.SetActive(false);
-            //        }
-            //        dropDownButton.gameObject.SetActive(true);
-            //    });
+                pickUpButton.onClick.RemoveAllListeners();
+                pickUpButton.onClick.AddListener(() =>
+                {
+                    print("pickupHave been pressed at region " + currentRegion.label);
+                    hero.data.numFarmers++;
+                    print("the hero's num is " + hero.data.numFarmers);
+                    photonView.RPC("Decrease", RpcTarget.AllBuffered, currentRegion.label);
+
+                    print("After pick up there are " + temp.numberOfFarmer + " farmers on cureent region.");
+                    if (temp.numberOfFarmer == 0)
+                    {
+                        pickUpButton.gameObject.SetActive(false);
+                    }
+                    dropDownButton.gameObject.SetActive(true);
+                });
 
             }
             else
@@ -76,7 +76,37 @@ public class FarmerManager : MonoBehaviourPun, TurnManager.IOnMove
                 pickUpButton.gameObject.SetActive(false);
             }
 
-            
+            if (hero.data.numFarmers > 0)
+            {
+                dropDownButton.onClick.RemoveAllListeners();
+                dropDownButton.onClick.AddListener(() =>
+                {
+                    print("Drop down Have been pressed , at region " + currentRegion.label);
+                    hero.data.numFarmers--;
+
+                    if (currentRegion.label == 0)
+                    {
+                       // extraShileds.GetComponent<ExtraShield>().increaseShieldsNum();
+                        photonView.RPC("increaseShield", RpcTarget.AllBuffered);
+                    }
+                    else
+                    {
+                        photonView.RPC("Increase", RpcTarget.AllBuffered, currentRegion.label);
+
+                        print("After drop down there are " + temp.numberOfFarmer + " farmers on cureent region.");
+                    }
+
+                    if (hero.data.numFarmers == 0)
+                    {
+                        dropDownButton.gameObject.SetActive(false);
+                    }
+
+                    if (currentRegion.label != 0)
+                    {
+                        pickUpButton.gameObject.SetActive(true);
+                    }
+                });
+            }
         }
 
 

@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 777249615278161516}
   - component: {fileID: 2039927047666652052}
+  - component: {fileID: 5711251284124368208}
   - component: {fileID: 361032100665861540}
   - component: {fileID: -8018854433974440319}
   m_Layer: 0
-  m_Name: Archer
+  m_Name: archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,6 +83,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5711251284124368208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5904007845418553197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 079ac4c754e7044009a13713e965bef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fightstate: 0
+  monsterStation: {fileID: 0}
+  monster: {fileID: 0}
+  mHUD: {fileID: 0}
+  hHUD: {fileID: 0}
+  fHUD: {fileID: 0}
+  myArcherYesButton: {fileID: 0}
+  mySkillYesButton: {fileID: 0}
+  dice: {fileID: 0}
+  aHeroes: []
+  hero: {fileID: 0}
+  diceNum: 0
 --- !u!114 &361032100665861540
 MonoBehaviour:
   m_ObjectHideFlags: 0

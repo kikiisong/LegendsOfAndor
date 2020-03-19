@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 313442797948235107}
   - component: {fileID: 1125472165853697094}
+  - component: {fileID: 1865154692084123859}
   - component: {fileID: 7459953227472171761}
   - component: {fileID: -8387857871372982357}
   m_Layer: 0
@@ -82,6 +83,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1865154692084123859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794928651808161829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 079ac4c754e7044009a13713e965bef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fightstate: 0
+  monsterStation: {fileID: 0}
+  monster: {fileID: 0}
+  mHUD: {fileID: 0}
+  hHUD: {fileID: 0}
+  fHUD: {fileID: 0}
+  myArcherYesButton: {fileID: 0}
+  mySkillYesButton: {fileID: 0}
+  dice: {fileID: 0}
+  aHeroes: []
+  hero: {fileID: 0}
+  diceNum: 0
 --- !u!114 &7459953227472171761
 MonoBehaviour:
   m_ObjectHideFlags: 0
