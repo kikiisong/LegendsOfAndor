@@ -11,15 +11,35 @@ public class HeroStatsUI : MonoBehaviour
     public GameObject panel;
 
     [Header("Text")]
+    public TextMeshProUGUI currentRegionUI;
     public TextMeshProUGUI wpUI;
     public TextMeshProUGUI goldUI;
 
-    Hero hero;
+    Hero Hero
+    {
+        get
+        {
+            return (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        }
+    }
+    Region CurrentRegion
+    {
+        get
+        {
+            foreach (HeroMoveController c in GameObject.FindObjectsOfType<HeroMoveController>())
+            {
+                if (c.photonView.Owner == PhotonNetwork.LocalPlayer)
+                {
+                    return GameGraph.Instance.FindNearest(c.transform.position);
+                }
+            }
+            throw new System.Exception("No current region");
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
         toggle.onClick.AddListener(() =>
         {
             panel.SetActive(!panel.activeSelf);
@@ -30,7 +50,8 @@ public class HeroStatsUI : MonoBehaviour
     void Update()
     {
         //inefficient, but drawing every frame anyways
-        wpUI.text = "WP: " + hero.data.WP;
-        goldUI.text = "Gold: " + hero.data.gold;
+        currentRegionUI.text = CurrentRegion.label.ToString();
+        wpUI.text = "WP: " + Hero.data.WP;
+        goldUI.text = "Gold: " + Hero.data.gold;
     }
 }

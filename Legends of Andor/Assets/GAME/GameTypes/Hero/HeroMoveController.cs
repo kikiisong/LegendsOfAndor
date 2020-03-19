@@ -10,6 +10,7 @@ public class HeroMoveController : MonoBehaviourPun
 {
     public float radius = 3;
     public float animation_time = 1;
+
     bool isMoving = false;
 
     void Start()
@@ -23,14 +24,11 @@ public class HeroMoveController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-
-        if (!isMoving && photonView.IsMine && TurnManager.IsMyTurn() && Input.GetMouseButtonDown(0))
+        if (!isMoving && photonView.IsMine && TurnManager.CanMove() && Input.GetMouseButtonDown(0))
         {
             MoveToClick();
         }
     }
-
-
 
     public void MoveToClick()
     {
@@ -50,7 +48,4 @@ public class HeroMoveController : MonoBehaviourPun
             }));
         }
     }
-
-
-
 }
