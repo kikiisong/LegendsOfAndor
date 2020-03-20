@@ -16,7 +16,7 @@ namespace Routines
             }
         }
 
-        public static IEnumerator MoveTo(Transform transform, Vector3 target, float timeTaken, Action action = null)
+        public static IEnumerator MoveTo(Transform transform, Vector3 target, float timeTaken, Action atEnd = null)
         {
             float t = 0f;
             Vector3 from = transform.position;
@@ -27,7 +27,7 @@ namespace Routines
                 transform.position = Vector3.Lerp(from, target, ratio);
                 yield return null;
             }
-            action?.Invoke();
+            atEnd?.Invoke();
         }
     }
 
