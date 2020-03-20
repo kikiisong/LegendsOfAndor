@@ -172,6 +172,7 @@ public class TurnManager : MonoBehaviourPun
     public static void TriggerEvent_Sunrise()
     {
         Instance.photonView.RPC("Sunrise", RpcTarget.All);
+
     }
 
 

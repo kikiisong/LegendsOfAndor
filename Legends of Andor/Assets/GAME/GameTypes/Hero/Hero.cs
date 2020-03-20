@@ -35,9 +35,13 @@ public class Hero : ScriptableObject
 
         public int numFarmers; // 0 or 1 or 2
 
+        //Fight related 
         public bool magic, herbS, brew, helm, sheild, herbW, bow;
         public int times;
         public int btimes;
+        public int attackNum;
+        public bool finishedFight;
+        
     }
 
     //Values that won't change

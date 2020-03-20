@@ -83,27 +83,6 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     }
 
 
-    private bool EveryoneAsked()
-    {
-        foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
-        {
-            Player player = pair.Value;
-            if (player.CustomProperties.ContainsKey(K.Player.isAsked))
-            {
-                bool ready = (bool)player.CustomProperties[K.Player.isAsked];
-                if (!ready)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void Click_Ready()
     {
 

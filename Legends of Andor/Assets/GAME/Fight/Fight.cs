@@ -28,8 +28,11 @@ public enum FightState
     }
 
 
-public class Fight : MonoBehaviourPun, FightTurnManager.IOnMove
+public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
+
+//, FightTurnManager.IOnMove
 {
+    public static Fight Instance;
     public FightState fightstate;
 
     [Header("Monster")]
@@ -57,23 +60,23 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnMove
     public Transform[] transforms = new Transform[4];
 
     public Monster aMonster;
-    public Hero hero;
     public int diceNum;
-    int damage;
-    int times;
-    int btimes;
+    public int damage;
 
     // Use this for initialization
     void Start()
     {
-        FightTurnManager.Register(this);
+        if (Instance == null) Instance = this;
+        Debug.Log(Instance);
         plotCharacter();
         fightstate = FightState.START;
+        //FightTurnManager.Register(this);
         StartCoroutine(setUpBattle());
     }
 
 
-            //--------START--------//
+
+    //--------START--------//
     void plotCharacter() {
         int i = 0;
         foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
@@ -123,63 +126,68 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnMove
 
     IEnumerator setUpBattle()
     {
-                
+        myArcherYesButton.gameObject.SetActive(false);
+        mySkillYesButton.gameObject.SetActive(false);
         fHUD.setFightHUD_START();
         fightstate = FightState.HERO;
         yield return new WaitForSeconds(2f);
 
-        //OnMove(player);
+        playerTurn();
+        yield return new WaitForSeconds(2f);
+
     }
-
-
-
     //--------HERO--------//
     //--------MESSAGE--------//
 
-    public void OnMove(Player player)
+    Player player;
+    Hero hero;
+
+    public void playerTurn()
     {
-        //roll the dice
-        //confirm the action
-        Hero hero = (Hero)player.CustomProperties[K.Player.hero];
-        fHUD.setFightHUD_PLAYER();
+        player = PhotonNetwork.LocalPlayer;
+        hero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.times = hero.getDiceNum();
         hero.data.btimes = hero.data.blackDice;
-        OnRollDice();
+        fHUD.setFightHUD_PLAYER();
+
     }
 
     public void OnRollDice()
     {
-        if (fightstate != FightState.HERO && FightTurnManager.IsMyTurn())
+        //roll the dice
+        //confirm the action
+       
+
+        if (fightstate != FightState.HERO && !FightTurnManager.IsMyTurn() && !photonView.IsMine && !FightTurnManager.CanFight())
         {
+            print("return");
             return;
 
         }
-
-        StartCoroutine(HeroRoll());
-
+        print("heroRoll");
+        StartCoroutine(HeroRoll(hero));
     }
-            
 
             //--------ROLL--------//
-        IEnumerator HeroRoll()
+        IEnumerator HeroRoll(Hero hero)
         {
 
             if (hero.type == Hero.Type.ARCHER)
             {
 
                 myArcherYesButton.gameObject.SetActive(true);
-                if (btimes > 0)
+                if (hero.data.btimes > 0)
                 {
                     diceNum = dice.getOne(true);
-                    btimes--;
-                    fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
+                    hero.data.btimes -=1;
+                    fHUD.rollResult("Value:" + diceNum + " Left B/R:" + hero.data.btimes + "/" + hero.data.times);
 
                 }
-                else if (times > 0)
+                else if (hero.data.times > 0)
                 {
                     diceNum = dice.getOne(false);
-                    times--;
-                    fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
+                    hero.data.times -=1;
+                    fHUD.rollResult("Value:" + diceNum + " Left B/R:" + hero.data.btimes + "/" + hero.data.times);
 
                 }
                 else
@@ -197,41 +205,34 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnMove
             yield return new WaitForSeconds(4f);
         }
 
+
             //--------ATTACK--------//
-            IEnumerator HeroAttack()
+        IEnumerator HeroAttack()
+        {
+            print("HeroAttackRUnning");
+            diceNum += hero.data.SP;
+            
+            fightstate = FightState.MONSTER;
+            fHUD.setFightHUD_MONSTER();
+
+            yield return new WaitForSeconds(2f);
+
+            MonsterAttack();
+
+        }
+
+
+        public void MonsterAttack()
+        {
+            if (fightstate != FightState.MONSTER)
             {
-                //return the finalAttack
-                //LOOP to the the total?
-                //how to distinguish between the current and others. Dont have to?
-                //TODO:TURNMANAGER
-                
-                    //diceNum+= (HeroFightController) curernt.getRemoteDiceNum();
-                    //this dice will be final cooperative damage
-                
-                diceNum += hero.data.SP;
-       
-
-                fightstate = FightState.MONSTER;
-                fHUD.setFightHUD_MONSTER();
-
-                yield return new WaitForSeconds(2f);
-
-                MonsterAttack();
+                return;
 
             }
+            StartCoroutine(MonsterRoll());
 
 
-            public void MonsterAttack()
-            {
-                if (fightstate != FightState.MONSTER)
-                {
-                    return;
-
-                }
-                StartCoroutine(MonsterRoll());
-
-
-            }
+        }
 
             IEnumerator MonsterRoll()
             {
@@ -259,228 +260,215 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnMove
 
 
             //--------CHECK--------//
-            IEnumerator Check()
-            {
-                if (damage > diceNum)
-                {
-            //for (int i = 0; i < aHeroes.Length; i++)
-            //{
-            //    aHeroes[i].Attacked(damage - diceNum);
-            //    hHUD.basicInfoUpdate(aHeroes[i]);
-            //}
-                    hero.Attacked(damage-diceNum);
-                }
-                else if (damage < diceNum)
-                {
-                    aMonster.Attacked(diceNum - damage);
-                    mHUD.basicInfo(aMonster);
-                }
-                yield return new WaitForSeconds(2f);
-                if (aMonster.currentWP <= 0)
-                {
-                    fightstate = FightState.WIN;
-                    fHUD.setFightHUD_WIN();
-                    yield return new WaitForSeconds(2f);
-                    //TODO: desotry Monster
-                    Destroy(aMonster);
-                    //TODO: solveOverlap
-                    //TODO: how could LoadScneneknows the maximum reward.
-                    SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);
+    IEnumerator Check()
+    {
+        if (damage > diceNum)
+        {
+            hero.Attacked(damage - diceNum);
+        }
+        else if (damage < diceNum)
+        {
+            aMonster.Attacked(diceNum - damage);
+            mHUD.basicInfo(aMonster);
+        }
+        yield return new WaitForSeconds(2f);
+        if (aMonster.currentWP <= 0)
+        {
+            fightstate = FightState.WIN;
+            fHUD.setFightHUD_WIN();
+            yield return new WaitForSeconds(2f);
+            //TODO: desotry Monster
+            Destroy(aMonster);
+            //TODO: solveOverlap
+            //TODO: how could LoadScneneknows the maximum reward.
+            SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);
 
-                }
-                else if (hero.data.WP <= 0)
-                {
-                    fightstate = FightState.LOSE;
-                    fHUD.setFightHUD_LOSE();
-                    yield return new WaitForSeconds(2f);
-                    SceneManager.UnloadSceneAsync("FightScene");
-                }
-                else
-                {
-                    fightstate = FightState.DECISION;
-                    fHUD.setFightHUD_DICISION();
-                    yield return new WaitForSeconds(2f);
-                }
+        }
+        else if (hero.data.WP <= 0)
+        {
+            fightstate = FightState.LOSE;
+            fHUD.setFightHUD_LOSE();
+            yield return new WaitForSeconds(2f);
+            SceneManager.UnloadSceneAsync("FightScene");
+        }
+        else
+        {
+            fightstate = FightState.DECISION;
+            fHUD.setFightHUD_DICISION();
+            yield return new WaitForSeconds(2f);
+        }
 
 
-                print("test end");
-                //should listen to the event, check if user wanna do something else
+        print("test end");
+        //should listen to the event, check if user wanna do something else
 
-            }
+    }
 
             /*bunch of listener*/
 
-            public void OnYesClick()
-            {
-                myArcherYesButton.gameObject.SetActive(false);
-                mySkillYesButton.gameObject.SetActive(true);
-            }
+    public void OnYesClick()
+    {
+        myArcherYesButton.gameObject.SetActive(false);
+        mySkillYesButton.gameObject.SetActive(true);
+    }
 
-            public void onMagicClick()
-            {
-                //assume black dice is not allowed to flipped
-                if (fightstate != FightState.MONSTER && hero.data.magic)
-                {
-                    return;
-                }
+    public void onMagicClick()
+    {
+        //assume black dice is not allowed to flipped
+        if (fightstate != FightState.MONSTER && hero.data.magic)
+        {
+            return;
+        }
 
-                hero.data.magic = false;
+        hero.data.magic = false;
 
-                if (diceNum < 7)
-                {
-                    diceNum = 7 - diceNum;
-                }
-                else
-                {
-                    //donothing
-                }
-                fHUD.rollResult("Applied Magic:" + diceNum);
-            }
-            bool usedhelm = false;
+        if (diceNum < 7)
+        {
+            diceNum = 7 - diceNum;
+        }
+        else
+        {
+            //donothing
+        }
+        fHUD.rollResult("Applied Magic:" + diceNum);
+    }
 
-            public void onSheildClick()
-            {
-                if (fightstate != FightState.MONSTER && hero.data.sheild && !usedhelm)
-                {
-                    return;
-                }
-                damage = 0;
-                hero.data.sheild = false;
-                fHUD.rollResult("Applied Sheild:" + damage);
+    bool usedhelm = false;
 
-            }
+    public void onSheildClick()
+    {
+        if (fightstate != FightState.MONSTER && hero.data.sheild && !usedhelm)
+        {
+            return;
+        }
+        damage = 0;
+        hero.data.sheild = false;
+        fHUD.rollResult("Applied Sheild:" + damage);
 
-            public void onHelmClick()
-            {
-                if (fightstate != FightState.HERO && hero.data.helm)
-                {
-                    return;
-                }
-                diceNum = dice.getSum();
-                usedhelm = true;
-                hero.data.helm = false;
+    }
 
-                fHUD.rollResult("Applied Helm:" + diceNum);
+    public void onHelmClick()
+    {
+        if (fightstate != FightState.HERO && hero.data.helm)
+        {
+            return;
+        }
+        diceNum = dice.getSum();
+        usedhelm = true;
+        hero.data.helm = false;
 
-
-            }
-
-            public void onHerbSClick()
-            {
-                if (fightstate != FightState.HERO && hero.data.herbS)
-                {
-                    return;
-                }
-                //TODO: should fetch data from ..
-                diceNum += 2;
-                hero.data.herbS = false;
-                fHUD.rollResult("Applied Herb on Strength:" + diceNum);
-            }
-
-            public void onHerbWClick()
-            {
-                if (fightstate != FightState.HERO && hero.data.herbW)
-                {
-                    return;
-                }
-            //TODO: should fetch data from ..
-            hero.data.WP += 2;
-            hero.data.herbW = false;
-                fHUD.rollResult("Applied Herb on Will:" + hero.data.WP + "/" + diceNum);
-                hHUD.basicInfoUpdate(hero);
-
-            }
-
-            public void onBrewWClick()
-            {
-                if (fightstate != FightState.HERO && hero.data.herbW)
-                {
-                    return;
-                }
-                //TODO: should fetch data from ..
-                diceNum *= 2;
-                hero.data.herbW = false;
-                fHUD.rollResult("Applied Brew:" + diceNum);
+        fHUD.rollResult("Applied Helm:" + diceNum);
 
 
-            }
+    }
 
-            public void onSkillClick()
-            {
-                mySkillYesButton.gameObject.SetActive(false);
-                StartCoroutine(HeroAttack());
-            }
+    public void onHerbSClick()
+    {
+        if (fightstate != FightState.HERO && hero.data.herbS)
+        {
+            return;
+        }
+        //TODO: should fetch data from ..
+        diceNum += 2;
+        hero.data.herbS = false;
+        fHUD.rollResult("Applied Herb on Strength:" + diceNum);
+    }
 
-            /*Get method*/
-            public FightState getFightState()
-            {
-                return this.fightstate;
+    public void onHerbWClick()
+    {
+        if (fightstate != FightState.HERO && hero.data.herbW)
+        {
+            return;
+        }
+            
+    hero.data.WP += 2;
+    hero.data.herbW = false;
+        fHUD.rollResult("Applied Herb on Will:" + hero.data.WP + "/" + diceNum);
+        hHUD.basicInfoUpdate(hero);
 
-            }
+    }
 
+    public void onBrewWClick()
+    {
+        if (fightstate != FightState.HERO && hero.data.herbW)
+        {
+            return;
+        }
 
-            //Handling  the turn manager
-            /*Four button*/
-
-            public void OnLeaveClick()
-            {
-                if (fightstate != FightState.DECISION)
-                {
-                    return;
-                }
-                //Initialize the mosnter
-                aMonster.currentWP = aMonster.maxWP;
-                SceneManager.UnloadSceneAsync("FightScene");
-
-            }
-
-
-            public void OnConitnueClick()
-            {
-                if (fightstate != FightState.DECISION)
-                {
-                    return;
-                }
-                //TODO: replace this by a functions correlated with WP
-                times = hero.getDiceNum();
-                btimes = hero.data.blackDice;
-                fightstate = FightState.HERO;
-                //Reinitialize something
-                //Button?
-                diceNum = 0;
-                damage = 0;
-
-                if (hero.type == Hero.Type.WIZARD)
-                {
-                    hHUD.backColorMagic();
-                }
-
-                //OnMove();
+        diceNum *= 2;
+        hero.data.herbW = false;
+        fHUD.rollResult("Applied Brew:" + diceNum);
 
 
-            }
+    }
 
-            public void OnFalconClick()
-            {
-                if (fightstate != FightState.DECISION)
-                {
-                    return;
-                }
-                //Initialize the mosnter
-                print("Falcon");
-            }
+    public void onSkillClick()
+    {
+        mySkillYesButton.gameObject.SetActive(false);
+        hero.data.attackNum = diceNum;
+        FightTurnManager.TriggerEvent_Fight();
+        print("nextOne");
+        FightTurnManager.TriggerEvent_EndFight();
+    }
 
-            public void OnTradeClick()
-            {
-                if (fightstate != FightState.DECISION)
-                {
-                    return;
-                }
-                //Initialize the mosnter
-                print("Trade");
-            }
+    /*Four button*/
+    public void OnLeaveClick()
+    {
+        if (fightstate != FightState.DECISION)
+        {
+            return;
+        }
+        //Initialize the mosnter
+        aMonster.currentWP = aMonster.maxWP;
+        SceneManager.UnloadSceneAsync("FightScene");
+
+    }
+
+    public void OnConitnueClick()
+    {
+        if (fightstate != FightState.DECISION)
+        {
+            return;
+        }
 
 
+        hero.data.times = hero.getDiceNum();
+        hero.data.btimes = hero.data.blackDice;
+        fightstate = FightState.HERO;
+        diceNum = 0;
+        damage = 0;
+        if (hero.type == Hero.Type.WIZARD)
+        {
+            hHUD.backColorMagic();
+        }
+
+    }
+
+    public void OnFalconClick()
+    {
+        if (fightstate != FightState.DECISION)
+        {
+            return;
+        }
+        //Initialize the mosnter
+        print("Falcon");
+    }
+
+    public void OnTradeClick()
+    {
+        if (fightstate != FightState.DECISION)
+        {
+            return;
+        }
+        //Initialize the mosnter
+        print("Trade");
+    }
+
+    public void OnSunrise()
+    {
+        print("hi");
+       StartCoroutine(HeroAttack());
+    }
 }
     
 

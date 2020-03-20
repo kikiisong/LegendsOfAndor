@@ -18,6 +18,15 @@ public class FightTurnManager : MonoBehaviourPun
     List<IOnEndDay> onEndOneFightRound = new List<IOnEndDay>();
     List<IOnSunrise> onStartOneFightRound = new List<IOnSunrise>();
 
+    static Hero CurrentHero
+    {
+        get
+        {
+            return (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        }
+    }
+
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -65,6 +74,16 @@ public class FightTurnManager : MonoBehaviourPun
     }
 
     //Turn
+    public static bool CanFight()
+    {
+        if (CurrentHero.data.numHours >= 7)
+        {
+            return IsMyTurn() && CurrentHero.data.WP >= 2;
+        }
+        return IsMyTurn() && CurrentHero.data.numHours < 10;
+    }
+
+    //Turn
     public static bool IsMyTurn()
     {
         if (Instance.players.Count == 0) return false;
@@ -107,12 +126,12 @@ public class FightTurnManager : MonoBehaviourPun
         }
     }
 
-    public static void TriggerEvent_EndFightRound(Player player)
-    {
+    public static void TriggerEvent_NewFightRound(Player player)
+    { 
         Instance.photonView.RPC("EndFightRound", RpcTarget.All, player);
         if (Instance.players.Count == 0)
         {
-            TriggerEvent_Sunrise();
+            TriggerEvent_EndFight();
         }
     }
 
@@ -135,7 +154,7 @@ public class FightTurnManager : MonoBehaviourPun
         }
     }
 
-    public static void TriggerEvent_Sunrise()
+    public static void TriggerEvent_EndFight()
     {
         Instance.photonView.RPC("Sunrise", RpcTarget.All);
     }
@@ -148,22 +167,20 @@ public class FightTurnManager : MonoBehaviourPun
         Hero hero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.numHours++;
 
+        if (hero.data.numHours > 7)
+        {
+            hero.data.WP -= 2;
+        }
         //Notify
         foreach (IOnMove onMove in onMoves)
         {
             onMove.OnMove(player);
         }
-
-        if (hero.data.numHours == 7)
-        {
-            //or buy more hours, do it in OnEndTurn instead
-            TriggerEvent_EndTurn(player);
-        }
     }
 
-    public static void TriggerEvent_Move(Region currentRegion)
+    public static void TriggerEvent_Fight()
     {
-        Instance.photonView.RPC("HeroMoved", RpcTarget.All, PhotonNetwork.LocalPlayer, currentRegion.label);
+        Instance.photonView.RPC("HeroFight", RpcTarget.All, PhotonNetwork.LocalPlayer);
     }
 
     //Register
