@@ -23,6 +23,9 @@ public class TurnManager : MonoBehaviourPun
     List<IOnEndDay> onEndDays = new List<IOnEndDay>();
     List<IOnSunrise> onSunrises = new List<IOnSunrise>();
 
+    //Helper
+    static TurnHelper helper = new TurnHelper();
+
     static Hero CurrentHero
     {
         get
@@ -51,7 +54,7 @@ public class TurnManager : MonoBehaviourPun
 
     private void Start()
     {
-        Register(new TurnHelper());
+        Register(helper);
         endTurn.onClick.AddListener(() => TriggerEvent_EndTurn());
         endDay.onClick.AddListener(() => TriggerEvent_EndDay());
     }
@@ -109,6 +112,11 @@ public class TurnManager : MonoBehaviourPun
     public static void TriggerEvent_EndTurn()
     {
         Instance.photonView.RPC("NextTurn", RpcTarget.All, PhotonNetwork.LocalPlayer);
+
+        if (!helper.hasMoved)
+        {
+            TriggerEvent_Move(HeroMoveController.CurrentRegion());
+        }
     }
 
     //Day
@@ -230,18 +238,23 @@ public class TurnManager : MonoBehaviourPun
 
 public class TurnHelper: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
 {
+    public bool hasMoved = false;
+
     public void OnMove(Player player, Region currentRegion)
     {
+        hasMoved = true;
         Debug.Log("Move " + player.NickName);
     }
 
     public void OnTurnCompleted(Player player)
     {
+        hasMoved = false;
         Debug.Log("Turn completed " + player.NickName);
     }
 
     public void OnEndDay(Player player)
     {
+        hasMoved = false;
         Debug.Log("End day " + player.NickName);
     }
 

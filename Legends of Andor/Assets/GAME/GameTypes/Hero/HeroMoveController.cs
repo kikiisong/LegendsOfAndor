@@ -48,4 +48,16 @@ public class HeroMoveController : MonoBehaviourPun
             }));
         }
     }
+
+    public static Region CurrentRegion()
+    {
+        foreach(HeroMoveController heroMoveController in GameObject.FindObjectsOfType<HeroMoveController>())
+        {
+            if(heroMoveController.photonView.Owner == PhotonNetwork.LocalPlayer)
+            {
+                return GameGraph.Instance.FindNearest(heroMoveController.transform.position);
+            }
+        }
+        throw new System.Exception("Not found");
+    }
 }
