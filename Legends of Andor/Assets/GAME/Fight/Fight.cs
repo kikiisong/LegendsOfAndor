@@ -78,49 +78,53 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
     //--------START--------//
     void plotCharacter() {
-        int i = 0;
         foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
         {
             if (player.CustomProperties.ContainsKey(K.Player.isFight))
             {
                 Hero hero = (Hero)player.CustomProperties[K.Player.hero];
-
-                switch (hero.type)
-                {
-                    case Hero.Type.ARCHER:
-                        GameObject go1 = PhotonNetwork.Instantiate(archerPrefabs);
-                        go1.transform.position = transforms[i].position;
-                        go1.SetActive(true);
-                        i++;
-                        break;
-                    case Hero.Type.WARRIOR:
-                        GameObject go2 = PhotonNetwork.Instantiate(warriorPrefabs);
-                        go2.transform.position = transforms[i].position;
-                        go2.SetActive(true);
-                        i++;
-                        break;
-                    case Hero.Type.DWARF:
-                        GameObject go3 = PhotonNetwork.Instantiate(dwarfPrefabs);
-                        go3.transform.position = transforms[i].position;
-                        go3.SetActive(true);
-                        i++;
-                        break;
-                    case Hero.Type.WIZARD:
-                        GameObject go4 = PhotonNetwork.Instantiate(wizardPrefabs);
-                        go4.transform.position = transforms[i].position;
-                        go4.SetActive(true);
-                        i++;
-                        break;
-                }
-
                 aHeroes.Add(hero);
+            }
+        }
 
+        if (player.CustomProperties.ContainsKey(K.Player.isFight))
+        {
+            Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+
+            switch (hero.type)
+            {
+                case Hero.Type.ARCHER:
+                    GameObject go1 = PhotonNetwork.Instantiate(archerPrefabs);
+                    go1.transform.position = transforms[0].position;
+                    go1.SetActive(true);
+                    break;
+                case Hero.Type.WARRIOR:
+                    GameObject go2 = PhotonNetwork.Instantiate(warriorPrefabs);
+                    go2.transform.position = transforms[1].position;
+                    go2.SetActive(true);
+                    break;
+                case Hero.Type.DWARF:
+                    GameObject go3 = PhotonNetwork.Instantiate(dwarfPrefabs);
+                    go3.transform.position = transforms[2].position;
+                    go3.SetActive(true);
+                    break;
+                case Hero.Type.WIZARD:
+                    GameObject go4 = PhotonNetwork.Instantiate(wizardPrefabs);
+                    go4.transform.position = transforms[3].position;
+                    go4.SetActive(true);
+                    break;
+            }
+
+            //TODO: get current Reigon monster
+            if (PhotonNetwork.IsMasterClient) {
                 GameObject monsterGo = Instantiate(monster, monsterStation);
                 aMonster = monsterGo.GetComponent<Monster>();
                 hHUD.setHeroHUD(hero);
                 mHUD.setMonsterHUD(aMonster);
+
             }
         }
+        
 
     }
 
@@ -156,9 +160,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
     {
         //roll the dice
         //confirm the action
-       
 
-        if (fightstate != FightState.HERO && !FightTurnManager.IsMyTurn() && !photonView.IsMine && !FightTurnManager.CanFight())
+
+        if (fightstate != FightState.HERO || !FightTurnManager.IsMyTurn()
+            || !photonView.IsMine || !FightTurnManager.CanFight())
         {
             print("return");
             return;
@@ -206,11 +211,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
         }
 
 
-            //--------ATTACK--------//
+    //--------ATTACK--------//
     IEnumerator HeroAttack()
     {
-        print("HeroAttackRUnning");
-        diceNum += hero.data.SP;
+        print("HeroAttackRunning");
+        
             
         fightstate = FightState.MONSTER;
         fHUD.setFightHUD_MONSTER();
@@ -406,7 +411,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
     public void onSkillClick()
     {
         mySkillYesButton.gameObject.SetActive(false);
-        hero.data.attackNum = diceNum;
+        hero.data.attackNum = diceNum+hero.data.SP;
         FightTurnManager.TriggerEvent_Fight();
         print("nextOne");
         FightTurnManager.TriggerEvent_EndFight();
