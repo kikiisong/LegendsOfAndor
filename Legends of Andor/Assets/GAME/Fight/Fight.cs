@@ -37,7 +37,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
     [Header("Monster")]
     public Transform monsterStation;
-    public GameObject monster;
 
     [Header("HUD")]
     public MonsterHUD mHUD;
@@ -117,14 +116,22 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
                     break;
             }
 
-            //TODO: get current Reigon monster
-            if (PhotonNetwork.IsMasterClient) {
-                GameObject monsterGo = Instantiate(monster, monsterStation);
-                aMonster = monsterGo.GetComponent<Monster>();
+                //TODO:only set once?
+                //if (PhotonNetwork.IsMasterClient) {
+            
+                foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
+                {
+                    if (monsterC.m.isFighted) {
+                        aMonster = monsterC.m;
+                    }
+                }
+
+                Instantiate(aMonster, monsterStation);
+                //aMonster = monsterGo.GetComponent<Monster>();
                 hHUD.setHeroHUD(hero);
                 mHUD.setMonsterHUD(aMonster);
 
-            }
+            //}
         }
         
 
@@ -303,6 +310,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
             if (hero.data.SP > 1) hero.data.SP -= 1;
 
             //initialize everything
+            Leave();
             SceneManager.UnloadSceneAsync("FightScene");
 
         }
@@ -326,6 +334,14 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
                             { K.Player.isFight, false }
                         });
         aHeroes.Remove(hero);
+        if (aHeroes.Count == 0) {
+
+            //if all people left and monster still alive
+            //initialize the monster
+            aMonster.currentWP = aMonster.maxWP;
+            aMonster.isFighted = false;
+            
+        }
 
 
     }
@@ -439,8 +455,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
         {
             return;
         }
+
         //Initialize the mosnter
-        aMonster.currentWP = aMonster.maxWP;
+        Leave();
+        
         SceneManager.UnloadSceneAsync("FightScene");
 
     }

@@ -7,6 +7,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: m
+      value: 
+      objectReference: {fileID: 1484963691885980863, guid: 11e9eebea59194471a016a63aef73332,
+        type: 3}
     - target: {fileID: 5837384214984143667, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: maxWP

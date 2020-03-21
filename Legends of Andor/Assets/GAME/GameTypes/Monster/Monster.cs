@@ -11,8 +11,8 @@ using UnityEngine.UI;
 public class Monster : MonoBehaviour,TurnManager.IOnSunrise
 {
     public int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
-
-    public int regionLabel;
+    public bool isFighted;
+    public int regionlabel;
     public Dice dice;
     int damage;
     public void desotry() {
@@ -21,6 +21,7 @@ public class Monster : MonoBehaviour,TurnManager.IOnSunrise
     public void Start()
     {
         TurnManager.Register(this);
+        regionlabel = GameGraph.Instance.FindNearest(transform.position).label;
     }
 
     public void Attacked(int damage)
@@ -52,7 +53,8 @@ public class Monster : MonoBehaviour,TurnManager.IOnSunrise
     }
 
     public void OnSunrise()
-    {
+    { 
+            
         return;
     }
 

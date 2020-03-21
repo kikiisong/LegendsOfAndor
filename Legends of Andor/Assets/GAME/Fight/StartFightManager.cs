@@ -36,18 +36,19 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     public void OnMove(Player player, Region currentRegion)
     {
+        fight.SetActive(false);
         if (PhotonNetwork.LocalPlayer == player)
         {
 
             Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Sce
             
-            List<Monster> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<Monster>(currentRegion);
+            List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(currentRegion);
 
 
             if (MonsterOnMap.Count > 0)
             {
 
-                if (hero.data.numHours < 7)
+                if (hero.data.numHours < 10)
                 {
                     fight.SetActive(true);
                     
@@ -57,13 +58,15 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                     fight.GetComponent<Button>().onClick.AddListener(() =>
 
                     {
+
+                        MonsterMoveController monster = MonsterOnMap[0];
+                        monster.m.isFighted = true;
                         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
                         });
 
                        
-                        print("Am I here? ");
                         isFight = true;
                         //LightUpJoin();
                         photonView.RPC("LightUpJoin", RpcTarget.Others);

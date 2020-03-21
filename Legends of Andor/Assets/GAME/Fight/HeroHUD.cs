@@ -29,7 +29,6 @@ public class HeroHUD : MonoBehaviour
     public void changeColor(Button b) {
         Image image = b.GetComponent<Image>();
         image.color = new Color((float)0.30, (float)0.30, (float)0.30);
-        Debug.Log(b);
     }
 
     public void setHeroHUD(Hero h)

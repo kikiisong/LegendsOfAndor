@@ -9,8 +9,7 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
 {
     public GameObject startGame;
     public GameObject joinFight;
-
-    public bool isFighted; //isFighting?
+    public Monster m;
 
     public int regionlabel;
 
@@ -48,10 +47,7 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
             
         }
     }
-    public void OnMouseDown()
-    {
-        isFighted = true;
-    }
+
 
     bool MonsterOnRegion()
     {
