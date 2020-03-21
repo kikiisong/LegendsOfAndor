@@ -105,6 +105,8 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     public void Click_Start()
     {
         print("switchScene");
+
+        
         photonView.RPC("SwitchScene", RpcTarget.All);
     }
 
@@ -120,6 +122,9 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     {
         print("Load for" + PhotonNetwork.LocalPlayer.NickName);
         if(isFight){
+            fight.SetActive(false);
+            ready.SetActive(false);
+            start.SetActive(false);
             if (PhotonNetwork.IsConnected)
                 //PhotonNetwork.LoadLevel(nextScene);
                 SceneManager.LoadSceneAsync(5, LoadSceneMode.Additive);
@@ -127,16 +132,4 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     }
 
-    //public void OnJoinClick()
-    //{
-    //    Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-    //    if (!isFight)
-    //    {
-    //        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-    //        {
-    //            { K.Player.isFight, true }
-    //        });
-    //        isFight = true;
-    //    }
-    //}
 }

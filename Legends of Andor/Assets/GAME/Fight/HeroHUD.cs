@@ -38,12 +38,12 @@ public class HeroHUD : MonoBehaviour
         currentWillpower.text = "" + h.data.WP;
         strengthPower.text = "" + h.data.SP;
 
-        if (!h.data.magic) changeColor(magic);
-        if (!h.data.sheild) changeColor(sheild);
-        if (!h.data.helm) changeColor(helm);
-        if (!h.data.herbS) changeColor(herbStrength);
-        if (!h.data.herbW) changeColor(herbWill);
-        if (!h.data.brew) changeColor(brew);
+        if (!h.getMagic()) changeColor(magic);
+        if (!h.getSheild()) changeColor(sheild);
+        if (!h.getHelm()) changeColor(helm);
+        if (!h.getherb()) changeColor(herbStrength);
+        if (!h.getherb()) changeColor(herbWill);
+        if (!h.getBrew()) changeColor(brew);
 
     }
 

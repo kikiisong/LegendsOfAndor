@@ -28,7 +28,7 @@ public class Hero : ScriptableObject
         public int numHours;
 
         public int gold;
-        public int numWineskin;
+        
 
         public int regionNumber;
         // number of carried farmers
@@ -36,12 +36,32 @@ public class Hero : ScriptableObject
         public int numFarmers; // 0 or 1 or 2
 
         //Fight related 
-        public bool magic, herbS, brew, helm, sheild, herbW, bow;
         public int times;
         public int btimes;
         public int attackNum;
         public bool finishedFight;
-        
+
+        //TODO:somebody handle one can maximize have one item
+        //TODO:prob who do trade
+
+        //object related?
+        //small item
+        public int numWineskin;
+        public int brew;
+            //TODO:state full half empty..
+
+        //number of herb can be used in two way
+        public int herb;
+
+        //big item
+        public int sheild;
+        public int helm;
+            //2 means full, 1 means half, 0 means nothing
+        public int bow;
+        public int falcon;
+            //1 means processes and 0 means does not process
+        //TODO: more
+
     }
 
     //Values that won't change
@@ -153,4 +173,46 @@ public class Hero : ScriptableObject
     {
         data.WP -= damage;
     }
+
+    public bool getMagic() {
+        if (type == Type.WIZARD) return true;
+        return false;
+    }
+
+    public bool getWineSkin()
+    {
+        if (data.numWineskin > 0) return true;
+        return false;
+    }
+
+    public bool getBrew()
+    {
+        if (data.brew > 0) return true;
+        return false;
+    }
+
+    public bool getherb()
+    {
+        if (data.herb > 0) return true;
+        return false;
+    }
+
+    public bool getSheild()
+    {
+        if (data.sheild > 0) return true;
+        return false;
+    }
+
+    public bool getHelm()
+    {
+        if (data.helm > 0) return true;
+        return false;
+    }
+
+    public bool getBow()
+    {
+        if (data.bow > 0) return true;
+        return false;
+    }
+
 }

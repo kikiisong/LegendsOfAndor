@@ -78,16 +78,18 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
     //--------START--------//
     void plotCharacter() {
-        foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
+        foreach (Player player1 in PhotonNetwork.CurrentRoom.Players.Values)
         {
-            if (player.CustomProperties.ContainsKey(K.Player.isFight))
+            if (player1.CustomProperties.ContainsKey(K.Player.isFight))
             {
-                Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+                Hero hero = (Hero)player1.CustomProperties[K.Player.hero];
                 aHeroes.Add(hero);
             }
         }
 
-        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(K.Player.isFight))
+
+        Player player = PhotonNetwork.LocalPlayer;
+        if (player.CustomProperties.ContainsKey(K.Player.isFight))
         {
             Hero hero = (Hero)player.CustomProperties[K.Player.hero];
 
@@ -272,6 +274,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
         if (damage > totalAttack)
         {
             hero.Attacked(damage - totalAttack);
+            hHUD.basicInfoUpdate(hero);
+  
         }
         else if (damage < totalAttack)
         {
@@ -293,8 +297,14 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
             fightstate = FightState.LOSE;
             fHUD.setFightHUD_LOSE();
             yield return new WaitForSeconds(2f);
+
+            //penalty
+            hero.data.WP = 3;
+            if (hero.data.SP > 1) hero.data.SP -= 1;
+
+            //initialize everything
             SceneManager.UnloadSceneAsync("FightScene");
-            //TODO: 一些参数修改
+
         }
         else
         {
@@ -309,8 +319,16 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
     }
 
-            /*bunch of listener*/
+    public void Leave() {
 
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable
+                        {
+                            { K.Player.isFight, false }
+                        });
+        aHeroes.Remove(hero);
+
+
+    }
     public void OnYesClick()
     {
         myArcherYesButton.gameObject.SetActive(false);
@@ -320,12 +338,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
     public void onMagicClick()
     {
         //assume black dice is not allowed to flipped
-        if (fightstate != FightState.MONSTER && hero.data.magic)
+        if (fightstate != FightState.MONSTER || hero.getMagic())
         {
             return;
         }
-
-        hero.data.magic = false;
 
         if (diceNum < 7)
         {
@@ -342,25 +358,25 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
     public void onSheildClick()
     {
-        if (fightstate != FightState.MONSTER && hero.data.sheild && !usedhelm)
+        if (fightstate != FightState.MONSTER || !hero.getSheild() || usedhelm)
         {
             return;
         }
+        hero.data.sheild -= 1;
         damage = 0;
-        hero.data.sheild = false;
         fHUD.rollResult("Applied Sheild:" + damage);
 
     }
 
     public void onHelmClick()
     {
-        if (fightstate != FightState.HERO && hero.data.helm)
+        if (fightstate != FightState.HERO || !hero.getHelm())
         {
             return;
         }
         diceNum = dice.getSum();
         usedhelm = true;
-        hero.data.helm = false;
+        hero.data.helm-=1;
 
         fHUD.rollResult("Applied Helm:" + diceNum);
 
@@ -369,39 +385,39 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
     public void onHerbSClick()
     {
-        if (fightstate != FightState.HERO && hero.data.herbS)
+        if (fightstate != FightState.HERO || !hero.getherb())
         {
             return;
         }
         //TODO: should fetch data from ..
-        diceNum += 2;
-        hero.data.herbS = false;
+        diceNum += hero.data.herb;
+        hero.data.herb = 0;
         fHUD.rollResult("Applied Herb on Strength:" + diceNum);
     }
 
     public void onHerbWClick()
     {
-        if (fightstate != FightState.HERO && hero.data.herbW)
+        if (fightstate != FightState.HERO||!hero.getherb())
         {
             return;
         }
             
-    hero.data.WP += 2;
-    hero.data.herbW = false;
+        hero.data.WP +=hero.data.herb;
+        hero.data.herb = 0;
         fHUD.rollResult("Applied Herb on Will:" + hero.data.WP + "/" + diceNum);
         hHUD.basicInfoUpdate(hero);
 
     }
 
-    public void onBrewWClick()
+    public void onBrewClick()
     {
-        if (fightstate != FightState.HERO && hero.data.herbW)
+        if (fightstate != FightState.HERO || !hero.getBrew())
         {
             return;
         }
 
         diceNum *= 2;
-        hero.data.herbW = false;
+        hero.data.brew -=1 ;
         fHUD.rollResult("Applied Brew:" + diceNum);
 
 
