@@ -66,7 +66,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                         print("Am I here? ");
                         isFight = true;
                         //LightUpJoin();
-                        photonView.RPC("LightUpJoin", RpcTarget.All);
+                        photonView.RPC("LightUpJoin", RpcTarget.Others);
                         start.SetActive(true);
 
 
@@ -87,6 +87,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     {
 
         print("join the fight");
+        isFight = true;
         Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
         List<Monster> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<Monster>(hero.data.regionNumber);
 
@@ -117,6 +118,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     [PunRPC]
     public void SwitchScene()
     {
+        print("Load for" + PhotonNetwork.LocalPlayer.NickName);
         if(isFight){
             if (PhotonNetwork.IsConnected)
                 //PhotonNetwork.LoadLevel(nextScene);
