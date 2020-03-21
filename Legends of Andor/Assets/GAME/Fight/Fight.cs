@@ -70,7 +70,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
         Debug.Log(Instance);
         plotCharacter();
         fightstate = FightState.START;
-        //FightTurnManager.Register(this);
+        FightTurnManager.Register(this);
         StartCoroutine(setUpBattle());
     }
 
@@ -113,7 +113,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
                         break;
                 }
 
-
+                aHeroes.Add(hero);
 
                 GameObject monsterGo = Instantiate(monster, monsterStation);
                 aMonster = monsterGo.GetComponent<Monster>();
@@ -207,68 +207,71 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
 
             //--------ATTACK--------//
-        IEnumerator HeroAttack()
-        {
-            print("HeroAttackRUnning");
-            diceNum += hero.data.SP;
+    IEnumerator HeroAttack()
+    {
+        print("HeroAttackRUnning");
+        diceNum += hero.data.SP;
             
-            fightstate = FightState.MONSTER;
-            fHUD.setFightHUD_MONSTER();
+        fightstate = FightState.MONSTER;
+        fHUD.setFightHUD_MONSTER();
 
-            yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f);
 
-            MonsterAttack();
+        MonsterAttack();
 
-        }
+    }
 
 
-        public void MonsterAttack()
+    public void MonsterAttack()
+    {
+        if (fightstate != FightState.MONSTER)
         {
-            if (fightstate != FightState.MONSTER)
-            {
-                return;
-
-            }
-            StartCoroutine(MonsterRoll());
-
+            return;
 
         }
-
-            IEnumerator MonsterRoll()
-            {
-
-                dice.rollDice(aMonster.redDice, 0);
-                if (dice.CheckRepet())
-                {
-                    damage = dice.getSum();
-                }
-                else
-                {
-                    damage = dice.getMax();
-                }
+        StartCoroutine(MonsterRoll());
 
 
+    }
 
-                fHUD.rollResult(dice.printArrayList() + "Max:" + damage);
-                damage += aMonster.maxSP;
-                yield return new WaitForSeconds(4f);
-                fightstate = FightState.CHECK;
-                fHUD.setFightHUD_CHECK(diceNum, damage);
-                StartCoroutine(Check());
-                yield return new WaitForSeconds(4f);
-            }
+    IEnumerator MonsterRoll()
+    {
+
+        dice.rollDice(aMonster.redDice, 0);
+        if (dice.CheckRepet())
+        {
+            damage = dice.getSum();
+        }
+        else
+        {
+            damage = dice.getMax();
+        }
+
+        fHUD.rollResult(dice.printArrayList() + "Max:" + damage);
+        damage += aMonster.maxSP;
+        yield return new WaitForSeconds(4f);
+        fightstate = FightState.CHECK;
+        fHUD.setFightHUD_CHECK(diceNum, damage);
+        StartCoroutine(Check());
+        yield return new WaitForSeconds(4f);
+    }
 
 
-            //--------CHECK--------//
+    //--------CHECK--------//
     IEnumerator Check()
     {
-        if (damage > diceNum)
-        {
-            hero.Attacked(damage - diceNum);
+        //TODO: makesure this wont run twice
+        int totalAttack=0;
+        foreach (Hero h in aHeroes) {
+            totalAttack += h.data.attackNum;
         }
-        else if (damage < diceNum)
+        if (damage > totalAttack)
         {
-            aMonster.Attacked(diceNum - damage);
+            hero.Attacked(damage - totalAttack);
+        }
+        else if (damage < totalAttack)
+        {
+            aMonster.Attacked(totalAttack - damage);
             mHUD.basicInfo(aMonster);
         }
         yield return new WaitForSeconds(2f);
@@ -277,10 +280,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
             fightstate = FightState.WIN;
             fHUD.setFightHUD_WIN();
             yield return new WaitForSeconds(2f);
-            //TODO: desotry Monster
             Destroy(aMonster);
-            //TODO: solveOverlap
-            //TODO: how could LoadScneneknows the maximum reward.
             SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);
 
         }
@@ -290,6 +290,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
             fHUD.setFightHUD_LOSE();
             yield return new WaitForSeconds(2f);
             SceneManager.UnloadSceneAsync("FightScene");
+            //TODO: 一些参数修改
         }
         else
         {
@@ -466,7 +467,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
     public void OnSunrise()
     {
-        print("hi");
+       print("hi");
        StartCoroutine(HeroAttack());
     }
 }

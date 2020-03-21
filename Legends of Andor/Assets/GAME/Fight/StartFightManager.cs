@@ -125,16 +125,16 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     }
 
-    public void OnJoinClick()
-    {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-        if (!isFight)
-        {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-            {
-                { K.Player.isFight, true }
-            });
-            isFight = true;
-        }
-    }
+    //public void OnJoinClick()
+    //{
+    //    Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+    //    if (!isFight)
+    //    {
+    //        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+    //        {
+    //            { K.Player.isFight, true }
+    //        });
+    //        isFight = true;
+    //    }
+    //}
 }
