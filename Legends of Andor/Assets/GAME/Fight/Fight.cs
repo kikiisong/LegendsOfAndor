@@ -87,7 +87,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
             }
         }
 
-        if (player.CustomProperties.ContainsKey(K.Player.isFight))
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(K.Player.isFight))
         {
             Hero hero = (Hero)player.CustomProperties[K.Player.hero];
 
@@ -212,11 +212,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
 
     //--------ATTACK--------//
-    IEnumerator HeroAttack()
+    IEnumerator HeroAttackFinished()
     {
         print("HeroAttackRunning");
-        
-            
         fightstate = FightState.MONSTER;
         fHUD.setFightHUD_MONSTER();
 
@@ -229,6 +227,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
 
     public void MonsterAttack()
     {
+
         if (fightstate != FightState.MONSTER)
         {
             return;
@@ -473,7 +472,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
     public void OnSunrise()
     {
        print("hi");
-       StartCoroutine(HeroAttack());
+       StartCoroutine(HeroAttackFinished());
     }
 }
     
