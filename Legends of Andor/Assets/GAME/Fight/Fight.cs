@@ -122,7 +122,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSunrise
                 foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
                 {
                     if (monsterC.m.isFighted) {
+
                         aMonster = monsterC.m;
+                        Debug.Log(aMonster);
+                        break;
                     }
                 }
 

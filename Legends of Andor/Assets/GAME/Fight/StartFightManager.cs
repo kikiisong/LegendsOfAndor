@@ -61,6 +61,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
                         MonsterMoveController monster = MonsterOnMap[0];
                         monster.m.isFighted = true;
+                        Debug.Log(monster.m);
                         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
