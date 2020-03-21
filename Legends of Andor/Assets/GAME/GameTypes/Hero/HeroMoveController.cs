@@ -41,7 +41,7 @@ public class HeroMoveController : MonoBehaviourPun
         if (current.label != clicked.label && contained && (clicked.position - position).magnitude <= radius)
         {
             hero.data.regionNumber = clicked.label;
-           isMoving = true;
+            isMoving = true;
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, animation_time, () => {
                 TurnManager.TriggerEvent_Move(clicked);
                 isMoving = false;

@@ -115,6 +115,7 @@ public class GameGraph : Graph<Region, Border>
         return adjacentRegions;
     }
 
+
     public void DrawTest()
     {
         foreach(Region location in vertices)
@@ -140,8 +141,6 @@ public class GameGraph : Graph<Region, Border>
     }
 
 
-
-
     public List<M> FindObjectsOnRegion<M>(int regionNumber) where M : MonoBehaviour
     {
         List<M> list = new List<M>();
@@ -156,12 +155,7 @@ public class GameGraph : Graph<Region, Border>
         return list;
     }
 
-    public bool FindMonsterOnRegion()
-    {
-
-        return true;
-    }
-
+    
     public Region NextEnemyRegion(Region currentRegion) 
     {
         foreach(Border border in edges)
@@ -176,6 +170,7 @@ public class GameGraph : Graph<Region, Border>
         }
         throw  new NoNextRegionException();
     }
+
 
 
     public class NoNextRegionException : System.Exception
