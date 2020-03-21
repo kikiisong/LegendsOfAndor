@@ -51,7 +51,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                 if (hero.data.numHours < 10)
                 {
                     fight.SetActive(true);
-                    
+
                     print("Invite other to join in ");
 
                     fight.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -67,7 +67,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                             { K.Player.isFight, true }
                         });
 
-                       
+
                         isFight = true;
                         //LightUpJoin();
                         photonView.RPC("LightUpJoin", RpcTarget.Others);
@@ -80,6 +80,53 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                 else
                 {
                     fight.SetActive(false);
+                }
+            }
+            else if (hero.type == Hero.Type.ARCHER || hero.data.bow > 0)
+            {
+                //TODO: hero is surronding by monster might need to choose which one to attack
+                List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(currentRegion);
+                foreach (Region r in AdjacentRegions)
+                {
+                    List<MonsterMoveController> MonsterOnAdjacent = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(r);
+                    Debug.Log(MonsterOnAdjacent.Count);
+                    if (MonsterOnAdjacent.Count > 0)
+                    {
+
+                        print("Checking3");
+                        if (hero.data.numHours < 10)
+                        {
+                            fight.SetActive(true);
+
+                            print("Invite other to join in ");
+
+                            fight.GetComponent<Button>().onClick.RemoveAllListeners();
+                            fight.GetComponent<Button>().onClick.AddListener(() =>
+
+                            {
+
+                                MonsterMoveController monster = MonsterOnAdjacent[0];
+                                monster.m.isFighted = true;
+                                Debug.Log(monster.m);
+                                PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+                        {
+                            { K.Player.isFight, true }
+                        });
+
+
+                                isFight = true;
+                                //LightUpJoin();
+                                photonView.RPC("LightUpJoin", RpcTarget.Others);
+                                start.SetActive(true);
+
+
+                            });
+
+                        }
+
+
+                    }
+
                 }
             }
         }
