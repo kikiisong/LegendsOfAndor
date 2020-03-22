@@ -98,14 +98,14 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
                 }
 
-                if (choicesOfJoin.Count > 1)
-                {
-                    //TODO: have to choose one mosnter
+                //if (choicesOfJoin.Count > 1)
+                //{
+                //    //TODO: have to choose one mosnter
 
                
 
-                }
-                else if (choicesOfJoin.Count == 1) {
+                //}
+                else if (choicesOfJoin.Count >= 1) {
 
                     if (hero.data.numHours < 10)
                     {

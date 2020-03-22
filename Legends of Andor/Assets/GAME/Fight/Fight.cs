@@ -77,19 +77,11 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
 
     //--------START--------//
     void plotCharacter() {
-        foreach (Player player1 in PhotonNetwork.CurrentRoom.Players.Values)
-        {
-            if (player1.CustomProperties.ContainsKey(K.Player.isFight))
-            {
-                Hero hero = (Hero)player1.CustomProperties[K.Player.hero];
-                aHeroes.Add(hero);
-            }
-        }
-
-
+        
         Player player = PhotonNetwork.LocalPlayer;
         if (player.CustomProperties.ContainsKey(K.Player.isFight))
         {
+            Debug.Log(player.NickName + "in fight");
             Hero hero = (Hero)player.CustomProperties[K.Player.hero];
 
             switch (hero.type)
@@ -126,8 +118,9 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
                     }
                 }
 
-                Instantiate(aMonster, monsterStation);
-                //aMonster = monsterGo.GetComponent<Monster>();
+                GameObject go5 = PhotonNetwork.Instantiate(aMonster.gameObject);
+            //aMonster = monsterGo.GetComponent<Monster>();
+                go5.transform.position = monsterStation.position;
                 hHUD.setHeroHUD(hero);
                 mHUD.setMonsterHUD(aMonster);
 
