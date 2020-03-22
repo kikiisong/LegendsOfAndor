@@ -58,9 +58,8 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
                     {
 
-                        MonsterMoveController monster = MonsterOnMap[0];
-                        monster.m.isFighted = true;
-                        Debug.Log(monster.m);
+                        photonView.RPC("changeMonsterTofight", RpcTarget.All);
+
                         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
@@ -100,12 +99,9 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
                 //if (choicesOfJoin.Count > 1)
                 //{
-                //    //TODO: have to choose one mosnter
-
-               
-
+                //TODO: have to choose one mosnter
                 //}
-                else if (choicesOfJoin.Count >= 1) {
+                 if (choicesOfJoin.Count >= 1) {
 
                     if (hero.data.numHours < 10)
                     {
@@ -118,9 +114,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
                         {
 
-                            MonsterMoveController monster = choicesOfJoin[0];
-                            monster.m.isFighted = true;
-                            Debug.Log(monster.m);
+                            photonView.RPC("changeMonsterTofight", RpcTarget.All);
                             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
@@ -140,6 +134,11 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
             }
         }
 
+    }
+    [PunRPC]
+    public void changeMonsterTofight(List<MonsterMoveController> ms) {
+        MonsterMoveController monster = ms[0];
+        monster.m.isFighted = true;
     }
 
 

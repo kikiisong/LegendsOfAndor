@@ -81,52 +81,56 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
         Player player = PhotonNetwork.LocalPlayer;
         if (player.CustomProperties.ContainsKey(K.Player.isFight))
         {
-            Debug.Log(player.NickName + "in fight");
-            Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+            bool fight = (bool)player.CustomProperties[K.Player.isFight];
+            if (fight) {
+                Debug.Log(player.NickName + "in fight");
+                Hero hero = (Hero)player.CustomProperties[K.Player.hero];
 
-            switch (hero.type)
-            {
-                case Hero.Type.ARCHER:
-                    GameObject go1 = PhotonNetwork.Instantiate(archerPrefabs);
-                    go1.transform.position = transforms[0].position;
-                    go1.SetActive(true);
-                    break;
-                case Hero.Type.WARRIOR:
-                    GameObject go2 = PhotonNetwork.Instantiate(warriorPrefabs);
-                    go2.transform.position = transforms[1].position;
-                    go2.SetActive(true);
-                    break;
-                case Hero.Type.DWARF:
-                    GameObject go3 = PhotonNetwork.Instantiate(dwarfPrefabs);
-                    go3.transform.position = transforms[2].position;
-                    go3.SetActive(true);
-                    break;
-                case Hero.Type.WIZARD:
-                    GameObject go4 = PhotonNetwork.Instantiate(wizardPrefabs);
-                    go4.transform.position = transforms[3].position;
-                    go4.SetActive(true);
-                    break;
-            }
-            hero.data.dice = dice;
-                foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
+                switch (hero.type)
                 {
-                    if (monsterC.m.isFighted) {
-
-                        aMonster = monsterC.m;
-                        Debug.Log(aMonster);
+                    case Hero.Type.ARCHER:
+                        GameObject go1 = PhotonNetwork.Instantiate(archerPrefabs);
+                        go1.transform.position = transforms[0].position;
+                        go1.SetActive(true);
                         break;
-                    }
+                    case Hero.Type.WARRIOR:
+                        GameObject go2 = PhotonNetwork.Instantiate(warriorPrefabs);
+                        go2.transform.position = transforms[1].position;
+                        go2.SetActive(true);
+                        break;
+                    case Hero.Type.DWARF:
+                        GameObject go3 = PhotonNetwork.Instantiate(dwarfPrefabs);
+                        go3.transform.position = transforms[2].position;
+                        go3.SetActive(true);
+                        break;
+                    case Hero.Type.WIZARD:
+                        GameObject go4 = PhotonNetwork.Instantiate(wizardPrefabs);
+                        go4.transform.position = transforms[3].position;
+                        go4.SetActive(true);
+                        break;
                 }
+                hero.data.dice = dice;
+                    foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
+                    {
+                        if (monsterC.m.isFighted) {
 
-                GameObject go5 = PhotonNetwork.Instantiate(aMonster.gameObject);
-            //aMonster = monsterGo.GetComponent<Monster>();
-                go5.transform.position = monsterStation.position;
-                hHUD.setHeroHUD(hero);
-                mHUD.setMonsterHUD(aMonster);
+                            aMonster = monsterC.m;
+                            Debug.Log(aMonster);
+                            break;
+                        }
+                    }
 
-            //}
+                    //GameObject go5 = PhotonNetwork.
+
+                    Instantiate(aMonster.gameObject, monsterStation);
+                //aMonster = monsterGo.GetComponent<Monster>();
+                    //go5.transform.position = monsterStation.position;
+                    hHUD.setHeroHUD(hero);
+                    mHUD.setMonsterHUD(aMonster);
+
+                //}
+            }
         }
-        
 
     }
 
