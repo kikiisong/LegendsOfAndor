@@ -20,7 +20,7 @@ public class drapDownButtonHandler : MonoBehaviourPun
 
         Region currentRegion = findCurrentRegion();
 
-        List<Monster> MonsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<Monster>(currentRegion);
+        List<MonsterMoveController> MonsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(currentRegion);
 
         if (MonsterOnRegion.Count == 0)
         {
@@ -28,6 +28,7 @@ public class drapDownButtonHandler : MonoBehaviourPun
         }
         else
         {
+            print("werid, there should be a monster on this region");
             hero.data.numFarmers = 0;
             gameObject.SetActive(false);
         }

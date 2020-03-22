@@ -2968,6 +2968,8 @@ GameObject:
   - component: {fileID: 542299325}
   - component: {fileID: 542299324}
   - component: {fileID: 542299323}
+  - component: {fileID: 542299326}
+  - component: {fileID: 542299327}
   m_Layer: 5
   m_Name: PickUpFarmer
   m_TagString: Untagged
@@ -3038,12 +3040,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 542299327}
+        m_MethodName: pickUpFarmer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3085,6 +3087,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 542299321}
   m_CullTransparentMesh: 0
+--- !u!114 &542299326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542299321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 4
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &542299327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542299321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734e1cc11de30405c994b2bbe4a7ea5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropDownButton: {fileID: 1600366609}
 --- !u!1 &573874613
 GameObject:
   m_ObjectHideFlags: 0
@@ -9918,6 +9955,8 @@ GameObject:
   - component: {fileID: 1600366611}
   - component: {fileID: 1600366610}
   - component: {fileID: 1600366609}
+  - component: {fileID: 1600366612}
+  - component: {fileID: 1600366613}
   m_Layer: 5
   m_Name: DropDownFarmer
   m_TagString: Untagged
@@ -9987,7 +10026,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1600366610}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1600366612}
+        m_MethodName: dropDownFarmer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1600366610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10024,6 +10074,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600366607}
   m_CullTransparentMesh: 0
+--- !u!114 &1600366612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600366607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c16c414b49244c85a7e48b368b1423e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpButton: {fileID: 542299323}
+  extraShileds: {fileID: 939365464}
+--- !u!114 &1600366613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600366607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 5
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1612879501
 GameObject:
   m_ObjectHideFlags: 0
