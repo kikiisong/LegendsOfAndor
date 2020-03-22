@@ -58,7 +58,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
                     {
 
-                        photonView.RPC("changeMonsterTofight", RpcTarget.All, MonsterOnMap);
+                        photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
 
                         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
@@ -114,7 +114,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
                         {
 
-                            photonView.RPC("changeMonsterTofight", RpcTarget.All, choicesOfJoin);
+                            photonView.RPC("changeMonsterTofight", RpcTarget.All,choicesOfJoin[0].regionlabel);
                             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
@@ -136,8 +136,8 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     }
     [PunRPC]
-    public void changeMonsterTofight(List<MonsterMoveController> ms) {
-        MonsterMoveController monster = ms[0];
+    public void changeMonsterTofight(int regionl) {
+        MonsterMoveController monster = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(regionl)[0] ;
         monster.m.isFighted = true;
     }
 
