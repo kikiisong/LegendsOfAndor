@@ -14,7 +14,7 @@ public class Monster : MonoBehaviour,TurnManager.IOnSunrise
     public bool isFighted;
     public int regionlabel;
     public Dice dice;
-    int damage;
+    public int damage;
     public void desotry() {
         Destroy(gameObject);
     }
@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour,TurnManager.IOnSunrise
         return dice.printArrayList();
     }
 
-    public int MonsterRoll()
+    public void MonsterRoll()
     {
 
         dice.rollDice(redDice, 0);
@@ -49,7 +49,7 @@ public class Monster : MonoBehaviour,TurnManager.IOnSunrise
         {
             damage = dice.getMax();
         }
-        return damage;
+        
     }
 
     public void OnSunrise()

@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FightTurnManager : MonoBehaviourPun
 {
@@ -10,15 +11,14 @@ public class FightTurnManager : MonoBehaviourPun
 
     private List<Player> players = new List<Player>();
     private List<Player> waiting = new List<Player>();
+    private List<Player> finished = new List<Player>();
     private int turnIndex = 0;
 
     //Listeners
-    List<IOnMove> onMoves = new List<IOnMove>();
-    List<IOnTurnCompleted> onTurnCompleteds = new List<IOnTurnCompleted>();
-    List<IOnEndDay> onEndOneFightRound = new List<IOnEndDay>();
-    List<IOnSunrise> onStartOneFightRound = new List<IOnSunrise>();
+    List<IOnSkillCompleted> onSkillCompleteds = new List<IOnSkillCompleted>();
+    List<IOnMonsterTurn> onMonsterTurns = new List<IOnMonsterTurn>();
 
-    static Hero CurrentHero
+    public static Hero CurrentHero
     {
         get
         {
@@ -38,6 +38,12 @@ public class FightTurnManager : MonoBehaviourPun
             if (player.CustomProperties.ContainsKey(K.Player.isFight))
             {
                 players.Add(player);
+
+                //if (((Hero)player.CustomProperties[K.Player.hero]).type == Hero.Type.WIZARD) {
+
+                //    wizardJoined = true;
+                //}
+
             }
         }
 
@@ -46,31 +52,6 @@ public class FightTurnManager : MonoBehaviourPun
     private void Start()
     {
         Register(new TestFightTurn());
-    }
-
-    private void Update()
-    {
-        //better way?
-        if (IsMyTurn() && Input.GetKey(KeyCode.N))
-        {
-            TriggerEvent_EndTurn(PhotonNetwork.LocalPlayer);
-        }
-    }
-
-    //works?
-    public int GetWaitIndex(Player player)
-    {
-        List<Player> inDeathBox = new List<Player>();
-        foreach (Player p in players)
-        {
-            Hero hero = (Hero)p.CustomProperties[K.Player.hero];
-            if (hero.data.WP <= 0) inDeathBox.Add(p);
-        }
-        foreach (Player p in waiting)
-        {
-            inDeathBox.Add(p);
-        }
-        return inDeathBox.IndexOf(player);
     }
 
     //Turn
@@ -90,21 +71,10 @@ public class FightTurnManager : MonoBehaviourPun
         return Instance.players[Instance.turnIndex] == PhotonNetwork.LocalPlayer;
     }
 
-    [PunRPC]
-    public void NextTurn(Player player)
+    public static bool IsMyProtectedTurn()
     {
-        turnIndex = Helper.Mod(turnIndex + 1, players.Count);
-
-        //Notify
-        foreach (IOnTurnCompleted onTurnCompleted in onTurnCompleteds)
-        {
-            onTurnCompleted.OnTurnCompleted(player);
-        }
-    }
-
-    public static void TriggerEvent_EndTurn(Player player)
-    {
-        Instance.photonView.RPC("NextTurn", RpcTarget.All, player);
+        if (Instance.waiting.Count == 0) return false;
+        return Instance.waiting[Instance.turnIndex] == PhotonNetwork.LocalPlayer;
     }
 
     //Day
@@ -120,9 +90,9 @@ public class FightTurnManager : MonoBehaviourPun
         waiting.Add(player);
 
         //Notify
-        foreach (IOnEndDay onEndDay in onEndOneFightRound)
+        foreach (IOnSkillCompleted onSkillCompleted in onSkillCompleteds)
         {
-            onEndDay.OnEndDay(player);
+            onSkillCompleted.OnSkillCompleted(player);
         }
     }
 
@@ -131,32 +101,27 @@ public class FightTurnManager : MonoBehaviourPun
         Instance.photonView.RPC("EndFightRound", RpcTarget.All, player);
         if (Instance.players.Count == 0)
         {
-            TriggerEvent_EndFight();
+
+            
+            TriggerEvent_EndFightRound();
         }
     }
 
     //Sunrise
     [PunRPC]
-    public void Sunrise()
+    public void MonsterTurn()
     {
-        //Reset
-        turnIndex = 0;
-        foreach (Player player in waiting)
-        {
-            players.Add(player);
-        }
-        waiting.Clear();
-
         //Notify
-        foreach (IOnSunrise onSunrise in onStartOneFightRound)
+        turnIndex = 0;
+        foreach (IOnMonsterTurn onMonsterTurn in onMonsterTurns)
         {
-            onSunrise.OnSunrise();
+            onMonsterTurn.OnMonsterTurn();
         }
     }
 
-    public static void TriggerEvent_EndFight()
+    public static void TriggerEvent_EndFightRound()
     {
-        Instance.photonView.RPC("Sunrise", RpcTarget.All);
+        Instance.photonView.RPC("MonsterTurn", RpcTarget.All);
     }
 
 
@@ -171,17 +136,15 @@ public class FightTurnManager : MonoBehaviourPun
         {
             hero.data.WP -= 2;
         }
-        //Notify
-        foreach (IOnMove onMove in onMoves)
-        {
-            onMove.OnMove(player);
-        }
     }
 
     public static void TriggerEvent_Fight()
     {
         Instance.photonView.RPC("HeroFight", RpcTarget.All, PhotonNetwork.LocalPlayer);
     }
+
+
+
 
     //Register
     static void AddNotNull<I>(I i, List<I> list)
@@ -192,53 +155,50 @@ public class FightTurnManager : MonoBehaviourPun
     public interface IEvent { }
     public static void Register(IEvent e)
     {
-        AddNotNull(e as IOnMove, Instance.onMoves);
-        AddNotNull(e as IOnTurnCompleted, Instance.onTurnCompleteds);
-        AddNotNull(e as IOnEndDay, Instance.onEndOneFightRound);
-        AddNotNull(e as IOnSunrise, Instance.onStartOneFightRound);
+        AddNotNull(e as IOnSkillCompleted, Instance.onSkillCompleteds);
+        AddNotNull(e as IOnMonsterTurn, Instance.onMonsterTurns);
     }
 
     //Interfaces
+
+    public interface IOnSkillCompleted : IEvent
+    {
+        void OnSkillCompleted(Player player);
+    }
+
+    public interface IOnMonsterTurn : IEvent
+    {
+        void OnMonsterTurn();
+    }
+
+    public interface IOnShield : IEvent {
+        void OnShield(Player player);
+    }
+
     public interface IOnMove : IEvent
     {
-        void OnMove(Player player);
-    }
-
-    public interface IOnTurnCompleted : IEvent
-    {
-        void OnTurnCompleted(Player player);
-    }
-
-    public interface IOnEndDay : IEvent
-    {
-        void OnEndDay(Player player);
-    }
-
-    public interface IOnSunrise : IEvent
-    {
-        void OnSunrise();
+        void OnRoll(Player player);
     }
 }
 
-public class TestFightTurn : FightTurnManager.IOnMove, FightTurnManager.IOnTurnCompleted, FightTurnManager.IOnEndDay, FightTurnManager.IOnSunrise
+public class TestFightTurn :  FightTurnManager.IOnSkillCompleted,
+FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield
 {
-    public void OnMove(Player player)
+
+
+    public void OnSkillCompleted(Player player)
     {
-        Debug.Log("Fight " + player.NickName);
+        Debug.Log("Skill completed " + player.NickName);
     }
 
-    public void OnTurnCompleted(Player player)
+    public void OnMonsterTurn()
     {
-        Debug.Log("Turn completed " + player.NickName);
+        Debug.Log("Monster Rolling");
     }
 
-    public void OnEndDay(Player player)
-    {
-        Debug.Log("End day " + player.NickName);
+    public void OnShield(Player player) {
+        Debug.Log("Applied" + player.NickName);
     }
 
-    public void OnSunrise()
-    {
-        Debug.Log("Sunrise");
-    }
+
 }

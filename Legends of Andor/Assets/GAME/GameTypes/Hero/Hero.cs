@@ -59,8 +59,10 @@ public class Hero : ScriptableObject
             //2 means full, 1 means half, 0 means nothing
         public int bow;
         public int falcon;
-            //1 means processes and 0 means does not process
+        //1 means processes and 0 means does not process
         //TODO: more
+        public Dice dice;
+        public int diceNum;
 
     }
 
@@ -213,6 +215,29 @@ public class Hero : ScriptableObject
     {
         if (data.bow > 0) return true;
         return false;
+    }
+
+    public void heroRoll()
+    {
+
+        if (type == Hero.Type.ARCHER)
+        {
+            if (data.btimes > 0)
+            {
+                data.diceNum = data.dice.getOne(true);
+                data.btimes -= 1;
+            }
+            else if (data.times > 0)
+            {
+                data.diceNum = data.dice.getOne(false);
+                data.times -= 1;
+            }
+        }
+        else
+        {
+            data.dice.rollDice(getDiceNum(), data.blackDice);
+            data.diceNum = data.dice.getMax();
+        }
     }
 
 }
