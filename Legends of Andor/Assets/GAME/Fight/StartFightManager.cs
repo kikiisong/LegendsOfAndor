@@ -58,7 +58,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
                     {
 
-                        photonView.RPC("changeMonsterTofight", RpcTarget.All);
+                        photonView.RPC("changeMonsterTofight", RpcTarget.All, MonsterOnMap);
 
                         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
@@ -114,7 +114,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
                         {
 
-                            photonView.RPC("changeMonsterTofight", RpcTarget.All);
+                            photonView.RPC("changeMonsterTofight", RpcTarget.All, choicesOfJoin);
                             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
