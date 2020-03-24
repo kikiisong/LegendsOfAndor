@@ -182,9 +182,16 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
             || !photonView.IsMine || !FightTurnManager.CanFight())
         {
             print("return");
+
+            print("Fight State" + (fightstate != FightState.HERO));
+            print("MyTUrn"+ !FightTurnManager.IsMyTurn());
+            print("photonView" + !photonView.IsMine);
+            print("Fight" + !FightTurnManager.CanFight());
+
             return;
 
         }
+        print("rolling");
         hero.heroRoll();
         string s;
         if (hero.type == Hero.Type.ARCHER)
@@ -235,7 +242,7 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
 
     //--------ROLLFINISHED--------//
     public void OnSkillCompleted(Player player) {
-        print("working");
+        
         fHUD.rollResult(player.NickName+ " finished roll and appleid skill");
     }
 
@@ -381,7 +388,7 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
     public void onMagicClick()
     {
         //assume black dice is not allowed to flipped
-        if (fightstate != FightState.MONSTER || hero.getMagic())
+        if (fightstate != FightState.MONSTER || !hero.getMagic())
         {
             return;
         }
