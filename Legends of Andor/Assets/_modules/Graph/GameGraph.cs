@@ -18,39 +18,65 @@ public class GameGraph : Graph<Region, Border>
     private void Start()
     {
         Transform();
-
     }
 
     private void Transform()
     {
         foreach(Region region in vertices)
         {
-            region.position = transform.InverseTransformPoint(region.position); //or TransformPoint?
+            region.position = transform.TransformPoint(region.position); //or TransformPoint?
         }
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.cyan;
-        foreach(Region region in vertices)
+        if (!Application.isPlaying)
         {
-            Gizmos.DrawSphere(transform.TransformPoint(region.position), 1);
+            Gizmos.color = Color.cyan;
+            foreach (Region region in vertices)
+            {
+                Gizmos.DrawSphere(transform.TransformPoint(region.position), 1);
+            }
+            foreach (Border border in edges)
+            {
+                Vector3 from = transform.TransformPoint(border.from.position);
+                Vector3 to = transform.TransformPoint(border.to.position);
+                if (border.isDirected)
+                {
+                    Gizmos.color = Color.red;
+                    DrawArrow.ForGizmo(from, to - from);
+                }
+                else
+                {
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawLine(from, to);
+                }
+
+            }
         }
-        foreach (Border border in edges)
+        else
         {
-            Vector3 from = transform.TransformPoint(border.from.position);
-            Vector3 to = transform.TransformPoint(border.to.position);
-            if (border.isDirected)
+            Gizmos.color = Color.cyan;
+            foreach (Region region in vertices)
             {
-                Gizmos.color = Color.red;
-                DrawArrow.ForGizmo(from, to - from);
+                Gizmos.DrawSphere(region.position, 1);
             }
-            else
+            foreach (Border border in edges)
             {
-                Gizmos.color = Color.cyan;
-                Gizmos.DrawLine(from, to);
+                Vector3 from = border.from.position;
+                Vector3 to = border.to.position;
+                if (border.isDirected)
+                {
+                    Gizmos.color = Color.red;
+                    DrawArrow.ForGizmo(from, to - from);
+                }
+                else
+                {
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawLine(from, to);
+                }
+
             }
-            
         }
     }
 
