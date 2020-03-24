@@ -2492,7 +2492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -205.29999, y: -549.73}
+  m_AnchoredPosition: {x: -205.2998, y: -549.73}
   m_SizeDelta: {x: -310.7, y: -1075.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &422613031
@@ -2718,10 +2718,10 @@ RectTransform:
   m_Father: {fileID: 1087430907}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 760.6, y: -549.3}
-  m_SizeDelta: {x: -1521.2, y: -1098.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -199.40002, y: 21.75}
+  m_SizeDelta: {x: 398.80005, y: 43.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &472354506
 MonoBehaviour:
@@ -4215,6 +4215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 666315606}
   - component: {fileID: 666315607}
+  - component: {fileID: 666315608}
   m_Layer: 5
   m_Name: WPbar
   m_TagString: Untagged
@@ -4294,6 +4295,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &666315608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666315605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3052e04fadf447049f71d8c5ee9cbd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 0}
 --- !u!1001 &698133649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10775,8 +10789,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546304334}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.2, y: 6.6, z: 0}
-  m_LocalScale: {x: 0.7459849, y: 0.81571126, z: 0.802076}
+  m_LocalPosition: {x: -0.04, y: 0.1, z: 0}
+  m_LocalScale: {x: 0.9683272, y: 1.011482, z: 0.802076}
   m_Children:
   - {fileID: 1813410490}
   - {fileID: 121420634}
@@ -15523,10 +15537,10 @@ RectTransform:
   m_Father: {fileID: 1087430907}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 760.6, y: 436.7}
-  m_SizeDelta: {x: 398.8, y: 543.7}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -199.40002, y: -271.84998}
+  m_SizeDelta: {x: 398.80005, y: 543.69995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2126799488
 MonoBehaviour:
