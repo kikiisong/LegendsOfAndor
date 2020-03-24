@@ -177,7 +177,7 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
         }
         hero.heroRoll();
         string s;
-        if (hero.type = Hero.Type.ARCHER)
+        if (hero.type == Hero.Type.ARCHER)
         {
             s = "Value:" + hero.data.diceNum + " Left B/R:" + hero.data.btimes + "/" + hero.data.times;
         }
