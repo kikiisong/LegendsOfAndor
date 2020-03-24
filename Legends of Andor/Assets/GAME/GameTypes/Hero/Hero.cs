@@ -63,6 +63,7 @@ public class Hero : ScriptableObject
         //TODO: more
         public Dice dice;
         public int diceNum;
+        public int damage;
 
     }
 
