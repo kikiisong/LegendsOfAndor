@@ -88,7 +88,7 @@ public class FightTurnManager : MonoBehaviourPun
         players.Remove(player);
         turnIndex = players.IndexOf(next);
         waiting.Add(player);
-
+        print("Next Player" + next.NickName);
         //Notify
         foreach (IOnSkillCompleted onSkillCompleted in onSkillCompleteds)
         {

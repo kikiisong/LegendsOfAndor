@@ -160,6 +160,16 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
         hero.data.btimes = hero.data.blackDice;
         fHUD.setFightHUD_PLAYER();
 
+        if (fightstate != FightState.HERO || !FightTurnManager.IsMyTurn()
+            || !photonView.IsMine || !FightTurnManager.CanFight())
+        {
+            print("return");
+            return;
+
+        }
+
+        fHUD.rollResult("Player Turn" + player.NickName);
+
     }
 
     public void OnRollDice()
@@ -226,9 +236,7 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
     //--------ROLLFINISHED--------//
     public void OnSkillCompleted(Player player) {
         print("working");
-        Hero h = (Hero)player.CustomProperties[K.Player.hero];
         fHUD.rollResult(player.NickName+ " finished roll and appleid skill");
-        
     }
 
 
@@ -462,6 +470,8 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
         print("SkillPressed");
         mySkillYesButton.gameObject.SetActive(false);
         hero.data.attackNum = hero.data.diceNum+hero.data.SP;
+        fHUD.rollResult("Damage" + hero.data.attackNum);
+        print("Working");
         FightTurnManager.TriggerEvent_Fight();
         FightTurnManager.TriggerEvent_NewFightRound(player);
     }
