@@ -5,6 +5,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class FarmerManager : MonoBehaviourPun, TurnManager.IOnMove
 {
     public static FarmerManager Instance;
@@ -13,7 +14,10 @@ public class FarmerManager : MonoBehaviourPun, TurnManager.IOnMove
     public Button pickUpButton;
     public Button dropDownButton;
 
-
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

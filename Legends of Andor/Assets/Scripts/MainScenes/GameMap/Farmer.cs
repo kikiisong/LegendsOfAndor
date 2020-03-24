@@ -44,7 +44,7 @@ public class Farmer : MonoBehaviour
     {
         Region currentRegion = findCurrentRegion();
 
-        List<Monster> MonsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<Monster>(currentRegion);
+        List<MonsterMoveController> MonsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(currentRegion);
 
         if (MonsterOnRegion.Count == 0)
         {
