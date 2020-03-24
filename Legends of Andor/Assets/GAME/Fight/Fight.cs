@@ -176,13 +176,20 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
 
         }
         hero.heroRoll();
-
-        Instance.photonView.RPC("HeroRoll", RpcTarget.All,hero);
+        string s;
+        if (hero.type = Hero.Type.ARCHER)
+        {
+            s = "Value:" + hero.data.diceNum + " Left B/R:" + hero.data.btimes + "/" + hero.data.times;
+        }
+        else {
+            s = hero.data.dice.printArrayList() + "Max:" + hero.data.diceNum;
+        }
+        Instance.photonView.RPC("HeroRoll", RpcTarget.All,hero, s );
     }
 
     //--------ROLL--------//
     [PunRPC]
-    public void HeroRoll(Hero rolledhero)
+    public void HeroRoll(Hero rolledhero,string s )
     {
         print("heroroll running");
         if (rolledhero.type == Hero.Type.ARCHER)
@@ -195,19 +202,23 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
                 else {
                     OnYesClick();
                 }
+                
             }
-                
-        fHUD.rollResult("Value:" + rolledhero.data.diceNum + " Left B/R:" + rolledhero.data.btimes + "/" + hero.data.times);
-                
+
+            fHUD.rollResult(s);
+
+
         }
         else
         {
             if (rolledhero == hero)
             {
                 mySkillYesButton.gameObject.SetActive(true);
+
+                
             }
-           
-            fHUD.rollResult(rolledhero.data.dice.printArrayList() + "Max:" + rolledhero.data.diceNum);
+            fHUD.rollResult(s);
+
         }
        
     }
