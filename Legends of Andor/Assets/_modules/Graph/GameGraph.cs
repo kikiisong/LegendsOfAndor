@@ -13,10 +13,6 @@ public class GameGraph : Graph<Region, Border>
     void Awake()
     {
         Instance = this;
-    }
-
-    private void Start()
-    {
         Transform();
     }
 
