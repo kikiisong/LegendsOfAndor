@@ -81,16 +81,25 @@ public class GameGraph : Graph<Region, Border>
         StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, location.position, time));
     }
 
-    public void PlaceAt(GameObject gameObject, int label, Vector3 offset=new Vector3())
+    public void PlaceAt(GameObject gameObject, int label)
     {
         Region target = Find(label);
-        gameObject.transform.position = target.position + offset;
+        gameObject.transform.position = target.position;
     }
 
-    public void PlaceAt(GameObject gameObject, int label, float timeTaken, Vector3 offset = new Vector3())
+    public void PlaceAt(GameObject gameObject, int label, Vector3 offset)
     {
         Region target = Find(label);
-        StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, target.position + offset, timeTaken));
+        if(FindNearest(target.position) != FindNearest(target.position + offset)){
+            throw new Exception("Offset changed the region of the object.");
+        }
+        gameObject.transform.position = target.position;
+    }
+
+    public void PlaceAt(GameObject gameObject, int label, float timeTaken)
+    {
+        Region target = Find(label);
+        StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, target.position, timeTaken));
     }
 
 
