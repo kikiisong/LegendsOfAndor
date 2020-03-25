@@ -81,16 +81,16 @@ public class GameGraph : Graph<Region, Border>
         StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, location.position, time));
     }
 
-    public void PlaceAt(GameObject gameObject, int label)
+    public void PlaceAt(GameObject gameObject, int label, Vector3 offset=new Vector3())
     {
         Region target = Find(label);
-        gameObject.transform.position = target.position;
+        gameObject.transform.position = target.position + offset;
     }
 
-    public void PlaceAt(GameObject gameObject, int label, float timeTaken)
+    public void PlaceAt(GameObject gameObject, int label, float timeTaken, Vector3 offset = new Vector3())
     {
         Region target = Find(label);
-        StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, target.position, timeTaken));
+        StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, target.position + offset, timeTaken));
     }
 
 
