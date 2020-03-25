@@ -16890,7 +16890,7 @@ MonoBehaviour:
   vcam: {fileID: 2057644126}
   follow: {fileID: 2101670401}
   polygonCollider: {fileID: 1962236572}
-  maxSize: 33
+  maxSize: 35
   minSize: 3
 --- !u!114 &2057644128
 MonoBehaviour:
