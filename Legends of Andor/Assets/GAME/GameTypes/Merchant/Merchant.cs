@@ -17,14 +17,15 @@ public class Merchant : MonoBehaviour
     void Start()
     {
        
-           GameGraph.Instance.PlaceAt(gameObject, regionLabel);
-       
+           
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        GameGraph.Instance.PlaceAt(gameObject, regionLabel);
     }
 
 
