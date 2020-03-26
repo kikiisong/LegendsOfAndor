@@ -13,7 +13,6 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     [SceneName]
     public string nextScene;
 
-    int attemps = 0;
 
     public void Click_CreateRoom()
     {
@@ -23,21 +22,31 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         {
             MaxPlayers = 4
         };
-        
-        if(!PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, TypedLobby.Default))
+        if(_roomName.text != "")
         {
-            TryCreate();
+            PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, TypedLobby.Default);
+        }
+        else
+        {
+            TryCreate(0);
         }
     }
 
-    void TryCreate()
+    void TryCreate(int i)
     {
-        RoomOptions options = new RoomOptions
+        try
         {
-            MaxPlayers = 4
-        };
-        PhotonNetwork.CreateRoom("Room" + attemps, options, TypedLobby.Default);
-        attemps++;
+            RoomOptions options = new RoomOptions
+            {
+                MaxPlayers = 4
+            };
+            PhotonNetwork.JoinOrCreateRoom("Room " + i, options, TypedLobby.Default);
+        }
+        catch (Exception e)
+        {
+            print(e);
+            TryCreate(i + 1);
+        }
     }
 
     public override void OnCreatedRoom()
@@ -50,6 +59,5 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("Room creation failed: " + message, this);
-        if (attemps > 0) TryCreate();
     }
 }

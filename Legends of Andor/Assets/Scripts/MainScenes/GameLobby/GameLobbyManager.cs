@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.SceneManagement;
 
 public class GameLobbyManager : MonoBehaviourPunCallbacks
 {
@@ -19,7 +17,6 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     public GameObject startGame;
     public Text difficulty;
     public Button ready;
-    public TextMeshProUGUI roomName;
 
     [Header("Hero Selection")]
     public GameObject heroSelectionPrefab;
@@ -33,8 +30,9 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         heroSelection = PhotonNetwork.Instantiate(heroSelectionPrefab.name, Vector3.zero, Quaternion.identity)
             .GetComponent<HeroSelection>();
         heroSelection.SetParentRPC(canvasParent);
+        //?
+        //PhotonNetwork.automaticallySyncScene = true;
 
-        roomName.text = PhotonNetwork.CurrentRoom.Name;
     }
 
     // Update is called once per frame
@@ -136,12 +134,5 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
             {K.Room.difficulty, difficulty.text}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
-    }
-
-    public void Click_LeaveRoom()
-    {
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LocalPlayer.CustomProperties = new Hashtable();
-        SceneManager.LoadScene(previousScene);
     }
 }

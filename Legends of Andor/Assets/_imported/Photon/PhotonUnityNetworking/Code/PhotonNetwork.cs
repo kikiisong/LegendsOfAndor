@@ -1715,7 +1715,7 @@ namespace Photon.Pun
             }
             if (string.IsNullOrEmpty(roomName))
             {
-                Debug.LogWarning("JoinOrCreateRoom failed. A roomname is required. If you don't know one, how will you join?");
+                Debug.LogError("JoinOrCreateRoom failed. A roomname is required. If you don't know one, how will you join?");
                 return false;
             }
 

@@ -13,13 +13,9 @@ public class Connect : MonoBehaviourPunCallbacks
     [SceneName]
     public string previous;
 
-    public GameObject createRoomButton;
-
     // Start is called before the first frame update
     void Start()
     {
-        createRoomButton.SetActive(false);
-
         print("Connecting to server");
         PhotonNetwork.NickName = PlayerPrefs.GetString(K.Preferences.USERNAME);
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -38,7 +34,6 @@ public class Connect : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         print("Joined lobby " + PhotonNetwork.CurrentLobby.Name);
-        createRoomButton.SetActive(true);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
