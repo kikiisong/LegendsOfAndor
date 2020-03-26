@@ -71,7 +71,9 @@ MonoBehaviour:
   - HeroFight
   - HeroRoll
   - showSkillResult
-  - changeMonsterTofight
   - MonsterTurn
+  - changeMonsterTofight
+  - OnShield
+  - removeFighter
   DisableAutoOpenWizard: 1
   ShowSettings: 1

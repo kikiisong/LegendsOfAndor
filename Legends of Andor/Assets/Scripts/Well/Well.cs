@@ -18,14 +18,14 @@ public class Well : MonoBehaviour, TurnManager.IOnSunrise
     {
         wellIcon = GetComponent<Renderer>();
         //wellIcon.enabled = false;
-        GameGraph.Instance.PlaceAt(gameObject, region);
+        
         TurnManager.Register(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        GameGraph.Instance.PlaceAt(gameObject, region);
     }
 
     public void OnSunrise()

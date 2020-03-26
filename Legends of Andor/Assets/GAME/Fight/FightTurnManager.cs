@@ -17,6 +17,9 @@ public class FightTurnManager : MonoBehaviourPun
     //Listeners
     List<IOnSkillCompleted> onSkillCompleteds = new List<IOnSkillCompleted>();
     List<IOnMonsterTurn> onMonsterTurns = new List<IOnMonsterTurn>();
+    List<IOnShield> onShields = new List<IOnShield>();
+    List<IOnSunrise> onSunrises = new List<IOnSunrise>();
+    
 
     public static Hero CurrentHero
     {
@@ -77,6 +80,27 @@ public class FightTurnManager : MonoBehaviourPun
         return Instance.waiting[Instance.turnIndex] == PhotonNetwork.LocalPlayer;
     }
 
+    [PunRPC]
+    public void removeFighter(Player player, Monster m) {
+        players.Remove(player);
+        if (players.Count == 0) {
+            //no fighter in side the fight
+            //the monster is not yet dead
+            //we should restore the mosnter
+            m.currentWP = m.maxWP;
+            m.isFighted = false;
+        }
+    }
+
+
+    public static void TriggerRemove(Player player, Monster m) {
+        Instance.photonView.RPC("removeFighter", RpcTarget.All,player,m);
+    }
+
+    public int sizeOfPlayer() {
+        return players.Count;
+    }
+
     //Day
     [PunRPC]
     public void EndFightRound(Player player)
@@ -88,7 +112,7 @@ public class FightTurnManager : MonoBehaviourPun
         players.Remove(player);
         turnIndex = players.IndexOf(next);
         waiting.Add(player);
-
+        print("Next Player" + next.NickName);
         //Notify
         foreach (IOnSkillCompleted onSkillCompleted in onSkillCompleteds)
         {
@@ -101,8 +125,6 @@ public class FightTurnManager : MonoBehaviourPun
         Instance.photonView.RPC("EndFightRound", RpcTarget.All, player);
         if (Instance.players.Count == 0)
         {
-
-            
             TriggerEvent_EndFightRound();
         }
     }
@@ -144,7 +166,59 @@ public class FightTurnManager : MonoBehaviourPun
     }
 
 
+    //Sunrise
+    [PunRPC]
+    public void OnShield(Player player)
+    {
+        //Notifyd
+        //all move to finished
+        int i = waiting.IndexOf(player);
+        Player next = waiting[Helper.Mod(i + 1, waiting.Count)];
 
+        waiting.Remove(player);
+        turnIndex = waiting.IndexOf(next);
+        finished.Add(player);
+        print("Next Player" + next.NickName);
+        //Notify
+        foreach (IOnShield onShield in onShields)
+        {
+            onShield.OnShield(player);
+        }
+    }
+
+    public static void TriggerEvent_OnShield(Player player)
+    {
+        Instance.photonView.RPC("OnShield", RpcTarget.All,player);
+        if (Instance.waiting.Count == 0)
+        {
+            TriggerEvent_Sunrise();
+        }
+    }
+
+    //Sunrise
+    [PunRPC]
+    public void Sunrise()
+    {
+        //Reset
+        turnIndex = 0;
+        foreach (Player player in finished)
+        {
+            players.Add(player);
+        }
+        finished.Clear();
+
+        //Notify
+        foreach (IOnSunrise onSunrise in onSunrises)
+        {
+            onSunrise.OnSunrise();
+        }
+    }
+
+    public static void TriggerEvent_Sunrise()
+    {
+        Instance.photonView.RPC("Sunrise", RpcTarget.All);
+
+    }
 
     //Register
     static void AddNotNull<I>(I i, List<I> list)
@@ -157,6 +231,8 @@ public class FightTurnManager : MonoBehaviourPun
     {
         AddNotNull(e as IOnSkillCompleted, Instance.onSkillCompleteds);
         AddNotNull(e as IOnMonsterTurn, Instance.onMonsterTurns);
+        AddNotNull(e as IOnShield, Instance.onShields);
+        AddNotNull(e as IOnSunrise, Instance.onSunrises);
     }
 
     //Interfaces
@@ -175,14 +251,16 @@ public class FightTurnManager : MonoBehaviourPun
         void OnShield(Player player);
     }
 
-    public interface IOnMove : IEvent
+    public interface IOnSunrise : IEvent
     {
-        void OnRoll(Player player);
+        void OnSunrise();
     }
+
 }
 
 public class TestFightTurn :  FightTurnManager.IOnSkillCompleted,
-FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield
+FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield,
+    FightTurnManager.IOnSunrise
 {
 
 
@@ -197,8 +275,11 @@ FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield
     }
 
     public void OnShield(Player player) {
-        Debug.Log("Applied" + player.NickName);
+        Debug.Log("Applied Shield" + player.NickName);
     }
 
-
+    public void OnSunrise()
+    {
+        Debug.Log("Sunrise");
+    }
 }

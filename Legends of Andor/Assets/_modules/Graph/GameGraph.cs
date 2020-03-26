@@ -13,10 +13,6 @@ public class GameGraph : Graph<Region, Border>
     void Awake()
     {
         Instance = this;
-    }
-
-    private void Start()
-    {
         Transform();
     }
 
@@ -88,6 +84,15 @@ public class GameGraph : Graph<Region, Border>
     public void PlaceAt(GameObject gameObject, int label)
     {
         Region target = Find(label);
+        gameObject.transform.position = target.position;
+    }
+
+    public void PlaceAt(GameObject gameObject, int label, Vector3 offset)
+    {
+        Region target = Find(label);
+        if(FindNearest(target.position) != FindNearest(target.position + offset)){
+            throw new Exception("Offset changed the region of the object.");
+        }
         gameObject.transform.position = target.position;
     }
 

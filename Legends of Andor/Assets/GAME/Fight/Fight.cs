@@ -28,7 +28,9 @@ public enum FightState
     }
 
 
-public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTurnManager.IOnMonsterTurn
+public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted
+,FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield,
+    FightTurnManager.IOnSunrise
 
 // FightTurnManager.IOnMove
 {
@@ -49,7 +51,6 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
 
     [Header("Dice")]
     public Dice dice;
-    public List<Hero> aHeroes;
 
     [Header("Prefabs")]
     public GameObject archerPrefabs;
@@ -134,6 +135,9 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
 
     }
 
+    Player player;
+    Hero hero;
+
     IEnumerator setUpBattle()
     {
         myArcherYesButton.gameObject.SetActive(false);
@@ -142,6 +146,8 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
         fightstate = FightState.HERO;
         yield return new WaitForSeconds(2f);
 
+        player = PhotonNetwork.LocalPlayer;
+        hero = (Hero)player.CustomProperties[K.Player.hero];
         playerTurn();
         yield return new WaitForSeconds(2f);
 
@@ -149,16 +155,25 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
     //--------HERO--------//
     //--------MESSAGE--------//
 
-    Player player;
-    Hero hero;
 
     public void playerTurn()
     {
-        player = PhotonNetwork.LocalPlayer;
-        hero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.times = hero.getDiceNum();
         hero.data.btimes = hero.data.blackDice;
         fHUD.setFightHUD_PLAYER();
+        hero.data.diceNum = 0;
+        hero.data.attackNum = 0;
+        aMonster.damage = 0;
+
+        if (fightstate != FightState.HERO || !FightTurnManager.IsMyTurn()
+            || !photonView.IsMine || !FightTurnManager.CanFight())
+        {
+            print("return");
+            return;
+
+        }
+
+        fHUD.rollResult("Player Turn" + player.NickName);
 
     }
 
@@ -169,20 +184,34 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
 
 
         if (fightstate != FightState.HERO || !FightTurnManager.IsMyTurn()
-            || !photonView.IsMine || !FightTurnManager.CanFight())
+            || !FightTurnManager.CanFight())
         {
             print("return");
+
+            //print("Fight State" + (fightstate != FightState.HERO));
+            //print("MyTUrn"+ !FightTurnManager.IsMyTurn());
+            //print("photonView" + !photonView.IsMine);
+            //print("Fight" + !FightTurnManager.CanFight());
+
             return;
 
         }
+        print("rolling");
         hero.heroRoll();
-
-        Instance.photonView.RPC("HeroRoll", RpcTarget.All,hero);
+        string s;
+        if (hero.type == Hero.Type.ARCHER)
+        {
+            s = "Value:" + hero.data.diceNum + " Left B/R:" + hero.data.btimes + "/" + hero.data.times;
+        }
+        else {
+            s = hero.data.dice.printArrayList() + "Max:" + hero.data.diceNum;
+        }
+        Instance.photonView.RPC("HeroRoll", RpcTarget.All,hero, s );
     }
 
     //--------ROLL--------//
     [PunRPC]
-    public void HeroRoll(Hero rolledhero)
+    public void HeroRoll(Hero rolledhero,string s )
     {
         print("heroroll running");
         if (rolledhero.type == Hero.Type.ARCHER)
@@ -195,35 +224,43 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
                 else {
                     OnYesClick();
                 }
+                
             }
-                
-        fHUD.rollResult("Value:" + rolledhero.data.diceNum + " Left B/R:" + rolledhero.data.btimes + "/" + hero.data.times);
-                
+
+            fHUD.rollResult(s);
+
+
         }
         else
         {
             if (rolledhero == hero)
             {
                 mySkillYesButton.gameObject.SetActive(true);
+
+                
             }
-           
-            fHUD.rollResult(rolledhero.data.dice.printArrayList() + "Max:" + rolledhero.data.diceNum);
+            fHUD.rollResult(s);
+
         }
        
     }
 
     //--------ROLLFINISHED--------//
     public void OnSkillCompleted(Player player) {
-        print("working");
-        Hero h = (Hero)player.CustomProperties[K.Player.hero];
-        fHUD.rollResult(player.NickName+ " finished roll and appleid skill");
-        
+
+        Hero CurrentHero = (Hero)player.CustomProperties[K.Player.hero];
+        hero.data.diceNum = Mathf.Max(hero.data.diceNum, CurrentHero.data.diceNum);
+        hero.data.attackNum += CurrentHero.data.SP;
+        fHUD.rollResult(player.NickName+ " finished roll and appleid skill with current attack"
+            + (hero.data.attackNum+hero.data.diceNum));
+
     }
 
 
     //--------ATTACK--------//
 
     public void OnMonsterTurn() {
+        hero.data.attackNum += hero.data.diceNum;
         print("Monster");
         StartCoroutine(MonsterStart());
     }
@@ -265,40 +302,50 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
         yield return new WaitForSeconds(2f);
         fHUD.rollResult( "Damage:" + aMonster.damage);
         yield return new WaitForSeconds(2f);
-
-        //fightstate = FightState.CHECK;
-        //fHUD.setFightHUD_CHECK(diceNum, damage);
-        //StartCoroutine(Check());
-        //yield return new WaitForSeconds(4f);
+        mySkillYesButton.gameObject.SetActive(true);
+        fightstate = FightState.CHECK;
+        fHUD.setFightHUD_CHECK(hero.data.attackNum, aMonster.damage);
+        StartCoroutine(CheckOnShield());
+        yield return new WaitForSeconds(4f);
     }
 
-
     //--------CHECK--------//
+    IEnumerator CheckOnShield()
+    {
+        if (aMonster.damage > hero.data.attackNum)
+        {
+            //go thouth everything to check if want to use sheild
+            fHUD.setFightHUD_SHIELD();
+ 
+        }
+        else if (aMonster.damage < hero.data.attackNum)
+        {
+            aMonster.Attacked(hero.data.attackNum - aMonster.damage);
+            mHUD.basicInfo(aMonster);
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(Check());
+        }
+
+    }
+
+    public void OnShield(Player player)
+    {
+
+        hero.data.WP -= aMonster.damage - hero.data.attackNum;
+        hHUD.basicInfoUpdate(hero);
+        StartCoroutine(Check());
+    }
+
     IEnumerator Check()
     {
-        //TODO: makesure this wont run twice
-        int totalAttack=0;
-        foreach (Hero h in aHeroes) {
-            totalAttack += h.data.attackNum;
-        }
-        if (aMonster.damage > totalAttack)
-        {
-            hero.Attacked(aMonster.damage - totalAttack);
-            hHUD.basicInfoUpdate(hero);
-  
-        }
-        else if (aMonster.damage < totalAttack)
-        {
-            aMonster.Attacked(totalAttack - aMonster.damage);
-            mHUD.basicInfo(aMonster);
-        }
-        yield return new WaitForSeconds(2f);
+        mySkillYesButton.gameObject.SetActive(false);
         if (aMonster.currentWP <= 0)
         {
             fightstate = FightState.WIN;
             fHUD.setFightHUD_WIN();
             yield return new WaitForSeconds(2f);
             Destroy(aMonster);
+            print("WIN");
             SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);
 
         }
@@ -324,10 +371,6 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
             yield return new WaitForSeconds(2f);
         }
 
-
-        print("test end");
-        //should listen to the event, check if user wanna do something else
-
     }
 
     public void Leave() {
@@ -336,16 +379,8 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
                         {
                             { K.Player.isFight, false }
                         });
-        aHeroes.Remove(hero);
-        if (aHeroes.Count == 0) {
 
-            //if all people left and monster still alive
-            //initialize the monster
-            aMonster.currentWP = aMonster.maxWP;
-            aMonster.isFighted = false;
-            
-        }
-
+        FightTurnManager.TriggerRemove(player,aMonster);
 
     }
     public void OnYesClick()
@@ -362,7 +397,7 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
     public void onMagicClick()
     {
         //assume black dice is not allowed to flipped
-        if (fightstate != FightState.MONSTER || hero.getMagic())
+        if (fightstate != FightState.HERO || !hero.getMagic())
         {
             return;
         }
@@ -370,10 +405,6 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
         if (diceNum < 7)
         {
             FightTurnManager.CurrentHero.data.diceNum = 7 - diceNum;
-        }
-        else
-        {
-            //donothing
         }
 
         Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "magic");
@@ -384,13 +415,13 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
 
     public void onSheildClick()
     {
-        if (fightstate != FightState.MONSTER || !hero.getSheild() || usedhelm || !FightTurnManager.IsMyTurn())
+        if (fightstate != FightState.CHECK || !hero.getSheild() || usedhelm || !FightTurnManager.IsMyProtectedTurn())
         {
             return;
         }
-        //hero.data.sheild -= 1;
-        //damage = 0;
-        //fHUD.rollResult("Applied Sheild:" + damage);
+        hero.data.sheild -= 1;
+        aMonster.damage = 0;
+        fHUD.rollResult("Applied Sheild" );
 
     }
 
@@ -442,17 +473,26 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
         hero.data.diceNum *= 2;
         hero.data.brew -=1 ;
         Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Brew");
-
-
     }
 
     public void onSkillClick()
     {
-        print("SkillPressed");
-        mySkillYesButton.gameObject.SetActive(false);
-        hero.data.attackNum = hero.data.diceNum+hero.data.SP;
-        FightTurnManager.TriggerEvent_Fight();
-        FightTurnManager.TriggerEvent_NewFightRound(player);
+
+        if (fightstate == FightState.HERO)
+        {
+            mySkillYesButton.gameObject.SetActive(false);
+            FightTurnManager.TriggerEvent_Fight();
+            FightTurnManager.TriggerEvent_NewFightRound(player);
+        }
+        else if (fightstate == FightState.CHECK)
+        {
+            FightTurnManager.TriggerEvent_OnShield(player);
+        }
+
+        else {
+            print("error");
+        }
+        
     }
 
     /*Four button*/
@@ -477,17 +517,14 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
             return;
         }
 
-
-        hero.data.times = hero.getDiceNum();
-        hero.data.btimes = hero.data.blackDice;
         fightstate = FightState.HERO;
-        hero.data.diceNum = 0;
-        aMonster.damage = 0;
+
         if (hero.type == Hero.Type.WIZARD)
         {
             hHUD.backColorMagic();
         }
 
+        playerTurn();
     }
 
     public void OnFalconClick()
@@ -510,8 +547,10 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted,FightTu
         print("Trade");
     }
 
-
-
+    public void OnSunrise()
+    {
+        print("Sunrise");
+    }
 }
     
 

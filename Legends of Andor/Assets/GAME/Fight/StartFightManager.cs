@@ -57,14 +57,15 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                     fight.GetComponent<Button>().onClick.AddListener(() =>
 
                     {
-
-                        photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
-
+                        
+                        //photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
+                        MonsterMoveController monster = MonsterOnMap[0];
+                        monster.m.isFighted = true;
                         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
                         });
-
+                        print(PhotonNetwork.LocalPlayer.NickName +" start a fight ");
 
                         isFight = true;
                         //LightUpJoin();
@@ -113,13 +114,14 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                         fight.GetComponent<Button>().onClick.AddListener(() =>
 
                         {
-
-                            photonView.RPC("changeMonsterTofight", RpcTarget.All,choicesOfJoin[0].regionlabel);
+                            MonsterMoveController monster = choicesOfJoin[0];
+                            monster.m.isFighted = true;
+                            //photonView.RPC("changeMonsterTofight", RpcTarget.All,choicesOfJoin[0].regionlabel);
                             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
                         });
-
+                            print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
 
                             isFight = true;
                             //LightUpJoin();
@@ -135,6 +137,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
         }
 
     }
+
     [PunRPC]
     public void changeMonsterTofight(int regionl) {
         MonsterMoveController monster = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(regionl)[0] ;
@@ -145,17 +148,21 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     public void Click_Ready()
     {
 
-        print("join the fight");
+        print("Am I able to join?");
         isFight = true;
         Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-        List<Monster> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<Monster>(hero.data.regionNumber);
+        List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(hero.data.regionNumber);
 
         if (MonsterOnMap.Count > 0)
         {
+            print("join the fight");
+            MonsterMoveController monster = MonsterOnMap[0];
+            monster.m.isFighted = true;
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
                         });
+            print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
 
         }
         else if (hero.type == Hero.Type.ARCHER || hero.data.bow > 0)
@@ -167,14 +174,18 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
             foreach (Region r in AdjacentRegions)
             {
+                print("join the fight");
                 List<MonsterMoveController> MonsterOnAdjacent = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(r);
                 Debug.Log(MonsterOnAdjacent.Count);
                 if (MonsterOnAdjacent.Count > 0)
                 {
+                    MonsterMoveController monster = MonsterOnAdjacent[0];
+                    monster.m.isFighted = true;
                     PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
                         });
+                    print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
                     break;
                 }
             }
