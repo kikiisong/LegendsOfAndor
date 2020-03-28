@@ -32,6 +32,13 @@ public class Dice : MonoBehaviourPun
         return a;
     }
 
+    public void setResult(List<int> a) {
+        foreach(int i in a){
+            this.a.Add(i);
+        }
+
+    }
+
     private int randGenerator(bool isBlack)
     {
 

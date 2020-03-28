@@ -28,8 +28,8 @@ public enum FightState
     }
 
 
-public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted
-,FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield,
+public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
+, FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield,
     FightTurnManager.IOnSunrise
 
 // FightTurnManager.IOnMove
@@ -78,7 +78,7 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted
 
     //--------START--------//
     void plotCharacter() {
-        
+
         Player player = PhotonNetwork.LocalPlayer;
         if (player.CustomProperties.ContainsKey(K.Player.isFight))
         {
@@ -111,23 +111,23 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted
                         break;
                 }
                 hero.data.dice = dice;
-                    foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
-                    {
-                        if (monsterC.m.isFighted) {
+                foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
+                {
+                    if (monsterC.m.isFighted) {
 
-                            aMonster = monsterC.m;
-                            Debug.Log(aMonster);
-                            break;
-                        }
+                        aMonster = monsterC.m;
+                        Debug.Log(aMonster);
+                        break;
                     }
+                }
 
-                    //GameObject go5 = PhotonNetwork.
+                //GameObject go5 = PhotonNetwork.
 
-                    Instantiate(aMonster.gameObject, monsterStation);
+                Instantiate(aMonster.gameObject, monsterStation);
                 //aMonster = monsterGo.GetComponent<Monster>();
-                    //go5.transform.position = monsterStation.position;
-                    hHUD.setHeroHUD(hero);
-                    mHUD.setMonsterHUD(aMonster);
+                //go5.transform.position = monsterStation.position;
+                hHUD.setHeroHUD(hero);
+                mHUD.setMonsterHUD(aMonster);
 
                 //}
             }
@@ -206,25 +206,25 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted
         else {
             s = hero.data.dice.printArrayList() + "Max:" + hero.data.diceNum;
         }
-        Instance.photonView.RPC("HeroRoll", RpcTarget.All,hero, s );
+        Instance.photonView.RPC("HeroRoll", RpcTarget.All, hero, s);
     }
 
     //--------ROLL--------//
     [PunRPC]
-    public void HeroRoll(Hero rolledhero,string s )
+    public void HeroRoll(Hero rolledhero, string s)
     {
         print("heroroll running");
         if (rolledhero.type == Hero.Type.ARCHER)
         {
             if (rolledhero == hero) {
 
-                if (hero.data.btimes >0||hero.data.times > 0) { 
+                if (hero.data.btimes > 0 || hero.data.times > 0) {
                     myArcherYesButton.gameObject.SetActive(true);
                 }
                 else {
                     OnYesClick();
                 }
-                
+
             }
 
             fHUD.rollResult(s);
@@ -237,12 +237,12 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted
             {
                 mySkillYesButton.gameObject.SetActive(true);
 
-                
+
             }
             fHUD.rollResult(s);
 
         }
-       
+
     }
 
     //--------ROLLFINISHED--------//
@@ -251,8 +251,8 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted
         Hero CurrentHero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.diceNum = Mathf.Max(hero.data.diceNum, CurrentHero.data.diceNum);
         hero.data.attackNum += CurrentHero.data.SP;
-        fHUD.rollResult(player.NickName+ " finished roll and appleid skill with current attack"
-            + (hero.data.attackNum+hero.data.diceNum));
+        fHUD.rollResult(player.NickName + " finished roll and appleid skill with current attack"
+            + (hero.data.attackNum + hero.data.diceNum));
 
     }
 
@@ -286,6 +286,8 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted
         if (FightTurnManager.IsMyProtectedTurn()) {
             print("only run once");
             aMonster.MonsterRoll();
+            Instance.photonView.RPC("setNumber", RpcTarget.Others, aMonster.getDice());
+
         }
 
         StartCoroutine(MonsterRoll());
@@ -293,6 +295,10 @@ public class Fight : MonoBehaviourPun,FightTurnManager.IOnSkillCompleted
 
     }
 
+    [PunRPC]
+    public void setNumber(List<int> a){
+        aMonster.setDice(a);
+}
     IEnumerator MonsterRoll()
     {
         

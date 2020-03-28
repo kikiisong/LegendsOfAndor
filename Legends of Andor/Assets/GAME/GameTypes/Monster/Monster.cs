@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 
 
-public class Monster : MonoBehaviour,TurnManager.IOnSunrise
+public class Monster : MonoBehaviour, TurnManager.IOnSunrise
 {
     public int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
     public bool isFighted;
@@ -26,9 +26,9 @@ public class Monster : MonoBehaviour,TurnManager.IOnSunrise
 
     public void Attacked(int damage)
     {
-        
-           currentWP -= damage;
-        
+
+        currentWP -= damage;
+
 
     }
     public string printRoll()
@@ -49,8 +49,15 @@ public class Monster : MonoBehaviour,TurnManager.IOnSunrise
         {
             damage = dice.getMax();
         }
-        
+
     }
+    public void setDice(List<int> a) {
+        dice.setResult(a);
+    }
+
+    public List<int> getDice() {
+        return dice.getResult();
+        }
 
     public void OnSunrise()
     { 
