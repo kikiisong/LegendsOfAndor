@@ -29,8 +29,8 @@ public enum FightState
 
 
 public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
-, FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield,
-    FightTurnManager.IOnSunrise
+, FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield, 
+    FightTurnManager.IOnSunrise,FightTurnManager.IOnLeave
 
 // FightTurnManager.IOnMove
 {
@@ -286,19 +286,22 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         if (FightTurnManager.IsMyProtectedTurn()) {
             print("only run once");
             aMonster.MonsterRoll();
-            Instance.photonView.RPC("setNumber", RpcTarget.Others, aMonster.getDice());
-
+            Instance.photonView.RPC("setNumber", RpcTarget.Others, aMonster.dice.printArrayList());
+            StartCoroutine(MonsterRoll());
         }
 
-        StartCoroutine(MonsterRoll());
-
+        print("should not be run here");
+        return;
 
     }
 
     [PunRPC]
-    public void setNumber(List<int> a){
-        aMonster.setDice(a);
-}
+    public void setNumber(string result)
+    {
+        aMonster.setDice(result);
+        StartCoroutine(MonsterRoll());
+    }
+
     IEnumerator MonsterRoll()
     {
         
@@ -385,9 +388,15 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                         {
                             { K.Player.isFight, false }
                         });
+        //not possible to pass a Monster 
+        FightTurnManager.TriggerRemove(player);
 
-        FightTurnManager.TriggerRemove(player,aMonster);
+    }
 
+
+    public void OnLastLeave() {
+        aMonster.isFighted = false;
+        aMonster.currentWP = aMonster.maxWP;
     }
     public void OnYesClick()
     {

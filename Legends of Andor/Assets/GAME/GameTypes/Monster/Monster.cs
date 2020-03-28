@@ -51,8 +51,15 @@ public class Monster : MonoBehaviour, TurnManager.IOnSunrise
         }
 
     }
-    public void setDice(List<int> a) {
-        dice.setResult(a);
+    public void setDice(string a) {
+        print("A" + a);
+        string [] array = a.Split(' ');
+        List<int> l = new List<int>();
+        foreach (string s in array){
+            l.Add(int.Parse(s));
+        }
+       
+        dice.setResult(l);
     }
 
     public List<int> getDice() {

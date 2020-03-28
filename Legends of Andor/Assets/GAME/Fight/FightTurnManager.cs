@@ -19,7 +19,8 @@ public class FightTurnManager : MonoBehaviourPun
     List<IOnMonsterTurn> onMonsterTurns = new List<IOnMonsterTurn>();
     List<IOnShield> onShields = new List<IOnShield>();
     List<IOnSunrise> onSunrises = new List<IOnSunrise>();
-    
+    List<IOnLeave> onLeaves = new List<IOnLeave>();
+
 
     public static Hero CurrentHero
     {
@@ -81,20 +82,22 @@ public class FightTurnManager : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void removeFighter(Player player, Monster m) {
+    public void removeFighter(Player player) {
         players.Remove(player);
         if (players.Count == 0) {
             //no fighter in side the fight
             //the monster is not yet dead
             //we should restore the mosnter
-            m.currentWP = m.maxWP;
-            m.isFighted = false;
+            foreach (IOnLeave onLeave in onLeaves)
+            {
+                onLeave.OnLastLeave();
+            }
         }
     }
 
 
-    public static void TriggerRemove(Player player, Monster m) {
-        Instance.photonView.RPC("removeFighter", RpcTarget.All,player,m);
+    public static void TriggerRemove(Player player) {
+        Instance.photonView.RPC("removeFighter", RpcTarget.All,player);
     }
 
     public int sizeOfPlayer() {
@@ -192,6 +195,7 @@ public class FightTurnManager : MonoBehaviourPun
         if (Instance.waiting.Count == 0)
         {
             TriggerEvent_Sunrise();
+            
         }
     }
 
@@ -233,7 +237,9 @@ public class FightTurnManager : MonoBehaviourPun
         AddNotNull(e as IOnMonsterTurn, Instance.onMonsterTurns);
         AddNotNull(e as IOnShield, Instance.onShields);
         AddNotNull(e as IOnSunrise, Instance.onSunrises);
+        AddNotNull(e as IOnLeave, Instance.onLeaves);
     }
+    
 
     //Interfaces
 
@@ -254,6 +260,9 @@ public class FightTurnManager : MonoBehaviourPun
     public interface IOnSunrise : IEvent
     {
         void OnSunrise();
+    }
+    public interface IOnLeave : IEvent {
+        void OnLastLeave();
     }
 
 }
