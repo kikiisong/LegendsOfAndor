@@ -253,7 +253,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         Hero CurrentHero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.diceNum = Mathf.Max(hero.data.diceNum, CurrentHero.data.diceNum);
         hero.data.attackNum += CurrentHero.data.SP;
-        Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, hero.data.attackNum);
+        Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, hero.data.diceNum);
 
     }
 
@@ -328,7 +328,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     //--------CHECK--------//
     IEnumerator CheckOnShield()
-    {
+    { fHUD.rollResult("Attack By Hero: "+ hero.data.attackNum+ "Attack By Monster: " +aMonster.damage);
+        yield return new WaitForSeconds(2f);
         if (aMonster.damage > hero.data.attackNum)
         {
             //go thouth everything to check if want to use sheild
@@ -419,21 +420,30 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void onMagicClick()
     {
+        //TODO: bug in the appleid magic
         //assume black dice is not allowed to flipped
         if (fightstate != FightState.HERO || !hero.getMagic())
         {
             return;
         }
+        Instance.photonView.RPC("AppliedMagic", RpcTarget.All);
+
+
+    }
+    [PunRPC]
+    public void AppliedMagic() {
         int diceNum = FightTurnManager.CurrentHero.data.diceNum;
-        int temp=diceNum;
-        if (diceNum < 7)
-        {
-            temp = 7 - diceNum;
-            FightTurnManager.CurrentHero.data.diceNum = temp;
+        int temp = diceNum;
+        if (FightTurnManager.IsMyTurn()) {
+            if (diceNum < 7)
+            {
+                temp = 7 - diceNum;
+                FightTurnManager.CurrentHero.data.diceNum = temp;
+            }
+
+            Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "magic", temp);
+
         }
-
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "magic",temp);
-
     }
 
     bool usedhelm = false;
