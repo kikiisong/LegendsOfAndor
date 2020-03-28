@@ -5,12 +5,11 @@ using UnityEngine.UI;
 
 public class HeroHUD : MonoBehaviour
 {
-    [Header("Text")]
+
     public Text dice;
     public Text currentWillpower;
     public Text strengthPower;
 
-    [Header("SkillButton")]
     public Button magic;
     public Button helm;
     public Button sheild;
@@ -18,7 +17,6 @@ public class HeroHUD : MonoBehaviour
     public Button herbWill;
     public Button herbStrength;
 
-    [Header("EventButton")]
     public Button trade;
     public Button falcon;
     public Button leave;
@@ -29,6 +27,7 @@ public class HeroHUD : MonoBehaviour
     public void changeColor(Button b) {
         Image image = b.GetComponent<Image>();
         image.color = new Color((float)0.30, (float)0.30, (float)0.30);
+        Debug.Log(b);
     }
 
     public void setHeroHUD(Hero h)
@@ -37,12 +36,12 @@ public class HeroHUD : MonoBehaviour
         currentWillpower.text = "" + h.data.WP;
         strengthPower.text = "" + h.data.SP;
 
-        if (!h.getMagic()) changeColor(magic);
-        if (!h.getSheild()) changeColor(sheild);
-        if (!h.getHelm()) changeColor(helm);
-        if (!h.getherb()) changeColor(herbStrength);
-        if (!h.getherb()) changeColor(herbWill);
-        if (!h.getBrew()) changeColor(brew);
+        if (!h.data.magic) changeColor(magic);
+        if (!h.data.sheild) changeColor(sheild);
+        if (!h.data.helm) changeColor(helm);
+        if (!h.data.herbS) changeColor(herbStrength);
+        if (!h.data.herbW) changeColor(herbWill);
+        if (!h.data.brew) changeColor(brew);
 
     }
 

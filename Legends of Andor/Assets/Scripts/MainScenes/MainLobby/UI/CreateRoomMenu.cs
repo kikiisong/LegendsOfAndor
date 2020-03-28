@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
 using Photon.Pun;
-using System;
 
 public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
@@ -14,7 +13,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     public string nextScene;
 
 
-    public void Click_CreateRoom()
+    public void OnClick_CreateRoom()
     {
         if (!PhotonNetwork.IsConnected) return;
 
@@ -22,31 +21,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         {
             MaxPlayers = 4
         };
-        if(_roomName.text != "")
-        {
-            PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, TypedLobby.Default);
-        }
-        else
-        {
-            TryCreate(0);
-        }
-    }
-
-    void TryCreate(int i)
-    {
-        try
-        {
-            RoomOptions options = new RoomOptions
-            {
-                MaxPlayers = 4
-            };
-            PhotonNetwork.JoinOrCreateRoom("Room " + i, options, TypedLobby.Default);
-        }
-        catch (Exception e)
-        {
-            print(e);
-            TryCreate(i + 1);
-        }
+        PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, TypedLobby.Default);
     }
 
     public override void OnCreatedRoom()

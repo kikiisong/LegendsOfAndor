@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
@@ -36,26 +35,6 @@ public class Farmer : MonoBehaviour
     public void Update()
     {
         displayNum();
-        ifthereisAMonster();
-    }
-
-    // detect if there is a monster on this region
-    private void ifthereisAMonster()
-    {
-        Region currentRegion = findCurrentRegion();
-
-        List<MonsterMoveController> MonsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(currentRegion);
-
-        if (MonsterOnRegion.Count == 0)
-        {
-            return;
-        }
-        else
-        {
-          //  print("there is a monster on this region and the region number is " + region);
-          //  print("the number of monster is " + MonsterOnRegion.Count);
-            numberOfFarmer = 0;
-        }
     }
 
     public void displayNum()
@@ -99,15 +78,6 @@ public class Farmer : MonoBehaviour
     {
         return numberOfFarmer;
     }
+
     
-    public void farmersDied()
-    {
-        numberOfFarmer = 0;
-    }
-
-    private Region findCurrentRegion()
-    {
-        return GameGraph.Instance.FindNearest(transform.position);
-
-    }
 }

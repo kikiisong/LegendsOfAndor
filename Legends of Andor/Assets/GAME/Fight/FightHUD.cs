@@ -48,11 +48,6 @@ public class FightHUD: MonoBehaviour
         gameState.text = "Choose one of the four buttons.";
     }
 
-    public void setFightHUD_SHIELD()
-    {
-        gameState.text = "Applied Sheild or Ack";
-    }
-
     public void rollResult(string a) {
         gameState.text = a;
     }

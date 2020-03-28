@@ -38,9 +38,6 @@ public class ZoomerVM : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             dragOrigin = Input.mousePosition;
-            var x = Camera.main.transform.position.x;
-            var y = Camera.main.transform.position.y;
-            follow.transform.position = new Vector3(x, y, 0);
         }
         else if (Input.GetMouseButton(1))
         {

@@ -11,21 +11,24 @@ public class Merchant : MonoBehaviour
 
 
 
-  
+   
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
        
-           
-
-
+           GameGraph.Instance.PlaceAt(gameObject, regionLabel);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameGraph.Instance.PlaceAt(gameObject, regionLabel);
+
     }
 
 

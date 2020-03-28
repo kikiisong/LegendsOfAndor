@@ -6,7 +6,7 @@ using UnityEngine;
 using Routines;
 
 
-public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnEndDay
+public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
     CoroutineQueue coroutineQueue;
 
@@ -49,9 +49,25 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
     {
         if (photonView.Owner == player)
         {
+            Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+            hero.data.numHours = 0;
             int i = TurnManager.Instance.GetWaitIndex(photonView.Owner);
             Vector3 waitPosition = GameMapManager.Instance.timeMarkerInitialPositions[i].position;
             coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, waitPosition, 2));           
+        }
+    }
+
+    public void OnTurnCompleted(Player player)
+    {
+        if (photonView.Owner == player)
+        {
+            Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+            List<Transform> transforms = GameMapManager.Instance.timeMarkerUpdatePositions;
+            if (photonView.IsMine && hero.data.numHours == transforms.Count)
+            {
+                //or buy more hours, do it in OnEndTurn instead
+                TurnManager.TriggerEvent_EndDay(player);
+            }
         }
     }
 }

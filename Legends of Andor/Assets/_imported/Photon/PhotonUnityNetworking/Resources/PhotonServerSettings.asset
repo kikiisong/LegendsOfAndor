@@ -67,13 +67,5 @@ MonoBehaviour:
   - LightUpJoin
   - DecremHero
   - IncremHero
-  - EndFightRound
-  - HeroFight
-  - HeroRoll
-  - showSkillResult
-  - MonsterTurn
-  - changeMonsterTofight
-  - OnShield
-  - removeFighter
   DisableAutoOpenWizard: 1
   ShowSettings: 1
