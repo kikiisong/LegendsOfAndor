@@ -253,7 +253,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         Hero CurrentHero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.diceNum = Mathf.Max(hero.data.diceNum, CurrentHero.data.diceNum);
         hero.data.attackNum += CurrentHero.data.SP;
-        Instance.photonView.RPC("displayRollResult", RpcTarget.All, hero, "magic", hero.data.attackNum);
+        Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, hero.data.attackNum);
 
     }
 
