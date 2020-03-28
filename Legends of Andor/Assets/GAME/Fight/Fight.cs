@@ -253,8 +253,14 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         Hero CurrentHero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.diceNum = Mathf.Max(hero.data.diceNum, CurrentHero.data.diceNum);
         hero.data.attackNum += CurrentHero.data.SP;
-        fHUD.rollResult(player.NickName + " finished roll and appleid skill with current attack"
-            + (FightTurnManager.CurrentHero.data.diceNum+ FightTurnManager.CurrentHero.data.SP));
+        Instance.photonView.RPC("displayRollResult", RpcTarget.All, hero, "magic", hero.data.attackNum);
+
+    }
+
+    [PunRPC]
+    public void displayRollResult(Player player,int result) {
+        fHUD.rollResult(player.NickName +
+            " finished roll and appleid skill with current attack " + result);
 
     }
 
@@ -309,9 +315,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     IEnumerator MonsterRoll()
     {
-        
-        
-        
         aMonster.damage += aMonster.maxSP;
         yield return new WaitForSeconds(2f);
         fHUD.rollResult( "Damage:" + aMonster.damage);
