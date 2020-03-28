@@ -188,10 +188,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             print("return");
 
-            //print("Fight State" + (fightstate != FightState.HERO));
-            //print("MyTUrn"+ !FightTurnManager.IsMyTurn());
-            //print("photonView" + !photonView.IsMine);
-            //print("Fight" + !FightTurnManager.CanFight());
+            print("Fight State" + (fightstate != FightState.HERO));
+            print("MyTUrn"+ !FightTurnManager.IsMyTurn());
+            print("photonView" + !photonView.IsMine);
+            print("Fight" + !FightTurnManager.CanFight());
 
             return;
 
@@ -288,10 +288,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             aMonster.MonsterRoll();
             Instance.photonView.RPC("setNumber", RpcTarget.Others, aMonster.dice.printArrayList());
             StartCoroutine(MonsterRoll());
+            return;
         }
 
         print("should not be run here");
-        return;
+        
 
     }
 
@@ -327,12 +328,12 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             fHUD.setFightHUD_SHIELD();
  
         }
-        else if (aMonster.damage < hero.data.attackNum)
+        else if (aMonster.damage <= hero.data.attackNum)
         {
+            //TODO:
             aMonster.Attacked(hero.data.attackNum - aMonster.damage);
             mHUD.basicInfo(aMonster);
             yield return new WaitForSeconds(2f);
-            StartCoroutine(Check());
         }
 
     }

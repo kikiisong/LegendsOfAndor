@@ -71,7 +71,12 @@ public class FightTurnManager : MonoBehaviourPun
     //Turn
     public static bool IsMyTurn()
     {
-        if (Instance.players.Count == 0) return false;
+        if (Instance.players.Count == 0)
+        {
+            print("??");
+            return false;
+        }
+        
         return Instance.players[Instance.turnIndex] == PhotonNetwork.LocalPlayer;
     }
 
