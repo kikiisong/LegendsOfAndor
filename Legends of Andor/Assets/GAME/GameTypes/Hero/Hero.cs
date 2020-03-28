@@ -233,10 +233,12 @@ public class Hero : ScriptableObject
                 data.times -= 1;
             }
         }
-        else
+        //TODO: did not consider how black dice is used
+        else if(data.times>0)
         {
             data.dice.rollDice(getDiceNum(), data.blackDice);
             data.diceNum = data.dice.getMax();
+            data.times = 0;
         }
     }
 

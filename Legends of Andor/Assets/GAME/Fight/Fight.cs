@@ -67,8 +67,13 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     void Start()
     {
         if (Instance == null) Instance = this;
-        Debug.Log(Instance);
-        plotCharacter();
+
+        Instantiate(aMonster.gameObject, monsterStation);
+        //aMonster = monsterGo.GetComponent<Monster>();
+        //go5.transform.position = monsterStation.position;
+        hHUD.setHeroHUD(hero);
+        mHUD.setMonsterHUD(aMonster);
+
         fightstate = FightState.START;
         FightTurnManager.Register(this);
         StartCoroutine(setUpBattle());
@@ -123,11 +128,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
                 //GameObject go5 = PhotonNetwork.
 
-                Instantiate(aMonster.gameObject, monsterStation);
-                //aMonster = monsterGo.GetComponent<Monster>();
-                //go5.transform.position = monsterStation.position;
-                hHUD.setHeroHUD(hero);
-                mHUD.setMonsterHUD(aMonster);
 
                 //}
             }
@@ -145,7 +145,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         fHUD.setFightHUD_START();
         fightstate = FightState.HERO;
         yield return new WaitForSeconds(2f);
-
+        fHUD.setFightHUD_PLAYER();
+        plotCharacter();
         player = PhotonNetwork.LocalPlayer;
         hero = (Hero)player.CustomProperties[K.Player.hero];
         playerTurn();
@@ -173,7 +174,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         }
 
-        fHUD.rollResult("Player Turn" + player.NickName);
+        fHUD.rollResult("Player Turn: " + player.NickName);
 
     }
 
@@ -186,6 +187,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         if (fightstate != FightState.HERO || !FightTurnManager.IsMyTurn()
             || !FightTurnManager.CanFight())
         {
+            //TODO:leave fight
             print("return");
 
             print("Fight State" + (fightstate != FightState.HERO));
@@ -252,7 +254,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.diceNum = Mathf.Max(hero.data.diceNum, CurrentHero.data.diceNum);
         hero.data.attackNum += CurrentHero.data.SP;
         fHUD.rollResult(player.NickName + " finished roll and appleid skill with current attack"
-            + (hero.data.attackNum + hero.data.diceNum));
+            + (FightTurnManager.CurrentHero.data.diceNum+ FightTurnManager.CurrentHero.data.SP));
 
     }
 
