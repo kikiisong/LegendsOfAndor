@@ -288,7 +288,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         if (FightTurnManager.IsMyProtectedTurn()) {
             print("only run once");
             aMonster.MonsterRoll();
-            Instance.photonView.RPC("setNumber", RpcTarget.Others, aMonster.dice.printArrayList());
+            string s = aMonster.dice.printArrayList();
+            fHUD.rollResult(s + "Max:" + aMonster.damage);
+            Instance.photonView.RPC("setNumber", RpcTarget.Others, s);
             StartCoroutine(MonsterRoll());
             return;
         }
@@ -309,7 +311,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     {
         
         
-        fHUD.rollResult(aMonster.dice.printArrayList() + "Max:" + aMonster.damage);
+        
         aMonster.damage += aMonster.maxSP;
         yield return new WaitForSeconds(2f);
         fHUD.rollResult( "Damage:" + aMonster.damage);

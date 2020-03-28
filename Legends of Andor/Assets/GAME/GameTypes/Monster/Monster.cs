@@ -5,8 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
-
-
+using System.Text.RegularExpressions;
 
 public class Monster : MonoBehaviour, TurnManager.IOnSunrise
 {
@@ -58,8 +57,12 @@ public class Monster : MonoBehaviour, TurnManager.IOnSunrise
         print(array.ToString());
         List<int> l = new List<int>();
         foreach (string s in array){
-            print(s);
-            l.Add(int.Parse(s));
+            if (Regex.IsMatch(s, @"^\d+$"))
+            {
+                print(s);
+                l.Add(int.Parse(s));
+            }
+            
         }
        
         dice.setResult(l);
