@@ -10,6 +10,7 @@ public class HeroMoveController : MonoBehaviourPun
 {
     public float radius = 3;
     public float animation_time = 1;
+
     bool isMoving = false;
 
     void Start()
@@ -23,14 +24,11 @@ public class HeroMoveController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-
-        if (!isMoving && photonView.IsMine && TurnManager.IsMyTurn() && Input.GetMouseButtonDown(0))
+        if (!isMoving && photonView.IsMine && TurnManager.CanMove() && Input.GetMouseButtonDown(0))
         {
             MoveToClick();
         }
     }
-
-
 
     public void MoveToClick()
     {
@@ -43,7 +41,7 @@ public class HeroMoveController : MonoBehaviourPun
         if (current.label != clicked.label && contained && (clicked.position - position).magnitude <= radius)
         {
             hero.data.regionNumber = clicked.label;
-           isMoving = true;
+            isMoving = true;
             StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, animation_time, () => {
                 TurnManager.TriggerEvent_Move(clicked);
                 isMoving = false;
@@ -51,6 +49,15 @@ public class HeroMoveController : MonoBehaviourPun
         }
     }
 
-
-
+    public static Region CurrentRegion()
+    {
+        foreach(HeroMoveController heroMoveController in GameObject.FindObjectsOfType<HeroMoveController>())
+        {
+            if(heroMoveController.photonView.Owner == PhotonNetwork.LocalPlayer)
+            {
+                return GameGraph.Instance.FindNearest(heroMoveController.transform.position);
+            }
+        }
+        throw new System.Exception("Not found");
+    }
 }

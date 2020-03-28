@@ -202,22 +202,22 @@ public class popUp : MonoBehaviour
         
         if (item.Equals("helm"))
         {
-            hero.data.helm = true;
+            hero.data.helm +=1;
         }
 
         if (item.Equals("brew"))
         {
-            hero.data.brew = true;
+            hero.data.brew +=1;
         }
 
         if (item.Equals("shield"))
         {
-            hero.data.sheild = true;
+            hero.data.sheild +=1;
         }
 
         if (item.Equals("bow"))
         {
-            hero.data.bow = true;
+            hero.data.bow +=1;
         }
 
 

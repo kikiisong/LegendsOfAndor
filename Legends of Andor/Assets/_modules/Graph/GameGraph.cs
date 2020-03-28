@@ -13,44 +13,66 @@ public class GameGraph : Graph<Region, Border>
     void Awake()
     {
         Instance = this;
-    }
-
-    private void Start()
-    {
         Transform();
-
     }
 
     private void Transform()
     {
         foreach(Region region in vertices)
         {
-            region.position = transform.InverseTransformPoint(region.position); //or TransformPoint?
+            region.position = transform.TransformPoint(region.position); //or TransformPoint?
         }
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.cyan;
-        foreach(Region region in vertices)
+        if (!Application.isPlaying)
         {
-            Gizmos.DrawSphere(transform.TransformPoint(region.position), 1);
+            Gizmos.color = Color.cyan;
+            foreach (Region region in vertices)
+            {
+                Gizmos.DrawSphere(transform.TransformPoint(region.position), 1);
+            }
+            foreach (Border border in edges)
+            {
+                Vector3 from = transform.TransformPoint(border.from.position);
+                Vector3 to = transform.TransformPoint(border.to.position);
+                if (border.isDirected)
+                {
+                    Gizmos.color = Color.red;
+                    DrawArrow.ForGizmo(from, to - from);
+                }
+                else
+                {
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawLine(from, to);
+                }
+
+            }
         }
-        foreach (Border border in edges)
+        else
         {
-            Vector3 from = transform.TransformPoint(border.from.position);
-            Vector3 to = transform.TransformPoint(border.to.position);
-            if (border.isDirected)
+            Gizmos.color = Color.cyan;
+            foreach (Region region in vertices)
             {
-                Gizmos.color = Color.red;
-                DrawArrow.ForGizmo(from, to - from);
+                Gizmos.DrawSphere(region.position, 1);
             }
-            else
+            foreach (Border border in edges)
             {
-                Gizmos.color = Color.cyan;
-                Gizmos.DrawLine(from, to);
+                Vector3 from = border.from.position;
+                Vector3 to = border.to.position;
+                if (border.isDirected)
+                {
+                    Gizmos.color = Color.red;
+                    DrawArrow.ForGizmo(from, to - from);
+                }
+                else
+                {
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawLine(from, to);
+                }
+
             }
-            
         }
     }
 
@@ -62,6 +84,15 @@ public class GameGraph : Graph<Region, Border>
     public void PlaceAt(GameObject gameObject, int label)
     {
         Region target = Find(label);
+        gameObject.transform.position = target.position;
+    }
+
+    public void PlaceAt(GameObject gameObject, int label, Vector3 offset)
+    {
+        Region target = Find(label);
+        if(FindNearest(target.position) != FindNearest(target.position + offset)){
+            throw new Exception("Offset changed the region of the object.");
+        }
         gameObject.transform.position = target.position;
     }
 
@@ -115,6 +146,7 @@ public class GameGraph : Graph<Region, Border>
         return adjacentRegions;
     }
 
+
     public void DrawTest()
     {
         foreach(Region location in vertices)
@@ -140,8 +172,6 @@ public class GameGraph : Graph<Region, Border>
     }
 
 
-
-
     public List<M> FindObjectsOnRegion<M>(int regionNumber) where M : MonoBehaviour
     {
         List<M> list = new List<M>();
@@ -156,12 +186,7 @@ public class GameGraph : Graph<Region, Border>
         return list;
     }
 
-    public bool FindMonsterOnRegion()
-    {
-
-        return true;
-    }
-
+    
     public Region NextEnemyRegion(Region currentRegion) 
     {
         foreach(Border border in edges)
@@ -176,6 +201,7 @@ public class GameGraph : Graph<Region, Border>
         }
         throw  new NoNextRegionException();
     }
+
 
 
     public class NoNextRegionException : System.Exception

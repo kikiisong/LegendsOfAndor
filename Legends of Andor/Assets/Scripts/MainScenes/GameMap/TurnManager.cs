@@ -3,11 +3,16 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviourPun
 {
     public static TurnManager Instance;
 
+    public Button endTurn;
+    public Button endDay;
+
+    //Turn
     private List<Player> players = new List<Player>();
     private List<Player> waiting = new List<Player>();
     private int turnIndex = 0;
@@ -18,9 +23,20 @@ public class TurnManager : MonoBehaviourPun
     List<IOnEndDay> onEndDays = new List<IOnEndDay>();
     List<IOnSunrise> onSunrises = new List<IOnSunrise>();
 
+    //Helper
+    static TurnHelper helper = new TurnHelper();
+
+    static Hero CurrentHero
+    {
+        get
+        {
+            return (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        }
+    }
+
     void Awake()
     {
-        if(Instance == null) Instance = this;
+        if (Instance == null) Instance = this;
         else Debug.LogWarning("TurnManager not singleton");
 
         foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
@@ -38,28 +54,27 @@ public class TurnManager : MonoBehaviourPun
 
     private void Start()
     {
-        Register(new TestTurn());
+        Register(helper);
+        endTurn.onClick.AddListener(() => TriggerEvent_EndTurn());
+        endDay.onClick.AddListener(() => TriggerEvent_EndDay());
     }
 
     private void Update()
     {
-        //better way?
-        if (IsMyTurn() && Input.GetKey(KeyCode.Return))
-        {
-            TriggerEvent_EndTurn(PhotonNetwork.LocalPlayer);
-        }
+        endTurn.gameObject.SetActive(CanMove());
+        endDay.gameObject.SetActive(IsMyTurn());
     }
 
     //works?
     public int GetWaitIndex(Player player)
     {
         List<Player> inSunriseBox = new List<Player>();
-        foreach(Player p in players)
+        foreach (Player p in players)
         {
             Hero hero = (Hero)p.CustomProperties[K.Player.hero];
             if (hero.data.numHours == 0) inSunriseBox.Add(p);
         }
-        foreach(Player p in waiting)
+        foreach (Player p in waiting)
         {
             inSunriseBox.Add(p);
         }
@@ -67,6 +82,15 @@ public class TurnManager : MonoBehaviourPun
     }
 
     //Turn
+    public static bool CanMove()
+    {
+        if(CurrentHero.data.numHours >= 7)
+        {
+            return IsMyTurn() && CurrentHero.data.WP >= 2;
+        }
+        return IsMyTurn() && CurrentHero.data.numHours < 10;
+    }
+
     public static bool IsMyTurn()
     {
         if (Instance.players.Count == 0) return false;
@@ -82,12 +106,17 @@ public class TurnManager : MonoBehaviourPun
         foreach(IOnTurnCompleted onTurnCompleted in onTurnCompleteds)
         {
             onTurnCompleted.OnTurnCompleted(player);
-        }       
+        }
     }
 
-    public static void TriggerEvent_EndTurn(Player player)
+    public static void TriggerEvent_EndTurn()
     {
-        Instance.photonView.RPC("NextTurn", RpcTarget.All, player);
+        Instance.photonView.RPC("NextTurn", RpcTarget.All, PhotonNetwork.LocalPlayer);
+
+        if (!helper.hasMoved)
+        {
+            TriggerEvent_Move(HeroMoveController.CurrentRegion());
+        }
     }
 
     //Day
@@ -102,6 +131,9 @@ public class TurnManager : MonoBehaviourPun
         turnIndex = players.IndexOf(next);
         waiting.Add(player);
 
+        Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+        hero.data.numHours = 0;
+
         //Notify
         foreach (IOnEndDay onEndDay in onEndDays)
         {
@@ -109,9 +141,9 @@ public class TurnManager : MonoBehaviourPun
         }
     }
 
-    public static void TriggerEvent_EndDay(Player player)
+    public static void TriggerEvent_EndDay()
     {
-        Instance.photonView.RPC("EndDay", RpcTarget.All, player);
+        Instance.photonView.RPC("EndDay", RpcTarget.All, PhotonNetwork.LocalPlayer);
         if(Instance.players.Count == 0)
         {
             TriggerEvent_Sunrise();
@@ -140,6 +172,7 @@ public class TurnManager : MonoBehaviourPun
     public static void TriggerEvent_Sunrise()
     {
         Instance.photonView.RPC("Sunrise", RpcTarget.All);
+
     }
 
 
@@ -150,16 +183,15 @@ public class TurnManager : MonoBehaviourPun
         Hero hero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.numHours++;
 
+        if(hero.data.numHours > 7)
+        {
+            hero.data.WP -= 2;
+        }
+
         //Notify
         foreach (IOnMove onMove in onMoves)
         {
             onMove.OnMove(player, GameGraph.Instance.Find(currentRegion));
-        }
-
-        if (hero.data.numHours == 7)
-        {
-            //or buy more hours, do it in OnEndTurn instead
-            TriggerEvent_EndTurn(player);
         }
     }
 
@@ -205,20 +237,25 @@ public class TurnManager : MonoBehaviourPun
     }
 }
 
-public class TestTurn: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
+public class TurnHelper: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
 {
+    public bool hasMoved = false;
+
     public void OnMove(Player player, Region currentRegion)
     {
+        hasMoved = true;
         Debug.Log("Move " + player.NickName);
     }
 
     public void OnTurnCompleted(Player player)
     {
+        hasMoved = false;
         Debug.Log("Turn completed " + player.NickName);
     }
 
     public void OnEndDay(Player player)
     {
+        hasMoved = false;
         Debug.Log("End day " + player.NickName);
     }
 

@@ -36,37 +36,40 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     public void OnMove(Player player, Region currentRegion)
     {
+        fight.SetActive(false);
         if (PhotonNetwork.LocalPlayer == player)
         {
 
             Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Sce
             
-            List<Monster> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<Monster>(currentRegion);
-
+            List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(currentRegion);
 
             if (MonsterOnMap.Count > 0)
             {
 
-                if (hero.data.numHours < 7)
+                if (hero.data.numHours < 10)
                 {
                     fight.SetActive(true);
-                    
+
                     print("Invite other to join in ");
 
                     fight.GetComponent<Button>().onClick.RemoveAllListeners();
                     fight.GetComponent<Button>().onClick.AddListener(() =>
 
                     {
+                        
+                        //photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
+                        MonsterMoveController monster = MonsterOnMap[0];
+                        monster.m.isFighted = true;
                         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
                         });
+                        print(PhotonNetwork.LocalPlayer.NickName +" start a fight ");
 
-                       
-                        print("Am I here? ");
                         isFight = true;
                         //LightUpJoin();
-                        photonView.RPC("LightUpJoin", RpcTarget.All);
+                        photonView.RPC("LightUpJoin", RpcTarget.Others);
                         start.SetActive(true);
 
 
@@ -78,45 +81,114 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                     fight.SetActive(false);
                 }
             }
-        }
-
-    }
-
-
-    private bool EveryoneAsked()
-    {
-        foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
-        {
-            Player player = pair.Value;
-            if (player.CustomProperties.ContainsKey(K.Player.isAsked))
+            else if (hero.type == Hero.Type.ARCHER || hero.data.bow > 0)
             {
-                bool ready = (bool)player.CustomProperties[K.Player.isAsked];
-                if (!ready)
+                List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(currentRegion);
+
+                List<MonsterMoveController> choicesOfJoin = new List<MonsterMoveController>();
+
+                foreach (Region r in AdjacentRegions)
                 {
-                    return false;
+                    List<MonsterMoveController> MonsterOnAdjacent = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(r);
+                    Debug.Log(MonsterOnAdjacent.Count);
+                    if (MonsterOnAdjacent.Count > 0)
+                    {
+                        choicesOfJoin.Add(MonsterOnAdjacent[0]);
+                    }
+
+                }
+
+                //if (choicesOfJoin.Count > 1)
+                //{
+                //TODO: have to choose one mosnter
+                //}
+                 if (choicesOfJoin.Count >= 1) {
+
+                    if (hero.data.numHours < 10)
+                    {
+                        fight.SetActive(true);
+
+                        print("Invite other to join in ");
+
+                        fight.GetComponent<Button>().onClick.RemoveAllListeners();
+                        fight.GetComponent<Button>().onClick.AddListener(() =>
+
+                        {
+                            MonsterMoveController monster = choicesOfJoin[0];
+                            monster.m.isFighted = true;
+                            //photonView.RPC("changeMonsterTofight", RpcTarget.All,choicesOfJoin[0].regionlabel);
+                            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+                        {
+                            { K.Player.isFight, true }
+                        });
+                            print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
+
+                            isFight = true;
+                            //LightUpJoin();
+                            photonView.RPC("LightUpJoin", RpcTarget.Others);
+                            start.SetActive(true);
+
+
+                        });
+
+                    }
                 }
             }
-            else
-            {
-                return false;
-            }
         }
-        return true;
+
     }
+
+    [PunRPC]
+    public void changeMonsterTofight(int regionl) {
+        MonsterMoveController monster = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(regionl)[0] ;
+        monster.m.isFighted = true;
+    }
+
 
     public void Click_Ready()
     {
 
-        print("join the fight");
+        print("Am I able to join?");
+        isFight = true;
         Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-        List<Monster> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<Monster>(hero.data.regionNumber);
+        List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(hero.data.regionNumber);
 
         if (MonsterOnMap.Count > 0)
         {
+            print("join the fight");
+            MonsterMoveController monster = MonsterOnMap[0];
+            monster.m.isFighted = true;
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { K.Player.isFight, true }
                         });
+            print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
+
+        }
+        else if (hero.type == Hero.Type.ARCHER || hero.data.bow > 0)
+        {
+
+            Region test = GameGraph.Instance.Find(hero.data.regionNumber);
+            Debug.Log(test);
+            List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(test);
+
+            foreach (Region r in AdjacentRegions)
+            {
+                print("join the fight");
+                List<MonsterMoveController> MonsterOnAdjacent = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(r);
+                Debug.Log(MonsterOnAdjacent.Count);
+                if (MonsterOnAdjacent.Count > 0)
+                {
+                    MonsterMoveController monster = MonsterOnAdjacent[0];
+                    monster.m.isFighted = true;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+                        {
+                            { K.Player.isFight, true }
+                        });
+                    print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
+                    break;
+                }
+            }
 
         }
     }
@@ -125,6 +197,8 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     public void Click_Start()
     {
         print("switchScene");
+
+        
         photonView.RPC("SwitchScene", RpcTarget.All);
     }
 
@@ -138,7 +212,11 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
     [PunRPC]
     public void SwitchScene()
     {
+        print("Load for" + PhotonNetwork.LocalPlayer.NickName);
         if(isFight){
+            fight.SetActive(false);
+            ready.SetActive(false);
+            start.SetActive(false);
             if (PhotonNetwork.IsConnected)
                 //PhotonNetwork.LoadLevel(nextScene);
                 SceneManager.LoadSceneAsync(5, LoadSceneMode.Additive);
@@ -146,16 +224,4 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     }
 
-    public void OnJoinClick()
-    {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
-        if (!isFight)
-        {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-            {
-                { K.Player.isFight, true }
-            });
-            isFight = true;
-        }
-    }
 }
