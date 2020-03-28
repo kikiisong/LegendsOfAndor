@@ -67,12 +67,19 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     void Start()
     {
         if (Instance == null) Instance = this;
+        foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
+        {
+            if (monsterC.m.isFighted)
+            {
 
+                aMonster = monsterC.m;
+                Debug.Log(aMonster);
+                break;
+            }
+        }
         Instantiate(aMonster.gameObject, monsterStation);
         //aMonster = monsterGo.GetComponent<Monster>();
         //go5.transform.position = monsterStation.position;
-        hHUD.setHeroHUD(hero);
-        mHUD.setMonsterHUD(aMonster);
 
         fightstate = FightState.START;
         FightTurnManager.Register(this);
@@ -116,15 +123,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                         break;
                 }
                 hero.data.dice = dice;
-                foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
-                {
-                    if (monsterC.m.isFighted) {
-
-                        aMonster = monsterC.m;
-                        Debug.Log(aMonster);
-                        break;
-                    }
-                }
+                hHUD.setHeroHUD(hero);
+                mHUD.setMonsterHUD(aMonster);
 
                 //GameObject go5 = PhotonNetwork.
 
