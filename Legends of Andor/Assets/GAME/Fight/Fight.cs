@@ -406,8 +406,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     [PunRPC]
-    public void showSkillResult(Hero h, string skill) {
-        fHUD.rollResult("Applied:" +skill + h.data.diceNum);
+    public void showSkillResult(Hero h, string skill, int result) {
+        fHUD.rollResult("Applied:" +skill + result);
     }
 
     public void onMagicClick()
@@ -418,12 +418,14 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
         }
         int diceNum = FightTurnManager.CurrentHero.data.diceNum;
+        int temp=diceNum;
         if (diceNum < 7)
         {
-            FightTurnManager.CurrentHero.data.diceNum = 7 - diceNum;
+            temp = 7 - diceNum;
+            FightTurnManager.CurrentHero.data.diceNum = temp;
         }
 
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "magic");
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "magic",temp);
 
     }
 
@@ -447,10 +449,12 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        hero.data.diceNum = hero.data.dice.getSum();
+        int temp = hero.data.dice.getSum();
+        hero.data.diceNum = temp;
+
         usedhelm = true;
         hero.data.helm-=1;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Helm");
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Helm",temp);
 
     }
 
@@ -460,9 +464,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        hero.data.diceNum += hero.data.herb;
+        int temp = hero.data.diceNum + hero.data.herb;
+        hero.data.diceNum =temp;
+        
         hero.data.herb = 0;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbStrength");
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbStrength",temp);
     }
 
     public void onHerbWClick()
@@ -471,10 +477,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-            
-        hero.data.WP +=hero.data.herb;
+        int temp = hero.data.WP + hero.data.herb;
+        hero.data.WP = temp;
         hero.data.herb = 0;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbWill");
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbWill",temp);
         hHUD.basicInfoUpdate(hero);
 
     }
@@ -485,10 +491,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-
-        hero.data.diceNum *= 2;
+        int temp = hero.data.diceNum * 2;
+        hero.data.diceNum =temp;
         hero.data.brew -=1 ;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Brew");
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Brew",temp);
     }
 
     public void onSkillClick()

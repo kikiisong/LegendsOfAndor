@@ -53,9 +53,12 @@ public class Monster : MonoBehaviour, TurnManager.IOnSunrise
     }
     public void setDice(string a) {
         print("A" + a);
-        string [] array = a.Split(' ');
+        char[] seperator = {' ' };
+        string [] array = a.Split(seperator);
+        print(array.ToString());
         List<int> l = new List<int>();
         foreach (string s in array){
+            print(s);
             l.Add(int.Parse(s));
         }
        
