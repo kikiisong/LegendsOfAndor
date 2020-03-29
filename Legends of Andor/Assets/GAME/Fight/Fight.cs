@@ -253,8 +253,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         Hero CurrentHero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.diceNum = Mathf.Max(hero.data.diceNum, CurrentHero.data.diceNum);
         hero.data.attackNum += CurrentHero.data.SP;
-        Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, hero.data.diceNum);
-
+        
     }
 
     [PunRPC]
@@ -520,8 +519,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void onSkillClick()
     {
 
-        if (fightstate == FightState.HERO)
+        if (fightstate == FightState.HERO&& FightTurnManager.IsMyTurn())
         {
+            Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, hero.data.diceNum);
             mySkillYesButton.gameObject.SetActive(false);
             FightTurnManager.TriggerEvent_Fight();
             FightTurnManager.TriggerEvent_NewFightRound(player);
