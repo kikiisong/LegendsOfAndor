@@ -258,8 +258,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     [PunRPC]
     public void displayRollResult(Player player,int result) {
-        fHUD.rollResult(player.NickName +
-            " finished roll and appleid skill with current attack " + result);
+        fHUD.rollResult(player.NickName +"finished roll" );
 
     }
 
@@ -268,6 +267,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void OnMonsterTurn() {
         hero.data.attackNum += hero.data.diceNum;
+        fHUD.rollResult("HeroAttacl" + hero.data.attackNum);
         print("Monster");
         StartCoroutine(MonsterStart());
     }
@@ -318,8 +318,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     {
         aMonster.damage += aMonster.maxSP;
         yield return new WaitForSeconds(2f);
-        fHUD.rollResult( "Damage:" + aMonster.damage);
-        yield return new WaitForSeconds(2f);
+        //fHUD.rollResult( "Damage:" + aMonster.damage);
+        //yield return new WaitForSeconds(2f);
         mySkillYesButton.gameObject.SetActive(true);
         fightstate = FightState.CHECK;
         fHUD.setFightHUD_CHECK(hero.data.attackNum, aMonster.damage);
@@ -329,7 +329,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     //--------CHECK--------//
     IEnumerator CheckOnShield()
-    { fHUD.rollResult("Attack By Hero: "+ hero.data.attackNum+ "Attack By Monster: " +aMonster.damage);
+    { fHUD.rollResult("Attack By Hero: "+ hero.data.attackNum+ " Attack By Monster: " +aMonster.damage);
         yield return new WaitForSeconds(2f);
         if (aMonster.damage > hero.data.attackNum)
         {
