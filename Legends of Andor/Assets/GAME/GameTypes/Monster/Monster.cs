@@ -51,10 +51,8 @@ public class Monster : MonoBehaviour, TurnManager.IOnSunrise
 
     }
     public void setDice(string a) {
-        print("A" + a);
         char[] seperator = {' ' };
         string [] array = a.Split(seperator);
-        print(array.ToString());
         List<int> l = new List<int>();
         foreach (string s in array){
             if (Regex.IsMatch(s, @"^\d+$"))
@@ -63,9 +61,19 @@ public class Monster : MonoBehaviour, TurnManager.IOnSunrise
                 l.Add(int.Parse(s));
             }
             
+            
         }
        
         dice.setResult(l);
+        if (dice.CheckRepet())
+        {
+            damage = dice.getSum();
+        }
+        else
+        {
+            damage = dice.getMax();
+        }
+        print(this.damage);
     }
 
     public List<int> getDice() {

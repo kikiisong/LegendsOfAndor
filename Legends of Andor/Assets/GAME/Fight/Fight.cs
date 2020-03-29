@@ -298,6 +298,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             fHUD.rollResult(s + "Max:" + aMonster.damage);
             Instance.photonView.RPC("setNumber", RpcTarget.Others, s);
             StartCoroutine(MonsterRoll());
+            print("this"); 
             return;
         }
 
@@ -309,6 +310,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     [PunRPC]
     public void setNumber(string result)
     {
+        print("others");
         aMonster.setDice(result);
         StartCoroutine(MonsterRoll());
     }
@@ -432,9 +434,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
     [PunRPC]
     public void AppliedMagic() {
-        int diceNum = FightTurnManager.CurrentHero.data.diceNum;
-        int temp = diceNum;
+        
         if (FightTurnManager.IsMyTurn()) {
+            int diceNum = hero.data.diceNum;
+            int temp = diceNum;
             if (diceNum < 7)
             {
                 temp = 7 - diceNum;
@@ -523,7 +526,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             FightTurnManager.TriggerEvent_Fight();
             FightTurnManager.TriggerEvent_NewFightRound(player);
         }
-        else if (fightstate == FightState.CHECK)
+        else if (fightstate == FightState.CHECK && FightTurnManager.IsMyProtectedTurn())
         {
             FightTurnManager.TriggerEvent_OnShield(player);
         }
