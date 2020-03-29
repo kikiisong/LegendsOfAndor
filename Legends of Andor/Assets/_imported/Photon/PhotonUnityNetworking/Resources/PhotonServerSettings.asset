@@ -76,5 +76,7 @@ MonoBehaviour:
   - OnShield
   - removeFighter
   - setNumber
+  - displayRollResult
+  - AppliedMagic
   DisableAutoOpenWizard: 1
   ShowSettings: 1

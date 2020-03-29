@@ -352,7 +352,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         hero.data.WP -= aMonster.damage - hero.data.attackNum;
         hHUD.basicInfoUpdate(hero);
-        StartCoroutine(Check());
     }
 
     IEnumerator Check()
@@ -421,8 +420,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void onMagicClick()
     {
-        //TODO: bug in the appleid magic
-        //assume black dice is not allowed to flipped
         if (fightstate != FightState.HERO || !hero.getMagic())
         {
             return;
@@ -591,7 +588,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void OnSunrise()
     {
-        print("Sunrise");
+        StartCoroutine(Check());
     }
 }
     
