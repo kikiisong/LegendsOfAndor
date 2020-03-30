@@ -29,7 +29,40 @@ public class Hero : ScriptableObject
         // number of carried farmers
         public int numFarmers; // 0 or 1 or 2
 
+<<<<<<< Updated upstream
         public int gold;
+=======
+        //Fight related 
+        public int times;
+        public int btimes;
+        public int attackNum;
+        public bool finishedFight;
+
+        //TODO:somebody handle one can maximize have one item
+        //TODO:prob who do trade
+
+        //object related?
+        //small item
+        public int numWineskin; //did
+        public int brew;
+            //TODO:state full half empty..
+
+        //number of herb can be used in two way
+        public int herb;
+
+        //big item
+        public int sheild;
+        public int helm;
+            //2 means full, 1 means half, 0 means nothing
+        public int bow;
+        public int falcon;
+        //1 means processes and 0 means does not process
+        //TODO: more
+        public Dice dice;
+        public int diceNum;
+        public int damage;
+
+>>>>>>> Stashed changes
     }
     
     //Values that won't change
