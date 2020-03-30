@@ -16,6 +16,7 @@ public class LoginManager : MonoBehaviour
     void Start()
     {
         //Last username
+        GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>().PlayMusic();
         usernameView.text = PlayerPrefs.GetString(K.Preferences.USERNAME);
     }
 
