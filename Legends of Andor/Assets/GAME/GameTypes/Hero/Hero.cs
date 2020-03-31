@@ -29,9 +29,9 @@ public class Hero : ScriptableObject
         // number of carried farmers
         public int numFarmers; // 0 or 1 or 2
 
-<<<<<<< Updated upstream
+/////Updated upstream
         public int gold;
-=======
+
         //Fight related 
         public int times;
         public int btimes;
@@ -62,7 +62,7 @@ public class Hero : ScriptableObject
         public int diceNum;
         public int damage;
 
->>>>>>> Stashed changes
+
     }
     
     //Values that won't change
