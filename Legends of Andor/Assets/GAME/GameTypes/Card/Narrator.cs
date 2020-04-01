@@ -15,6 +15,7 @@ namespace Card
         }
 
         //TODO list of GameObject, but with field "cardLetter", if null then no legends are activated, use that letter in Cards[letter].Event()
+        // or you can use a "red star"
         // Start is called before the first frame update
         void Start()
         {
