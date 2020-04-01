@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Inventory : MonoBehaviour
 {
     public List<Item> charItems = new List<Item>();
     public ItemDatabase itemDatabase;

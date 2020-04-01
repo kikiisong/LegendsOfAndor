@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class EventCardController : MonoBehaviour
+public class EventCardController : MonoBehaviourPun
 {
     public List<int> cards = new List<int>(34);
     private static System.Random rand = new System.Random();
@@ -23,7 +23,7 @@ public class EventCardController : MonoBehaviour
             }
             Shuffle(cards);
             //then call RPCPun to other clients
-            //photonView.RPC("getCards", RpcTarget.AllBuffered, cards);
+            photonView.RPC("getCards", RpcTarget.AllBuffered, cards);
         }
     }
 
@@ -34,7 +34,7 @@ public class EventCardController : MonoBehaviour
     }
 
     //imitate when a card is flipped
-    void flipped()
+    public void flipped()
     {
         //TODO
     }
