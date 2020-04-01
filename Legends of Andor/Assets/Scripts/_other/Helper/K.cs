@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Keep track of all the keys used.
 /// </summary>
-public class K
+public static class K
 {
     /// <summary>
     /// Local preferences
@@ -35,3 +37,22 @@ public class K
         public static readonly string difficulty = "difficulty";
     }
 }
+
+public static class Room{
+
+    public static Difficulty Difficulty
+    {
+        get
+        {
+            Enum.TryParse((string)PhotonNetwork.CurrentRoom.CustomProperties[K.Room.difficulty], out Difficulty result);
+            return result;
+        }
+    }
+   
+}
+
+public enum Difficulty
+{
+    Easy, Normal
+}
+

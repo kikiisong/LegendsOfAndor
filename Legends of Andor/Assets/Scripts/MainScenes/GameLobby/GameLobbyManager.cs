@@ -122,13 +122,13 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
 
     public void Click_Difficulty()
     {
-        if (difficulty.text.Equals("Easy"))
+        if (difficulty.text.Equals(Difficulty.Easy.ToString()))
         {
-            difficulty.text = "Normal";
+            difficulty.text = Difficulty.Normal.ToString();
         }
         else
         {
-            difficulty.text = "Easy";
+            difficulty.text = Difficulty.Easy.ToString();
         }
 
         Hashtable hashtable = new Hashtable()

@@ -6,35 +6,44 @@ using UnityEngine;
 
 namespace Card
 {
-    public class A3 : LegendCard
+    public class A : LegendCard
     {
-        public override Name CardName => Name.A3;
+        public override Letter Key => Letter.A;
 
         public GameObject monsterParent;
         public GameObject gorPrefab;
         public GameObject skralPrefab;
 
-        public override void Event()
+        protected override void Event(Difficulty difficulty)
         {
-            photonView.RPC("MoveHeroes", RpcTarget.All);
-
-            //Monsters
-            if (PhotonNetwork.IsMasterClient)
+            //TODO distribute
+            switch (difficulty)
             {
-                foreach (int r in new int[] { 8, 20, 21, 26, 48 })
-                {
-                    GameObject gor = PhotonNetwork.Instantiate(gorPrefab);
-                    gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-                    GameGraph.Instance.PlaceAt(gor, r);
-                }
+                case Difficulty.Easy:
+                    photonView.RPC("MoveHeroes", RpcTarget.All);
+
+                    //Monsters
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        foreach (int r in new int[] { 8, 20, 21, 26, 48 })
+                        {
+                            GameObject gor = PhotonNetwork.Instantiate(gorPrefab);
+                            gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                            GameGraph.Instance.PlaceAt(gor, r);
+                        }
+                    }
+
+                    GameObject skral = PhotonNetwork.Instantiate(skralPrefab);
+                    skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                    GameGraph.Instance.PlaceAt(skral, 19);
+
+
+                    FarmerManager.Instance.SetFarmerRPC();
+                    break;
+                case Difficulty.Normal:
+                    break;
+
             }
-
-            GameObject skral = PhotonNetwork.Instantiate(skralPrefab);
-            skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-            GameGraph.Instance.PlaceAt(skral, 19);
-
-
-            FarmerManager.Instance.SetFarmerRPC();
         }
 
         [PunRPC]

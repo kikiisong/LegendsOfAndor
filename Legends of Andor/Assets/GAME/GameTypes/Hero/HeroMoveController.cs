@@ -17,8 +17,6 @@ public class HeroMoveController : MonoBehaviourPun
     {
         Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
-        hero.data.regionNumber = hero.constants.StartingRegion;
-        GameGraph.Instance.PlaceAt(gameObject, hero.constants.StartingRegion);
     }
 
     // Update is called once per frame

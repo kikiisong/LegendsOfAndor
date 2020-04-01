@@ -1696,7 +1696,7 @@ GameObject:
   - component: {fileID: 328684575}
   - component: {fileID: 328684574}
   m_Layer: 0
-  m_Name: Cards
+  m_Name: LegendCards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1725,7 +1725,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 328684572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed010f3e26b96f74980862f6861d8b3a, type: 3}
+  m_Script: {fileID: 11500000, guid: f5e51ae80c7cb394abf76762cddc3352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   monsterParent: {fileID: 655722766}
@@ -9463,7 +9463,6 @@ GameObject:
   - component: {fileID: 1159201695}
   - component: {fileID: 1159201693}
   - component: {fileID: 1159201694}
-  - component: {fileID: 1159201697}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -9555,18 +9554,6 @@ MonoBehaviour:
   viewIdField: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1159201697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159201691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb03537ffef1e44baa40d486bd014f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1174015845
 GameObject:
   m_ObjectHideFlags: 0

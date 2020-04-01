@@ -71,7 +71,6 @@ public class Hero : ScriptableObject
     [System.Serializable]
     public struct Constants
     {
-        public int StartingRegion;
         public int rank;
         //name, description, ...
     }
