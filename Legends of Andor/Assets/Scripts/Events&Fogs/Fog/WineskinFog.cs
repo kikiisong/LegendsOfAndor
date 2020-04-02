@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WineskinFog : MonoBehaviour
+public class WineskinFog : Fog
 {
     // Start is called before the first frame update
     void Start()
@@ -15,4 +15,10 @@ public class WineskinFog : MonoBehaviour
     {
         
     }
+
+    public override void uncover()
+    {
+        //TODO
+    }
+
 }

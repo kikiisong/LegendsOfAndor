@@ -79,5 +79,8 @@ MonoBehaviour:
   - displayRollResult
   - AppliedMagic
   - getCards
+  - bought
+  - createGor
+  - createWitch
   DisableAutoOpenWizard: 1
   ShowSettings: 1
