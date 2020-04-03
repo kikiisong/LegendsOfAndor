@@ -24,6 +24,8 @@ public static class K
     public static class Player
     {
         public static readonly string isReady = "isReady"; //to remove
+        public static readonly string isFight = "isFight";
+        public static readonly string isAsked = "isAsked";
         public static readonly string hero = "currentHero";
     }
 

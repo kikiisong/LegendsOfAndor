@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Routines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,18 +14,10 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
     public int regionlabel;
 
 
-
-public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
-{
- 
-
-
     // Start is called before the first frame update
     void Start()
     {
-
         regionlabel = GameGraph.Instance.FindNearest(transform.position).label; //not reliable, could be 0, can be changed after Start
-
         TurnManager.Register(this);
     }
 
@@ -44,14 +37,10 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
         try
         {
             Region next = GameGraph.Instance.NextEnemyRegion(GameGraph.Instance.FindNearest(transform.position));
-
             regionlabel = next.label;
             StartCoroutine(CommonRoutines.MoveTo(transform, next.position, 1, atEnd:()=> {
                 if (MonsterOnRegion()) MoveToNext();
             }));
-
-            transform.position = next.position;
-
         }
         catch (GameGraph.NoNextRegionException)
         {
@@ -68,5 +57,4 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
         }
         return false;
     }
-
 }

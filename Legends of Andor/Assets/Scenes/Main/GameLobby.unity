@@ -290,8 +290,8 @@ Camera:
   m_GameObject: {fileID: 240008280}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0.49056602, b: 0.06786747, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -334,7 +334,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1769783199}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1223,7 +1224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db872b97870604f4e83ea0c38fb0c1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: GameMap
+  nextScene: Distribute
   previousScene: MainLobby
   startGame: {fileID: 1501736641}
   difficulty: {fileID: 399663690}
@@ -1536,11 +1537,7 @@ RectTransform:
   m_Children:
   - {fileID: 1061037944}
   - {fileID: 1971312077}
-
   - {fileID: 886339242}
-
-  - {fileID: 1769783199}
-
   - {fileID: 1536581647}
   - {fileID: 1501736642}
   - {fileID: 699104213}
@@ -1812,11 +1809,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1769783198}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960.00006, y: -443.81473, z: 0}
-  m_LocalScale: {x: 1.7438693, y: 1.7438693, z: 1.7438693}
+  m_LocalPosition: {x: -0.000061035156, y: 17.321518, z: 10}
+  m_LocalScale: {x: 0.9673025, y: 0.9673025, z: 0.9673025}
   m_Children: []
-  m_Father: {fileID: 1219169485}
-  m_RootOrder: 2
+  m_Father: {fileID: 240008283}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1769783200
 MonoBehaviour:

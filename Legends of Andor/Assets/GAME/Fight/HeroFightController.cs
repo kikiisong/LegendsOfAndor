@@ -1,19 +1,27 @@
 ﻿using System.Collections;
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using static Hero;
 
-public class HeroFightController : MonoBehaviour
+
+public class HeroFightController : MonoBehaviourPun
 {
-    Type heroType;
+    
+    public Type heroType;
+    public bool magic, herbS,brew,helm,sheild,herbW,bow;
+    public Dice dice;
+    public Hero hero;
+    int times;
+    int btimes;
 
-    int redDice;
-    int blackDice;
+    public int diceNum;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-
         times = getDiceNum();
         btimes = hero.data.blackDice;
         hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
@@ -66,12 +74,11 @@ public class HeroFightController : MonoBehaviour
 
     public void Attacked(int damage) {
         hero.data.WP -= damage;
-
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnRollDice(Button myArcherYesButton, Button mySkillYesButton, FightHUD fHUD)
     {
+        StartCoroutine(HeroRoll(myArcherYesButton, mySkillYesButton,fHUD));
         
     }
 
@@ -80,109 +87,132 @@ public class HeroFightController : MonoBehaviour
         btimes = hero.data.blackDice;
     }
 
-
-    bool Magic;
-    public void initializeMagic()
+    IEnumerator HeroRoll(Button myArcherYesButton, Button mySkillYesButton, FightHUD fHUD)
     {
-        if (this.heroType == Type.WIZARD)
+        yield return new WaitForSeconds(2f);
+        if (heroType == Hero.Type.ARCHER)
         {
-            Magic = true;
+
+            myArcherYesButton.gameObject.SetActive(true);
+            if (btimes > 0)
+            {
+                diceNum = dice.getOne(true);
+                btimes--;
+                fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
+
+            }
+            else if (times > 0)
+            {
+                diceNum = dice.getOne(false);
+                times--;
+                fHUD.rollResult("Value:" + diceNum + " Left B/R:" + btimes + "/" + times);
+
+            }
+            else
+            {
+                OnYesClick(myArcherYesButton,mySkillYesButton);
+            }
         }
         else
         {
-            Magic = false;
+            mySkillYesButton.gameObject.SetActive(true);
+            dice.rollDice(getDiceNum(), hero.data.blackDice);
+            diceNum = dice.getMax();
+            fHUD.rollResult(dice.printArrayList() + "Max:" + diceNum);
         }
+        yield return new WaitForSeconds(4f);
     }
 
 
 
-    public void OnYesClick(Button myArcherYesButton,Button mySkillYesButton);
-
-    public bool useMagic()
-
+    public void OnYesClick(Button myArcherYesButton,Button mySkillYesButton)
     {
-        //check for prefession
-        if (Magic)
+        myArcherYesButton.gameObject.SetActive(false);
+        mySkillYesButton.gameObject.SetActive(true);
+    }
+
+    public bool onMagicClick()
+    {
+        //assume black dice is not allowed to flipped
+        if (!magic)
         {
-            Magic = false;
-            return true;
+            return false;
         }
-        return false;
-    }
 
-    bool HerbS = false;
-    public void initializeHerbS()
-    {
-        //TODO: if have herbs then true
-        /*
-            if (numHerb > 0)
+        magic = false;
+
+        if (diceNum < 7)
         {
-           HerbS = true;
-
-        }
-        else{
-            HerbS = false;
-        }
-         */
-
-    }
-    public int useHerbStrength()
-    {
-        //TODO: return number of increase strength
-        //0 means not able to use herb
-        if (HerbS)
-        {
-            HerbS = false;
-            int herb = 0;//get number of herbs
-            //set number of herbs to 0
-            return herb;
-        }
-
-        return 0;
-
-
-    }
-
-    bool Brew = false;
-    public void initializeBrew()
-    {
-        //TODO: same logic
-    }
-
-    public void useBrew()
-    {
-        if (Helm != true)
-        {
-            Brew = true;
+            diceNum = 7 - diceNum;
         }
         else
         {
-            //Maybe pop some warning message
+            //donothing
         }
+        return true;
+    }
+
+    bool usedhelm = false;
+
+    public bool onSheildClick()
+    {
+        if (!sheild && !usedhelm)
+        {
+            return false;
+        }
+        sheild = false;
+
+        return true;
 
     }
 
-    bool Helm = false;
-    public void useHelm()
+    public bool onHelmClick()
     {
-        if (Brew != true)
+        if (!helm)
         {
-            Helm = true;
+            return false; 
         }
-        else
+
+        diceNum = dice.getSum();
+        usedhelm = true;
+        helm = false;
+        return true;
+    }
+
+    public bool onHerbSClick()
+    {
+        if (!herbS) {
+            return false;
+        }
+        diceNum += 2;
+        herbS = false;
+        return true;
+    }
+
+    public bool onHerbWClick()
+    {
+        if (!herbW)
         {
-            // maybe pop some warning
+            return false;
         }
+
+        hero.data.WP += 2;
+        herbW = false;
+        return true;
 
     }
 
-    private void initial()
+    public bool onBrewWClick()
     {
-        //after each round initialize everything
-        Magic = false;
-        Brew = false;
-        Helm = false;
-        HerbS = false;
+        if (!brew)
+        {
+            return false;
+        }
+        
+        diceNum *= 2;
+        herbW = false;
+        return true;
+
 
     }
 }

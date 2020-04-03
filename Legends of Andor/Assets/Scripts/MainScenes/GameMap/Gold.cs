@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Realtime;
+using Photon.Pun;
+using System;
 
-public class Gold : MonoBehaviour
+public class Gold : MonoBehaviourPun, IPunObservable   
 {
     [SerializeField] TextMeshPro textUI;
 
@@ -28,7 +31,6 @@ public class Gold : MonoBehaviour
         Display();
     }
 
-
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -47,5 +49,4 @@ public class Gold : MonoBehaviour
     {
         textUI.text = "" + Amount;
     }
-
 }
