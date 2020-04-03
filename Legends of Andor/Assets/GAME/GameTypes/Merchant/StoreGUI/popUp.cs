@@ -52,6 +52,8 @@ public class popUp : MonoBehaviour
         SceneManager.UnloadSceneAsync("MerchantScene");
     }
 
+    
+
 
 
 
@@ -135,7 +137,7 @@ public class popUp : MonoBehaviour
 
                     // you may put other code to run according to your game
                   
-                    buyItem("SP");
+                    buyItem(item);
                     
          
 
