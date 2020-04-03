@@ -49,9 +49,14 @@ public class HeroMoveController : MonoBehaviourPun
 
     public static Region CurrentRegion()
     {
-        foreach(HeroMoveController heroMoveController in GameObject.FindObjectsOfType<HeroMoveController>())
+        return CurrentRegion(PhotonNetwork.LocalPlayer);
+    }
+
+    public static Region CurrentRegion(Player player)
+    {
+        foreach (HeroMoveController heroMoveController in GameObject.FindObjectsOfType<HeroMoveController>())
         {
-            if(heroMoveController.photonView.Owner == PhotonNetwork.LocalPlayer)
+            if (heroMoveController.photonView.Owner == player)
             {
                 return GameGraph.Instance.FindNearest(heroMoveController.transform.position);
             }

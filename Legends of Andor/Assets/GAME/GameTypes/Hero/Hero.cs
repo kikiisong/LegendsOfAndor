@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Hero")]
+[CreateAssetMenu(menuName = "MyAssets/Hero")]
 public class Hero : ScriptableObject
 {
     public Type type;
@@ -14,22 +14,16 @@ public class Hero : ScriptableObject
     //Easy to serialize and sync accross all players
     [System.Serializable]
     public struct Data
-    {
-        /// <summary>
-        /// Willpower points
-        /// </summary>
+    { 
+        //Main
         public int WP;
-        public int blackDice;
-        /// <summary>
-        /// Strength points
-        /// </summary>
         public int SP;
-
         public int numHours;
 
+
+        public int blackDice;
         public int gold;
         
-
         public int regionNumber;
         // number of carried farmers
 
@@ -78,7 +72,7 @@ public class Hero : ScriptableObject
     [System.Serializable]
     public class UI
     {
-        private bool gender; // how to implement gender?
+        public bool gender;
 
         public Sprite female;
         public Sprite male;
@@ -165,7 +159,7 @@ public class Hero : ScriptableObject
                     return 2;
                 }
             default:
-                return 1;
+                throw new Exception();
         }
     }
 

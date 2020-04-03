@@ -1,6 +1,8 @@
 ﻿using ExitGames.Client.Photon;
+using Newtonsoft.Json.Linq;
 using Photon.Pun;
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -17,16 +19,24 @@ namespace Custom
             PhotonPeer.RegisterType(typeof(Hero), 0, Serialize, Deserialize);
         }
 
-        private static object Deserialize(byte[] serializedCustomObject)
+        private static object Deserialize(byte[] bytes)
         {
-            Hero.Type type = (Hero.Type)BitConverter.ToInt32(serializedCustomObject, 0);
-            return Hero.FindInResources(type);
+            JObject jObject = JObject.Parse(Encoding.UTF8.GetString(bytes));
+            Hero.Type type = jObject["type"].ToObject<Hero.Type>();
+            Hero hero = Hero.FindInResources(type);
+            hero.ui.gender = jObject["gender"].ToObject<bool>();
+            return hero;
         }
 
         private static byte[] Serialize(object customObject)
         {
             Hero hero = (Hero)customObject;
-            return BitConverter.GetBytes((int)hero.type);
+            JObject jObject = new JObject
+            {
+                {"type", (int) hero.type },
+                {"gender", hero.ui.gender }
+            };
+            return Encoding.UTF8.GetBytes(jObject.ToString());
         }
 
         public static object Deserialize_BF(byte[] data)
