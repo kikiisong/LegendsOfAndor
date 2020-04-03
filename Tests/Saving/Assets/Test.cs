@@ -1,5 +1,5 @@
-﻿//using Newtonsoft.Json.Linq;
-using Saving;
+﻿using Newtonsoft.Json.Linq;
+using SavingSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +7,10 @@ using System.Linq;
 using UnityEditor;
 #endif  
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class Test : MonoBehaviour
 {
-    public Test test;
-    public int a;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,31 +19,9 @@ public class Test : MonoBehaviour
         print("persistentDataPath: " + Application.persistentDataPath);
         print("streamingAssetsPath: " + Application.streamingAssetsPath);
         print("temporaryCachePath: " + Application.temporaryCachePath);
-        WriteFile();
+        SceneManager.LoadScene(1);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void WriteFile()
-    {
-        using (var sw = Helper.Create("test"))
-        {
-            sw.WriteLine("Hello world");
-            sw.WriteLine("Bye world");
-            sw.WriteLine(DateTime.Now.ToString());
-            sw.WriteLine(JsonUtility.ToJson(this));
-        }
-
-        #if UNITY_EDITOR
-        AssetDatabase.Refresh();
-#endif
-
-        //JObject jObject = new JObject();
-        //JToken.FromObject(new List<> );
-    }
+    
 
 }

@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace SavingSystem
@@ -35,21 +38,39 @@ namespace SavingSystem
         }
 
         //Helper methods
-        public static string GetPath(string file_name, string file_extension="txt")
+        public static string GetPath(string file_name, string file_extension="json")
         {
             return Path_Directory + file_name + "." + file_extension;
         }
-        public static StreamWriter Create(string game_name)
+
+        public static JObject GetJson(string file_name, string file_extension = "json")
         {
-            return File.CreateText(GetPath(game_name));
+            return JObject.Parse(File.ReadAllText(GetPath(file_name, file_extension: file_extension)));
         }
     }
 
     public static class Saving {
 
-        public static void SaveGameState()
-        {
+        public static void SaveGameState(string file_name)
+        { 
+            JObject jObject = new JObject(
+                new JProperty("array", new JArray(
+                    from gameObject in GameObject.FindGameObjectsWithTag("MyObject")
+                    select new JObject
+                    {
+                        { "position", JObject.FromObject(gameObject.transform.position) },
+                        { "name", gameObject.name }
+                    })));
+                        
+            File.WriteAllText(Helper.GetPath(file_name), jObject.ToString());
+            RefreshEditor();
+        }
 
+        private static void RefreshEditor()
+        {
+            #if UNITY_EDITOR
+            AssetDatabase.Refresh();
+            #endif
         }
     }
 }

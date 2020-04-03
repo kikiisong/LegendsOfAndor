@@ -108,3 +108,4 @@ Demos/
 *.dylib
 Builds.app/
 Legends of Andor/mono_crash*.json
+SavedGames/
