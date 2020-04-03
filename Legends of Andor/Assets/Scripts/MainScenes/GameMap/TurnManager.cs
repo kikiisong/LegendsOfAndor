@@ -36,10 +36,30 @@ public class TurnManager : MonoBehaviourPun
 
     void Awake()
     {
+
         if (Instance == null) Instance = this;
         else Debug.LogWarning("TurnManager not singleton");
 
-        foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("TurnManager not singleton");
+        }
+    }
+
+    private void Test()
+    {
+        Register(new TestTurn());
+    }
+
+
+    private void Start()
+    {
+        Test();
+        foreach(Player player in PhotonNetwork.CurrentRoom.Players.Values)
         {
             players.Add(player);
         }
@@ -52,6 +72,7 @@ public class TurnManager : MonoBehaviourPun
         });
     }
 
+
     private void Start()
     {
         Register(helper);
@@ -59,11 +80,13 @@ public class TurnManager : MonoBehaviourPun
         endDay.onClick.AddListener(() => TriggerEvent_EndDay());
     }
 
+
     private void Update()
     {
         endTurn.gameObject.SetActive(CanMove());
         endDay.gameObject.SetActive(IsMyTurn());
     }
+
 
     //works?
     public int GetWaitIndex(Player player)
@@ -80,6 +103,7 @@ public class TurnManager : MonoBehaviourPun
         }
         return inSunriseBox.IndexOf(player);
     }
+
 
     //Turn
     public static bool CanMove()
@@ -100,13 +124,13 @@ public class TurnManager : MonoBehaviourPun
     [PunRPC]
     public void NextTurn(Player player)
     {
-        turnIndex = Helper.Mod(turnIndex + 1, players.Count);
-
-        //Notify
         foreach(IOnTurnCompleted onTurnCompleted in onTurnCompleteds)
         {
             onTurnCompleted.OnTurnCompleted(player);
         }
+
+        turnIndex = Helper.Mod(turnIndex + 1, players.Count);
+
     }
 
     public static void TriggerEvent_EndTurn()
@@ -123,6 +147,7 @@ public class TurnManager : MonoBehaviourPun
     [PunRPC]
     public void EndDay(Player player)
     {
+
         //Reset index, better solution?
         int i = players.IndexOf(player);
         Player next = players[Helper.Mod(i + 1, players.Count)];
@@ -136,9 +161,13 @@ public class TurnManager : MonoBehaviourPun
 
         //Notify
         foreach (IOnEndDay onEndDay in onEndDays)
+        foreach(IOnEndDay onEndDay in onEndDays)
         {
             onEndDay.OnEndDay(player);
         }
+
+        players.Remove(player);
+        waiting.Add(player);
     }
 
     public static void TriggerEvent_EndDay()
@@ -154,19 +183,18 @@ public class TurnManager : MonoBehaviourPun
     [PunRPC]
     public void Sunrise()
     {
+        foreach(IOnSunrise onSunrise in onSunrises)
+        {
+            onSunrise.OnSunrise();
+        }
+
         //Reset
         turnIndex = 0;
-        foreach (Player player in waiting)
+        foreach(Player player in waiting)
         {
             players.Add(player);
         }
         waiting.Clear();
-
-        //Notify
-        foreach (IOnSunrise onSunrise in onSunrises)
-        {
-            onSunrise.OnSunrise();
-        }
     }
 
     public static void TriggerEvent_Sunrise()
@@ -180,19 +208,23 @@ public class TurnManager : MonoBehaviourPun
     [PunRPC]
     public void HeroMoved(Player player, int currentRegion)
     {
+
         Hero hero = (Hero)player.CustomProperties[K.Player.hero];
         hero.data.numHours++;
 
         if(hero.data.numHours > 7)
-        {
+        foreach(IOnMove onMove in onMoves)
+     {
             hero.data.WP -= 2;
         }
+
 
         //Notify
         foreach (IOnMove onMove in onMoves)
         {
             onMove.OnMove(player, GameGraph.Instance.Find(currentRegion));
         }
+
     }
 
     public static void TriggerEvent_Move(Region currentRegion)

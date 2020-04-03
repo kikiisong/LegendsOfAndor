@@ -34,7 +34,9 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
             .GetComponent<HeroSelection>();
         heroSelection.SetParentRPC(canvasParent);
 
+
         roomNameUI.text = PhotonNetwork.CurrentRoom.Name;
+
     }
 
     // Update is called once per frame
@@ -74,33 +76,31 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     //room open false
     public void Click_Start()
     {
-        
         PhotonNetwork.LoadLevel(nextScene);
+    }
+
+    public void Click_LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel(previousScene);
     }
 
     public void Click_Ready()
     {
-        if (!isReady && !IsTaken(heroSelection.CurrentHero))
+        isReady = !isReady;
+        Hashtable hash = new Hashtable
         {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-            {
-                { K.Player.isReady, true },
-                { K.Player.hero, heroSelection.CurrentHero }
-            });
-            isReady = true;
-        }
-        else if (isReady)
+            { K.Player.isReady, isReady }
+        };
+        if (isReady && !IsTaken(heroSelection.CurrentHero))
         {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-            {
-                { K.Player.isReady, false }
-            });
-            isReady = false;
+            hash.Add(K.Player.hero, heroSelection.CurrentHero);
         }
         else
         {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable());
+            hash.Add(K.Player.hero, null);
         }
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
     private bool IsTaken(Hero hero)
@@ -109,10 +109,10 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         {
             if (player != PhotonNetwork.LocalPlayer)
             {
-                Hero h = (Hero)player.CustomProperties[K.Player.hero];
-                if (h != null)
+                Hero heroUIData = (Hero)player.CustomProperties[K.Player.hero];
+                if (heroUIData != null)
                 {
-                    return h.type == hero.type;
+                    return heroUIData.type == hero.type;
                 }
             }
 

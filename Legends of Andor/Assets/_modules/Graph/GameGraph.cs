@@ -105,6 +105,8 @@ public class GameGraph : Graph<Region, Border>
 
     public Region FindNearest(Vector3 position)
     {
+        //Vector3 position = CastRay(mousePosition);
+        //First find possible moves ?
         float min = Mathf.Infinity;
 
         Region closest = null; //Carefull with current location
@@ -163,10 +165,10 @@ public class GameGraph : Graph<Region, Border>
         foreach(M m in GameObject.FindObjectsOfType<M>())
         {
             Region r = FindNearest(m.transform.position);
-            if (r.label == region.label)
+            if(r.label == region.label)
             {
                 list.Add(m);
-            }           
+            }
         }
         return list;
     }
@@ -187,6 +189,7 @@ public class GameGraph : Graph<Region, Border>
     }
 
     
+
     public Region NextEnemyRegion(Region currentRegion) 
     {
         foreach(Border border in edges)
@@ -202,12 +205,8 @@ public class GameGraph : Graph<Region, Border>
         throw  new NoNextRegionException();
     }
 
-
-
     public class NoNextRegionException : System.Exception
     {
 
     }
-
-    
 }

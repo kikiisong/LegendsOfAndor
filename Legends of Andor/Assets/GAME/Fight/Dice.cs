@@ -3,7 +3,7 @@ using Photon.Pun;
 using Routines;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+
 public class Dice : MonoBehaviourPun
 {
     /**
@@ -11,26 +11,28 @@ public class Dice : MonoBehaviourPun
      * therefore, if isBlack is true, we know that the hero want to use the black Dice
      */
 
-    public List<int> a = new List<int>();
+    bool isBlack;
+    ArrayList result;
 
-
-    public void rollDice(int numRed, int numBlack){
+    public Dice(bool isBlack){
+        this.isBlack = isBlack;
         
-        for (int i = numRed; i > 0; i--)
-        {
-            a.Add(randGenerator(false));
-        }
-
-        for (int i = numBlack; i > 0; i--)
-        {
-            a.Add(randGenerator(true));
-        }
-        Debug.Log(a);
+        result = new ArrayList();
     }
 
-    public List<int> getResult() {
-        return a;
+    public void rollDice(int numDice){
+        
+        for (int i = numDice; i > 0; i--)
+        {
+            result.Add(randGenerator());
+        }
+        Debug.Log(result);
     }
+
+    public ArrayList getResult() {
+        return result;
+    }
+
 
     public void setResult(List<int> a) {
         foreach(int i in a){
@@ -39,12 +41,15 @@ public class Dice : MonoBehaviourPun
 
     }
 
-    private int randGenerator(bool isBlack)
+    private int randGenerator(bool isBlack);
+
+    private int randGenerator()
+
     {
 
         if(!isBlack){
             int min = 1;
-            int max = 7;
+            int max = 6;
             return Random.Range(min, max);
         }
         else{
@@ -53,47 +58,6 @@ public class Dice : MonoBehaviourPun
             return temp[Random.Range(1, 6)];
 
         }
-    }
-
-    public int getSum() {
-        int m = getMax();
-        a.Remove(m);
-        int n = getMax();
-        a.Add(m);
-        return m + n;
-    }
-
-    public bool CheckRepet ()
-    {
-        int m = getMax();
-        a.Remove(m);
-        int n = getMax();
-        a.Add(m);
-        if (m == n) {
-            return true;
-        }
-        return false;
-    }
-
-    public int getMax() {
-        return a.Max();
-    }
-
-    public int getOne(bool isBlack) {
-        return randGenerator(isBlack);
-    }
-
-    public string printArrayList()
-    {
-        string r = "";
-        //int max = 0;
-        for (int i = 0; i < a.Count; i++)
-        {
-            r += a[i] + " ";
-        }
-        a.Clear();
-        return r;
-        
     }
 
 

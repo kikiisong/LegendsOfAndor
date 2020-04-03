@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class Item : ScriptableObject
 {
-    public Sprite itemIcon;
-    public string itemName;
-    public int SellPrice;
+    public Sprite itemIcon { get; set; }
+    public string itemName { get; set; }
+    public int SellPrice { get; set; }
     public int BuyPrice;
     public ItemType itemType;
     public Rarity itemRarity;
@@ -24,6 +24,7 @@ public class Item : ScriptableObject
 
     public List<ItemAttribute> Attributes;
 
+
     //bag - ?
    // public Dictionary<string, int> stats = new Dictionary<string, int>();
     public int id;
@@ -39,7 +40,17 @@ public class Item : ScriptableObject
         
     }
 
-    //constructor - for inventory 
+     public void  Init()
+    {
+        this.itemName = "NoName";
+        this.SellPrice = -1;
+    }
+    public Item(string name)
+    {
+        this.itemName = name;
+        this.SellPrice = 10000;
+    }
+  //constructor - for inventory 
     public Item(Item item)
     {
         itemIcon = Resources.Load<Sprite>("Assets/_imported/External_Art_Library/RPG_BOX_Free/Resources/ItemsIcons/" + itemName);
@@ -47,6 +58,7 @@ public class Item : ScriptableObject
         IsStackable = item.IsStackable;
 
     }
+
 }
 
 

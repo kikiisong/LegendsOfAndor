@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5041133314650116859}
   - component: {fileID: 3386901637747087041}
   m_Layer: 0
-  m_Name: Gor
+  m_Name: Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1478140479
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 50
   m_Sprite: {fileID: 21300000, guid: 0d1327ff05afd4c298ee4df158ae8dbe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -183,7 +183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9a5a313a98a59479199189fb8b39f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+
   startGame: {fileID: 0}
   joinFight: {fileID: 0}
   m: {fileID: 4858113096683849941, guid: dcaea54e850af45fc98ff764bce8ea75, type: 3}
   regionlabel: 0
+
