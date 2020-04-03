@@ -44,9 +44,7 @@ public class DistributionManager : MonoBehaviour
 
     public void Click_Continue()
     {
-        MusicClass go = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>();
-        go.StopMusic();
-        Destroy(GameObject.FindGameObjectWithTag("Music"));
+        Music.Stop();
         PhotonNetwork.LoadLevel(nextScene);
     }
 }

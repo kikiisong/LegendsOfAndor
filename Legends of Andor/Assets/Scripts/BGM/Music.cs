@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MusicClass : MonoBehaviour
+public class Music : MonoBehaviour
 {
     private AudioSource audioSource;
     private void Awake()
@@ -18,5 +18,23 @@ public class MusicClass : MonoBehaviour
     public void StopMusic()
     {
         audioSource.Stop();
+    }
+
+    public static void Stop()
+    {
+        var go = FindObjectOfType<Music>();
+        go?.StopMusic();
+        Destroy(go);
+    }
+
+    public static void Play()
+    {
+        var go = FindObjectOfType<Music>();
+        go?.PlayMusic();
+    }
+
+    public enum Kind
+    {
+        Background, Game
     }
 }
