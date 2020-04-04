@@ -24,7 +24,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        heroes = Helper.FindAllInResources();
+        heroes = Hero.FindAllInResources();
         transform.position = SetUp.Instance.spawnPoints[photonView.Owner.ActorNumber - 1].position;
         Display();
     }

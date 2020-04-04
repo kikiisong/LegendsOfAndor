@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Saving;
+using Newtonsoft.Json.Linq;
 
 public class GameLobby_SavedManager : MonoBehaviour
 {
@@ -10,7 +12,8 @@ public class GameLobby_SavedManager : MonoBehaviour
     {
         foreach(var jObject in Room.Json["heroes"])
         {
-            //Hero hero = Hero.FindInResources(jObject["type"].ToObject<Hero.Type>());
+            Hero hero = J.ToHero(jObject);
+            print(hero.data);
         }
     }
 }

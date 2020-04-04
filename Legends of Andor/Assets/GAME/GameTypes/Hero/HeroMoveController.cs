@@ -15,7 +15,7 @@ public class HeroMoveController : MonoBehaviourPun
 
     void Start()
     {
-        Hero hero = (Hero)photonView.Owner.GetHero();
+        Hero hero = photonView.Owner.GetHero();
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
     }
 
@@ -45,22 +45,5 @@ public class HeroMoveController : MonoBehaviourPun
                 isMoving = false;
             }));
         }
-    }
-
-    public static Region CurrentRegion()
-    {
-        return CurrentRegion(PhotonNetwork.LocalPlayer);
-    }
-
-    public static Region CurrentRegion(Player player)
-    {
-        foreach (HeroMoveController heroMoveController in GameObject.FindObjectsOfType<HeroMoveController>())
-        {
-            if (heroMoveController.photonView.Owner == player)
-            {
-                return GameGraph.Instance.FindNearest(heroMoveController.transform.position);
-            }
-        }
-        throw new System.Exception("Not found");
     }
 }

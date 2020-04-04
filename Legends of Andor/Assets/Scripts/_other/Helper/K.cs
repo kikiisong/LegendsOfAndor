@@ -59,6 +59,18 @@ public static class P
     {
         p.CustomProperties = new ExitGames.Client.Photon.Hashtable();
     }
+
+    public static Region GetCurrentRegion(this Player player)
+    {
+        foreach (HeroMoveController heroMoveController in GameObject.FindObjectsOfType<HeroMoveController>())
+        {
+            if (heroMoveController.photonView.Owner == player)
+            {
+                return GameGraph.Instance.FindNearest(heroMoveController.transform.position);
+            }
+        }
+        throw new System.Exception("Not found");
+    }
 }
 
 public static class Room

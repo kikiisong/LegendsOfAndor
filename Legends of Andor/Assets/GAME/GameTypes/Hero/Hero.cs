@@ -216,4 +216,24 @@ public class Hero : ScriptableObject
         }
     }
 
+    //static
+    public static Hero FindInResources(Hero.Type type)
+    {
+        Resources.LoadAll<Hero>("Hero_SO");
+        foreach (Hero hero in Resources.FindObjectsOfTypeAll<Hero>())
+        {
+            if (hero.type == type) return UnityEngine.Object.Instantiate(hero);
+        }
+        throw new Exception("Hero not found in Resources");
+    }
+
+    public static List<Hero> FindAllInResources()
+    {
+        List<Hero> heroes = new List<Hero>();
+        foreach (Hero.Type type in Enum.GetValues(typeof(Hero.Type)))
+        {
+            heroes.Add(FindInResources(type));
+        }
+        return heroes;
+    }
 }

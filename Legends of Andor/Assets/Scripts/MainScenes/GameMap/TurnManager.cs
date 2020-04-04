@@ -115,7 +115,7 @@ public class TurnManager : MonoBehaviourPun
 
         if (!helper.hasMoved)
         {
-            TriggerEvent_Move(HeroMoveController.CurrentRegion());
+            TriggerEvent_Move(PhotonNetwork.LocalPlayer.GetCurrentRegion());
         }
     }
 

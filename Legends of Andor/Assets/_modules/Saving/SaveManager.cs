@@ -53,14 +53,7 @@ namespace Saving
         {
             return new JArray(
                 from player in PhotonNetwork.CurrentRoom.Players.Values
-                let hero = (Hero)player.GetHero()
-                select new JObject
-                {
-                    {"type", new JValue(hero.type) },
-                    {"data", JObject.FromObject(hero.data) },
-                    {"region", HeroMoveController.CurrentRegion(player).label },
-                    {"gender", hero.ui.gender }
-                });
+                select J.FromHero(player.GetHero(), player.GetCurrentRegion().label));
         }
     }
 }
