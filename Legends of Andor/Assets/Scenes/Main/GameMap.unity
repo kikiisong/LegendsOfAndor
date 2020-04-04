@@ -7425,6 +7425,7 @@ GameObject:
   - component: {fileID: 742629240}
   - component: {fileID: 742629242}
   - component: {fileID: 742629241}
+  - component: {fileID: 742629243}
   m_Layer: 5
   m_Name: SPbar
   m_TagString: Untagged
@@ -7533,6 +7534,14 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!222 &742629243
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742629239}
+  m_CullTransparentMesh: 0
 --- !u!1 &745903432
 GameObject:
   m_ObjectHideFlags: 0
