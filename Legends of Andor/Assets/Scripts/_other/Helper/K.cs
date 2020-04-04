@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Newtonsoft.Json.Linq;
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,17 +36,33 @@ public static class K
     public static class Room
     {
         public static readonly string difficulty = "difficulty";
+        public static readonly string json = "json";
     }
 }
 
 public static class Room{
 
+    public static bool IsSaved
+    {
+        get
+        {
+            return Json != null;
+        }               
+    }
+
     public static Difficulty Difficulty
     {
         get
         {
-            Enum.TryParse((string)PhotonNetwork.CurrentRoom.CustomProperties[K.Room.difficulty], out Difficulty result);
-            return result;
+            return (Difficulty)PhotonNetwork.CurrentRoom.CustomProperties[K.Room.difficulty];
+        }
+    }
+
+    public static JObject Json
+    {
+        get
+        {
+            return !(PhotonNetwork.CurrentRoom?.CustomProperties[K.Room.json] is string s) ? null : JObject.Parse(s);
         }
     }
    

@@ -15,7 +15,6 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     public void Click_CreateRoom()
     {
-        MainLobbyManager.IsSaved = false;
         if (!PhotonNetwork.IsConnected) return;
 
         RoomOptions options = new RoomOptions
@@ -42,14 +41,14 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom()
     {
-        if (MainLobbyManager.IsSaved) return;
+        if (Room.IsSaved) return;
         print("Created room successfully.");
         PhotonNetwork.LoadLevel(nextScene);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        if (MainLobbyManager.IsSaved) return;
+        if (Room.IsSaved) return;
         Debug.Log("Room creation failed: " + message, this);
         if (attempts > 0) TryCreate();
     }

@@ -25,6 +25,7 @@ namespace Saving
         public void SaveGameState(string file_name)
         {
             JObject jObject = new JObject(
+                new JProperty("room", JRoom()),
                 new JProperty("heroes", JHeroes())                
                 );
 
@@ -37,6 +38,15 @@ namespace Saving
             SaveGameState(PhotonNetwork.CurrentRoom.Name);
         }
 
+        //Room
+        private JObject JRoom()
+        {
+            return new JObject
+            {
+                {"num_players", PhotonNetwork.CurrentRoom.PlayerCount },
+                {"difficulty", (int) Room.Difficulty }
+            };
+        }
 
         //Heroes
         private JArray JHeroes()

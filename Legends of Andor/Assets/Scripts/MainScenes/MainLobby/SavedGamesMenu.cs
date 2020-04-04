@@ -12,7 +12,6 @@ public class SavedGamesMenu : MonoBehaviourPunCallbacks
 
     [SceneName] public string nextScene;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +25,7 @@ public class SavedGamesMenu : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom()
     {
-        if (!MainLobbyManager.IsSaved) return;
+        if (!Room.IsSaved) return;
         print("Created saved room successfully.");
         PhotonNetwork.LoadLevel(nextScene);
     }

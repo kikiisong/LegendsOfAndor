@@ -74,7 +74,11 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     //room open false
     public void Click_Start()
     {
-        
+        Hashtable hashtable = new Hashtable()
+        {
+            {K.Room.difficulty, (int)Enum.Parse(typeof(Difficulty), difficulty.text)}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
         PhotonNetwork.LoadLevel(nextScene);
     }
 
@@ -130,12 +134,6 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         {
             difficulty.text = Difficulty.Easy.ToString();
         }
-
-        Hashtable hashtable = new Hashtable()
-        {
-            {K.Room.difficulty, difficulty.text}
-        };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
     }
 
     public void Click_LeaveRoom()

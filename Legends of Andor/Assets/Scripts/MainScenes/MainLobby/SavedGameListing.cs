@@ -16,12 +16,16 @@ public class SavedGameListing : MonoBehaviourPunCallbacks
 
     public void Click_Create()
     {
-        MainLobbyManager.IsSaved = true;
         if (!PhotonNetwork.IsConnected) return;
 
+        var json = Saving.Helper.GetJson(textUI.text);
         RoomOptions options = new RoomOptions
         {
-            MaxPlayers = 4 //TODO change
+            MaxPlayers = json["room"]["num_players"].ToObject<byte>()
+        };
+        options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() {
+            {"difficulty", json["room"]["difficulty"].ToObject<int>() },
+            { "json", json.ToString()}
         };
 
         PhotonNetwork.CreateRoom(MainLobbyManager.Instance.roomNameUI.text, options, TypedLobby.Default);

@@ -22,8 +22,6 @@ public class MainLobbyManager : MonoBehaviourPunCallbacks
         Instance = this;
     }
 
-    public static bool IsSaved = false;
-
     // Start is called before the first frame update
     void Start()
     {

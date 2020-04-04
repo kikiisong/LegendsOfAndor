@@ -19,7 +19,7 @@ namespace Card
             //TODO distribute
             switch (difficulty)
             {
-                case Difficulty.Easy:
+                default:
                     photonView.RPC("MoveHeroes", RpcTarget.All);
 
                     //Monsters
@@ -40,8 +40,7 @@ namespace Card
 
                     FarmerManager.Instance.SetFarmerRPC();
                     break;
-                case Difficulty.Normal:
-                    break;
+                
 
             }
         }

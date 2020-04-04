@@ -1,61 +1,99 @@
-﻿using Photon.Pun;
+﻿using Monsters;
+using Photon.Pun;
 using Routines;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
 {
-    public GameObject startGame;
-    public GameObject joinFight;
+    public MonsterType type;
+
     public Monster m;
 
-    public int regionlabel;
+    CoroutineQueue coroutineQueue;
+    //Getters
+    public Region CurrentRegion
+    {
+        get
+        {
+            return GameGraph.Instance.FindNearest(gameObject);
+        }
+    }
 
+    public static List<MonsterMoveController> MonstersInOrder
+    {
+        get
+        {
+            var monsters = new List<MonsterMoveController>(FindObjectsOfType<MonsterMoveController>());
+            monsters.OrderBy(m => m.type).ThenBy(m => m.CurrentRegion);
+            return monsters;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        regionlabel = GameGraph.Instance.FindNearest(transform.position).label; //not reliable, could be 0, can be changed after Start
         TurnManager.Register(this);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        coroutineQueue = new CoroutineQueue(this);
+        coroutineQueue.StartLoop();
     }
 
     public void OnSunrise()
     {
-        MoveToNext(); //called in same order? otherwise different results for each player
+        MoveToNext();
     }
 
     void MoveToNext()
     {
         try
         {
-            Region next = GameGraph.Instance.NextEnemyRegion(GameGraph.Instance.FindNearest(transform.position));
-            regionlabel = next.label;
-            StartCoroutine(CommonRoutines.MoveTo(transform, next.position, 1, atEnd:()=> {
-                if (MonsterOnRegion()) MoveToNext();
-            }));
+            var path = new List<Region>();
+            var taken = new List<Region>();
+            foreach (var m in MonstersInOrder) //(inneficient)
+            {
+                if (m != this) //monsters before you
+                {
+                    var region = m.CurrentRegion;
+                    while (true)
+                    {
+                        var next = GameGraph.Instance.NextEnemyRegion(region);
+                        if (!taken.Contains(next))
+                        {
+                            taken.Add(next);
+                            break;
+                        }
+                        else
+                        {
+                            region = next;
+                        }
+                    }
+                }
+                else //me
+                {
+                    var region = m.CurrentRegion;
+                    while (true)
+                    {
+                        var next = GameGraph.Instance.NextEnemyRegion(region);
+                        path.Add(next);
+                        if (!taken.Contains(next)) break;
+                        region = next;                        
+                    }
+                    break;
+                }
+            }
+
+            //Move
+            foreach(var region in path)
+            {
+                coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, region.position, 1));
+            }
         }
         catch (GameGraph.NoNextRegionException)
         {
             
         }
-    }
-
-
-    bool MonsterOnRegion()
-    {
-        foreach(MonsterMoveController monster in GameObject.FindObjectsOfType<MonsterMoveController>())
-        {
-           
-            if (monster != this && regionlabel == monster.regionlabel) return true;
-        }
-        return false;
     }
 }

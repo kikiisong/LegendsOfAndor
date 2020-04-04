@@ -24,11 +24,8 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     public void Start()
     {
-        fight = GameObject.Find("FightButton");
         fight.SetActive(false);
-        ready = GameObject.Find("JoinFight");
         ready.SetActive(false);
-        start = GameObject.Find("StartButton");
         start.SetActive(false);
 
         TurnManager.Register(this);
@@ -219,7 +216,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
             start.SetActive(false);
             if (PhotonNetwork.IsConnected)
                 //PhotonNetwork.LoadLevel(nextScene);
-                SceneManager.LoadSceneAsync(5, LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
         }
 
     }
