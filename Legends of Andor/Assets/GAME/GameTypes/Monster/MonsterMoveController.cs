@@ -53,6 +53,7 @@ public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
     {
         foreach(MonsterMoveController monster in GameObject.FindObjectsOfType<MonsterMoveController>())
         {
+           
             if (monster != this && regionlabel == monster.regionlabel) return true;
         }
         return false;
