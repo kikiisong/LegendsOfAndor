@@ -14,7 +14,7 @@ public class ResourceDistributeUI : MonoBehaviourPun
     {
         get
         {
-            Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+            Hero hero = photonView.Owner.GetHero();
             switch (resource.type)
             {
                 case Resource.Type.GoldCoint:
@@ -27,7 +27,7 @@ public class ResourceDistributeUI : MonoBehaviourPun
         }
         set
         {
-            Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+            Hero hero = photonView.Owner.GetHero();
             switch (resource.type)
             {
                 case Resource.Type.GoldCoint:

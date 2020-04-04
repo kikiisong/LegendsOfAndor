@@ -32,7 +32,7 @@ public class FarmerManager : MonoBehaviourPun, TurnManager.IOnMove
         if (PhotonNetwork.LocalPlayer == player)
         {
             print("the player made a move");
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
+            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
 
             List<Farmer> farmerOnRegion = GameGraph.Instance.FindObjectsOnRegion<Farmer>(currentRegion);
 

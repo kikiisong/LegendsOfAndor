@@ -1,5 +1,4 @@
-﻿using ExitGames.Client.Photon;
-using Photon.Pun;
+﻿using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Collections.Generic;
@@ -26,7 +25,14 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     public GameObject canvasParent;
 
     private HeroSelection heroSelection;
-    private bool isReady;
+
+    bool IsReady
+    {
+        get
+        {
+            return PhotonNetwork.LocalPlayer.IsReady();
+        }
+    }
 
     private void Start()
     {
@@ -35,6 +41,7 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         heroSelection.SetParentRPC(canvasParent);
 
         roomNameUI.text = PhotonNetwork.CurrentRoom.Name;
+        difficulty.text = Room.Difficulty.ToString();
     }
 
     // Update is called once per frame
@@ -52,21 +59,9 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
 
     private bool EveryoneReady()
     {
-        foreach(KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
+        foreach(Player player in PhotonNetwork.CurrentRoom.Players.Values)
         {
-            Player player = pair.Value;
-            if (player.CustomProperties.ContainsKey(K.Player.isReady))
-            {
-                bool ready = (bool) player.CustomProperties[K.Player.isReady];
-                if (!ready)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            if (!player.IsReady()) return false;
         }
         return true;
     }
@@ -74,36 +69,19 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     //room open false
     public void Click_Start()
     {
-        Hashtable hashtable = new Hashtable()
-        {
-            {K.Room.difficulty, (int)Enum.Parse(typeof(Difficulty), difficulty.text)}
-        };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+        PhotonNetwork.CurrentRoom.SetDifficulty((Difficulty)Enum.Parse(typeof(Difficulty), difficulty.text));
         PhotonNetwork.LoadLevel(nextScene);
     }
 
     public void Click_Ready()
     {
-        if (!isReady && !IsTaken(heroSelection.CurrentHero))
+        if (!IsReady && !IsTaken(heroSelection.CurrentHero))
         {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-            {
-                { K.Player.isReady, true },
-                { K.Player.hero, heroSelection.CurrentHero }
-            });
-            isReady = true;
-        }
-        else if (isReady)
-        {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-            {
-                { K.Player.isReady, false }
-            });
-            isReady = false;
+            PhotonNetwork.LocalPlayer.SetReady(true).SetHero(heroSelection.CurrentHero);
         }
         else
-        {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable());
+        {            
+            PhotonNetwork.LocalPlayer.SetReady(false).SetHero(null);
         }
     }
 
@@ -113,10 +91,9 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
         {
             if (player != PhotonNetwork.LocalPlayer)
             {
-                Hero h = (Hero)player.CustomProperties[K.Player.hero];
-                if (h != null)
+                if(player.IsReady() && player.GetHero().type == hero.type)
                 {
-                    return h.type == hero.type;
+                    return true;
                 }
             }
 
@@ -140,6 +117,6 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene(previousScene);
-        PhotonNetwork.LocalPlayer.CustomProperties = new Hashtable();
+        PhotonNetwork.LocalPlayer.Reset();
     }
 }

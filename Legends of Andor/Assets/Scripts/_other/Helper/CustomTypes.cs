@@ -23,7 +23,7 @@ namespace Custom
         {
             JObject jObject = JObject.Parse(Encoding.UTF8.GetString(bytes));
             Hero.Type type = jObject["type"].ToObject<Hero.Type>();
-            Hero hero = Hero.FindInResources(type);
+            Hero hero = Helper.FindInResources(type);
             hero.ui.gender = jObject["gender"].ToObject<bool>();
             return hero;
         }

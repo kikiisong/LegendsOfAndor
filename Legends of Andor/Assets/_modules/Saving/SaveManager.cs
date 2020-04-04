@@ -53,7 +53,7 @@ namespace Saving
         {
             return new JArray(
                 from player in PhotonNetwork.CurrentRoom.Players.Values
-                let hero = (Hero)player.CustomProperties[K.Player.hero]
+                let hero = (Hero)player.GetHero()
                 select new JObject
                 {
                     {"type", new JValue(hero.type) },

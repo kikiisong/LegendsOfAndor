@@ -95,25 +95,6 @@ public class Hero : ScriptableObject
     {
         ARCHER, WARRIOR, WIZARD, DWARF
     }
-
-    public static Hero FindInResources(Type type)
-    {
-        Resources.LoadAll<Hero>("Hero_SO");
-        foreach (Hero hero in Resources.FindObjectsOfTypeAll<Hero>())
-        {
-            if (hero.type == type) return Instantiate(hero);
-        }
-        throw new Exception("Hero not found in Resources");
-    }
-
-    public static List<Hero> FindAllInResources()
-    {
-        List<Hero> heroes = new List<Hero>();
-        foreach(Type type in Enum.GetValues(typeof(Type))){
-            heroes.Add(FindInResources(type));
-        }
-        return heroes;
-    }
     
     public int getDiceNum()
     {

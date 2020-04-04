@@ -49,7 +49,7 @@ public class GoldManager : MonoBehaviourPun
 
     void UpdateActive()
     {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
         if(hero.data.gold > 0)
         {
             drop.gameObject.SetActive(true);
@@ -87,7 +87,7 @@ public class GoldManager : MonoBehaviourPun
 
     void DropGold()
     {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
         if (hero.data.gold > 0)
         {
             List<Gold> golds = GameGraph.Instance.FindObjectsOnRegion<Gold>(Current);
@@ -112,14 +112,14 @@ public class GoldManager : MonoBehaviourPun
     [PunRPC]
     public void IncremHero(Player player)
     {
-        Hero h = (Hero)player.CustomProperties[K.Player.hero];
+        Hero h = (Hero)player.GetHero();
         h.data.gold++;
     }
 
     [PunRPC]
     public void DecremHero(Player player)
     {
-        Hero h = (Hero)player.CustomProperties[K.Player.hero];
+        Hero h = (Hero)player.GetHero();
         h.data.gold--;
     }
 }

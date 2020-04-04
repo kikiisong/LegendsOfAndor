@@ -20,7 +20,7 @@ public class SPFog : Fog
 
     public override void uncover()
     {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
         hero.data.SP += 1;
     }
 }

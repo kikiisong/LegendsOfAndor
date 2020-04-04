@@ -82,5 +82,6 @@ MonoBehaviour:
   - bought
   - createGor
   - createWitch
+  - SetHero
   DisableAutoOpenWizard: 1
   ShowSettings: 1

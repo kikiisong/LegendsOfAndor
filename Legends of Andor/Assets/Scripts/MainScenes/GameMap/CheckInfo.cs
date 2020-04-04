@@ -147,7 +147,7 @@ public class CheckInfo : MonoBehaviour
             }
             else if (num <= monsters.Count + heroMoveControllers.Count - 1)
             {
-                Hero hero = (Hero)heroMoveControllers[num - monsters.Count].photonView.Owner.CustomProperties[K.Player.hero];
+                Hero hero = (Hero)heroMoveControllers[num - monsters.Count].photonView.Owner.GetHero();
                 icon.sprite = hero.ui.GetSprite();
                 field1.text = "WILLPOWER:  " + hero.data.WP.ToString();
                 field2.text = "STRENGTH:  " + hero.data.SP.ToString();

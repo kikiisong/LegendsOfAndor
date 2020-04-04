@@ -26,7 +26,7 @@ public class WellManager : MonoBehaviourPun, TurnManager.IOnMove
     {
         if (PhotonNetwork.LocalPlayer == player)
         {
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
+            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
 
             List<Well> wellOnRegion = GameGraph.Instance.FindObjectsOnRegion<Well>(currentRegion);
 

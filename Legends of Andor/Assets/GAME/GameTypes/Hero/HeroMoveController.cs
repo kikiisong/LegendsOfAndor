@@ -15,7 +15,7 @@ public class HeroMoveController : MonoBehaviourPun
 
     void Start()
     {
-        Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+        Hero hero = (Hero)photonView.Owner.GetHero();
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
     }
 
@@ -31,7 +31,7 @@ public class HeroMoveController : MonoBehaviourPun
     public void MoveToClick()
     {
 
-        Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+        Hero hero = photonView.Owner.GetHero();
         Region current = GameGraph.Instance.FindNearest(transform.position);
         Vector3 position = GameGraph.Instance.CastRay(Input.mousePosition);
         Region clicked = GameGraph.Instance.FindNearest(position);

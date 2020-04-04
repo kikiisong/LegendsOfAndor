@@ -13,7 +13,7 @@ public class WPManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
         string wp = hero.data.WP.ToString();
         text.text = "WP: " + wp;
     }

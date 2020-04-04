@@ -30,7 +30,7 @@ public class TurnManager : MonoBehaviourPun
     {
         get
         {
-            return (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            return (Hero)PhotonNetwork.LocalPlayer.GetHero();
         }
     }
 
@@ -46,8 +46,8 @@ public class TurnManager : MonoBehaviourPun
 
         players.Sort((p1, p2) =>
         {
-            Hero h1 = (Hero)p1.CustomProperties[K.Player.hero];
-            Hero h2 = (Hero)p2.CustomProperties[K.Player.hero];
+            Hero h1 = (Hero)p1.GetHero();
+            Hero h2 = (Hero)p2.GetHero();
             return h2.constants.rank - h1.constants.rank;
         });
     }
@@ -71,7 +71,7 @@ public class TurnManager : MonoBehaviourPun
         List<Player> inSunriseBox = new List<Player>();
         foreach (Player p in players)
         {
-            Hero hero = (Hero)p.CustomProperties[K.Player.hero];
+            Hero hero = (Hero)p.GetHero();
             if (hero.data.numHours == 0) inSunriseBox.Add(p);
         }
         foreach (Player p in waiting)
@@ -131,7 +131,7 @@ public class TurnManager : MonoBehaviourPun
         turnIndex = players.IndexOf(next);
         waiting.Add(player);
 
-        Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+        Hero hero = (Hero)player.GetHero();
         hero.data.numHours = 0;
 
         //Notify
@@ -180,7 +180,7 @@ public class TurnManager : MonoBehaviourPun
     [PunRPC]
     public void HeroMoved(Player player, int currentRegion)
     {
-        Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+        Hero hero = (Hero)player.GetHero();
         hero.data.numHours++;
 
         if(hero.data.numHours > 7)

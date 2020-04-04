@@ -15,7 +15,7 @@ public class backpackUI : MonoBehaviour
     {
         get
         {
-            return (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            return (Hero)PhotonNetwork.LocalPlayer.GetHero();
         }
     }
 

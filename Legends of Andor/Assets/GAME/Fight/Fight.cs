@@ -92,12 +92,12 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     void plotCharacter() {
 
         Player player = PhotonNetwork.LocalPlayer;
-        if (player.CustomProperties.ContainsKey(K.Player.isFight))
+        if (player.CustomProperties.ContainsKey(P.K.isFight))
         {
-            bool fight = (bool)player.CustomProperties[K.Player.isFight];
+            bool fight = (bool)player.CustomProperties[P.K.isFight];
             if (fight) {
                 Debug.Log(player.NickName + "in fight");
-                Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+                Hero hero = (Hero)player.GetHero();
 
                 switch (hero.type)
                 {
@@ -148,7 +148,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         fHUD.setFightHUD_PLAYER();
         plotCharacter();
         player = PhotonNetwork.LocalPlayer;
-        hero = (Hero)player.CustomProperties[K.Player.hero];
+        hero = (Hero)player.GetHero();
         playerTurn();
         yield return new WaitForSeconds(2f);
 
@@ -250,7 +250,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     //--------ROLLFINISHED--------//
     public void OnSkillCompleted(Player player) {
 
-        Hero CurrentHero = (Hero)player.CustomProperties[K.Player.hero];
+        Hero CurrentHero = (Hero)player.GetHero();
         hero.data.diceNum = Mathf.Max(hero.data.diceNum, CurrentHero.data.diceNum);
         hero.data.attackNum += CurrentHero.data.SP;
         
@@ -395,7 +395,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable
                         {
-                            { K.Player.isFight, false }
+                            { P.K.isFight, false }
                         });
         //not possible to pass a Monster 
         FightTurnManager.TriggerRemove(player);

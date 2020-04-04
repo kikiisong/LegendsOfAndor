@@ -16,7 +16,7 @@ public class LoginManager : MonoBehaviour
     void Start()
     {
         //Last username
-        usernameView.text = PlayerPrefs.GetString(K.Preferences.USERNAME);
+        usernameView.text = PlayerPrefs.GetString(Preferences.USERNAME);
         Music.Play();
     }
 
@@ -37,7 +37,7 @@ public class LoginManager : MonoBehaviour
         }*/
         //Popup new name created
 
-        PlayerPrefs.SetString(K.Preferences.USERNAME, name); //How to store multiple names
+        PlayerPrefs.SetString(Preferences.USERNAME, name); //How to store multiple names
         SceneManager.LoadScene(nextScene);
     }
 }

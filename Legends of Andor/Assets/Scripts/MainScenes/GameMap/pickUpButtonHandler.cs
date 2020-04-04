@@ -12,7 +12,7 @@ public class pickUpButtonHandler : MonoBehaviourPun
 
     public void pickUpFarmer()
     {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
 
         Region currentRegion = findCurrentRegion();
 

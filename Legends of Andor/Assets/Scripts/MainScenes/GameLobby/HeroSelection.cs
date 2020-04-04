@@ -24,7 +24,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        heroes = Hero.FindAllInResources();
+        heroes = Helper.FindAllInResources();
         transform.position = SetUp.Instance.spawnPoints[photonView.Owner.ActorNumber - 1].position;
         Display();
     }
@@ -34,12 +34,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
     void Update()
     {
         Display();
-        bool amReady = false;
-        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(K.Player.isReady))
-        {
-            amReady = (bool)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.isReady];
-        }
-        if (!amReady && photonView.IsMine)
+        if (!PhotonNetwork.LocalPlayer.IsReady() && photonView.IsMine)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
