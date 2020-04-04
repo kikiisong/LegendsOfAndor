@@ -8,8 +8,6 @@ using System;
 
 public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    private Text _roomName;
     [SceneName]
     public string nextScene;
 
@@ -17,6 +15,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     public void Click_CreateRoom()
     {
+        MainLobbyManager.IsSaved = false;
         if (!PhotonNetwork.IsConnected) return;
 
         RoomOptions options = new RoomOptions
@@ -24,7 +23,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
             MaxPlayers = 4
         };
        
-        if(!PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, TypedLobby.Default)){
+        if(!PhotonNetwork.JoinOrCreateRoom(MainLobbyManager.Instance.roomNameUI.text, options, TypedLobby.Default)){
             TryCreate();
         }
         
@@ -34,7 +33,8 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     {
         RoomOptions options = new RoomOptions
         {
-            MaxPlayers = 4
+            MaxPlayers = 4,
+
         };
         PhotonNetwork.CreateRoom("Room" + attempts, options, TypedLobby.Default);
         attempts++;
@@ -42,13 +42,14 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom()
     {
-        Debug.Log("Created room successfully. ", this);
-        //roomsCanvases.CurrentRoomCanvas.Show();
+        if (MainLobbyManager.IsSaved) return;
+        print("Created room successfully.");
         PhotonNetwork.LoadLevel(nextScene);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
+        if (MainLobbyManager.IsSaved) return;
         Debug.Log("Room creation failed: " + message, this);
         if (attempts > 0) TryCreate();
     }

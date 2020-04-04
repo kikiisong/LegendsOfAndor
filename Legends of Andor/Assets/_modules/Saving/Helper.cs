@@ -25,7 +25,7 @@ namespace Saving
         {
             get
             {
-                return Application.isEditor ? Application.dataPath : Application.persistentDataPath;
+                return Application.isEditor ? Directory.GetParent(Application.dataPath).FullName : Application.persistentDataPath;
             }
         }
 

@@ -5,22 +5,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using Custom;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-
-//Connects to server
-public class Connect : MonoBehaviourPunCallbacks
+public class MainLobbyManager : MonoBehaviourPunCallbacks
 {
     [SceneName]
     public string previous;
 
     public GameObject createRoom;
+    public Text roomNameUI;
 
+    public static MainLobbyManager Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public static bool IsSaved = false;
 
     // Start is called before the first frame update
     void Start()
     {
         createRoom.SetActive(false);
+        Connect();
+    }
 
+    void Connect()
+    {
         print("Connecting to server");
         PhotonNetwork.NickName = PlayerPrefs.GetString(K.Preferences.USERNAME);
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -28,29 +40,27 @@ public class Connect : MonoBehaviourPunCallbacks
         CustomTypes.Register();
     }
 
+    public void Click_Disconnect()
+    {
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene(previous);
+    }  
+
+    //Callbacks
     public override void OnConnectedToMaster()
     {
         print("Connected to server");
-
         PhotonNetwork.JoinLobby();
     }
 
     public override void OnJoinedLobby()
     {
-        base.OnJoinedLobby();
         print("Joined lobby " + PhotonNetwork.CurrentLobby.Name);
-
         createRoom.SetActive(true);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
         print("Disconnected from server for reason " + cause.ToString());
-    }
-
-    public void Click_Disconnect()
-    {
-        PhotonNetwork.Disconnect();
-        SceneManager.LoadScene(previous);
     }
 }

@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main/GameLobby.unity
     guid: c003f165ab951e04c87b3869d3d35ae5
   - enabled: 1
+    path: Assets/Scenes/Main/GameLobby_Saved.unity
+    guid: b7ecac47ad6c5de448ad39c4cc664ab5
+  - enabled: 1
     path: Assets/Scenes/Main/Distribute.unity
     guid: e7b349bb713435944916e6f6d0414703
   - enabled: 1
