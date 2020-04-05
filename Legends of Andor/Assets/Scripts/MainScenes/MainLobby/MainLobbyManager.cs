@@ -55,8 +55,6 @@ public class MainLobbyManager : MonoBehaviourPunCallbacks
     {
         print("Joined lobby " + PhotonNetwork.CurrentLobby.Name);
         createRoom.SetActive(true);
-        print(PhotonNetwork.LocalPlayer.IsReady());
-
     }
 
     public override void OnDisconnected(DisconnectCause cause)

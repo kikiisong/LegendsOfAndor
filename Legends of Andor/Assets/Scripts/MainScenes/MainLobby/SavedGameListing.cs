@@ -28,6 +28,7 @@ public class SavedGameListing : MonoBehaviourPunCallbacks
             { "json", json.ToString()}
         };
 
-        PhotonNetwork.CreateRoom(MainLobbyManager.Instance.roomNameUI.text, options, TypedLobby.Default);
-    } 
+        //PhotonNetwork.CreateRoom(MainLobbyManager.Instance.roomNameUI.text, options, TypedLobby.Default);
+        PhotonNetwork.CreateRoom(textUI.text, options, TypedLobby.Default);
+    }
 }

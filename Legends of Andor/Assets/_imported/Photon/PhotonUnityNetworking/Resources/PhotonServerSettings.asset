@@ -83,5 +83,6 @@ MonoBehaviour:
   - createGor
   - createWitch
   - SetHero
+  - Init
   DisableAutoOpenWizard: 1
   ShowSettings: 1
