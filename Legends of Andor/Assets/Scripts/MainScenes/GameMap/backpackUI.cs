@@ -11,6 +11,7 @@ public class backpackUI : MonoBehaviour
 
     public List<GameObject> slots = new List<GameObject>();
     private int emptySlot = 0;
+    private bool initGold = true;
     Hero hero
     {
         get
@@ -38,6 +39,7 @@ public class backpackUI : MonoBehaviour
 
         }
         emptySlot = 0;
+        //hero.data.brew = 2;
         Debug.Log("clicked");
         populateBag();
   
@@ -68,12 +70,17 @@ public class backpackUI : MonoBehaviour
 }
 public void populateBag()
 {
-    if (hero.data.numWineskin > 0)
+    if (initGold)
+    {
+        fillBag(emptySlot, "coin", 23);
+        emptySlot++;
+    }
+        if (hero.data.numWineskin > 0)
     {
         fillBag(emptySlot, "wineskin", hero.data.numWineskin);
         emptySlot++;
     }
-    if (hero.data.gold > 0)
+    if (hero.data.gold > 0 )
     {
         fillBag(emptySlot, "coin", hero.data.gold);
         emptySlot++;
