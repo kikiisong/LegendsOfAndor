@@ -41,7 +41,6 @@ public class GameMapManager : MonoBehaviourPun
     [PunRPC]
     public void LeaveRoom()
     {
-        Time.timeScale = 1f;
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene(leaveScene);
     }

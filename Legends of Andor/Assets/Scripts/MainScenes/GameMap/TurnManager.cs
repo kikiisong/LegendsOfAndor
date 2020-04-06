@@ -24,7 +24,7 @@ public class TurnManager : MonoBehaviourPun
     List<IOnSunrise> onSunrises = new List<IOnSunrise>();
 
     //Helper
-    static TurnHelper helper = new TurnHelper();
+    public static TurnHelper helper = new TurnHelper();
 
     static Hero CurrentHero
     {

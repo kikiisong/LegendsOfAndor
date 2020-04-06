@@ -26,11 +26,10 @@ namespace Saving
         {
             JObject jObject = new JObject(
                 new JProperty("room", JRoom()),
-                new JProperty("heroes", JHeroes())                
-                );
+                new JProperty("heroes", JHeroes()),                
+                new JProperty("monsters", JMonsters()));
 
             File.WriteAllText(Helper.GetPath(file_name), jObject.ToString());
-            Helper.RefreshEditor();
         }
 
         public void Click_Save()
@@ -54,6 +53,17 @@ namespace Saving
             return new JArray(
                 from player in PhotonNetwork.CurrentRoom.Players.Values
                 select J.FromHero(player.GetHero(), player.GetCurrentRegion().label));
+        }
+
+        private JArray JMonsters()
+        {
+            return new JArray(
+                from monster in GameObject.FindObjectsOfType<MonsterMoveController>()
+                select new JObject
+                {
+                    {"type", new JValue(monster.type)},
+                    {"region", monster.CurrentRegion.label }
+                });
         }
     }
 }

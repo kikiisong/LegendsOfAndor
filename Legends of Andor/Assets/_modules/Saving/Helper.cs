@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 
 namespace Saving
@@ -46,13 +43,6 @@ namespace Saving
         public static JObject GetJson(string file_name, string file_extension = "json")
         {
             return JObject.Parse(File.ReadAllText(GetPath(file_name, file_extension: file_extension)));
-        }
-
-        public static void RefreshEditor()
-        {
-            #if UNITY_EDITOR
-            AssetDatabase.Refresh();
-            #endif
         }
     }
 }
