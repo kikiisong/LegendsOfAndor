@@ -28,7 +28,7 @@ public class popUp : MonoBehaviour
     {
         //merchants = GameObject.FindObjectsOfType<Merchant>();
 
-        hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
 
     }
 

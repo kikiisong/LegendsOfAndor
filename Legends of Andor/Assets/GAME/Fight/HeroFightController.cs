@@ -24,7 +24,7 @@ public class HeroFightController : MonoBehaviourPun
     {
         times = getDiceNum();
         btimes = hero.data.blackDice;
-        hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
     }
 
 

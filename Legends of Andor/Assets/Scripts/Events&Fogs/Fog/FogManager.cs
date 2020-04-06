@@ -23,7 +23,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
     {
         if (PhotonNetwork.LocalPlayer == player)
         {
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
+            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
 
             List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(currentRegion);
 

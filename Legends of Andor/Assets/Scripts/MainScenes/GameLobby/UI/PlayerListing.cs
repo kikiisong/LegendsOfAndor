@@ -15,7 +15,7 @@ public class PlayerListing : MonoBehaviour
     {
         Player = player;
         text.text = player.NickName;
-        P.OnKey<bool>(player, "isReady", val =>
+        OnKey<bool>(player, "isReady", val =>
         {
             if (val)
             {
@@ -23,10 +23,7 @@ public class PlayerListing : MonoBehaviour
             }
         });
     }
-}
 
-public class P
-{
     public static bool OnKey<T>(Player player, string key, Action<T> callback)
     {
         if (player.CustomProperties.ContainsKey(key))

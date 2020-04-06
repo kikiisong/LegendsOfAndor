@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using UnityEngine;
+
 using UnityEngine.UI;
 using TMPro;
 
@@ -25,7 +25,7 @@ public class heroPanelUI : MonoBehaviour
     {
         get
         {
-            return (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            return (Hero)PhotonNetwork.LocalPlayer.GetHero();
         }
     }
 

@@ -2,6 +2,7 @@
 using SavingSystem;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -14,6 +15,7 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        print("currentPath:" + Directory.GetCurrentDirectory());
         print("consoleLogPath: " + Application.consoleLogPath);
         print("dataPath: " + Application.dataPath);
         print("persistentDataPath: " + Application.persistentDataPath);

@@ -7,10 +7,6 @@ public class GameMapManager : MonoBehaviour
 {
     public static GameMapManager Instance;
 
-    [Header("Instantiate")]
-    public GameObject heroPrefab;
-    public GameObject timeMarkerPrefab;
-
     [Header("TimeMarkers")]
     public List<Transform> timeMarkerUpdatePositions;
     public List<Transform> timeMarkerInitialPositions;
@@ -27,12 +23,6 @@ public class GameMapManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        PhotonNetwork.Instantiate(heroPrefab);
-        PhotonNetwork.Instantiate(timeMarkerPrefab);
-    }
 
     // Update is called once per frame
     void Update()

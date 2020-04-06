@@ -16,7 +16,7 @@ public class drapDownButtonHandler : MonoBehaviourPun
 
     private void detectIfThereAMonster()
     {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
 
         Region currentRegion = findCurrentRegion();
 
@@ -36,7 +36,7 @@ public class drapDownButtonHandler : MonoBehaviourPun
 
     public void dropDownFarmer()
     {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Scene
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
 
         Region currentRegion = findCurrentRegion();
 

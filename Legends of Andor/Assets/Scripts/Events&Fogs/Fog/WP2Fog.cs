@@ -20,7 +20,7 @@ public class WPFog : Fog
 
     public override void uncover()
     {
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
         hero.data.WP += 2;
     }
 

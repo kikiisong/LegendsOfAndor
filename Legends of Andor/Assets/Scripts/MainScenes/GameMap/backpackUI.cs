@@ -1,4 +1,3 @@
-﻿
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,16 +10,16 @@ public class backpackUI : MonoBehaviour
 
     public List<GameObject> slots = new List<GameObject>();
     private int emptySlot = 0;
-    private bool initGold = true;
     Hero hero
     {
         get
         {
-            return (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            return (Hero)PhotonNetwork.LocalPlayer.GetHero();
         }
     }
 
     private void Start()
+
     {
         /*     GameObject itemsList = GameObject.Find("/Canvas/Backpack/ItemsList");
              for(int i = 0; i < 18; i++)
@@ -28,7 +27,10 @@ public class backpackUI : MonoBehaviour
                  slots.Add(itemsList.transform.GetChild(i).gameObject);
              }
            //  populateBag();*/
+
     }
+
+
 
     public void Open()
     {
@@ -39,7 +41,6 @@ public class backpackUI : MonoBehaviour
 
         }
         emptySlot = 0;
-        //hero.data.brew = 2;
         Debug.Log("clicked");
         populateBag();
   
@@ -130,6 +131,6 @@ public int EmptySlot()
     }
     return 0;
 }
+   } 
     
-    
-}
+

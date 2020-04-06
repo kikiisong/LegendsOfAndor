@@ -25,8 +25,6 @@ namespace Card
         {
             TurnManager.Register(this);
             //TODO: move from region 80 to A
-            //  LegendCard.Cards[LegendCard.Letter.A].Event();
-
         }
 
         //call once, affects everyone
@@ -51,7 +49,7 @@ namespace Card
 
         public void releaseNewRventCard()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void handLegendCard()

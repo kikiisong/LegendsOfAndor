@@ -5,52 +5,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using Custom;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-
-//Connects to server
-public class Connect : MonoBehaviourPunCallbacks
+public class MainLobbyManager : MonoBehaviourPunCallbacks
 {
     [SceneName]
     public string previous;
 
     public GameObject createRoom;
+    public Text roomNameUI;
 
+    public static MainLobbyManager Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         createRoom.SetActive(false);
+        Connect();
+    }
 
+    void Connect()
+    {
         print("Connecting to server");
-        PhotonNetwork.NickName = PlayerPrefs.GetString(K.Preferences.USERNAME);
+        PhotonNetwork.NickName = PlayerPrefs.GetString(Preferences.USERNAME);
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
         CustomTypes.Register();
-    }
-
-    public override void OnConnectedToMaster()
-    {
-        print("Connected to server");
-
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        base.OnJoinedLobby();
-        print("Joined lobby " + PhotonNetwork.CurrentLobby.Name);
-
-        createRoom.SetActive(true);
-    }
-
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        print("Disconnected from server for reason " + cause.ToString());
     }
 
     public void Click_Disconnect()
     {
         PhotonNetwork.Disconnect();
         SceneManager.LoadScene(previous);
+    }  
+
+    //Callbacks
+    public override void OnConnectedToMaster()
+    {
+        print("Connected to server");
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnJoinedLobby()
+    {
+        print("Joined lobby " + PhotonNetwork.CurrentLobby.Name);
+        createRoom.SetActive(true);
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        print("Disconnected from server for reason " + cause.ToString());
     }
 }
