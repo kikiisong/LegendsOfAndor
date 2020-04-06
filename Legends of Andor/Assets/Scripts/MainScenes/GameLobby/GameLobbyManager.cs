@@ -117,6 +117,5 @@ public class GameLobbyManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene(previousScene);
-        PhotonNetwork.LocalPlayer.Reset();
     }
 }

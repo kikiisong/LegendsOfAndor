@@ -71,7 +71,7 @@ public class backpackUI : MonoBehaviour
 }
 public void populateBag()
 {
-    if (initGold)
+    /*if (initGold)
     {
         fillBag(emptySlot, "coin", 23);
         emptySlot++;
@@ -115,7 +115,7 @@ public void populateBag()
     {
         fillBag(emptySlot, "falcon", hero.data.falcon);
         emptySlot++;
-    }
+    }*/
 
 
 }

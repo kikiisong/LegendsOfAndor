@@ -21,11 +21,11 @@ public class heroPanelUI : MonoBehaviour
     public Image icon;
     
 
-    Hero hero
+    Hero Hero
     {
         get
         {
-            return (Hero)PhotonNetwork.LocalPlayer.GetHero();
+            return PhotonNetwork.LocalPlayer.GetHero();
         }
     }
 
@@ -35,7 +35,7 @@ public class heroPanelUI : MonoBehaviour
     {
 
         //icon = GetComponent<Image>();
-        icon.sprite = hero.ui.GetSprite();
+        icon.sprite = Hero.ui.GetSprite();
     }
 
     
@@ -44,11 +44,11 @@ public class heroPanelUI : MonoBehaviour
     void Update()
     {
 
-        wp.value = hero.data.WP;
-        sp.value = hero.data.SP;
-        wpNum.text = "WILLPOWER:  " + hero.data.WP.ToString();
-        spNum.text = "STRENGTH:  " + hero.data.SP.ToString();
-        gold.text = hero.data.gold.ToString();
+        wp.value = Hero.data.WP;
+        sp.value = Hero.data.SP;
+        wpNum.text = "WILLPOWER:  " + Hero.data.WP.ToString();
+        spNum.text = "STRENGTH:  " + Hero.data.SP.ToString();
+        gold.text = Hero.data.gold.ToString();
 
     }
 
