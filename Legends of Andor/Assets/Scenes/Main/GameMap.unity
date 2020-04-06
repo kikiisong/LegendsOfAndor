@@ -12786,6 +12786,7 @@ GameObject:
   - component: {fileID: 1159201693}
   - component: {fileID: 1159201694}
   - component: {fileID: 1159201696}
+  - component: {fileID: 1159201697}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -12821,10 +12822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844c77fca58e2824699fc20dcb0f020f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroPrefab: {fileID: 7351001240829586624, guid: 18cc0c7a9cfb3be4193dcc376636208f,
-    type: 3}
-  timeMarkerPrefab: {fileID: 6007742235842389979, guid: 1e94290d65eec984c8dd81355c769607,
-    type: 3}
   timeMarkerUpdatePositions:
   - {fileID: 1744878464}
   - {fileID: 2052190128}
@@ -12889,6 +12886,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf7965332dc1034cad23ff91cb9d9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1159201697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159201691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f47eaad2f281a046a4a3959d44fc72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroPrefab: {fileID: 7351001240829586624, guid: 18cc0c7a9cfb3be4193dcc376636208f,
+    type: 3}
+  timeMarkerPrefab: {fileID: 6007742235842389979, guid: 1e94290d65eec984c8dd81355c769607,
+    type: 3}
 --- !u!1 &1174015845
 GameObject:
   m_ObjectHideFlags: 0

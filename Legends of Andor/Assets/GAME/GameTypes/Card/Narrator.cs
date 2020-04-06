@@ -25,8 +25,6 @@ namespace Card
         {
             TurnManager.Register(this);
             //TODO: move from region 80 to A
-              LegendCard.Cards[LegendCard.Letter.A].Event();
-
         }
 
         //call once, affects everyone

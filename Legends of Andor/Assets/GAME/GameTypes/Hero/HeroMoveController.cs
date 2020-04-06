@@ -30,7 +30,6 @@ public class HeroMoveController : MonoBehaviourPun
 
     public void MoveToClick()
     {
-
         Hero hero = photonView.Owner.GetHero();
         Region current = GameGraph.Instance.FindNearest(transform.position);
         Vector3 position = GameGraph.Instance.CastRay(Input.mousePosition);

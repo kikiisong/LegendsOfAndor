@@ -37,6 +37,18 @@ public class SelectHero : MonoBehaviourPunCallbacks
         }
     }
 
+    private void Start()
+    {
+        if (IsSelected)
+        {
+            text.text = "Taken";
+        }
+        else
+        {
+            text.text = "Select";
+        }
+    }
+
     public void InitRPC(JToken jToken)
     {
         photonView.RPC("Init", RpcTarget.AllBuffered, jToken.ToString());

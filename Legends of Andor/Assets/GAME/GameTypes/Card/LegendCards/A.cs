@@ -54,7 +54,7 @@ namespace Card
             {
                 if (controller.photonView.IsMine)
                 {
-                    Hero hero = (Hero)controller.photonView.Owner.GetHero();
+                    Hero hero = controller.photonView.Owner.GetHero();
                     switch (hero.type)
                     {
                         case Hero.Type.DWARF:

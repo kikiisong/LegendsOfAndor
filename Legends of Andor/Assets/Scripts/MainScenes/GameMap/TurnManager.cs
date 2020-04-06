@@ -30,7 +30,7 @@ public class TurnManager : MonoBehaviourPun
     {
         get
         {
-            return (Hero)PhotonNetwork.LocalPlayer.GetHero();
+            return PhotonNetwork.LocalPlayer.GetHero();
         }
     }
 
@@ -46,8 +46,8 @@ public class TurnManager : MonoBehaviourPun
 
         players.Sort((p1, p2) =>
         {
-            Hero h1 = (Hero)p1.GetHero();
-            Hero h2 = (Hero)p2.GetHero();
+            Hero h1 = p1.GetHero();
+            Hero h2 = p2.GetHero();
             return h2.constants.rank - h1.constants.rank;
         });
     }
