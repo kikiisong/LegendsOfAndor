@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 
@@ -11,6 +12,12 @@ namespace Card
         public static Narrator Instance;
         public List<Transform> narratorPositions;
         public int currentLoc;
+
+        public int[] orderofEvents;
+        private static System.Random rand = new System.Random();
+        public int currentEventIndex;
+
+        public GameObject myEventCardController;
 
         private void Awake()
         {
@@ -25,7 +32,43 @@ namespace Card
         {
             TurnManager.Register(this);
             //TODO: move from region 80 to A
+            int[] temp = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+            orderofEvents = temp;
+            shuffleArray(orderofEvents);
+            currentEventIndex = 0;
+            releaseNewRventCard();
+            //printlist();
         }
+
+        // shuffle the int array
+        public static void shuffleArray(int[] a)
+        {
+            int n = a.Length;
+            System.Random rand = new System.Random();
+
+            for(int i = 0; i < n; i++)
+            {
+                swap(a, i, i + rand.Next(n - i));
+            }
+        }
+
+        // helper method for the shuffle function
+        public static void swap(int[] arr, int a, int b)
+        {
+            int temp = arr[a];
+            arr[a] = arr[b];
+            arr[b] = temp;
+        }
+
+        public void printlist()
+        {
+            print("you should have arrived here.");
+            for(int i = 0; i < orderofEvents.Length; i++)
+            {
+                print(orderofEvents[i]);
+            }
+        }
+
 
         //call once, affects everyone
         public void Advance()
@@ -45,11 +88,15 @@ namespace Card
 
             handLegendCard();
             releaseNewRventCard();
+
         }
 
         public void releaseNewRventCard()
         {
-            //throw new NotImplementedException();
+            // should send orderofEvents[currentEventIndex]
+            myEventCardController.GetComponent<EventCardController>().newEventCard(orderofEvents[currentEventIndex]);
+            // increase the event card index, next time will pick another one
+            currentEventIndex += 1;
         }
 
         private void handLegendCard()

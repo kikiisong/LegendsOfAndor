@@ -71,7 +71,8 @@ public class backpackUI : MonoBehaviour
 }
 public void populateBag()
 {
-    if (initGold)
+        bool initGold = false;
+        if (initGold)
     {
         fillBag(emptySlot, "coin", 23);
         emptySlot++;
