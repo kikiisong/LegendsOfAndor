@@ -20,17 +20,15 @@ public class eventCardButton : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit hitInfo = new RaycastHit();
-            bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
-            if (hit)
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo))
             {
-                Debug.Log("Hit " + hitInfo.transform.gameObject.name);
+                Debug.Log("Hit card" + hitInfo.transform.gameObject.name);
                 //if (hitInfo.transform.gameObject.tag == "Construction")
                    // showTheWindow();
             }
             else
             {
-                Debug.Log("No hit");
+                Debug.Log("No card hit");
             }
            
         }
