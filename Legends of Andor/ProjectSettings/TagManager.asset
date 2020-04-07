@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hero
   - Music
+  - Eventbutton
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - 
   - Graph
   - Container
-  - 
+  - EventcardButton
   - 
   - 
   - 

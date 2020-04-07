@@ -20,10 +20,12 @@ public class eventCardButton : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo, LayerMask.GetMask("EventcardButton")))
             {
-                Debug.Log("Hit card" + hitInfo.transform.gameObject.name);
-                //if (hitInfo.transform.gameObject.tag == "Construction")
+                if (hitInfo.transform.gameObject.tag == "Eventbutton")
+                {
+                    Debug.Log("Hit card" + hitInfo.transform.gameObject.name);
+                }
                    // showTheWindow();
             }
             else

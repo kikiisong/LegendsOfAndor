@@ -8541,9 +8541,9 @@ GameObject:
   - component: {fileID: 714773213}
   - component: {fileID: 714773211}
   - component: {fileID: 714773212}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EventCardButton
-  m_TagString: Untagged
+  m_TagString: Eventbutton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8609,7 +8609,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10.56, y: 6.84, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!114 &714773213
 MonoBehaviour:
   m_ObjectHideFlags: 0
