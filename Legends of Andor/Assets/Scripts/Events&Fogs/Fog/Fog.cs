@@ -7,7 +7,6 @@ using Photon.Realtime;
 public class Fog : MonoBehaviourPun
 {
     public int region;
-    private Renderer fogIcon;
     public int type;
     public EventCardController myEvents;
 

@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
 {
-    public Fog fogPrefab;
+    
     // Start is called before the first frame update
     void Start()
     {
