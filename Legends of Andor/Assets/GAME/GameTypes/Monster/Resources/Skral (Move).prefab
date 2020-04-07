@@ -122,7 +122,7 @@ PrefabInstance:
     - target: {fileID: 7212973014301622452, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: m_Name
-      value: Skral
+      value: Skral (Move)
       objectReference: {fileID: 0}
     - target: {fileID: 7684283073591853297, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}

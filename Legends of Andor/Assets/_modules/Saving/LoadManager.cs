@@ -1,4 +1,5 @@
 ﻿using Card;
+using Monsters;
 using Newtonsoft.Json.Linq;
 using Photon.Pun;
 using System.Collections;
@@ -12,6 +13,10 @@ namespace Saving
         [Header("Instantiate")]
         public GameObject heroPrefab;
         public GameObject timeMarkerPrefab;
+        [Header("Monsters")]
+        public MonsterMoveController gor;
+        public MonsterMoveController skral;
+        public MonsterMoveController wardrak;
 
         //Getters
         Region InitialRegion
@@ -64,9 +69,30 @@ namespace Saving
 
         void LoadPreviousState()
         {
-            PhotonNetwork.Instantiate(heroPrefab.name, InitialRegion.position, Quaternion.identity);
+            //Hero
+            PhotonNetwork.Instantiate(heroPrefab.name, InitialRegion.position, Quaternion.identity); //your hero
             PhotonNetwork.Instantiate(timeMarkerPrefab);
-
+            //Monsters
+            if (PhotonNetwork.IsMasterClient)
+            {
+                foreach(var j in Room.Json["monsters"])
+                {
+                    MonsterType type = j["type"].ToObject<MonsterType>();
+                    int label = j["region"].ToObject<int>();
+                    switch (type)
+                    {
+                        case MonsterType.Gor:
+                            PhotonNetwork.Instantiate(gor.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                            break;
+                        case MonsterType.Skral:
+                            PhotonNetwork.Instantiate(skral.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                            break;
+                        case MonsterType.Wardrak:
+                            PhotonNetwork.Instantiate(wardrak.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                            break;
+                    }
+                }
+            }
         }
     }
 }

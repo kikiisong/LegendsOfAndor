@@ -71,6 +71,11 @@ public static class P
         }
         throw new System.Exception("Not found");
     }
+
+    public static bool HasMoved(this Player player)
+    {
+        return TurnManager.helper.hasMoved;
+    }
 }
 
 public static class Room

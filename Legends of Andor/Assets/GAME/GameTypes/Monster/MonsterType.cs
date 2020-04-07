@@ -7,7 +7,6 @@ namespace Monsters
     {
         [Monster(1, 1)] Gor,
         [Monster(1, 1)] Skral,
-        [Monster(1, 1)] Troll,
         [Monster(1, 1)] Wardrak
     }
 
