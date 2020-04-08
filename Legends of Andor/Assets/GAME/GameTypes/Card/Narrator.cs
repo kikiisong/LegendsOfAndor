@@ -32,7 +32,7 @@ namespace Card
         {
             TurnManager.Register(this);
             //TODO: move from region 80 to A
-            int[] temp = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+            int[] temp = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
             orderofEvents = temp;
             shuffleArray(orderofEvents);
             currentEventIndex = 0;
