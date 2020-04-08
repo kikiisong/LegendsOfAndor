@@ -85,7 +85,5 @@ MonoBehaviour:
   - SetHero
   - Init
   - LeaveRoom
-  - Encounter
-  - Place
   DisableAutoOpenWizard: 1
   ShowSettings: 1

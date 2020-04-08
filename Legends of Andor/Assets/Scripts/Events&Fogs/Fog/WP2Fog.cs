@@ -4,9 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public abstract class Fog : MonoBehaviourPun
+public class WPFog : Fog
 {
-    public int region;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +15,13 @@ public abstract class Fog : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
-    public abstract void uncover();
+    public override void uncover()
+    {
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
+        hero.data.WP += 2;
+    }
+
 }

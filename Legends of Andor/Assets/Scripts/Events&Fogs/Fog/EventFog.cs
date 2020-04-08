@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-using Photon.Realtime;
 
-public abstract class Fog : MonoBehaviourPun
+public class EventFog : Fog
 {
-    public int region;
+    public EventCardController myEvents;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,5 +18,8 @@ public abstract class Fog : MonoBehaviourPun
         
     }
 
-    public abstract void uncover();
+    public override void uncover()
+    {
+        myEvents.flipped();
+    }
 }
