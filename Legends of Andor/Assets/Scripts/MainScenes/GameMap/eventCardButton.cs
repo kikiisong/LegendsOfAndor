@@ -24,7 +24,7 @@ public class eventCardButton : MonoBehaviour
             bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
             if (hit)
             {
-                Debug.Log("Hit " + hitInfo.transform.gameObject.name);
+             ///   Debug.Log("Hit " + hitInfo.transform.gameObject.name);
                 //if (hitInfo.transform.gameObject.tag == "Construction")
                    // showTheWindow();
             }

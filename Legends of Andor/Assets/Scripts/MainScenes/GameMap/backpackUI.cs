@@ -41,7 +41,7 @@ public class backpackUI : MonoBehaviour
 
         }
         emptySlot = 0;
-        Debug.Log("clicked");
+       // Debug.Log("clicked");
         populateBag();
   
     }
@@ -50,15 +50,15 @@ public class backpackUI : MonoBehaviour
 {
 
     GameObject itemsList = GameObject.Find("/Canvas/Backpack/ItemsList");
-        Debug.Log("found itemlist");
+       // Debug.Log("found itemlist");
     Sprite spriteToLoad = Resources.Load<Sprite>(spriteName);
 
     GameObject image = itemsList.gameObject.transform.GetChild(slotNumber).GetChild(0).gameObject;
-        Debug.Log("found item");
-        Debug.Log(image.name);
+    //    Debug.Log("found item");
+      //  Debug.Log(image.name);
        
     GameObject text = itemsList.gameObject.transform.GetChild(slotNumber).GetChild(1).gameObject;
-    Debug.Log("found itemlist");
+   // Debug.Log("found itemlist");
 
     Image img = image.gameObject.GetComponent<Image>();
     Text tx = text.gameObject.GetComponent<Text>();

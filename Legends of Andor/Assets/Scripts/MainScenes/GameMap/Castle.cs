@@ -1,12 +1,12 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
 public class Castle : MonoBehaviour
 {
-    [SerializeField] public ExtraShield extraShiled;
-    [SceneName] public string nextScene;
+    //[SerializeField] public ExtraShield extraShiled;
+    //[SceneName] public string nextScene;
   //  [SerializeField] public GameGraph gameGraph;
 
     private void Start()
@@ -17,7 +17,7 @@ public class Castle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGameEnd();
+        //Castle.isGameEnd();
     }
 
     public void isGameEnd()
@@ -29,7 +29,7 @@ public class Castle : MonoBehaviour
         {
             if (monsterOnRegion.Count > 0)
             {
-                if (extraShiled.numberOfShileds > 0)
+              if (extraShiled.numberOfShileds > 0)
                 {
                     int differenceBetweenShieldAndMonsters = extraShiled.numberOfShileds - monsterOnRegion.Count;
                     if (differenceBetweenShieldAndMonsters < -3)
@@ -47,3 +47,4 @@ public class Castle : MonoBehaviour
         }
     }
 }
+*/

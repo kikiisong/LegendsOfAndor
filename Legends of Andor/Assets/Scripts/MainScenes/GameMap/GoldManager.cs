@@ -14,6 +14,7 @@ public class GoldManager : MonoBehaviourPun
 {
     public GameObject goldPrefab;
     public Button pickUp, drop;
+   
 
     Region Current
     {
