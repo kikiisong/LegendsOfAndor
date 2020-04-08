@@ -59,7 +59,7 @@ namespace Saving
 
         void LoadDefault()
         {
-            PhotonNetwork.Instantiate(heroPrefab);
+            PhotonNetwork.Instantiate(heroPrefab); //each player creates a hero
             PhotonNetwork.Instantiate(timeMarkerPrefab);
             if (PhotonNetwork.IsMasterClient)
             {
