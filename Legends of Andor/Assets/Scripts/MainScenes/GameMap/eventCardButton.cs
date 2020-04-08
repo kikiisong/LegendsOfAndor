@@ -22,7 +22,7 @@ public class eventCardButton : MonoBehaviour
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo, float.MaxValue , LayerMask.GetMask("EventCardButton")))
             {
-                Debug.Log("Hit card" + hitInfo.transform.gameObject.name);
+                showTheWindow();
             }
             else
             {
