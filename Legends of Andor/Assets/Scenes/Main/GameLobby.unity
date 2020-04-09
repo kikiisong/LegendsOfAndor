@@ -1224,7 +1224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db872b97870604f4e83ea0c38fb0c1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Distribute
+  nextScene: GameMap
   previousScene: MainLobby
   startGame: {fileID: 1501736641}
   difficulty: {fileID: 399663690}
