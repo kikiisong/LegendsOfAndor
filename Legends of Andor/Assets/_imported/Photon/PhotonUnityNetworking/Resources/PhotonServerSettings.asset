@@ -87,7 +87,5 @@ MonoBehaviour:
   - LeaveRoom
   - Encounter
   - Place
-  - Typing
-  - SP
   DisableAutoOpenWizard: 1
   ShowSettings: 1
