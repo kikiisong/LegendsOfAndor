@@ -2344,15 +2344,6 @@ namespace Photon.Pun
             return Instantiate(gameobject.name, gameobject.transform.position, gameobject.transform.rotation);
         }
 
-        /// <summary>
-        /// ADDED
-        /// </summary>
-        public static M Instantiate<M>(M monobehaviour) where M :MonoBehaviour
-        {
-            var gameobject = monobehaviour.gameObject;
-            return Instantiate(gameobject.name, gameobject.transform.position, gameobject.transform.rotation).GetComponent<M>();
-        }
-
         public static GameObject InstantiateSceneObject(string prefabName, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
         {
             if (LocalPlayer.IsMasterClient)

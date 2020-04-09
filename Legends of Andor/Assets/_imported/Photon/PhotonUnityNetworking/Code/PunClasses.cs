@@ -187,13 +187,6 @@ namespace Photon.Pun
             transform.localScale = originalScale;
         }
 
-        [PunRPC]
-        public void SetParent_Position(string objectName)
-        {
-            Transform parent = GameObject.Find(objectName).transform;
-            transform.SetParent(parent, false);
-        }
-
         /// <summary>
         /// Uses name to set parent.
         /// </summary>
@@ -201,11 +194,6 @@ namespace Photon.Pun
         public void SetParentRPC(GameObject parent)
         {
             photonView.RPC("SetParentWithName", RpcTarget.AllBuffered, parent.name, transform.localScale);
-        }
-
-        public void SetParentRPC_Keep(GameObject parent)
-        {
-            photonView.RPC("SetParent_Position", RpcTarget.AllBuffered, parent.name);
         }
         ///////////////////////////////////////////
         /// <summary>Cache field for the PhotonView on this GameObject.</summary>

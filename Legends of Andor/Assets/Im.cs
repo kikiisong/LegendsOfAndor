@@ -22,7 +22,6 @@ public class Im : MonoBehaviour
     {
 
     }
-#if UNITY_EDITOR
 
     public void OnMouseDown()
     {
@@ -73,7 +72,7 @@ public class Im : MonoBehaviour
             i.updateHeroStats(img.sprite.name, updateUnit);
         }
     }
-#endif
+
 
     public void updateHeroStats()
     {
