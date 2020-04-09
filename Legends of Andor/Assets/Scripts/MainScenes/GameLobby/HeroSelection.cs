@@ -34,12 +34,7 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
     void Update()
     {
         Display();
-        bool amReady = false;
-        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(K.Player.isReady))
-        {
-            amReady = (bool)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.isReady];
-        }
-        if (!amReady && photonView.IsMine)
+        if (!PhotonNetwork.LocalPlayer.IsReady() && photonView.IsMine)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {

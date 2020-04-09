@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Hero")]
+[CreateAssetMenu(menuName = "MyAssets/Hero")]
 public class Hero : ScriptableObject
 {
     public Type type;
@@ -14,22 +14,16 @@ public class Hero : ScriptableObject
     //Easy to serialize and sync accross all players
     [System.Serializable]
     public struct Data
-    {
-        /// <summary>
-        /// Willpower points
-        /// </summary>
+    { 
+        //Main
         public int WP;
-        public int blackDice;
-        /// <summary>
-        /// Strength points
-        /// </summary>
         public int SP;
-
         public int numHours;
 
+
+        public int blackDice;
         public int gold;
         
-
         public int regionNumber;
         // number of carried farmers
 
@@ -71,7 +65,6 @@ public class Hero : ScriptableObject
     [System.Serializable]
     public struct Constants
     {
-        public int StartingRegion;
         public int rank;
         //name, description, ...
     }
@@ -79,7 +72,7 @@ public class Hero : ScriptableObject
     [System.Serializable]
     public class UI
     {
-        private bool gender; // how to implement gender?
+        public bool gender;
 
         public Sprite female;
         public Sprite male;
@@ -101,25 +94,6 @@ public class Hero : ScriptableObject
     public enum Type
     {
         ARCHER, WARRIOR, WIZARD, DWARF
-    }
-
-    public static Hero FindInResources(Type type)
-    {
-        Resources.LoadAll<Hero>("Hero_SO");
-        foreach (Hero hero in Resources.FindObjectsOfTypeAll<Hero>())
-        {
-            if (hero.type == type) return Instantiate(hero);
-        }
-        throw new Exception("Hero not found in Resources");
-    }
-
-    public static List<Hero> FindAllInResources()
-    {
-        List<Hero> heroes = new List<Hero>();
-        foreach(Type type in Enum.GetValues(typeof(Type))){
-            heroes.Add(FindInResources(type));
-        }
-        return heroes;
     }
     
     public int getDiceNum()
@@ -166,7 +140,7 @@ public class Hero : ScriptableObject
                     return 2;
                 }
             default:
-                return 1;
+                throw new Exception();
         }
     }
 
@@ -242,4 +216,24 @@ public class Hero : ScriptableObject
         }
     }
 
+    //static
+    public static Hero FindInResources(Hero.Type type)
+    {
+        Resources.LoadAll<Hero>("Hero_SO");
+        foreach (Hero hero in Resources.FindObjectsOfTypeAll<Hero>())
+        {
+            if (hero.type == type) return UnityEngine.Object.Instantiate(hero);
+        }
+        throw new Exception("Hero not found in Resources");
+    }
+
+    public static List<Hero> FindAllInResources()
+    {
+        List<Hero> heroes = new List<Hero>();
+        foreach (Hero.Type type in Enum.GetValues(typeof(Hero.Type)))
+        {
+            heroes.Add(FindInResources(type));
+        }
+        return heroes;
+    }
 }

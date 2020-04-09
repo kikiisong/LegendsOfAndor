@@ -18,7 +18,7 @@ public class SceneSwitchWindow : EditorWindow
     /// <summary>
     /// Initialize window state.
     /// </summary>
-    [MenuItem("CustomTools/Scene Switch Window")]
+    [MenuItem("MyTools/Scene Switch Window")]
     internal static void Init()
     {
         // EditorWindow.GetWindow() will return the open instance of the specified window or create a new

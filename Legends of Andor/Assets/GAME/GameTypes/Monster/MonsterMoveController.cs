@@ -1,60 +1,41 @@
-﻿using Photon.Pun;
+﻿using Monsters;
+using Photon.Pun;
 using Routines;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MonsterMoveController : MonoBehaviourPun, TurnManager.IOnSunrise
+public class MonsterMoveController : MonoBehaviourPun
 {
-    public GameObject startGame;
-    public GameObject joinFight;
+    public MonsterType type;
+
     public Monster m;
 
-    public int regionlabel;
+    CoroutineQueue coroutineQueue;
 
+    //Getters
+    public Region CurrentRegion
+    {
+        get
+        {
+            return GameGraph.Instance.FindNearest(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        regionlabel = GameGraph.Instance.FindNearest(transform.position).label; //not reliable, could be 0, can be changed after Start
-        TurnManager.Register(this);
+        coroutineQueue = new CoroutineQueue(this);
+        coroutineQueue.StartLoop();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveAlongPath(List<Region> path)
     {
-        
-    }
-
-    public void OnSunrise()
-    {
-        MoveToNext(); //called in same order? otherwise different results for each player
-    }
-
-    void MoveToNext()
-    {
-        try
+        foreach (var region in path)
         {
-            Region next = GameGraph.Instance.NextEnemyRegion(GameGraph.Instance.FindNearest(transform.position));
-            regionlabel = next.label;
-            StartCoroutine(CommonRoutines.MoveTo(transform, next.position, 1, atEnd:()=> {
-                if (MonsterOnRegion()) MoveToNext();
-            }));
+            coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, region.position, 1));
         }
-        catch (GameGraph.NoNextRegionException)
-        {
-            
-        }
-    }
-
-
-    bool MonsterOnRegion()
-    {
-        foreach(MonsterMoveController monster in GameObject.FindObjectsOfType<MonsterMoveController>())
-        {
-            if (monster != this && regionlabel == monster.regionlabel) return true;
-        }
-        return false;
     }
 }

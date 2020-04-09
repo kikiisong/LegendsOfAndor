@@ -24,11 +24,8 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     public void Start()
     {
-        fight = GameObject.Find("FightButton");
         fight.SetActive(false);
-        ready = GameObject.Find("JoinFight");
         ready.SetActive(false);
-        start = GameObject.Find("StartButton");
         start.SetActive(false);
 
         TurnManager.Register(this);
@@ -40,7 +37,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
         if (PhotonNetwork.LocalPlayer == player)
         {
 
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];//photonView.Owner is the Sce
+            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Sce
             
             List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(currentRegion);
 
@@ -63,7 +60,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                         monster.m.isFighted = true;
                         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
-                            { K.Player.isFight, true }
+                            { P.K.isFight, true }
                         });
                         print(PhotonNetwork.LocalPlayer.NickName +" start a fight ");
 
@@ -119,7 +116,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                             //photonView.RPC("changeMonsterTofight", RpcTarget.All,choicesOfJoin[0].regionlabel);
                             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
-                            { K.Player.isFight, true }
+                            {P.K.isFight, true }
                         });
                             print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
 
@@ -150,7 +147,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
         print("Am I able to join?");
         isFight = true;
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
         List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(hero.data.regionNumber);
 
         if (MonsterOnMap.Count > 0)
@@ -160,7 +157,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
             monster.m.isFighted = true;
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
-                            { K.Player.isFight, true }
+                            { P.K.isFight, true }
                         });
             print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
 
@@ -183,7 +180,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                     monster.m.isFighted = true;
                     PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
-                            { K.Player.isFight, true }
+                            { P.K.isFight, true }
                         });
                     print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
                     break;
@@ -219,7 +216,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
             start.SetActive(false);
             if (PhotonNetwork.IsConnected)
                 //PhotonNetwork.LoadLevel(nextScene);
-                SceneManager.LoadSceneAsync(5, LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
         }
 
     }

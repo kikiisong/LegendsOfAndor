@@ -28,7 +28,7 @@ public class popUp : MonoBehaviour
     {
         //merchants = GameObject.FindObjectsOfType<Merchant>();
 
-        hero = (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+        hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
 
     }
 
@@ -51,6 +51,8 @@ public class popUp : MonoBehaviour
     {
         SceneManager.UnloadSceneAsync("MerchantScene");
     }
+
+    
 
 
 
@@ -135,7 +137,7 @@ public class popUp : MonoBehaviour
 
                     // you may put other code to run according to your game
                   
-                    buyItem("SP");
+                    buyItem(item);
                     
          
 

@@ -31,7 +31,7 @@ namespace Graph
                     return vertex;
                 }
             }
-            Debug.Log("Vertex not found");
+           // Debug.Log("Vertex not found");
             return v;
         }
 

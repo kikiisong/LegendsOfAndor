@@ -26,7 +26,7 @@ public class FightTurnManager : MonoBehaviourPun
     {
         get
         {
-            return (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            return PhotonNetwork.LocalPlayer.GetHero();
         }
     }
 
@@ -39,11 +39,11 @@ public class FightTurnManager : MonoBehaviourPun
         foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
         {
             Player player = pair.Value;
-            if (player.CustomProperties.ContainsKey(K.Player.isFight))
+            if (player.CustomProperties.ContainsKey(P.K.isFight))
             {
                 players.Add(player);
 
-                //if (((Hero)player.CustomProperties[K.Player.hero]).type == Hero.Type.WIZARD) {
+                //if (((Hero)player.GetHero()).type == Hero.Type.WIZARD) {
 
                 //    wizardJoined = true;
                 //}
@@ -159,7 +159,7 @@ public class FightTurnManager : MonoBehaviourPun
     [PunRPC]
     public void HeroFight(Player player)
     {
-        Hero hero = (Hero)player.CustomProperties[K.Player.hero];
+        Hero hero = player.GetHero();
         hero.data.numHours++;
 
         if (hero.data.numHours > 7)

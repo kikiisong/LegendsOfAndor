@@ -121,10 +121,15 @@ public class GameGraph : Graph<Region, Border>
         return closest;
     }
 
+    public Region FindNearest(GameObject gameObject)
+    {
+        return FindNearest(gameObject.transform.position);
+    }
+
     public Vector3 CastRay(Vector3 mousePosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        if(Physics.Raycast(ray, out RaycastHit hit, LayerMask.GetMask("Graph"))){
+        if(Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Graph"))){
             return hit.point;
         }
         else

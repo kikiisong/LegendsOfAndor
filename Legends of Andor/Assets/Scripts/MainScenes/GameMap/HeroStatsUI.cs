@@ -19,7 +19,7 @@ public class HeroStatsUI : MonoBehaviour
     {
         get
         {
-            return (Hero)PhotonNetwork.LocalPlayer.CustomProperties[K.Player.hero];
+            return (Hero)PhotonNetwork.LocalPlayer.GetHero();
         }
     }
     Region CurrentRegion

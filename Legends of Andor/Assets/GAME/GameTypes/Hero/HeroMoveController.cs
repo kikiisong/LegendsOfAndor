@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using Routines;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +16,8 @@ public class HeroMoveController : MonoBehaviourPun
 
     void Start()
     {
-        Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
+        Hero hero = photonView.Owner.GetHero();
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
-        hero.data.regionNumber = hero.constants.StartingRegion;
-        GameGraph.Instance.PlaceAt(gameObject, hero.constants.StartingRegion);
     }
 
     // Update is called once per frame
@@ -32,32 +31,27 @@ public class HeroMoveController : MonoBehaviourPun
 
     public void MoveToClick()
     {
-
-        Hero hero = (Hero)photonView.Owner.CustomProperties[K.Player.hero];
-        Region current = GameGraph.Instance.FindNearest(transform.position);
-        Vector3 position = GameGraph.Instance.CastRay(Input.mousePosition);
-        Region clicked = GameGraph.Instance.FindNearest(position);
-        bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
-        if (current.label != clicked.label && contained && (clicked.position - position).magnitude <= radius)
+        try
         {
-            hero.data.regionNumber = clicked.label;
-            isMoving = true;
-            StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, animation_time, () => {
-                TurnManager.TriggerEvent_Move(clicked);
-                isMoving = false;
-            }));
-        }
-    }
-
-    public static Region CurrentRegion()
-    {
-        foreach(HeroMoveController heroMoveController in GameObject.FindObjectsOfType<HeroMoveController>())
-        {
-            if(heroMoveController.photonView.Owner == PhotonNetwork.LocalPlayer)
+            Hero hero = photonView.Owner.GetHero();
+            Region current = GameGraph.Instance.FindNearest(transform.position);
+            Vector3 position = GameGraph.Instance.CastRay(Input.mousePosition);
+            Region clicked = GameGraph.Instance.FindNearest(position);
+            bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
+            if (current.label != clicked.label && contained && (clicked.position - position).magnitude <= radius)
             {
-                return GameGraph.Instance.FindNearest(heroMoveController.transform.position);
+                hero.data.regionNumber = clicked.label;
+                isMoving = true;
+                StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, animation_time, () =>
+                {
+                    TurnManager.TriggerEvent_Move(clicked);
+                    isMoving = false;
+                }));
             }
         }
-        throw new System.Exception("Not found");
+        catch (Exception)
+        {
+            //click missed
+        }
     }
 }

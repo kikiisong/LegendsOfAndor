@@ -78,5 +78,38 @@ MonoBehaviour:
   - setNumber
   - displayRollResult
   - AppliedMagic
+  - getCards
+  - bought
+  - createGor
+  - createWitch
+  - SetHero
+  - Init
+  - LeaveRoom
+  - Encounter
+  - Place
+  - Typing
+  - SP
+  - releaseNewRventCard
+  - AddDistributeItem
+  - AddTakeItem
+  - BeginDistribute
+  - ClickMinus
+  - ClickPlus
+  - EndDistribute
+  - SetParent_Position
+  - eventCard11
+  - eventCard13
+  - eventCard14
+  - eventCard17
+  - eventCard2
+  - eventCard22
+  - eventCard24
+  - eventCard28
+  - eventCard29
+  - eventCard30
+  - eventCard31
+  - eventCard32
+  - eventCard4
+  - eventCard5
   DisableAutoOpenWizard: 1
   ShowSettings: 1

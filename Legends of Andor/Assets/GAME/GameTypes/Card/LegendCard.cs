@@ -7,18 +7,25 @@ namespace Card
 {
     public abstract class LegendCard : MonoBehaviourPun
     {
-        public abstract Name CardName { get; }
+        public static Dictionary<Letter, LegendCard> Cards = new Dictionary<LegendCard.Letter, LegendCard>();
 
+        public abstract Letter Key { get; }
+    
         public LegendCard()
         {
-            LegendCardManager.Cards[CardName] = this;
+            Cards[Key] = this;
         }
 
-        public abstract void Event();
-
-        public enum Name
+        public void Event()
         {
-            A1, A2, A3, A4, B1, B2, B3
+            Event(Room.Difficulty);
+        }
+
+        protected abstract void Event(Difficulty difficulty);
+
+        public enum Letter
+        {
+            A, B
         }
     }
 }

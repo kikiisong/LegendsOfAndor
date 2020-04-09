@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1224,7 +1224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db872b97870604f4e83ea0c38fb0c1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Distribute
+  nextScene: GameMap
   previousScene: MainLobby
   startGame: {fileID: 1501736641}
   difficulty: {fileID: 399663690}
@@ -1444,7 +1444,6 @@ GameObject:
   - component: {fileID: 1219169484}
   - component: {fileID: 1219169483}
   - component: {fileID: 1219169482}
-  - component: {fileID: 1219169481}
   m_Layer: 0
   m_Name: CurrentRoomCanvas
   m_TagString: Untagged
@@ -1452,18 +1451,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1219169481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219169480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc395ba0716c8845b54b7ddcbe2125c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1219169482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2060,7 +2047,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1610608578}
   m_HandleRect: {fileID: 1610608577}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

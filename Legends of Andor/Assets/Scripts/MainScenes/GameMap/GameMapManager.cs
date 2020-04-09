@@ -2,18 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameMapManager : MonoBehaviour
+public class GameMapManager : MonoBehaviourPun
 {
     public static GameMapManager Instance;
-
-    [Header("Instantiate")]
-    public GameObject heroPrefab;
-    public GameObject timeMarkerPrefab;
 
     [Header("TimeMarkers")]
     public List<Transform> timeMarkerUpdatePositions;
     public List<Transform> timeMarkerInitialPositions;
+
+    [SceneName] public string leaveScene;
 
     private void Awake()
     {
@@ -27,16 +26,22 @@ public class GameMapManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        PhotonNetwork.Instantiate(heroPrefab);
-        PhotonNetwork.Instantiate(timeMarkerPrefab);
-    }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ClickLeaveRPC()
+    {
+        photonView.RPC("LeaveRoom", RpcTarget.AllViaServer);
+    }
+
+    [PunRPC]
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene(leaveScene);
     }
 }
