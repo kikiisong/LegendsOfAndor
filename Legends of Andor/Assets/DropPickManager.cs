@@ -254,7 +254,8 @@ public class DropPickManager : MonoBehaviour
         Sprite spriteToLoad;
         if (spriteName == "UIMask")
         {
-            spriteToLoad = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
+            // spriteToLoad = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
+            spriteToLoad = Resources.Load<Sprite>("UIMask");
         }
         else
         {

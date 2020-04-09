@@ -21,7 +21,7 @@ public class Im : MonoBehaviour
             GameObject text = slot.transform.GetChild(1).gameObject;
             Text tx = text.gameObject.GetComponent<Text>();
 
-            Sprite uimask = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
+            Sprite uimask = Resources.Load<Sprite>("UIMask");
 
             GameObject calledBag = slot.transform.parent.parent.gameObject;
 
