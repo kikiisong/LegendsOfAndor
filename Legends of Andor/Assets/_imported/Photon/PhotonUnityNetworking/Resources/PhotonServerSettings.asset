@@ -89,5 +89,6 @@ MonoBehaviour:
   - Place
   - Typing
   - SP
+  - releaseNewRventCard
   DisableAutoOpenWizard: 1
   ShowSettings: 1

@@ -18,7 +18,7 @@ namespace Card
         public int currentEventIndex;
 
         public GameObject myEventCardController;
-
+        public int[] temp = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -32,11 +32,12 @@ namespace Card
         {
             TurnManager.Register(this);
             //TODO: move from region 80 to A
-            int[] temp = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-            orderofEvents = temp;
-            shuffleArray(orderofEvents);
+            shuffleArray(temp);
             currentEventIndex = 0;
-            releaseNewRventCard();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("releaseNewRventCard", RpcTarget.AllBuffered, temp);
+            }
             //printlist();
         }
 
@@ -87,14 +88,18 @@ namespace Card
             }
 
             handLegendCard();
-            releaseNewRventCard();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("releaseNewRventCard", RpcTarget.AllBuffered, temp);
+            }
 
         }
 
-        public void releaseNewRventCard()
+        [PunRPC]
+        public void releaseNewRventCard(int[] temp)
         {
             // should send orderofEvents[currentEventIndex]
-            myEventCardController.GetComponent<EventCardController>().newEventCard(orderofEvents[currentEventIndex]);
+            myEventCardController.GetComponent<EventCardController>().newEventCard(temp[currentEventIndex]);
             // increase the event card index, next time will pick another one
             currentEventIndex += 1;
         }
