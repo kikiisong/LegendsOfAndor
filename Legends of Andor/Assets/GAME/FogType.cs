@@ -2,9 +2,12 @@
 public enum FogType
 {
     Monster,
-    WineSkin,
+    Wineskin,
     TwoWP,
     ThreeWP,
     SP,
-    Gold
+    Gold,
+    Event,
+    Witch
+    
 }
