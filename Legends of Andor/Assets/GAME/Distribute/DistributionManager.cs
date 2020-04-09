@@ -31,7 +31,8 @@ namespace Bag
         public ItemTakeUI itemTakePrefab;
 
         [Header("UI")]
-        public Button next;
+        public GameObject panel;
+        public Button confirm;
 
      
 
@@ -43,7 +44,10 @@ namespace Bag
         // Start is called before the first frame update
         void Start()
         {
-            if(PhotonNetwork.IsMasterClient) Distribute((Item.Type.GoldCoin, 5), (Item.Type.Wineskin, 2));
+            confirm.onClick.AddListener(() =>
+            {
+                photonView.RPC("EndDistribute", RpcTarget.All);
+            });
         }
 
         // Update is called once per frame
@@ -52,7 +56,7 @@ namespace Bag
 
         }
 
-        public void Distribute(params (Item.Type type, int amount)[] pairs)
+        public static void Distribute(params (ItemType type, int amount)[] pairs)
         {
             var players = PhotonNetwork.CurrentRoom.Players.Values;
             var array = new Player[players.Count];
@@ -60,25 +64,24 @@ namespace Bag
             Distribute(array, pairs);
         }
 
-        public void Distribute(Player[] players, params (Item.Type type, int amount)[] pairs)
+        public static void Distribute(Player[] players, params (ItemType type, int amount)[] pairs)
         {
-            photonView.RPC("BeginDistribute", RpcTarget.All);
+            Instance.photonView.RPC("BeginDistribute", RpcTarget.All);
             foreach(var (type, amount) in pairs)
             {
-                photonView.RPC("AddDistributeItem", RpcTarget.All, type, amount);
-
-                photonView.RPC("AddTakeItem", RpcTarget.All, type, players);
+                Instance.photonView.RPC("AddDistributeItem", RpcTarget.All, type, amount);
+                Instance.photonView.RPC("AddTakeItem", RpcTarget.All, type, players);
             }
         }
 
         [PunRPC]
         public void BeginDistribute()
         {
-            //active true
+            panel.SetActive(true);
         }
 
         [PunRPC]
-        public void AddDistributeItem(Item.Type type, int amount)
+        public void AddDistributeItem(ItemType type, int amount)
         {
             var distribute = Instantiate(itemPrefab);
             distribute.transform.SetParent(parent.transform, false);
@@ -86,7 +89,7 @@ namespace Bag
         }
 
         [PunRPC]
-        public void AddTakeItem(Item.Type type, params Player[] players)
+        public void AddTakeItem(ItemType type, params Player[] players)
         {
             if (Array.Exists(players, p => p == PhotonNetwork.LocalPlayer))
             {
@@ -99,7 +102,7 @@ namespace Bag
         [PunRPC]
         public void EndDistribute()
         {
-            //click confirm, active false
+            panel.SetActive(false);
         }
 
         public static void ClickPlusRPC(ItemTakeUI takeUI)
@@ -108,13 +111,13 @@ namespace Bag
         }
 
         [PunRPC]
-        public void ClickPlus(Player player, Item.Type type)
+        public void ClickPlus(Player player, ItemType type)
         {
             foreach (var i in FindObjectsOfType<ItemDistributeUI>())
             {
                 if (i.Type == type)
                 {
-                    i.Take(ref player.ItemField(type));
+                    i.Take(player);
                 }
             }
         }
@@ -125,13 +128,13 @@ namespace Bag
         }
 
         [PunRPC]
-        public void ClickMinus(Player player, Item.Type type)
+        public void ClickMinus(Player player, ItemType type)
         {
             foreach (var i in FindObjectsOfType<ItemDistributeUI>())
             {
                 if (i.Type == type)
                 {
-                    i.GiveBack(ref player.ItemField(type));
+                    i.GiveBack(player);
                 }
             }
         }

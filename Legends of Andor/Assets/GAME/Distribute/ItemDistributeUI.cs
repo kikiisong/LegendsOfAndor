@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Photon.Realtime;
 
 namespace Bag
 {
@@ -15,33 +16,46 @@ namespace Bag
         private Item item;
         private int amount;
 
-        public Item.Type Type { get;  private set; }
+        public ItemType Type { get;  private set; }
 
         private void Update()
         {
             amountUI.text = amount.ToString();
         }
 
-        public void Init(Item.Type type, int amount)
+        private Dictionary<Player, int> startAmount;
+
+        public void Init(ItemType type, int amount)
         {
             Type = type;
             item = DistributionManager.Items[type];
             this.amount = amount;
 
+            startAmount = new Dictionary<Player, int>();
+            foreach(var player in PhotonNetwork.CurrentRoom.Players.Values)
+            {
+                startAmount[player] = player.ItemField(type);
+            }
+
             icon.sprite = item.icon;
         }
 
-        public void Take(ref int yourAmount)
+        private int ZeroedAmount(Player player)
+        {
+            return player.ItemField(Type) - startAmount[player];
+        }
+
+        public void Take(Player player)
         {
             if (amount == 0) return;
             amount--;
-            yourAmount++;
+            player.ItemField(Type)++;
         }
 
-        public void GiveBack(ref int yourAmount)
+        public void GiveBack(Player player)
         {
-            if (yourAmount == 0) return;
-            yourAmount--;
+            if (ZeroedAmount(player) == 0) return;
+            player.ItemField(Type)--;
             amount++;
         }
 

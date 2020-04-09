@@ -16,7 +16,7 @@ namespace Bag
         public Button plus;
         public Button minus;
 
-        public Item.Type Type { get; private set; }
+        public ItemType Type { get; private set; }
 
         private int ItemAmount
         {
@@ -63,7 +63,7 @@ namespace Bag
             amountUI.text = ItemAmount.ToString();
         }
 
-        public void Init(Item.Type type)
+        public void Init(ItemType type)
         {
             Type = type;
             icon.sprite = DistributionManager.Items[type].icon;

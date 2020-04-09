@@ -14,28 +14,28 @@ namespace Bag
     }
 
     [Serializable]
-    public class MyDictionary : SerializableDictionaryBase<Item.Type, Item> { }
+    public class MyDictionary : SerializableDictionaryBase<ItemType, Item> { }
 
     [Serializable]
     public class Item
     {
         public Sprite icon;
+    }
 
-        public enum Type
-        {
-            GoldCoin, Wineskin
-        }
+    public enum ItemType
+    {
+        GoldCoin, Wineskin
     }
 
     public static class Helper {
-        public static ref int ItemField(this Player player, Item.Type type)
+        public static ref int ItemField(this Player player, ItemType type)
         {
             var hero = player.GetHero();
             switch (type)
             {
-                case Item.Type.GoldCoin:
+                case ItemType.GoldCoin:
                     return ref hero.data.gold;
-                case Item.Type.Wineskin:
+                case ItemType.Wineskin:
                     return ref hero.data.numWineskin;
                 default:
                     throw new Exception();
