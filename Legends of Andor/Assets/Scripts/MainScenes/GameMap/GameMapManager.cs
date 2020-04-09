@@ -24,6 +24,8 @@ public class GameMapManager : MonoBehaviourPun
         {
             Debug.LogWarning("Not singleton");
         }
+
+        Music.Stop();
     }
 
 

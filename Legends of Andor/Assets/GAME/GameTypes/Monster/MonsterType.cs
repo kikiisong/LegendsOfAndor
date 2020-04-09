@@ -10,7 +10,7 @@ namespace Monsters
         [Monster(1, 1)] Wardrak
     }
 
-    class MonsterAttribute: System.Attribute
+    class MonsterAttribute: Attribute
     {
         public int WP { get; private set; }
         public int Damage { get; private set; }
@@ -36,7 +36,7 @@ namespace Monsters
 
         private static MonsterAttribute GetAttribute(MonsterType m)
         {
-            return (MonsterAttribute)System.Attribute.GetCustomAttribute(ForValue(m), typeof(MonsterAttribute));
+            return (MonsterAttribute)Attribute.GetCustomAttribute(ForValue(m), typeof(MonsterAttribute));
         }
         private static MemberInfo ForValue(MonsterType m)
         {
