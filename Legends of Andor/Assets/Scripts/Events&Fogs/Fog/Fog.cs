@@ -7,12 +7,15 @@ using Photon.Realtime;
 public class Fog : MonoBehaviourPun
 {
     public int region;
-    public int type;
+    public FogType type;
     public EventCardController myEvents;
+    public Renderer fogIcon;
 
     // Start is called before the first frame update
     void Start()
     {
+        fogIcon = GetComponent<Renderer>();
+        type = FogType.SP;
         GameGraph.Instance.PlaceAt(gameObject, region);
     }
 
@@ -24,43 +27,51 @@ public class Fog : MonoBehaviourPun
     }
 
 
-    public void uncover()
+    /*public void uncover()
     {
-        if(type == 1)//SP+1
+        if (photonView.IsMine)
         {
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-            hero.data.SP += 1;
-        }else if(type == 2)//WP+2
-        {
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-            hero.data.WP += 2;
+            if (type == FogType.SP)//SP+1
+            {
+                photonView.RPC("Encounter", RpcTarget.AllBuffered, currentRegion.label);
+                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
+                hero.data.SP += 1;
+            }
+            else if (type == FogType.TwoWP)//WP+2
+            {
+                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
+                hero.data.WP += 2;
+            }
+            else if (type == FogType.ThreeWP)//WP+3
+            {
+                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
+                hero.data.WP += 3;
+            }
+            else if (type == FogType.Gold)//Gold
+            {
+                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
+                hero.data.gold += 1;
+            }
+            else if (type == FogType.Event)//Event
+            {
+                myEvents.flipped();
+            }
+            else if (type == FogType.Wineskin)//Wineskin
+            {
+
+            }
+            else if (type == FogType.Witch)//Witch
+            {
+                PhotonNetwork.Instantiate("Witch", transform.position, transform.rotation);
+            }
+            else if (type == FogType.Monster)//Gor
+            {
+                PhotonNetwork.Instantiate("Gor", transform.position, transform.rotation);
+            }
+            fogIcon.enabled = false;
         }
-        else if (type == 3)//WP+2
-        {
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-            hero.data.WP += 3;
-        }
-        else if (type == 4)//Gold
-        {
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-            hero.data.gold += 1;
-        }
-        else if (type == 5)//Event
-        {
-            myEvents.flipped();
-        }
-        else if (type == 6)//Wineskine
-        {
-            
-        }
-        else if (type == 7)//Witch
-        {
-            PhotonNetwork.Instantiate("Witch", transform.position, transform.rotation);
-        }
-        else if(type ==8)//Gor
-        {
-            PhotonNetwork.Instantiate("Gor", transform.position, transform.rotation);
-        }
-    }
+    }*/
+
+    
 
 }
