@@ -6,7 +6,10 @@ using Photon.Pun;
 
 public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
 {
-    
+    public MonsterMoveController gorPrefab;
+    public Witch myWitch;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,9 +56,16 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
             {
                 Hero hero = (Hero)player.GetHero();
                 Uncover(currentRegion.label, (int)hero.type);
-                
-                //photonView.RPC("Encounter", RpcTarget.AllBuffered, currentRegion.label);
 
+                //Testing
+                Player[] players = PhotonNetwork.PlayerList;
+                for (int i = 0; i < players.Length; i++)
+                {
+                    Hero h = (Hero)players[i].GetHero();
+                    Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP+" " + hero.data.gold);
+                    
+                }
+                
             }
             
         }
@@ -72,21 +82,18 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
             photonView.RPC("SP", RpcTarget.AllBuffered, currentRegion, heroType);
 
         }
-        /*else if (curr.type == FogType.TwoWP)//WP+2
+        else if (curr.type == FogType.TwoWP)//WP+2
         {
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-            hero.data.WP += 2;
+            photonView.RPC("TwoWP", RpcTarget.AllBuffered, currentRegion, heroType);
         }
         else if (curr.type == FogType.ThreeWP)//WP+3
         {
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-            hero.data.WP += 3;
+            photonView.RPC("ThreeWP", RpcTarget.AllBuffered, currentRegion, heroType);
         }
         else if (curr.type == FogType.Gold)//Gold
         {
-            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-            hero.data.gold += 1;
-        }
+            photonView.RPC("Gold", RpcTarget.AllBuffered, currentRegion, heroType);
+        }/*
         else if (curr.type == FogType.Event)//Event
         {
             myEvents.flipped();
@@ -94,16 +101,15 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         else if (curr.type == FogType.Wineskin)//Wineskin
         {
 
-        }
+        }*/
         else if (curr.type == FogType.Witch)//Witch
         {
-            PhotonNetwork.Instantiate("Witch", transform.position, transform.rotation);
+            photonView.RPC("Witch", RpcTarget.AllBuffered, currentRegion, heroType);
         }
         else if (curr.type == FogType.Monster)//Gor
         {
-            PhotonNetwork.Instantiate("Gor", transform.position, transform.rotation);
+            photonView.RPC("Gor", RpcTarget.AllBuffered, currentRegion, heroType);
         }
-        fogIcon.enabled = false;*/
     }
 
     [PunRPC]
@@ -127,23 +133,109 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         Destroy(curr);
     }
 
-
-
-    /*[PunRPC]
-    public void Encounter(int currentRegion)
+    [PunRPC]
+    public void TwoWP(int currentRegion, int whichHero)
     {
         List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
-
         Fog curr = fogOnRegion[0];
-        curr.uncover();
+
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero hero = (Hero)players[i].GetHero();
+            if ((int)hero.type == whichHero)
+            {
+                hero.data.WP += 2;
+                break;
+            }
+        }
+        //make sure fog is removed
+        curr.fogIcon.enabled = false;
+        Destroy(curr);
+    }
+
+    [PunRPC]
+    public void ThreeWP(int currentRegion, int whichHero)
+    {
+        List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
+        Fog curr = fogOnRegion[0];
+
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero hero = (Hero)players[i].GetHero();
+            if ((int)hero.type == whichHero)
+            {
+                hero.data.WP += 3;
+                break;
+            }
+        }
+        //make sure fog is removed
+        curr.fogIcon.enabled = false;
+        Destroy(curr);
+    }
+
+    [PunRPC]
+    public void Gold(int currentRegion, int whichHero)
+    {
+        List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
+        Fog curr = fogOnRegion[0];
+
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero hero = (Hero)players[i].GetHero();
+            if ((int)hero.type == whichHero)
+            {
+                hero.data.gold += 1;
+                break;
+            }
+        }
+        //make sure fog is removed
+        curr.fogIcon.enabled = false;
+        Destroy(curr);
+    }
+
+
+    [PunRPC]
+    public void Witch(int currentRegion, int whichHero)
+    {
+        List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
+        Fog curr = fogOnRegion[0];
+
+        Player[] players = PhotonNetwork.PlayerList;
+        /*for (int i = 0; i < players.Length; i++)
+        {
+            Hero hero = (Hero)players[i].GetHero();
+            if ((int)hero.type == whichHero)
+            {
+                //TODO:get brew
+                break;
+            }
+        }*/
+
+        myWitch.locate(currentRegion);
+        myWitch.region = currentRegion;
+        myWitch.found = true;
+        myWitch.witchIcon.enabled = true;
 
         //make sure fog is removed
+        curr.fogIcon.enabled = false;
         Destroy(curr);
-    }*/
+    }
 
+    [PunRPC]
+    public void Gor(int currentRegion, int whichHero)
+    {
+        List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
+        Fog curr = fogOnRegion[0];
 
+        Instantiate(gorPrefab, curr.transform.position, curr.transform.rotation);
 
-
+        //make sure fog is removed
+        curr.fogIcon.enabled = false;
+        Destroy(curr);
+    }
 
     [PunRPC]
     public void Typing(int[] whereTo)

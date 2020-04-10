@@ -9,14 +9,15 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnMove
 {
     public int region;
     public Button brewButton;
+    public Renderer witchIcon;
     public bool found;
     public int left;
 
     // Start is called before the first frame update
     void Start()
     {
-        //witchIcon = GetComponent<Renderer>();
-        //wellIcon.enabled = false;
+        witchIcon = GetComponent<Renderer>();
+        witchIcon.enabled = false;
         brewButton.gameObject.SetActive(false);
         TurnManager.Register(this);
         found = false;
@@ -62,6 +63,11 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnMove
         }
 
 
+    }
+
+    public void locate(int currReg)
+    {
+        GameGraph.Instance.PlaceAt(gameObject, region);
     }
 
     [PunRPC]

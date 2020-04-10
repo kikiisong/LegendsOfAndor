@@ -27,50 +27,7 @@ public class Fog : MonoBehaviourPun
     }
 
 
-    /*public void uncover()
-    {
-        if (photonView.IsMine)
-        {
-            if (type == FogType.SP)//SP+1
-            {
-                photonView.RPC("Encounter", RpcTarget.AllBuffered, currentRegion.label);
-                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-                hero.data.SP += 1;
-            }
-            else if (type == FogType.TwoWP)//WP+2
-            {
-                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-                hero.data.WP += 2;
-            }
-            else if (type == FogType.ThreeWP)//WP+3
-            {
-                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-                hero.data.WP += 3;
-            }
-            else if (type == FogType.Gold)//Gold
-            {
-                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-                hero.data.gold += 1;
-            }
-            else if (type == FogType.Event)//Event
-            {
-                myEvents.flipped();
-            }
-            else if (type == FogType.Wineskin)//Wineskin
-            {
-
-            }
-            else if (type == FogType.Witch)//Witch
-            {
-                PhotonNetwork.Instantiate("Witch", transform.position, transform.rotation);
-            }
-            else if (type == FogType.Monster)//Gor
-            {
-                PhotonNetwork.Instantiate("Gor", transform.position, transform.rotation);
-            }
-            fogIcon.enabled = false;
-        }
-    }*/
+    
 
     
 
