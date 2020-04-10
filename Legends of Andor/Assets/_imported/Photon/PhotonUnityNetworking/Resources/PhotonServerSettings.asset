@@ -111,5 +111,8 @@ MonoBehaviour:
   - eventCard32
   - eventCard4
   - eventCard5
+  - ThreeWP
+  - TwoWP
+  - Gold
   DisableAutoOpenWizard: 1
   ShowSettings: 1
