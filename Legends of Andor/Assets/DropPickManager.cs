@@ -18,7 +18,7 @@ public class DropPickManager : MonoBehaviour
     public GameObject groundBag;
     public GameObject backpack;
     public GameObject goldpotPrefab;
-
+    // public Sprite uimask;
 
     private int groundSize = 9;
     private int backpackSize = 6;
@@ -73,6 +73,7 @@ public class DropPickManager : MonoBehaviour
 
     public void opCl()
     {
+        Debug.Log("pressed");
         openClose(oc ? false : true);
     }
 
@@ -153,7 +154,7 @@ public class DropPickManager : MonoBehaviour
 
     public void updateRegionStats(string spriteName, int updateUnit)
     {
-
+        Debug.Log("sprite name " + spriteName);
         if (spriteName == "coin") Current.data.gold += updateUnit;
         if (spriteName == "brew") Current.data.brew += updateUnit;
         if (spriteName == "wineskin") Current.data.numWineskin += updateUnit;
@@ -164,7 +165,7 @@ public class DropPickManager : MonoBehaviour
         if (spriteName == "falcon") Current.data.falcon += updateUnit;
 
         Current.data.numOfItems += updateUnit;
-
+        Debug.Log("region coin is " + Current.data.gold);
         if (Current.data.numOfItems == 0) displayRegionIcon(false);
         if (Current.data.numOfItems == 1) displayRegionIcon(true);
 
@@ -174,8 +175,10 @@ public class DropPickManager : MonoBehaviour
     {
         if (display)
         {
-
+            Debug.Log("inside display region icon");
             var missle = Instantiate<GameObject>(goldpotPrefab);
+            missle.transform.parent = groundBag.transform.parent;
+            //Debug.Log("instantiated goldpot prefab");
             GameGraph.Instance.PlaceAt(missle, Current.label);
         }
         else
@@ -193,6 +196,7 @@ public class DropPickManager : MonoBehaviour
 
     private void loadItemsOnRegion()
     {
+        Debug.Log("within load items on region");
         Debug.Log("total numebr of items " + Current.data.numOfItems);
         emptySlot = 0;
         if (Current.data.numWineskin > 0)
@@ -249,13 +253,14 @@ public class DropPickManager : MonoBehaviour
     // simply loads images of data of a region
     public void fillBag(int slotNumber, string spriteName, int parameter)
     {
-
+        Debug.Log("fill bag");
         GameObject itemsList = groundBag.gameObject.transform.GetChild(1).gameObject;
         Sprite spriteToLoad;
         if (spriteName == "UIMask")
         {
             // spriteToLoad = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
             spriteToLoad = Resources.Load<Sprite>("UIMask");
+            //spriteToLoad = uimask;
         }
         else
         {
