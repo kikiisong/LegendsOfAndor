@@ -26,7 +26,7 @@ public class eventCardButton : MonoBehaviour
             }
             else
             {
-                Debug.Log("No card hit");
+              //  Debug.Log("No card hit");
             }
 
         }

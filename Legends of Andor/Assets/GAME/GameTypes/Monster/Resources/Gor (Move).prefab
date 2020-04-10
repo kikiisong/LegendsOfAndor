@@ -187,4 +187,5 @@ MonoBehaviour:
   data:
     wp: 4
     sp: 2
+  canMove: 1
   m: {fileID: 4858113096683849941, guid: dcaea54e850af45fc98ff764bce8ea75, type: 3}

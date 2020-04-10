@@ -122,10 +122,15 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard2()
     {
-     //   print("hero's WP was " + myhero.data.WP);
-
         Player[] players = PhotonNetwork.PlayerList;
-        for(int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
+        for (int i = 0; i < players.Length; i++)
         {
            
             Hero hero = (Hero)players[i].GetHero();
@@ -142,7 +147,14 @@ public class EventCardController : MonoBehaviourPun
                 }
             }
         }
-        //    print("hero's WP is " + myhero.data.WP);
+
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     // #4 Any hero standing on a space between 37 and 70 looses 3 WP  (shiled)
@@ -151,6 +163,14 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
         Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
         for (int i = 0; i < players.Length; i++)
         {
 
@@ -168,7 +188,14 @@ public class EventCardController : MonoBehaviourPun
                 }
             }
         }
-        //  print("hero's WP is " + myhero.data.WP);
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
     }
 
     // #5 Wizard and Archer get 3 WP
@@ -178,6 +205,14 @@ public class EventCardController : MonoBehaviourPun
       //  print("hero's WP was " + myhero.data.WP);
 
         Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
         for (int i = 0; i < players.Length; i++)
         {
 
@@ -187,7 +222,14 @@ public class EventCardController : MonoBehaviourPun
                 hero.data.WP += 3;
             }
         }
-        //  print("hero's WP is " + myhero.data.WP);
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
     }
 
     // #11 On this day every creature has +1 SP  (shiled)
@@ -205,6 +247,14 @@ public class EventCardController : MonoBehaviourPun
       //  print("hero's WP was " + myhero.data.WP);
 
         Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
         for (int i = 0; i < players.Length; i++)
         {
 
@@ -217,7 +267,12 @@ public class EventCardController : MonoBehaviourPun
             }
         }
 
-        //  print("hero's WP is " + myhero.data.WP);
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     // #14 Dwarf and Warrior receive 3 WP
@@ -226,6 +281,14 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
         Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
         for (int i = 0; i < players.Length; i++)
         {
 
@@ -235,7 +298,13 @@ public class EventCardController : MonoBehaviourPun
                 hero.data.WP += 3;
             }
         }
-        //  print("hero's WP is " + myhero.data.WP);
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     // #17 Every hero with more than 12 WP goes down to 12 WP  (shield)
@@ -244,6 +313,14 @@ public class EventCardController : MonoBehaviourPun
     {
         //  print("hero's WP was " + myhero.data.WP)
         Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
         for (int i = 0; i < players.Length; i++)
         {
             Hero hero = (Hero)players[i].GetHero();
@@ -253,7 +330,14 @@ public class EventCardController : MonoBehaviourPun
                 hero.data.WP = 12;
             }
         }
-        //  print("hero's WP is " + myhero.data.WP);
+
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     // #22 Well token on space 45 is removed from the game  (shiled)
@@ -279,6 +363,14 @@ public class EventCardController : MonoBehaviourPun
       //  print("hero's WP was " + myhero.data.WP);
 
         Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
         for (int i = 0; i < players.Length; i++)
         {
 
@@ -290,6 +382,10 @@ public class EventCardController : MonoBehaviourPun
                 (players[i].GetCurrentRegion().label == 72) ||
                 (players[i].GetCurrentRegion().label == 0))
             {
+                return;
+            }
+            else
+            {
                 if (hero.data.WP <= 2)
                 {
                     hero.data.WP = 0;
@@ -300,7 +396,14 @@ public class EventCardController : MonoBehaviourPun
                 }
             }
         }
-        //  print("hero's WP is " + myhero.data.WP);
+
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     // #28 Every hero whose time marker is in the sunrise box gains 2 WP
@@ -310,6 +413,14 @@ public class EventCardController : MonoBehaviourPun
         //  print("hero's WP was " + myhero.data.WP);
 
         Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
         for (int i = 0; i < players.Length; i++)
         {
 
@@ -319,7 +430,14 @@ public class EventCardController : MonoBehaviourPun
                 hero.data.WP += 2;
             }
         }
-        //   print("hero's WP is " + myhero.data.WP);
+
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     // #29 Shield appears on space 57
@@ -343,6 +461,14 @@ public class EventCardController : MonoBehaviourPun
         //  print("hero's WP was " + myhero.data.WP);
 
         Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
         for (int i = 0; i < players.Length; i++)
         {
 
@@ -354,6 +480,10 @@ public class EventCardController : MonoBehaviourPun
                 (players[i].GetCurrentRegion().label == 72) ||
                 (players[i].GetCurrentRegion().label == 0))
             {
+                return;
+            }
+            else
+            {
                 if (hero.data.WP <= 2)
                 {
                     hero.data.WP = 0;
@@ -364,7 +494,14 @@ public class EventCardController : MonoBehaviourPun
                 }
             }
         }
-        //  print("hero's WP is " + myhero.data.WP);
+
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     // #32 Every hero whose time marker is in the sunrise box loses 2 WP.  (shield)
@@ -374,6 +511,14 @@ public class EventCardController : MonoBehaviourPun
         //  print("hero's WP was " + myhero.data.WP);
 
         Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
+
         for (int i = 0; i < players.Length; i++)
         {
 
@@ -391,7 +536,14 @@ public class EventCardController : MonoBehaviourPun
                 }
             }
         }
-        // print("hero's WP is " + myhero.data.WP);
+
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     // If any user used the shield, then every players wp goes back to normal.
