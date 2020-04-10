@@ -82,13 +82,16 @@ namespace Saving
                     switch (type)
                     {
                         case MonsterType.Gor:
-                            PhotonNetwork.Instantiate(gor.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                            var go = PhotonNetwork.Instantiate(gor.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                            go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
                             break;
                         case MonsterType.Skral:
-                            PhotonNetwork.Instantiate(skral.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                            go = PhotonNetwork.Instantiate(skral.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                            go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
                             break;
                         case MonsterType.Wardrak:
-                            PhotonNetwork.Instantiate(wardrak.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                            go = PhotonNetwork.Instantiate(wardrak.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                            go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
                             break;
                     }
                 }

@@ -58,11 +58,12 @@ namespace Saving
         private JArray JMonsters()
         {
             return new JArray(
-                from monster in GameObject.FindObjectsOfType<MonsterMoveController>()
+                from monster in FindObjectsOfType<MonsterMoveController>()
                 select new JObject
                 {
                     {"type", new JValue(monster.type)},
-                    {"region", monster.CurrentRegion.label }
+                    {"region", monster.CurrentRegion.label},
+                    {"data",  JObject.FromObject(monster.data)}
                 });
         }
     }

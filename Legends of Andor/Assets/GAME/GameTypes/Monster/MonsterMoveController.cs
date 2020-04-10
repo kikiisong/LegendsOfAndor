@@ -1,4 +1,5 @@
 ﻿using Monsters;
+using Newtonsoft.Json.Linq;
 using Photon.Pun;
 using Routines;
 using System.Collections;
@@ -30,6 +31,17 @@ public class MonsterMoveController : MonoBehaviourPun
     {
         coroutineQueue = new CoroutineQueue(this);
         coroutineQueue.StartLoop();
+    }
+
+    public void InitRPC(JToken jToken)
+    {
+        photonView.RPC("InitMonster", RpcTarget.All, jToken.ToString());
+    }
+
+    public void InitMonster(string json)
+    {
+        var j = JObject.Parse(json);
+        data = j.ToObject<MonsterData>();
     }
 
     public void MoveAlongPath(List<Region> path)
