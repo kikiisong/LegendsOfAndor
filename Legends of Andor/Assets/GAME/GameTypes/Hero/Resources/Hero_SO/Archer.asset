@@ -15,24 +15,31 @@ MonoBehaviour:
   type: 0
   data:
     WP: 7
-    blackDice: 0
-    SP: 1
+    SP: 2
     numHours: 0
     gold: 0
-    numWineskin: 0
-    regionNumber: 0
     numFarmers: 0
-    magic: 0
-    herbS: 0
+    wineskin: 0
     brew: 0
+    telescope: 0
     helm: 0
-    sheild: 0
-    herbW: 0
+    shield: 0
     bow: 0
+    falcon: 0
+    herb: 0
+    times: 0
+    btimes: 0
+    attackNum: 0
+    finishedFight: 0
+    dice: {fileID: 0}
+    diceNum: 0
+    damage: 0
+    blackDice: 0
+    wineskinStacked: 0
   constants:
-    StartingRegion: 53
     rank: 25
   ui:
+    gender: 0
     female: {fileID: 21300000, guid: f4c95fa557723494bb91d4fff03ddf18, type: 3}
     male: {fileID: 21300000, guid: 9dd1f822e67d0544387c6339f0c83750, type: 3}
     color: {fileID: 2100000, guid: 86bd614ff041feb499f763366c2b5750, type: 2}
