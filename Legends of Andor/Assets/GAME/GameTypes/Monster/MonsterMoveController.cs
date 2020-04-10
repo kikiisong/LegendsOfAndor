@@ -38,6 +38,7 @@ public class MonsterMoveController : MonoBehaviourPun
         photonView.RPC("InitMonster", RpcTarget.All, jToken.ToString());
     }
 
+    [PunRPC]
     public void InitMonster(string json)
     {
         var j = JObject.Parse(json);
