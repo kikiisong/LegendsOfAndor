@@ -40,7 +40,6 @@ public class HeroMoveController : MonoBehaviourPun
             bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
             if (current.label != clicked.label && contained && (clicked.position - position).magnitude <= radius)
             {
-                hero.data.regionNumber = clicked.label;
                 isMoving = true;
                 StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, animation_time, () =>
                 {

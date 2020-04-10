@@ -144,11 +144,11 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
 
     public void Click_Ready()
     {
-
         print("Am I able to join?");
         isFight = true;
-        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
-        List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(hero.data.regionNumber);
+        var p = PhotonNetwork.LocalPlayer;
+        var hero = p.GetHero();
+        List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(p.GetCurrentRegion());
 
         if (MonsterOnMap.Count > 0)
         {
@@ -165,7 +165,7 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
         else if (hero.type == Hero.Type.ARCHER || hero.data.bow > 0)
         {
 
-            Region test = GameGraph.Instance.Find(hero.data.regionNumber);
+            Region test = p.GetCurrentRegion();
             Debug.Log(test);
             List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(test);
 

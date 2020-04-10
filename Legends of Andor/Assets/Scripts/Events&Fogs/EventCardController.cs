@@ -14,9 +14,13 @@ public class EventCardController : MonoBehaviourPun
     public int currentEventIndex;
     public GameObject currentEventCard;
 
-
-    // store the current region of this player's hero
-    Region currentRegion;
+    Region CurrentRegion
+    {
+        get
+        {
+            return PhotonNetwork.LocalPlayer.GetCurrentRegion();
+        }
+    }
 
     // store my current hero
     Hero myhero;
@@ -102,26 +106,12 @@ public class EventCardController : MonoBehaviourPun
     }
 
 
-    private Region findCurrentRegion()
-    {
-        //Extract current player's region
-        foreach (HeroMoveController c in GameObject.FindObjectsOfType<HeroMoveController>())
-        {
-            if (c.photonView.Owner == PhotonNetwork.LocalPlayer)
-            {
-                return GameGraph.Instance.FindNearest(c.transform.position);
-            }
-        }
-        throw new System.Exception("No current region");
-    }
-
     // #2 Any hero standing on a space between 0 and 20 looses 3 WP (shiled)
     [PunRPC]
     public void eventCard2()
     {
      //   print("hero's WP was " + myhero.data.WP);
-        currentRegion = findCurrentRegion();
-        if(currentRegion.label >= 0 && currentRegion.label <= 20)
+        if(CurrentRegion.label >= 0 && CurrentRegion.label <= 20)
         {
             if (myhero.data.WP <= 2)
             {
@@ -141,8 +131,7 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        currentRegion = findCurrentRegion();
-        if (currentRegion.label >= 37 && currentRegion.label <= 70)
+        if (CurrentRegion.label >= 37 && CurrentRegion.label <= 70)
         {
             if (myhero.data.WP <= 2)
             {
@@ -243,12 +232,11 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        currentRegion = findCurrentRegion();
-        if ((currentRegion.label >= 47 && currentRegion.label <= 63)||
-            (currentRegion.label >= 22 && currentRegion.label <= 25) ||
-            (currentRegion.label == 71) ||
-            (currentRegion.label == 72) ||
-            (currentRegion.label == 0))
+        if ((CurrentRegion.label >= 47 && CurrentRegion.label <= 63)||
+            (CurrentRegion.label >= 22 && CurrentRegion.label <= 25) ||
+            (CurrentRegion.label == 71) ||
+            (CurrentRegion.label == 72) ||
+            (CurrentRegion.label == 0))
         {
             return;
         }
@@ -299,14 +287,14 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard31()
     {
-      //  print("hero's WP was " + myhero.data.WP);
+        //  print("hero's WP was " + myhero.data.WP);
 
-        currentRegion = findCurrentRegion();
-        if ((currentRegion.label >= 47 && currentRegion.label <= 63) ||
-            (currentRegion.label >= 22 && currentRegion.label <= 25) ||
-            (currentRegion.label == 71) ||
-            (currentRegion.label == 72) ||
-            (currentRegion.label == 0))
+        var label = CurrentRegion.label;
+        if ((label >= 47 && label <= 63) ||
+            (label >= 22 && label <= 25) ||
+            (label == 71) ||
+            (label == 72) ||
+            (label == 0))
         {
             return;
         }
