@@ -17,11 +17,18 @@ public class Shop : MonoBehaviour
     public TextMeshProUGUI message;
 
     public GameObject buttonOK;
+    public GameObject buttonConfirm;
+    public GameObject buttonCancel;
 
-    
+
+    string itemToBuy;
+
+
 
     public Button SP;
-    public Button Brew;
+    public Button WINESKIN;
+
+    int price;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +36,10 @@ public class Shop : MonoBehaviour
 
         hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
         buttonOK.GetComponent<Button>().onClick.AddListener(() => OKClicked());
+        buttonConfirm.GetComponent<Button>().onClick.AddListener(() => ConfirmClicked(itemToBuy));
 
         SP.onClick.AddListener(() => BuyItem("SP"));
-        Brew.onClick.AddListener(() => BuyItem("BREW"));
+        WINESKIN.onClick.AddListener(() => BuyItem("WINESKIN"));
 
 
     }
@@ -48,18 +56,48 @@ public class Shop : MonoBehaviour
     {
 
         print(merchantLocation);
+        print("Hero: " + hero.data.regionNumber);
         print(isDawrf);
         print(itemName);
 
 
-        if (hero.data.regionNumber != merchantLocation)
+        if (hero.data.regionNumber != merchantLocation) //hero not here
         {
-            print("not here!");
+        
             messageBox.SetActive(true);
             buttonOK.SetActive(true);
-            message.text = "You are not at this shop yet! \n Visit again when you are here!";
+            message.text = "You are not at this shop yet! You can purchase when you are here. Welcome back in the future!";
 
-           
+        }
+        else // hero here
+        {
+            //set price
+            price = 2;
+            if (isDawrf && hero.type == Hero.Type.DWARF)
+            {
+                price = 1;
+            }
+
+
+            //not enough gold
+            if (hero.data.gold < price)
+            {
+                messageBox.SetActive(true);
+                buttonOK.SetActive(true);
+                message.text = itemName + " costs "+ price +" gold to purchase. " + "You don't have enough gold!";
+            }
+            else // enough gold
+            {
+                messageBox.SetActive(true);
+                buttonConfirm.SetActive(true);
+                buttonCancel.SetActive(true);
+                message.text = "Are you sure you want to buy "+ itemName + " with " + price + " gold?";
+                itemToBuy = itemName;
+
+            }
+
+
+
         }
         
     }
@@ -69,6 +107,34 @@ public class Shop : MonoBehaviour
     {
         buttonOK.SetActive(false);
         messageBox.SetActive(false);
+    }
+
+    private void CancelClicked()
+    {
+        buttonOK.SetActive(false);
+        messageBox.SetActive(false);
+
+    }
+
+    private void ConfirmClicked(string itemName)
+    {
+        if (itemName=="SP")
+        {
+            hero.data.SP += 1;
+            hero.data.gold -= price;
+        }
+        if (itemName == "WINESKIN")
+        {
+            hero.data.numWineskin += 1;
+            hero.data.gold -= price;
+        }
+        buttonConfirm.SetActive(false);
+        buttonCancel.SetActive(false);
+        messageBox.SetActive(false);
+
+
+
+
     }
 
 
