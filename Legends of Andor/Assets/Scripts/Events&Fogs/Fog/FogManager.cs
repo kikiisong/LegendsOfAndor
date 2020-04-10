@@ -55,16 +55,17 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
             if (fogOnRegion.Count > 0)
             {
                 Hero hero = (Hero)player.GetHero();
+                //hero.data.sp += 1;
                 Uncover(currentRegion.label, (int)hero.type);
 
                 //Testing
-                Player[] players = PhotonNetwork.PlayerList;
+               /* Player[] players = PhotonNetwork.PlayerList;
                 for (int i = 0; i < players.Length; i++)
                 {
                     Hero h = (Hero)players[i].GetHero();
-                    Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP+" " + hero.data.gold);
+                    Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP+" " + h.data.gold);
                     
-                }
+                }*/
                 
             }
             
@@ -131,6 +132,14 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         //make sure fog is removed
         curr.fogIcon.enabled = false;
         Destroy(curr);
+
+        
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     [PunRPC]
@@ -152,6 +161,14 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         //make sure fog is removed
         curr.fogIcon.enabled = false;
         Destroy(curr);
+
+        
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     [PunRPC]
@@ -173,6 +190,14 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         //make sure fog is removed
         curr.fogIcon.enabled = false;
         Destroy(curr);
+
+       
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     [PunRPC]
@@ -194,6 +219,14 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         //make sure fog is removed
         curr.fogIcon.enabled = false;
         Destroy(curr);
+
+       
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
 
@@ -235,6 +268,14 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         //make sure fog is removed
         curr.fogIcon.enabled = false;
         Destroy(curr);
+
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     [PunRPC]
