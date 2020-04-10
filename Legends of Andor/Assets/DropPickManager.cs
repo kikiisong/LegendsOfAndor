@@ -144,7 +144,7 @@ public class DropPickManager : MonoBehaviour
         if (spriteName == "brew") hero.data.brew += updateUnit;
         if (spriteName == "wineskin") hero.data.numWineskin += updateUnit;
         if (spriteName == "herb") hero.data.herb += updateUnit;
-        if (spriteName == "shield") hero.data.sheild += updateUnit;
+        if (spriteName == "shield") hero.data.shield += updateUnit;
         if (spriteName == "helm") hero.data.helm += updateUnit;
         if (spriteName == "bow") hero.data.bow += updateUnit;
         if (spriteName == "falcon") hero.data.falcon += updateUnit;

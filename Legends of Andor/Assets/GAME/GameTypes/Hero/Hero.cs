@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bag;
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,30 +37,45 @@ public class Hero : ScriptableObject
         public int attackNum;
         public bool finishedFight;
 
-        //TODO:somebody handle one can maximize have one item
-        //TODO:prob who do trade
-
-        //object related?
-        //small item
+        //Small item
         public int numWineskin;
         public int brew;
-            //TODO:state full half empty..
-
-        //number of herb can be used in two way
         public int herb;
 
-        //big item
-        public int sheild;
+        //Big item
+        public int shield;
         public int helm;
-            //2 means full, 1 means half, 0 means nothing
         public int bow;
         public int falcon;
+
         //1 means processes and 0 means does not process
         //TODO: more
         public Dice dice;
         public int diceNum;
         public int damage;
 
+        [JsonProperty]
+        private Dictionary<ItemType, bool> hasConsumedItem;
+        [JsonIgnore]
+        public Dictionary<ItemType, bool> HasConsumedItem
+        {
+            set
+            {
+                hasConsumedItem = value;
+            }
+            get
+            {
+                if(hasConsumedItem == null)
+                {
+                    hasConsumedItem = new Dictionary<ItemType, bool>();
+                    foreach(ItemType type in Enum.GetValues(typeof(ItemType)))
+                    {
+                        hasConsumedItem[type] = false;
+                    }
+                }
+                return hasConsumedItem;
+            }
+        }
     }
 
     //Values that won't change
@@ -175,7 +192,7 @@ public class Hero : ScriptableObject
 
     public bool getSheild()
     {
-        if (data.sheild > 0) return true;
+        if (data.shield > 0) return true;
         return false;
     }
 
