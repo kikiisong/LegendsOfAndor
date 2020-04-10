@@ -69,7 +69,7 @@ public static class P
                 return GameGraph.Instance.FindNearest(heroMoveController.transform.position);
             }
         }
-        throw new System.Exception("Not found");
+        throw new Exception("Not found");
     }
 
     public static bool HasMoved(this Player player)

@@ -71,6 +71,18 @@ namespace Bag
         }
 
 
+        public static int GetDisplayItem(this Player player, ItemType type, out bool halfConsumed)
+        {
+            int value = GetItemField(player, type);
+            halfConsumed = false;
+            if (type.IsHalfState())
+            {
+                halfConsumed = value % 2 == 1;
+                value /= 2;
+            }
+            return value;
+        }
+
 
 
         public static void ItemIncrement(this Player player, ItemType type)
