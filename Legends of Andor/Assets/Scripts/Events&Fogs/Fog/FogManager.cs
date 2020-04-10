@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
     public MonsterMoveController gorPrefab;
     public Witch myWitch;
+    public GameObject fogInfo;
+    public GameObject herbDice;
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
+        fogInfo.SetActive(false);
+        herbDice.SetActive(false);
         TurnManager.Register(this);
         int[] regions = { 8, 11, 12, 13, 16, 32, 46, 44, 42, 64, 63, 56, 47, 48, 49 };
         Shuffle(regions);
@@ -21,6 +27,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         {
             photonView.RPC("Typing", RpcTarget.AllBuffered, regions);
         }
+
 
 
     }
@@ -54,14 +61,49 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
 
             if (fogOnRegion.Count > 0)
             {
-                
+                showInfo(fogOnRegion[0].type);
                 Uncover(hero.data.regionNumber, (int)hero.type);
-
                 
             }
             
         }
 
+    }
+
+    public void showInfo(FogType ft)
+    {
+        if(ft == FogType.SP)
+        {
+            Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "You gained 1 Strength Point!";
+            fogInfo.SetActive(true);
+        }
+        else if(ft == FogType.TwoWP)
+        {
+            Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "You gained 2 Willpower!";
+            fogInfo.SetActive(true);
+        }
+        else if (ft == FogType.ThreeWP)
+        {
+            Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "You gained 3 Willpower!";
+            fogInfo.SetActive(true);
+        }
+        else if (ft == FogType.Gold)
+        {
+            Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "You gained 1 gold!";
+            fogInfo.SetActive(true);
+        }
+        else if (ft == FogType.Wineskin)
+        {
+            Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "You found 1 wineskin!";
+            fogInfo.SetActive(true);
+        }
+
+        
     }
 
     public void OnEndDay(Player player)
@@ -73,9 +115,10 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
 
             if (fogOnRegion.Count > 0)
             {
+                showInfo(fogOnRegion[0].type);
                 Uncover(hero.data.regionNumber, (int)hero.type);
 
-
+                
             }
 
         }
@@ -107,11 +150,11 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         else if (curr.type == FogType.Event)//Event
         {
             myEvents.flipped();
-        }
+        }*/
         else if (curr.type == FogType.Wineskin)//Wineskin
         {
-
-        }*/
+            photonView.RPC("Wineskin", RpcTarget.AllBuffered, currentRegion, heroType);
+        }
         else if (curr.type == FogType.Witch)//Witch
         {
             photonView.RPC("Witch", RpcTarget.AllBuffered, currentRegion, heroType);
@@ -222,6 +265,30 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
        
     }
 
+    [PunRPC]
+    public void Wineskin(int currentRegion, int whichHero)
+    {
+        List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
+        Fog curr = fogOnRegion[0];
+
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero hero = (Hero)players[i].GetHero();
+            if ((int)hero.type == whichHero)
+            {
+                hero.data.numWineskin += 1;
+                break;
+            }
+        }
+        //make sure fog is removed
+        curr.fogIcon.enabled = false;
+        Destroy(curr);
+
+
+    }
+
+
 
     [PunRPC]
     public void Witch(int currentRegion, int whichHero)
@@ -230,24 +297,70 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         Fog curr = fogOnRegion[0];
 
         Player[] players = PhotonNetwork.PlayerList;
-        /*for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             Hero hero = (Hero)players[i].GetHero();
             if ((int)hero.type == whichHero)
             {
-                //TODO:get brew
+                hero.data.brew += 1;
                 break;
             }
-        }*/
+        }
 
         myWitch.locate(currentRegion);
         myWitch.region = currentRegion;
         myWitch.found = true;
         myWitch.witchIcon.enabled = true;
 
+        Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+        t.text = (Hero.Type)whichHero +" discovered the witch Reka and got her brew for free! You can now buy brew from Reka.";
+        fogInfo.SetActive(true);
+        fogInfo.transform.GetChild(2).gameObject.SetActive(false);
+
+        herbDice.SetActive(true);
+        herbDice.transform.GetChild(0).gameObject.SetActive(false);
+        herbDice.transform.GetChild(3).gameObject.SetActive(false);
+        
+        if (PhotonNetwork.IsMasterClient)
+        {
+            herbDice.transform.GetChild(0).gameObject.SetActive(true);
+
+        }
+
         //make sure fog is removed
         curr.fogIcon.enabled = false;
         Destroy(curr);
+    }
+
+    public void rollDice()
+    {
+        herbDice.transform.GetChild(0).gameObject.SetActive(false);
+        System.Random rand = new System.Random();
+        int rInt = rand.Next(1, 7);
+        photonView.RPC("updateDice", RpcTarget.AllBuffered, rInt);
+    }
+
+    [PunRPC]
+    public void updateDice(int dice)
+    {
+        Text t = herbDice.transform.GetChild(2).GetComponent<Text>();
+        t.text = dice.ToString();
+
+        int herbAt = 37;
+        if(dice == 3|| dice ==4)
+        {
+            herbAt = 67;
+        }else if(dice==5||dice==6)
+        {
+            herbAt = 61;
+        }
+        //TODO:place herb and gor
+
+        Text t2 = fogInfo.transform.GetChild(1).GetComponent<Text>();
+        t2.text = "Medical herb is placed at Region " + herbAt+ ".";
+        fogInfo.transform.GetChild(2).gameObject.SetActive(true);
+
+        herbDice.transform.GetChild(3).gameObject.SetActive(true);
     }
 
     [PunRPC]
@@ -257,6 +370,10 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         Fog curr = fogOnRegion[0];
 
         Instantiate(gorPrefab, curr.transform.position, curr.transform.rotation);
+
+        Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+        t.text = "A Gor was hiding behind the fog...";
+        fogInfo.SetActive(true);
 
         //make sure fog is removed
         curr.fogIcon.enabled = false;
