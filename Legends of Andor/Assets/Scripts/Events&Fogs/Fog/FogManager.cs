@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
     public MonsterMoveController gorPrefab;
     public Witch myWitch;
+    public GameObject fogInfo;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        fogInfo.SetActive(false);
         TurnManager.Register(this);
         int[] regions = { 8, 11, 12, 13, 16, 32, 46, 44, 42, 64, 63, 56, 47, 48, 49 };
         Shuffle(regions);
@@ -21,6 +24,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         {
             photonView.RPC("Typing", RpcTarget.AllBuffered, regions);
         }
+
 
 
     }
@@ -54,14 +58,47 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
 
             if (fogOnRegion.Count > 0)
             {
-                
+                showInfo(fogOnRegion[0].type);
                 Uncover(hero.data.regionNumber, (int)hero.type);
-
                 
             }
             
         }
 
+    }
+
+    public void showInfo(FogType ft)
+    {
+        if(ft == FogType.SP)
+        {
+            Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "You gained 1 Strength Point!";
+            fogInfo.SetActive(true);
+        }
+        else if(ft == FogType.TwoWP)
+        {
+            Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "You gained 2 Willpower!";
+            fogInfo.SetActive(true);
+        }
+        else if (ft == FogType.ThreeWP)
+        {
+            Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "You gained 3 Willpower!";
+            fogInfo.SetActive(true);
+        }
+        else if (ft == FogType.Gold)
+        {
+            Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "You gained 1 gold!";
+            fogInfo.SetActive(true);
+        }
+        else if (ft == FogType.Wineskin)//Wineskin
+        {
+            //TODO
+        }
+
+        
     }
 
     public void OnEndDay(Player player)
@@ -73,9 +110,10 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
 
             if (fogOnRegion.Count > 0)
             {
+                showInfo(fogOnRegion[0].type);
                 Uncover(hero.data.regionNumber, (int)hero.type);
 
-
+                
             }
 
         }
@@ -245,6 +283,10 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         myWitch.found = true;
         myWitch.witchIcon.enabled = true;
 
+        Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+        t.text = (Hero.Type)whichHero +" discovered the Witch and got her brew for free! You can now buy brew from her.";
+        fogInfo.SetActive(true);
+
         //make sure fog is removed
         curr.fogIcon.enabled = false;
         Destroy(curr);
@@ -257,6 +299,10 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         Fog curr = fogOnRegion[0];
 
         Instantiate(gorPrefab, curr.transform.position, curr.transform.rotation);
+
+        Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
+        t.text = "A Gor was hiding behind the fog";
+        fogInfo.SetActive(true);
 
         //make sure fog is removed
         curr.fogIcon.enabled = false;
