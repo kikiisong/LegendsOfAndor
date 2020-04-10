@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
 
-public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
+public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
 {
     public MonsterMoveController gorPrefab;
     public Witch myWitch;
@@ -45,41 +45,30 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         
     }
 
-    public void OnTurnCompleted(Player player)
+    public void OnMove(Player player, Region currentRegion)
     {
         if (PhotonNetwork.LocalPlayer == player)
         {
-            Hero hero = player.GetHero();
-            var r = player.GetCurrentRegion();
-            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(r);
+
+            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(currentRegion);
 
             if (fogOnRegion.Count > 0)
             {
-                
-                Uncover(r.label, (int)hero.type);
+                Hero hero = (Hero)player.GetHero();
+                //hero.data.sp += 1;
+                Uncover(currentRegion.label, (int)hero.type);
 
+                //Testing
+               /* Player[] players = PhotonNetwork.PlayerList;
+                for (int i = 0; i < players.Length; i++)
+                {
+                    Hero h = (Hero)players[i].GetHero();
+                    Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP+" " + h.data.gold);
+                    
+                }*/
                 
             }
             
-        }
-
-    }
-
-    public void OnEndDay(Player player)
-    {
-        if (PhotonNetwork.LocalPlayer == player)
-        {
-            Hero hero = player.GetHero();
-            var r = player.GetCurrentRegion();
-            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(r);
-
-            if (fogOnRegion.Count > 0)
-            {
-                Uncover(r.label, (int)hero.type);
-
-
-            }
-
         }
 
     }
@@ -144,13 +133,13 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         curr.fogIcon.enabled = false;
         Destroy(curr);
 
-        //Testing
-        /*for (int i = 0; i < players.Length; i++)
+        
+        for (int i = 0; i < players.Length; i++)
         {
             Hero h = (Hero)players[i].GetHero();
             Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
 
-        }*/
+        }
     }
 
     [PunRPC]
@@ -174,7 +163,12 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         Destroy(curr);
 
         
-        
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     [PunRPC]
@@ -198,7 +192,12 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         Destroy(curr);
 
        
-        
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     [PunRPC]
@@ -222,6 +221,12 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         Destroy(curr);
 
        
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
 
@@ -264,6 +269,13 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         curr.fogIcon.enabled = false;
         Destroy(curr);
 
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero h = (Hero)players[i].GetHero();
+            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
     [PunRPC]

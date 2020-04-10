@@ -71,7 +71,7 @@ public class TurnManager : MonoBehaviourPun
         List<Player> inSunriseBox = new List<Player>();
         foreach (Player p in players)
         {
-            Hero hero = p.GetHero();
+            Hero hero = (Hero)p.GetHero();
             if (hero.data.numHours == 0) inSunriseBox.Add(p);
         }
         foreach (Player p in waiting)
@@ -84,11 +84,11 @@ public class TurnManager : MonoBehaviourPun
     //Turn
     public static bool CanMove()
     {
-        if(CurrentHero.data.NumHoursEffective >= 7)
+        if(CurrentHero.data.numHours >= 7)
         {
             return IsMyTurn() && CurrentHero.data.WP >= 2;
         }
-        return IsMyTurn() && CurrentHero.data.NumHoursEffective < 10;
+        return IsMyTurn() && CurrentHero.data.numHours < 10;
     }
 
     public static bool IsMyTurn()
@@ -113,7 +113,7 @@ public class TurnManager : MonoBehaviourPun
     {
         Instance.photonView.RPC("NextTurn", RpcTarget.All, PhotonNetwork.LocalPlayer);
 
-        if (!helper.HasMoved)
+        if (!helper.hasMoved)
         {
             TriggerEvent_Move(PhotonNetwork.LocalPlayer.GetCurrentRegion());
         }
@@ -180,20 +180,12 @@ public class TurnManager : MonoBehaviourPun
     [PunRPC]
     public void HeroMoved(Player player, int currentRegion)
     {
-        Hero hero = player.GetHero();
+        Hero hero = (Hero)player.GetHero();
+        hero.data.numHours++;
 
-        if(hero.data.numHours == hero.data.NumHoursEffective)
+        if(hero.data.numHours > 7)
         {
-            hero.data.numHours++;
-
-            if (hero.data.numHours > 7)
-            {
-                hero.data.WP -= 2;
-            }
-        }
-        else
-        {
-            hero.data.wineskinStacked--;
+            hero.data.WP -= 2;
         }
 
         //Notify
@@ -247,23 +239,23 @@ public class TurnManager : MonoBehaviourPun
 
 public class TurnHelper: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
 {
-    public bool HasMoved { get; private set; } = false;
+    public bool hasMoved = false;
 
     public void OnMove(Player player, Region currentRegion)
     {
-        HasMoved = true;
+        hasMoved = true;
         Debug.Log("Move " + player.NickName);
     }
 
     public void OnTurnCompleted(Player player)
     {
-        HasMoved = false;
+        hasMoved = false;
         Debug.Log("Turn completed " + player.NickName);
     }
 
     public void OnEndDay(Player player)
     {
-        HasMoved = false;
+        hasMoved = false;
         Debug.Log("End day " + player.NickName);
     }
 

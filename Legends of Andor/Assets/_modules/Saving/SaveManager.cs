@@ -27,8 +27,7 @@ namespace Saving
             JObject jObject = new JObject(
                 new JProperty("room", JRoom()),
                 new JProperty("heroes", JHeroes()),                
-                new JProperty("monsters", JMonsters()),
-                new JProperty("goldpots", JGoldpot()));
+                new JProperty("monsters", JMonsters()));
 
             File.WriteAllText(Helper.GetPath(file_name), jObject.ToString());
         }
@@ -66,27 +65,6 @@ namespace Saving
                     {"region", monster.CurrentRegion.label},
                     {"data",  JObject.FromObject(monster.data)}
                 });
-        }
-
-        private JArray JGoldpot()
-        {
-            return new JArray(
-                from bagRegion in FindObjectsOfType<Region>()
-                where bagRegion.data.numOfItems > 0
-                select new JObject
-                {
-                    {"region", bagRegion.label },
-                    {"numOfItems", bagRegion.data.numOfItems },
-                    {"gold", bagRegion.data.gold },
-                    {"numWineskin", bagRegion.data.numWineskin },
-                    {"brew", bagRegion.data.brew },
-                    {"herb", bagRegion.data.herb },
-                    {"sheild", bagRegion.data.sheild },
-                    {"helm", bagRegion.data.helm },
-                    {"bow", bagRegion.data.bow },
-                    {"falcon", bagRegion.data.falcon }
-                }
-            );
         }
     }
 }

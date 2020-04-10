@@ -6,43 +6,33 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
-using Monsters;
 
-public class Monster : MonoBehaviourPun
+public class Monster : MonoBehaviour, TurnManager.IOnSunrise
 {
     public int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
     public bool isFighted;
+    public int regionlabel;
     public Dice dice;
     public int damage;
-
-    public void Destroy() {
+    public void desotry() {
         Destroy(gameObject);
     }
-
     public void Start()
     {
-    }
-
-    public void InitRPC(MonsterData data)
-    {
-        photonView.RPC("InitMonster", RpcTarget.All, data.wp, data.sp);
-    }
-
-    [PunRPC]
-    public void InitMonster(int wp, int sp)
-    {
-        maxWP = wp;
-        maxSP = sp;
+        TurnManager.Register(this);
+        regionlabel = GameGraph.Instance.FindNearest(transform.position).label;
     }
 
     public void Attacked(int damage)
     {
+
         currentWP -= damage;
+
+
     }
-
-
-    public string PrintRoll()
+    public string printRoll()
     {
+
         return dice.printArrayList();
     }
 
@@ -58,9 +48,9 @@ public class Monster : MonoBehaviourPun
         {
             damage = dice.getMax();
         }
-    }
 
-    public void SetDice(string a) {
+    }
+    public void setDice(string a) {
         char[] seperator = {' ' };
         string [] array = a.Split(seperator);
         List<int> l = new List<int>();
@@ -69,8 +59,11 @@ public class Monster : MonoBehaviourPun
             {
                 print(s);
                 l.Add(int.Parse(s));
-            } 
+            }
+            
+            
         }
+       
         dice.setResult(l);
         if (dice.CheckRepet())
         {
@@ -83,7 +76,15 @@ public class Monster : MonoBehaviourPun
         print(this.damage);
     }
 
-    public List<int> GetDice() {
+    public List<int> getDice() {
         return dice.getResult();
+        }
+
+    public void OnSunrise()
+    { 
+            
+        return;
     }
+
+
 }

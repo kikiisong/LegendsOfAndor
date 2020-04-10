@@ -9,7 +9,7 @@ public class Im : MonoBehaviour
 
     public DropPickManager i;
     public GameObject slot;
-    //  public Sprite uimask;
+
 
     public void OnMouseDown()
     {
@@ -38,10 +38,9 @@ public class Im : MonoBehaviour
 
                     //update region stats
                     int updUnit = bagType == 1 ? -1 : 1;
-
                     i.updateRegionStats(img.sprite.name, updUnit);
-                    img.sprite = uimask;
 
+                    img.sprite = uimask;
                 }
                 else
                 {

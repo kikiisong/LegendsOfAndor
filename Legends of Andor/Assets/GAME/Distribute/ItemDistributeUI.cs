@@ -56,7 +56,6 @@ namespace Bag
         {
             if (ZeroedAmount(player) == 0) return;
             player.ItemDecrement(Type);
-            if (Type.IsHalfState()) player.ItemDecrement(Type);
             amount++;
         }
 

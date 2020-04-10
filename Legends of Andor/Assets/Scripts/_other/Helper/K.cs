@@ -62,31 +62,19 @@ public static class P
 
     public static Region GetCurrentRegion(this Player player)
     {
-        foreach (HeroMoveController heroMoveController in UnityEngine.Object.FindObjectsOfType<HeroMoveController>())
+        foreach (HeroMoveController heroMoveController in GameObject.FindObjectsOfType<HeroMoveController>())
         {
             if (heroMoveController.photonView.Owner == player)
             {
                 return GameGraph.Instance.FindNearest(heroMoveController.transform.position);
             }
         }
-        throw new Exception("Not found");
-    }
-
-    public static Region GetCurrentRegion(this Hero hero)
-    {
-        foreach(var p in PhotonNetwork.CurrentRoom.Players.Values)
-        {
-            if(p.GetHero().type == hero.type)
-            {
-                return GetCurrentRegion(p);
-            }
-        }
-        throw new Exception("Not found");
+        throw new System.Exception("Not found");
     }
 
     public static bool HasMoved(this Player player)
     {
-        return TurnManager.helper.HasMoved;
+        return TurnManager.helper.hasMoved;
     }
 }
 

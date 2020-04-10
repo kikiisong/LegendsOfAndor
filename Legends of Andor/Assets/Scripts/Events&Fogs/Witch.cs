@@ -49,7 +49,6 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnMove
                         //pop up window
                         //if click yes to buy then call bought
                         //photonView.RPC("bought", RpcTarget.AllBuffered, currentRegion.label);
-                        left -= 1;
 
                         brewButton.gameObject.SetActive(false);
                     });
@@ -68,7 +67,7 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnMove
 
     public void locate(int currReg)
     {
-        GameGraph.Instance.PlaceAt(gameObject, currReg);
+        GameGraph.Instance.PlaceAt(gameObject, region);
     }
 
     [PunRPC]

@@ -13,13 +13,10 @@ namespace Saving
         [Header("Instantiate")]
         public GameObject heroPrefab;
         public GameObject timeMarkerPrefab;
-        public GameObject goldpotPrefab;
         [Header("Monsters")]
         public MonsterMoveController gor;
         public MonsterMoveController skral;
         public MonsterMoveController wardrak;
-
- 
 
         //Getters
         Region InitialRegion
@@ -97,23 +94,6 @@ namespace Saving
                             go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
                             break;
                     }
-                }
-
-                //Goldpots 
-                foreach(var j in Room.Json["goldpots"])
-                {
-                    int label = j["region"].ToObject<int>();
-                    PhotonNetwork.Instantiate(goldpotPrefab.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
-                    Region reg = GameGraph.Instance.Find(label);
-                    reg.data.numOfItems = j["numOfItems"].ToObject<int>();
-                    reg.data.gold = j["gold"].ToObject<int>();
-                    reg.data.numWineskin = j["numWineskin"].ToObject<int>();
-                    reg.data.brew = j["brew"].ToObject<int>();
-                    reg.data.herb = j["herb"].ToObject<int>();
-                    reg.data.sheild = j["sheild"].ToObject<int>();
-                    reg.data.helm = j["helm"].ToObject<int>();
-                    reg.data.bow = j["bow"].ToObject<int>();
-                    reg.data.falcon = j["falcon"].ToObject<int>();
                 }
             }
         }

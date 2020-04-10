@@ -7,7 +7,6 @@ TagManager:
   - Hero
   - Music
   - Eventbutton
-  - goldpot
   layers:
   - Default
   - TransparentFX

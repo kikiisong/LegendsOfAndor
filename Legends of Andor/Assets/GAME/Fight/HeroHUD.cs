@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Bag;
 
 public class HeroHUD : MonoBehaviour
 {
@@ -34,16 +33,16 @@ public class HeroHUD : MonoBehaviour
 
     public void setHeroHUD(Hero h)
     {
-        dice.text = h.GetDiceNum() + " /" + h.data.blackDice;
+        dice.text = h.getDiceNum() + " /" + h.data.blackDice;
         currentWillpower.text = "" + h.data.WP;
         strengthPower.text = "" + h.data.SP;
 
-        if (!h.GetMagic()) changeColor(magic);
-        if (!h.HasShield()) changeColor(sheild);
-        if (!h.HasHelm()) changeColor(helm);
-        if (!h.HasHerb()) changeColor(herbStrength);
-        if (!h.HasHerb()) changeColor(herbWill);
-        if (!h.HasBrew()) changeColor(brew);
+        if (!h.getMagic()) changeColor(magic);
+        if (!h.getSheild()) changeColor(sheild);
+        if (!h.getHelm()) changeColor(helm);
+        if (!h.getherb()) changeColor(herbStrength);
+        if (!h.getherb()) changeColor(herbWill);
+        if (!h.getBrew()) changeColor(brew);
 
     }
 
@@ -56,7 +55,7 @@ public class HeroHUD : MonoBehaviour
     }
 
     public void basicInfoUpdate(Hero h) {
-        dice.text = h.GetDiceNum() + " /" + h.data.blackDice;
+        dice.text = h.getDiceNum() + " /" + h.data.blackDice;
         currentWillpower.text = "" + h.data.WP;
         strengthPower.text = "" + h.data.SP;
 
