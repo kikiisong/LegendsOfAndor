@@ -19,9 +19,9 @@ namespace Card
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                DistributionManager.Distribute((ItemType.GoldCoin, 5), (ItemType.Wineskin, 2));
+                DistributionManager.Distribute((ItemType.Coin, 5), (ItemType.Wineskin, 2));
             }
-//TODO difficulty
+            //TODO difficulty
             switch (difficulty)
             {
                 default:

@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class MonsterMoveController : MonoBehaviourPun
 {
     public MonsterType type;
+    public MonsterData data;
 
     public Monster m;
 

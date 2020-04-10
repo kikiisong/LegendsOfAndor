@@ -3,6 +3,7 @@ using RotaryHeart.Lib.SerializableDictionary;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Bag
@@ -24,16 +25,16 @@ namespace Bag
 
     public enum ItemType
     {
-        GoldCoin, Wineskin
+        Coin, Brew, Wineskin, Herb, Shield, Helm, Bow, Falcon
     }
 
     public static class Helper {
-        public static ref int ItemField(this Player player, ItemType type)
+        private static ref int ItemField(this Player player, ItemType type)
         {
             var hero = player.GetHero();
             switch (type)
             {
-                case ItemType.GoldCoin:
+                case ItemType.Coin:
                     return ref hero.data.gold;
                 case ItemType.Wineskin:
                     return ref hero.data.numWineskin;
@@ -42,16 +43,34 @@ namespace Bag
             }
         }
 
-        /*public void UpdateHeroStats(Hero hero, Resource.Type itemType, int updateUnit)
+        public static int GetItemField(this Player player, ItemType type)
         {
-            if (spriteName == "coin") hero.data.gold += updateUnit;
-            if (spriteName == "brew") hero.data.brew += updateUnit;
-            if (spriteName == "wineskin") hero.data.numWineskin += updateUnit;
-            if (spriteName == "herb") hero.data.herb += updateUnit;
-            if (spriteName == "shield") hero.data.sheild += updateUnit;
-            if (spriteName == "helm") hero.data.helm += updateUnit;
-            if (spriteName == "bow") hero.data.bow += updateUnit;
-            if (spriteName == "falcon") hero.data.falcon += updateUnit;
-        }*/
+            return ItemField(player, type);
+        }
+
+        public static void ItemIncrement(this Player player, ItemType type)
+        {
+            if (type.IsHalfState())
+            {
+                player.ItemField(type) += 2;
+            }
+            else
+            {
+                player.ItemField(type)++;
+            }
+        }
+
+        public static void ItemDecrement(this Player player, ItemType type)
+        {
+            player.ItemField(type)--;
+        }
+    }
+
+    public static class ItemProperties
+    {
+        public static bool IsHalfState(this ItemType type)
+        {
+            return new[] { ItemType.Shield, ItemType.Wineskin, ItemType.Brew }.All(t => t == type);
+        }
     }
 }
