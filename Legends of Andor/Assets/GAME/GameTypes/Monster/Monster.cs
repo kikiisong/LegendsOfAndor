@@ -6,33 +6,43 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
+using Monsters;
 
-public class Monster : MonoBehaviour, TurnManager.IOnSunrise
+public class Monster : MonoBehaviourPun
 {
     public int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
     public bool isFighted;
-    public int regionlabel;
     public Dice dice;
     public int damage;
-    public void desotry() {
+
+    public void Destroy() {
         Destroy(gameObject);
     }
+
     public void Start()
     {
-        TurnManager.Register(this);
-        regionlabel = GameGraph.Instance.FindNearest(transform.position).label;
+    }
+
+    public void InitRPC(MonsterData data)
+    {
+        photonView.RPC("InitMonster", RpcTarget.All, data.wp, data.sp);
+    }
+
+    [PunRPC]
+    public void InitMonster(int wp, int sp)
+    {
+        maxWP = wp;
+        maxSP = sp;
     }
 
     public void Attacked(int damage)
     {
-
         currentWP -= damage;
-
-
     }
-    public string printRoll()
-    {
 
+
+    public string PrintRoll()
+    {
         return dice.printArrayList();
     }
 
@@ -48,9 +58,9 @@ public class Monster : MonoBehaviour, TurnManager.IOnSunrise
         {
             damage = dice.getMax();
         }
-
     }
-    public void setDice(string a) {
+
+    public void SetDice(string a) {
         char[] seperator = {' ' };
         string [] array = a.Split(seperator);
         List<int> l = new List<int>();
@@ -59,11 +69,8 @@ public class Monster : MonoBehaviour, TurnManager.IOnSunrise
             {
                 print(s);
                 l.Add(int.Parse(s));
-            }
-            
-            
+            } 
         }
-       
         dice.setResult(l);
         if (dice.CheckRepet())
         {
@@ -76,15 +83,7 @@ public class Monster : MonoBehaviour, TurnManager.IOnSunrise
         print(this.damage);
     }
 
-    public List<int> getDice() {
+    public List<int> GetDice() {
         return dice.getResult();
-        }
-
-    public void OnSunrise()
-    { 
-            
-        return;
     }
-
-
 }

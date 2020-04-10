@@ -310,7 +310,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void setNumber(string result)
     {
         print("others");
-        aMonster.setDice(result);
+        aMonster.SetDice(result);
         StartCoroutine(MonsterRoll());
     }
 

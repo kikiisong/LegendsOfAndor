@@ -113,7 +113,7 @@ public class TurnManager : MonoBehaviourPun
     {
         Instance.photonView.RPC("NextTurn", RpcTarget.All, PhotonNetwork.LocalPlayer);
 
-        if (!helper.hasMoved)
+        if (!helper.HasMoved)
         {
             TriggerEvent_Move(PhotonNetwork.LocalPlayer.GetCurrentRegion());
         }
@@ -239,23 +239,23 @@ public class TurnManager : MonoBehaviourPun
 
 public class TurnHelper: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
 {
-    public bool hasMoved = false;
+    public bool HasMoved { get; private set; } = false;
 
     public void OnMove(Player player, Region currentRegion)
     {
-        hasMoved = true;
+        HasMoved = true;
         Debug.Log("Move " + player.NickName);
     }
 
     public void OnTurnCompleted(Player player)
     {
-        hasMoved = false;
+        HasMoved = false;
         Debug.Log("Turn completed " + player.NickName);
     }
 
     public void OnEndDay(Player player)
     {
-        hasMoved = false;
+        HasMoved = false;
         Debug.Log("End day " + player.NickName);
     }
 

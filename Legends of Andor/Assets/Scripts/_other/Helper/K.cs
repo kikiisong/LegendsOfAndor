@@ -74,7 +74,7 @@ public static class P
 
     public static bool HasMoved(this Player player)
     {
-        return TurnManager.helper.hasMoved;
+        return TurnManager.helper.HasMoved;
     }
 }
 
