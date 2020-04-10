@@ -114,5 +114,7 @@ MonoBehaviour:
   - ThreeWP
   - TwoWP
   - Gold
+  - Witch
+  - Gor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
