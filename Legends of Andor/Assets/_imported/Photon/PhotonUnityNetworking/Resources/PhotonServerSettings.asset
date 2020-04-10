@@ -116,5 +116,6 @@ MonoBehaviour:
   - Gold
   - Witch
   - Gor
+  - InitMonster
   DisableAutoOpenWizard: 1
   ShowSettings: 1
