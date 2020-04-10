@@ -116,7 +116,12 @@ MonoBehaviour:
   - Gold
   - Witch
   - Gor
+<<<<<<< HEAD
   - usedShield
   - decreaseShiled
+=======
+  - Wineskin
+  - updateDice
+>>>>>>> parent of 15c622bb... Revert "merchant finished"
   DisableAutoOpenWizard: 1
   ShowSettings: 1
