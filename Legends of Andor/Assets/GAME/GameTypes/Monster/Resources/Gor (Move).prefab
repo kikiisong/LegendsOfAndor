@@ -184,4 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  data:
+    wp: 4
+    sp: 2
   m: {fileID: 4858113096683849941, guid: dcaea54e850af45fc98ff764bce8ea75, type: 3}

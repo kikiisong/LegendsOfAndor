@@ -18,6 +18,16 @@ PrefabInstance:
       propertyPath: type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: data.sp
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99,
+        type: 3}
+      propertyPath: data.wp
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5837384214984143667, guid: c8dcc999392c15749a74b16e631faa99,
         type: 3}
       propertyPath: maxWP

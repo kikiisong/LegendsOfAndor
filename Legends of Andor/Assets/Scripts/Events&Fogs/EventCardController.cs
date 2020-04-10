@@ -21,6 +21,9 @@ public class EventCardController : MonoBehaviourPun
     // store my current hero
     Hero myhero;
 
+    // store the previous WP before the sheild has been used
+    int perviousWP;
+
     internal void flipped()
     {
         //TODO
@@ -43,7 +46,7 @@ public class EventCardController : MonoBehaviourPun
         myEventCardButton.GetComponent<eventCardButton>().setEventCard(currentEventCard);
         currentEventCard.SetActive(true);
 
-        if(a == 0)
+        if (a == 0)
         {
             photonView.RPC("eventCard2", RpcTarget.AllBuffered);
         }
@@ -121,7 +124,8 @@ public class EventCardController : MonoBehaviourPun
     {
      //   print("hero's WP was " + myhero.data.WP);
         currentRegion = findCurrentRegion();
-        if(currentRegion.label >= 0 && currentRegion.label <= 20)
+        perviousWP = myhero.data.WP;
+        if (currentRegion.label >= 0 && currentRegion.label <= 20)
         {
             if (myhero.data.WP <= 2)
             {
@@ -142,6 +146,7 @@ public class EventCardController : MonoBehaviourPun
       //  print("hero's WP was " + myhero.data.WP);
 
         currentRegion = findCurrentRegion();
+        perviousWP = myhero.data.WP;
         if (currentRegion.label >= 37 && currentRegion.label <= 70)
         {
             if (myhero.data.WP <= 2)
@@ -212,8 +217,8 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard17()
     {
-      //  print("hero's WP was " + myhero.data.WP);
-
+        //  print("hero's WP was " + myhero.data.WP);
+        perviousWP = myhero.data.WP;
         if (myhero.data.WP > 12)
         {
             myhero.data.WP = 12;
@@ -244,6 +249,7 @@ public class EventCardController : MonoBehaviourPun
       //  print("hero's WP was " + myhero.data.WP);
 
         currentRegion = findCurrentRegion();
+        perviousWP = myhero.data.WP;
         if ((currentRegion.label >= 47 && currentRegion.label <= 63)||
             (currentRegion.label >= 22 && currentRegion.label <= 25) ||
             (currentRegion.label == 71) ||
@@ -271,8 +277,8 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard28()
     {
-      //  print("hero's WP was " + myhero.data.WP);
-
+        //  print("hero's WP was " + myhero.data.WP);
+        
         if (myhero.data.numHours == 0)
         {
             myhero.data.WP += 2;
@@ -299,8 +305,8 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard31()
     {
-      //  print("hero's WP was " + myhero.data.WP);
-
+        //  print("hero's WP was " + myhero.data.WP);
+        perviousWP = myhero.data.WP;
         currentRegion = findCurrentRegion();
         if ((currentRegion.label >= 47 && currentRegion.label <= 63) ||
             (currentRegion.label >= 22 && currentRegion.label <= 25) ||
@@ -329,8 +335,8 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard32()
     {
-       //  print("hero's WP was " + myhero.data.WP);
-
+        //  print("hero's WP was " + myhero.data.WP);
+        perviousWP = myhero.data.WP;
         if (myhero.data.WP <= 2)
         {
             myhero.data.WP = 0;
@@ -341,6 +347,16 @@ public class EventCardController : MonoBehaviourPun
         }
 
        // print("hero's WP is " + myhero.data.WP);
+    }
+
+    // If any user used the shield, then every players wp goes back to normal.
+    public void usedShield(int eventNumber)
+    {
+        if(eventNumber == 0 || eventNumber == 1 || eventNumber == 6 || eventNumber == 12 || eventNumber == 13)
+        {
+            myhero.data.WP = perviousWP;
+        }
+
     }
 
 }

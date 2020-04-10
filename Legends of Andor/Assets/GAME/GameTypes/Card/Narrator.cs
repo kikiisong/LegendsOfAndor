@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
 using UnityEngine;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Card
 {
@@ -34,6 +36,8 @@ namespace Card
             //TODO: move from region 80 to A
             shuffleArray(temp);
             currentEventIndex = 0;
+
+            Thread.Sleep(500);
             if (PhotonNetwork.IsMasterClient)
             {
                 photonView.RPC("releaseNewRventCard", RpcTarget.AllBuffered, temp);

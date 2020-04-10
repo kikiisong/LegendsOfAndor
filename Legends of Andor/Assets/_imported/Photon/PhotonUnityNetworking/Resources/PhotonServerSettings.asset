@@ -116,5 +116,7 @@ MonoBehaviour:
   - Gold
   - Witch
   - Gor
+  - usedShield
+  - decreaseShiled
   DisableAutoOpenWizard: 1
   ShowSettings: 1
