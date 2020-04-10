@@ -71,7 +71,7 @@ public class TurnManager : MonoBehaviourPun
         List<Player> inSunriseBox = new List<Player>();
         foreach (Player p in players)
         {
-            Hero hero = (Hero)p.GetHero();
+            Hero hero = p.GetHero();
             if (hero.data.numHours == 0) inSunriseBox.Add(p);
         }
         foreach (Player p in waiting)
@@ -84,11 +84,11 @@ public class TurnManager : MonoBehaviourPun
     //Turn
     public static bool CanMove()
     {
-        if(CurrentHero.data.numHours >= 7)
+        if(CurrentHero.data.NumHoursEffective >= 7)
         {
             return IsMyTurn() && CurrentHero.data.WP >= 2;
         }
-        return IsMyTurn() && CurrentHero.data.numHours < 10;
+        return IsMyTurn() && CurrentHero.data.NumHoursEffective < 10;
     }
 
     public static bool IsMyTurn()
@@ -180,12 +180,20 @@ public class TurnManager : MonoBehaviourPun
     [PunRPC]
     public void HeroMoved(Player player, int currentRegion)
     {
-        Hero hero = (Hero)player.GetHero();
-        hero.data.numHours++;
+        Hero hero = player.GetHero();
 
-        if(hero.data.numHours > 7)
+        if(hero.data.numHours == hero.data.NumHoursEffective)
         {
-            hero.data.WP -= 2;
+            hero.data.numHours++;
+
+            if (hero.data.numHours > 7)
+            {
+                hero.data.WP -= 2;
+            }
+        }
+        else
+        {
+            hero.data.wineskinStacked--;
         }
 
         //Notify

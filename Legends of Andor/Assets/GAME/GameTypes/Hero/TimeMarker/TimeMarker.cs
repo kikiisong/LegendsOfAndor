@@ -29,10 +29,13 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
     public void OnMove(Player player, Region currentRegion)
     {
         if (photonView.Owner == player) {
-            Hero hero = (Hero)player.GetHero();
-            var transforms = GameMapManager.Instance.timeMarkerUpdatePositions;
-            var position = transforms[hero.data.numHours - 1].position;
-            coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, position, 2));
+            var h = player.GetHero();
+            if (h.data.numHours != 0)
+            {
+                var transforms = GameMapManager.Instance.timeMarkerUpdatePositions;
+                var position = transforms[h.data.numHours - 1].position;
+                coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, position, 2));
+            }
         }
         else
         {   

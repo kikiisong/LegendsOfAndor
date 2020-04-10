@@ -14,7 +14,7 @@ public class Hero : ScriptableObject
     public UI ui;
 
     //Easy to serialize and sync accross all players
-    [System.Serializable]
+    [Serializable]
     public struct Data
     { 
         //Main
@@ -22,73 +22,53 @@ public class Hero : ScriptableObject
         public int SP;
         public int numHours;
 
-
-        public int blackDice;
         public int gold;
-        
-        public int regionNumber;
-        // number of carried farmers
-
         public int numFarmers; // 0 or 1 or 2
+
+        //Small item
+        public int wineskin;
+        public int brew;
+        public int telescope;
+        public int helm;
+
+        //Big item
+        public int shield;
+        public int bow; //0 or 1
+        public int falcon;
+
+        //Other
+        public int herb;
 
         //Fight related 
         public int times;
         public int btimes;
         public int attackNum;
         public bool finishedFight;
-
-        //Small item
-        public int numWineskin;
-        public int brew;
-        public int herb;
-        public int telescope;
-
-        //Big item
-        public int shield;
-        public int helm;
-        public int bow;
-        public int falcon;
-        
-
-        //1 means processes and 0 means does not process
-        //TODO: more
         public Dice dice;
         public int diceNum;
         public int damage;
+        public int blackDice;
 
-        [JsonProperty]
-        private Dictionary<ItemType, bool> hasConsumedItem;
-        [JsonIgnore]
-        public Dictionary<ItemType, bool> HasConsumedItem
+        //Helper
+        public int wineskinStacked;
+        public int NumHoursEffective
         {
-            set
-            {
-                hasConsumedItem = value;
-            }
             get
             {
-                if(hasConsumedItem == null)
-                {
-                    hasConsumedItem = new Dictionary<ItemType, bool>();
-                    foreach(ItemType type in Enum.GetValues(typeof(ItemType)))
-                    {
-                        hasConsumedItem[type] = false;
-                    }
-                }
-                return hasConsumedItem;
+                return numHours - wineskinStacked;
             }
         }
     }
 
     //Values that won't change
-    [System.Serializable]
+    [Serializable]
     public struct Constants
     {
         public int rank;
         //name, description, ...
     }
 
-    [System.Serializable]
+    [Serializable]
     public class UI
     {
         public bool gender;
@@ -106,16 +86,15 @@ public class Hero : ScriptableObject
         {
             gender = !gender;
         }
-
     }
-
 
     public enum Type
     {
         ARCHER, WARRIOR, WIZARD, DWARF
     }
     
-    public int getDiceNum()
+    //Fight
+    public int GetDiceNum()
     {
         switch (type)
         {
@@ -163,57 +142,14 @@ public class Hero : ScriptableObject
         }
     }
 
-
     public void Attacked(int damage)
     {
         data.WP -= damage;
     }
 
-    public bool getMagic() {
-        if (type == Type.WIZARD) return true;
-        return false;
-    }
-
-    public bool getWineSkin()
+    public void HeroRoll()
     {
-        if (data.numWineskin > 0) return true;
-        return false;
-    }
-
-    public bool getBrew()
-    {
-        if (data.brew > 0) return true;
-        return false;
-    }
-
-    public bool getherb()
-    {
-        if (data.herb > 0) return true;
-        return false;
-    }
-
-    public bool getSheild()
-    {
-        if (data.shield > 0) return true;
-        return false;
-    }
-
-    public bool getHelm()
-    {
-        if (data.helm > 0) return true;
-        return false;
-    }
-
-    public bool getBow()
-    {
-        if (data.bow > 0) return true;
-        return false;
-    }
-
-    public void heroRoll()
-    {
-
-        if (type == Hero.Type.ARCHER)
+        if (type == Type.ARCHER)
         {
             if (data.btimes > 0)
             {
@@ -229,14 +165,14 @@ public class Hero : ScriptableObject
         //TODO: did not consider how black dice is used
         else if(data.times>0)
         {
-            data.dice.rollDice(getDiceNum(), data.blackDice);
+            data.dice.rollDice(GetDiceNum(), data.blackDice);
             data.diceNum = data.dice.getMax();
             data.times = 0;
         }
     }
 
-    //static
-    public static Hero FindInResources(Hero.Type type)
+    //Static
+    public static Hero FindInResources(Type type)
     {
         Resources.LoadAll<Hero>("Hero_SO");
         foreach (Hero hero in Resources.FindObjectsOfTypeAll<Hero>())
@@ -249,10 +185,44 @@ public class Hero : ScriptableObject
     public static List<Hero> FindAllInResources()
     {
         List<Hero> heroes = new List<Hero>();
-        foreach (Hero.Type type in Enum.GetValues(typeof(Hero.Type)))
+        foreach (Type type in Enum.GetValues(typeof(Type)))
         {
             heroes.Add(FindInResources(type));
         }
         return heroes;
     }
 }
+
+public static class FightHelper
+{
+    public static bool GetMagic(this Hero h)
+    {
+        return h.type == Hero.Type.WIZARD;
+    }
+    
+    public static bool HasWineSkin(this Hero h)
+    {
+        return h.data.wineskin > 0;
+    }
+
+    public static bool HasBrew(this Hero h)
+    {
+        return h.data.brew > 0;
+    }
+
+    public static bool HasHerb(this Hero h)
+    {
+        return h.data.herb > 0;
+    }
+
+    public static bool HasShield(this Hero h)
+    {
+        return h.data.shield > 0;
+    }
+
+    public static bool HasHelm(this Hero h)
+    {
+        return h.data.helm > 0;
+    }
+}
+
