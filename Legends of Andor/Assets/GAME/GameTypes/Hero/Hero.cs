@@ -41,12 +41,14 @@ public class Hero : ScriptableObject
         public int numWineskin;
         public int brew;
         public int herb;
+        public int telescope;
 
         //Big item
         public int shield;
         public int helm;
         public int bow;
         public int falcon;
+        
 
         //1 means processes and 0 means does not process
         //TODO: more

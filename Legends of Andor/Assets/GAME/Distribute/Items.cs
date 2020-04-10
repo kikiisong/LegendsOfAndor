@@ -41,6 +41,22 @@ namespace Bag
                     return ref hero.data.gold;
                 case ItemType.Wineskin:
                     return ref hero.data.numWineskin;
+                case ItemType.Falcon:
+                    return ref hero.data.falcon;
+                case ItemType.Shield:
+                    return ref hero.data.shield;
+                case ItemType.Helm:
+                    return ref hero.data.helm;
+                case ItemType.Bow:
+                    return ref hero.data.bow;
+                case ItemType.Telescope:
+                    return ref hero.data.telescope;
+                case ItemType.Brew:
+                    return ref hero.data.brew;
+                case ItemType.Herb:
+                    return ref hero.data.herb;
+
+
                 default:
                     throw new Exception();
             }
@@ -110,10 +126,15 @@ namespace Bag
 
             foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
             {
+               
                 if (type.IsLargeItem())
                 {
-                    has = true;
-                    break;
+                    if (player.HasItem(type))
+                    {
+                        has = true;
+                        break;
+                    }
+                    
                 }
             }
 
@@ -127,25 +148,24 @@ namespace Bag
 
 
 
-
-
-
-
     public static class ItemProperties
     {
+
         public static bool IsHalfState(this ItemType type)
-        {
-            return new[] { ItemType.Shield, ItemType.Wineskin, ItemType.Brew }.All(t => t == type);
+        { 
+            return new[] { ItemType.Shield, ItemType.Wineskin, ItemType.Brew }.Any(t => t == type);
         }
+
 
         public static bool IsSmallItem(this ItemType type)
         {
-            return new[] {ItemType.Wineskin, ItemType.Brew, ItemType.Herb }.All(t => t == type);
+            return new[] {ItemType.Wineskin, ItemType.Brew, ItemType.Herb }.Any(t => t == type);
         }
+
 
         public static bool IsLargeItem(this ItemType type)
         {
-            return new[] { ItemType.Shield, ItemType.Bow, ItemType.Falcon }.All(t => t == type);
+            return new[] { ItemType.Shield, ItemType.Bow, ItemType.Falcon }.Any(t => t == type);
         }
 
         
