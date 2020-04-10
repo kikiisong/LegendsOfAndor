@@ -34,7 +34,7 @@ namespace Bag
             startAmount = new Dictionary<Player, int>();
             foreach(var player in PhotonNetwork.CurrentRoom.Players.Values)
             {
-                startAmount[player] = player.ItemField(type);
+                startAmount[player] = player.GetItemField(type);
             }
 
             icon.sprite = item.icon;
@@ -42,20 +42,20 @@ namespace Bag
 
         private int ZeroedAmount(Player player)
         {
-            return player.ItemField(Type) - startAmount[player];
+            return player.GetItemField(Type) - startAmount[player];
         }
 
         public void Take(Player player)
         {
             if (amount == 0) return;
             amount--;
-            player.ItemField(Type)++;
+            player.ItemIncrement(Type);
         }
 
         public void GiveBack(Player player)
         {
             if (ZeroedAmount(player) == 0) return;
-            player.ItemField(Type)--;
+            player.ItemDecrement(Type);
             amount++;
         }
 
