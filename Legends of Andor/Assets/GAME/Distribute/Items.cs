@@ -64,6 +64,24 @@ namespace Bag
         {
             player.ItemField(type)--;
         }
+
+        public static bool HasItem(this Player player, ItemType type)
+        {
+            return player.ItemField(type) > 0;
+        }
+
+        public static int NumSmallItems(this Player player)
+        {
+            var count = 0;
+            foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
+            {
+                if (type.IsSmallItem())
+                {
+                    if (player.HasItem(type)) count++;
+                }
+            }
+            return count;
+        }
     }
 
     public static class ItemProperties
@@ -71,6 +89,11 @@ namespace Bag
         public static bool IsHalfState(this ItemType type)
         {
             return new[] { ItemType.Shield, ItemType.Wineskin, ItemType.Brew }.All(t => t == type);
+        }
+
+        public static bool IsSmallItem(this ItemType type)
+        {
+            return new[] {ItemType.Wineskin, ItemType.Brew, ItemType.Herb }.All(t => t == type);
         }
     }
 }

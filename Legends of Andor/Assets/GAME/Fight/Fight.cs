@@ -453,7 +453,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        hero.data.sheild -= 1;
+        hero.data.shield -= 1;
         aMonster.damage = 0;
         fHUD.rollResult("Applied Sheild" );
 
