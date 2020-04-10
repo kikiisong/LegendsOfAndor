@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
 
-public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
+public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
     public MonsterMoveController gorPrefab;
     public Witch myWitch;
@@ -45,30 +45,39 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         
     }
 
-    public void OnMove(Player player, Region currentRegion)
+    public void OnTurnCompleted(Player player)
     {
         if (PhotonNetwork.LocalPlayer == player)
         {
-
-            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(currentRegion);
+            Hero hero = (Hero)player.GetHero();
+            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(hero.data.regionNumber);
 
             if (fogOnRegion.Count > 0)
             {
-                Hero hero = (Hero)player.GetHero();
-                //hero.data.sp += 1;
-                Uncover(currentRegion.label, (int)hero.type);
+                
+                Uncover(hero.data.regionNumber, (int)hero.type);
 
-                //Testing
-               /* Player[] players = PhotonNetwork.PlayerList;
-                for (int i = 0; i < players.Length; i++)
-                {
-                    Hero h = (Hero)players[i].GetHero();
-                    Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP+" " + h.data.gold);
-                    
-                }*/
                 
             }
             
+        }
+
+    }
+
+    public void OnEndDay(Player player)
+    {
+        if (PhotonNetwork.LocalPlayer == player)
+        {
+            Hero hero = (Hero)player.GetHero();
+            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(hero.data.regionNumber);
+
+            if (fogOnRegion.Count > 0)
+            {
+                Uncover(hero.data.regionNumber, (int)hero.type);
+
+
+            }
+
         }
 
     }
@@ -133,13 +142,13 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         curr.fogIcon.enabled = false;
         Destroy(curr);
 
-        
-        for (int i = 0; i < players.Length; i++)
+        //Testing
+        /*for (int i = 0; i < players.Length; i++)
         {
             Hero h = (Hero)players[i].GetHero();
             Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
 
-        }
+        }*/
     }
 
     [PunRPC]
@@ -163,12 +172,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         Destroy(curr);
 
         
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
+        
     }
 
     [PunRPC]
@@ -192,12 +196,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         Destroy(curr);
 
        
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
+        
     }
 
     [PunRPC]
@@ -221,12 +220,6 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         Destroy(curr);
 
        
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
 
@@ -269,13 +262,6 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnMove
         curr.fogIcon.enabled = false;
         Destroy(curr);
 
-        Player[] players = PhotonNetwork.PlayerList;
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
     [PunRPC]
