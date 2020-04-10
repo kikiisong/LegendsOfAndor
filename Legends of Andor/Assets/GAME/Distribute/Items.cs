@@ -30,8 +30,6 @@ namespace Bag
 
     public static class Helper {
 
-
-
         private static ref int ItemField(this Player player, ItemType type)
         {
             var hero = player.GetHero();
@@ -55,13 +53,10 @@ namespace Bag
                     return ref hero.data.brew;
                 case ItemType.Herb:
                     return ref hero.data.herb;
-
-
                 default:
                     throw new Exception();
             }
         }
-
 
 
 
@@ -97,26 +92,15 @@ namespace Bag
             }
         }
 
-
-
-
         public static void ItemDecrement(this Player player, ItemType type)
         {
             player.ItemField(type)--;
         }
 
-
-
-
-
         public static bool HasItem(this Player player, ItemType type)
         {
             return player.ItemField(type) > 0;
         }
-
-
-
-
 
         public static int NumSmallItems(this Player player)
         {
@@ -131,34 +115,15 @@ namespace Bag
             return count;
         }
 
-
-        public static bool hasLarge (this Player player)
+        public static bool HasLargeItem (this Player player)
         {
-            bool has = false;
-
             foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
             {
-               
-                if (type.IsLargeItem())
-                {
-                    if (player.HasItem(type))
-                    {
-                        has = true;
-                        break;
-                    }
-                    
-                }
+                if (type.IsLargeItem() && player.HasItem(type)) return true;
             }
-
-            return has;
+            return false;
         }
-
-
     }
-
-
-
-
 
     public static class ItemProperties
     {
@@ -179,9 +144,6 @@ namespace Bag
         {
             return new[] { ItemType.Shield, ItemType.Bow, ItemType.Falcon }.Any(t => t == type);
         }
-
-        
-
 
     }
 }

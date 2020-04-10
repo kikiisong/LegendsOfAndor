@@ -157,7 +157,7 @@ public class Shop : MonoBehaviour
         
         if (itemName == "WINESKIN")
         {
-            if (Bag.Helper.NumSmallItems(PhotonNetwork.LocalPlayer) < 3)
+            if (PhotonNetwork.LocalPlayer.NumSmallItems() < 3)
             {
                 Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Wineskin);
                 hero.data.gold -= price;
@@ -175,10 +175,10 @@ public class Shop : MonoBehaviour
         //
         if (itemName == "FALCON")
         {
-            if (!Bag.Helper.hasLarge(PhotonNetwork.LocalPlayer))
+            if (!PhotonNetwork.LocalPlayer.HasLargeItem())
             {
-               
-                Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Falcon);
+
+                PhotonNetwork.LocalPlayer.ItemIncrement(ItemType.Falcon);
                 hero.data.gold -= price;
                 bought = true;
             }
@@ -195,9 +195,9 @@ public class Shop : MonoBehaviour
 
         if (itemName == "SHIELD")
         {
-            if (!Bag.Helper.hasLarge(PhotonNetwork.LocalPlayer))
+            if (!Bag.Helper.HasLargeItem(PhotonNetwork.LocalPlayer))
             {
-                Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Shield);
+                PhotonNetwork.LocalPlayer.ItemIncrement(ItemType.Shield);
                 hero.data.gold -= price;
                 bought = true;
             }
@@ -220,7 +220,7 @@ public class Shop : MonoBehaviour
                 message.text = "You already have a Bow";
                
             }
-            else if (!Bag.Helper.hasLarge(PhotonNetwork.LocalPlayer))
+            else if (!Bag.Helper.HasLargeItem(PhotonNetwork.LocalPlayer))
             {
                 Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Bow);
                 hero.data.gold -= price;
