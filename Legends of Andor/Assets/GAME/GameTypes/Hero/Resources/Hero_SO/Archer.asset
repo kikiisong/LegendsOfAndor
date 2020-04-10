@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   data:
     WP: 7
-    SP: 1
+    SP: 2
     numHours: 0
     gold: 0
     numFarmers: 0
