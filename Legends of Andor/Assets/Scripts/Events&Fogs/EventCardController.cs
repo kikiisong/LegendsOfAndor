@@ -113,10 +113,9 @@ public class EventCardController : MonoBehaviourPun
 
     // #2 Any hero standing on a space between 0 and 20 looses 3 WP (shiled)
     [PunRPC]
-    public void eventCard2()
+    public void EventCard2()
     {
-     //   print("hero's WP was " + myhero.data.WP);
-        if(CurrentRegion.label >= 0 && CurrentRegion.label <= 20)
+        /*if(CurrentRegion.label >= 0 && CurrentRegion.label <= 20)
         {
             if (Hero.data.WP <= 2)
             {
@@ -126,8 +125,16 @@ public class EventCardController : MonoBehaviourPun
             {
                 Hero.data.WP = Hero.data.WP - 3;
             }
+        }*/
+        foreach(var p in PhotonNetwork.CurrentRoom.Players.Values)
+        {
+            var l = p.GetCurrentRegion().label;
+            if (l >= 0 && l <= 20)
+            {
+                ref var wp = ref p.GetHero().data.WP;
+                wp = Math.Max(wp - 3, 0);
+            }
         }
-    //    print("hero's WP is " + myhero.data.WP);
     }
 
     // #4 Any hero standing on a space between 37 and 70 looses 3 WP  (shiled)
