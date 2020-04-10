@@ -11,7 +11,7 @@ public class MonsterMoveManager : MonoBehaviour, TurnManager.IOnSunrise
         get
         {
             var monsters = new List<MonsterMoveController>(FindObjectsOfType<MonsterMoveController>());
-            monsters = monsters.OrderBy(m => m.type).ThenBy(m => m.CurrentRegion.label).ToList();
+            monsters.OrderBy(m => m.type).ThenBy(m => m.CurrentRegion);
             var wardraks = monsters.Where(m => m.type == Monsters.MonsterType.Wardrak).OrderBy(m => m.CurrentRegion);
             monsters.AddRange(wardraks);
             return monsters;
@@ -40,16 +40,10 @@ public class MonsterMoveManager : MonoBehaviour, TurnManager.IOnSunrise
 
     void MoveToNext()
     {
-        var monsters = MonstersInOrder;
+       
         var taken = new List<Region>();
-
-        foreach(var m in monsters)
+        foreach (var m in MonstersInOrder)
         {
-            if (!m.canMove) taken.Add(m.CurrentRegion);
-        }
-        foreach (var m in monsters)
-        {
-            if (!m.canMove) continue;
             var path = new List<Region>();
             try
             {

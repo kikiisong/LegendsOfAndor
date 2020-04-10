@@ -49,14 +49,13 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
     {
         if (PhotonNetwork.LocalPlayer == player)
         {
-            Hero hero = player.GetHero();
-            var r = player.GetCurrentRegion();
-            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(r);
+            Hero hero = (Hero)player.GetHero();
+            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(hero.data.regionNumber);
 
             if (fogOnRegion.Count > 0)
             {
                 
-                Uncover(r.label, (int)hero.type);
+                Uncover(hero.data.regionNumber, (int)hero.type);
 
                 
             }
@@ -69,13 +68,12 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
     {
         if (PhotonNetwork.LocalPlayer == player)
         {
-            Hero hero = player.GetHero();
-            var r = player.GetCurrentRegion();
-            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(r);
+            Hero hero = (Hero)player.GetHero();
+            List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(hero.data.regionNumber);
 
             if (fogOnRegion.Count > 0)
             {
-                Uncover(r.label, (int)hero.type);
+                Uncover(hero.data.regionNumber, (int)hero.type);
 
 
             }

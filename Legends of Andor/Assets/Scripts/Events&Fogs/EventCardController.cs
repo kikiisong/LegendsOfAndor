@@ -14,22 +14,12 @@ public class EventCardController : MonoBehaviourPun
     public int currentEventIndex;
     public GameObject currentEventCard;
 
-    Region CurrentRegion
-    {
-        get
-        {
-            return PhotonNetwork.LocalPlayer.GetCurrentRegion();
-        }
-    }
+
+    // store the current region of this player's hero
+    Region currentRegion;
 
     // store my current hero
-    Hero Hero
-    {
-        get
-        {
-            return PhotonNetwork.LocalPlayer.GetHero();
-        }
-    }
+    Hero myhero;
 
     internal void flipped()
     {
@@ -43,6 +33,7 @@ public class EventCardController : MonoBehaviourPun
     {
         //then call RPCPun to other clients
         // photonView.RPC("getCards", RpcTarget.AllBuffered, cards);
+        myhero = PhotonNetwork.LocalPlayer.GetHero();
     }
 
     public void newEventCard(int a)
@@ -111,20 +102,34 @@ public class EventCardController : MonoBehaviourPun
     }
 
 
+    private Region findCurrentRegion()
+    {
+        //Extract current player's region
+        foreach (HeroMoveController c in GameObject.FindObjectsOfType<HeroMoveController>())
+        {
+            if (c.photonView.Owner == PhotonNetwork.LocalPlayer)
+            {
+                return GameGraph.Instance.FindNearest(c.transform.position);
+            }
+        }
+        throw new System.Exception("No current region");
+    }
+
     // #2 Any hero standing on a space between 0 and 20 looses 3 WP (shiled)
     [PunRPC]
     public void eventCard2()
     {
      //   print("hero's WP was " + myhero.data.WP);
-        if(CurrentRegion.label >= 0 && CurrentRegion.label <= 20)
+        currentRegion = findCurrentRegion();
+        if(currentRegion.label >= 0 && currentRegion.label <= 20)
         {
-            if (Hero.data.WP <= 2)
+            if (myhero.data.WP <= 2)
             {
-                Hero.data.WP = 0;
+                myhero.data.WP = 0;
             }
             else
             {
-                Hero.data.WP = Hero.data.WP - 3;
+                myhero.data.WP = myhero.data.WP - 3;
             }
         }
     //    print("hero's WP is " + myhero.data.WP);
@@ -136,15 +141,16 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        if (CurrentRegion.label >= 37 && CurrentRegion.label <= 70)
+        currentRegion = findCurrentRegion();
+        if (currentRegion.label >= 37 && currentRegion.label <= 70)
         {
-            if (Hero.data.WP <= 2)
+            if (myhero.data.WP <= 2)
             {
-                Hero.data.WP = 0;
+                myhero.data.WP = 0;
             }
             else
             {
-                Hero.data.WP = Hero.data.WP - 3;
+                myhero.data.WP = myhero.data.WP - 3;
             }
         }
 
@@ -157,9 +163,9 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        if (Hero.type == Hero.Type.WIZARD || Hero.type == Hero.Type.ARCHER)
+        if (myhero.type == Hero.Type.WIZARD || myhero.type == Hero.Type.ARCHER)
         {
-            Hero.data.WP += 3;
+            myhero.data.WP += 3;
         }
 
       //  print("hero's WP is " + myhero.data.WP);
@@ -179,9 +185,9 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        if (Hero.data.WP < 10)
+        if (myhero.data.WP < 10)
         {
-            Hero.data.WP = 10;
+            myhero.data.WP = 10;
         }
 
 
@@ -194,9 +200,9 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        if (Hero.type == Hero.Type.DWARF || Hero.type == Hero.Type.WARRIOR)
+        if (myhero.type == Hero.Type.DWARF || myhero.type == Hero.Type.WARRIOR)
         {
-            Hero.data.WP += 3;
+            myhero.data.WP += 3;
         }
 
       //  print("hero's WP is " + myhero.data.WP);
@@ -208,9 +214,9 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        if (Hero.data.WP > 12)
+        if (myhero.data.WP > 12)
         {
-            Hero.data.WP = 12;
+            myhero.data.WP = 12;
         }
 
       //  print("hero's WP is " + myhero.data.WP);
@@ -237,23 +243,24 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        if ((CurrentRegion.label >= 47 && CurrentRegion.label <= 63)||
-            (CurrentRegion.label >= 22 && CurrentRegion.label <= 25) ||
-            (CurrentRegion.label == 71) ||
-            (CurrentRegion.label == 72) ||
-            (CurrentRegion.label == 0))
+        currentRegion = findCurrentRegion();
+        if ((currentRegion.label >= 47 && currentRegion.label <= 63)||
+            (currentRegion.label >= 22 && currentRegion.label <= 25) ||
+            (currentRegion.label == 71) ||
+            (currentRegion.label == 72) ||
+            (currentRegion.label == 0))
         {
             return;
         }
         else
         {
-            if(Hero.data.WP <= 2)
+            if(myhero.data.WP <= 2)
             {
-                Hero.data.WP = 0;
+                myhero.data.WP = 0;
             }
             else
             {
-                Hero.data.WP -= 2;
+                myhero.data.WP -= 2;
             }
         }
 
@@ -266,9 +273,9 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        if (Hero.data.numHours == 0)
+        if (myhero.data.numHours == 0)
         {
-            Hero.data.WP += 2;
+            myhero.data.WP += 2;
         }
 
      //   print("hero's WP is " + myhero.data.WP);
@@ -292,26 +299,26 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard31()
     {
-        //  print("hero's WP was " + myhero.data.WP);
+      //  print("hero's WP was " + myhero.data.WP);
 
-        var label = CurrentRegion.label;
-        if ((label >= 47 && label <= 63) ||
-            (label >= 22 && label <= 25) ||
-            (label == 71) ||
-            (label == 72) ||
-            (label == 0))
+        currentRegion = findCurrentRegion();
+        if ((currentRegion.label >= 47 && currentRegion.label <= 63) ||
+            (currentRegion.label >= 22 && currentRegion.label <= 25) ||
+            (currentRegion.label == 71) ||
+            (currentRegion.label == 72) ||
+            (currentRegion.label == 0))
         {
             return;
         }
         else
         {
-            if (Hero.data.WP <= 2)
+            if (myhero.data.WP <= 2)
             {
-                Hero.data.WP = 0;
+                myhero.data.WP = 0;
             }
             else
             {
-                Hero.data.WP -= 2;
+                myhero.data.WP -= 2;
             }
         }
 
@@ -324,13 +331,13 @@ public class EventCardController : MonoBehaviourPun
     {
        //  print("hero's WP was " + myhero.data.WP);
 
-        if (Hero.data.WP <= 2)
+        if (myhero.data.WP <= 2)
         {
-            Hero.data.WP = 0;
+            myhero.data.WP = 0;
         }
         else
         {
-            Hero.data.WP -= 2;
+            myhero.data.WP -= 2;
         }
 
        // print("hero's WP is " + myhero.data.WP);

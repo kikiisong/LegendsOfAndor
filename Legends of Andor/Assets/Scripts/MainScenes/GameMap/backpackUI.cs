@@ -77,9 +77,9 @@ public void populateBag()
         fillBag(emptySlot, "coin", 23);
         emptySlot++;
     }
-        if (hero.data.wineskin > 0)
+        if (hero.data.numWineskin > 0)
     {
-        fillBag(emptySlot, "wineskin", hero.data.wineskin);
+        fillBag(emptySlot, "wineskin", hero.data.numWineskin);
         emptySlot++;
     }
     if (hero.data.gold > 0 )

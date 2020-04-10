@@ -12,7 +12,6 @@ public class MonsterMoveController : MonoBehaviourPun
 {
     public MonsterType type;
     public MonsterData data;
-    public bool canMove = true;
 
     public Monster m;
 
@@ -39,7 +38,6 @@ public class MonsterMoveController : MonoBehaviourPun
         photonView.RPC("InitMonster", RpcTarget.All, jToken.ToString());
     }
 
-    [PunRPC]
     public void InitMonster(string json)
     {
         var j = JObject.Parse(json);

@@ -35,15 +35,8 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 000000000100000002000000030000000400000005000000060000000700000008000000
-    _keys: 000000000100000002000000030000000400000005000000060000000700000008000000
+    _keyValues: 0000000001000000
+    _keys: 0000000001000000
     _values:
     - icon: {fileID: 21300000, guid: 89937b416dd0ce44cb09a3aebeb4408b, type: 3}
-    - icon: {fileID: 21300000, guid: 57e8618d85ee48940946b9fae942c002, type: 3}
     - icon: {fileID: 21300000, guid: 7971a52da5574e340a1013ed380025fb, type: 3}
-    - icon: {fileID: 21300000, guid: 625e7166ac76d0c4495ad6fab73fa9b5, type: 3}
-    - icon: {fileID: 21300000, guid: fcd3b746ca0a26449b01a8d6365c6b58, type: 3}
-    - icon: {fileID: 21300000, guid: 3b8cfe1206e57d947ae336d51b921fa9, type: 3}
-    - icon: {fileID: 21300000, guid: ae6ad190328f4044baf31c1ef075da31, type: 3}
-    - icon: {fileID: 21300000, guid: a7236ce97524f42dca9117ec8b0b1832, type: 3}
-    - icon: {fileID: 21300000, guid: 9c9fbc84f184e4c88b7451cf70061709, type: 3}

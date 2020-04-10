@@ -39,7 +39,7 @@ public class Shop : MonoBehaviour
     void Start()
     {
         
-        hero = PhotonNetwork.LocalPlayer.GetHero();
+        hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
         buttonOK.GetComponent<Button>().onClick.AddListener(() => OKClicked());
         buttonConfirm.GetComponent<Button>().onClick.AddListener(() => ConfirmClicked(itemToBuy));
         buttonCancel.GetComponent<Button>().onClick.AddListener(() => CancelClicked());
@@ -67,9 +67,9 @@ public class Shop : MonoBehaviour
     void BuyItem(string itemName)
     {
 
-        if (hero.GetCurrentRegion().label != merchantLocation) //hero not here
+        if (hero.data.regionNumber != merchantLocation) //hero not here
         {
-
+        
             messageBox.SetActive(true);
             buttonOK.SetActive(true);
             message.text = "You are not at this shop yet! You can purchase when you are here. Welcome back in the future!";

@@ -38,7 +38,7 @@ namespace Bag
                 case ItemType.Coin:
                     return ref hero.data.gold;
                 case ItemType.Wineskin:
-                    return ref hero.data.wineskin;
+                    return ref hero.data.numWineskin;
                 case ItemType.Falcon:
                     return ref hero.data.falcon;
                 case ItemType.Shield:
@@ -77,6 +77,8 @@ namespace Bag
             }
             return value;
         }
+
+
 
         public static void ItemIncrement(this Player player, ItemType type)
         {
@@ -125,15 +127,18 @@ namespace Bag
 
     public static class ItemProperties
     {
+
         public static bool IsHalfState(this ItemType type)
         { 
             return new[] { ItemType.Shield, ItemType.Wineskin, ItemType.Brew }.Any(t => t == type);
         }
 
+
         public static bool IsSmallItem(this ItemType type)
         {
-            return new[] {ItemType.Wineskin, ItemType.Brew, ItemType.Herb, ItemType.Telescope }.Any(t => t == type);
+            return new[] {ItemType.Wineskin, ItemType.Brew, ItemType.Herb }.Any(t => t == type);
         }
+
 
         public static bool IsLargeItem(this ItemType type)
         {
