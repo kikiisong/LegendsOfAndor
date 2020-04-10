@@ -116,17 +116,9 @@ MonoBehaviour:
   - Gold
   - Witch
   - Gor
-<<<<<<< HEAD
   - usedShield
   - decreaseShiled
-<<<<<<< HEAD
   - InitMonster
   - InitTower
-=======
-=======
-  - Wineskin
-  - updateDice
->>>>>>> parent of 15c622bb... Revert "merchant finished"
->>>>>>> parent of dc5c4539... Revert "some of my parts were overwritten I'll put it back now please don't commit before my next commit"
   DisableAutoOpenWizard: 1
   ShowSettings: 1
