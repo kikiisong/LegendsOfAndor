@@ -116,7 +116,5 @@ MonoBehaviour:
   - Gold
   - Witch
   - Gor
-  - Wineskin
-  - updateDice
   DisableAutoOpenWizard: 1
   ShowSettings: 1

@@ -41,7 +41,8 @@ public class WellManager : MonoBehaviourPun, TurnManager.IOnMove
                     {
                         //Debug.Log(hero.data.WP);
                         hero.data.WP += 3;
-                        
+                        string wp = hero.data.WP.ToString();
+                        //Debug.Log(hero.data.WP);
 
                         photonView.RPC("Empty", RpcTarget.AllBuffered, currentRegion.label);
 
