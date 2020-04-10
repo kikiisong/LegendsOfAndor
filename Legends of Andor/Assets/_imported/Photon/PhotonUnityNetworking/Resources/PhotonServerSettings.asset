@@ -118,5 +118,7 @@ MonoBehaviour:
   - Gor
   - usedShield
   - decreaseShiled
+  - InitMonster
+  - InitTower
   DisableAutoOpenWizard: 1
   ShowSettings: 1
