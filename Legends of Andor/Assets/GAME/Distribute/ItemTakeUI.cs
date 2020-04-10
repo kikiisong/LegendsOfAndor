@@ -22,7 +22,7 @@ namespace Bag
         {
             get
             {
-                return PhotonNetwork.LocalPlayer.GetItemField(Type);
+                return PhotonNetwork.LocalPlayer.GetDisplayItem(Type, out bool halfConsumed);
             }
         }
 

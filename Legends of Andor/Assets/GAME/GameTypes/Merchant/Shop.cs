@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
+using Bag;
 
 public class Shop : MonoBehaviour
 {
@@ -24,22 +25,33 @@ public class Shop : MonoBehaviour
     string itemToBuy;
 
 
-
     public Button SP;
     public Button WINESKIN;
+    public Button SHIELD;
+    public Button BOW;
+    public Button HELM;
+    public Button FALCON;
+    public Button TELESCOPE;
 
     int price;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();
+        
+        hero = PhotonNetwork.LocalPlayer.GetHero();
         buttonOK.GetComponent<Button>().onClick.AddListener(() => OKClicked());
         buttonConfirm.GetComponent<Button>().onClick.AddListener(() => ConfirmClicked(itemToBuy));
+        buttonCancel.GetComponent<Button>().onClick.AddListener(() => CancelClicked());
 
         SP.onClick.AddListener(() => BuyItem("SP"));
         WINESKIN.onClick.AddListener(() => BuyItem("WINESKIN"));
+        SHIELD.onClick.AddListener(() => BuyItem("SHIELD"));
+        BOW.onClick.AddListener(() => BuyItem("BOW"));
+        HELM.onClick.AddListener(() => BuyItem("HELM"));
+        FALCON.onClick.AddListener(() => BuyItem("FALCON"));
+        TELESCOPE.onClick.AddListener(() => BuyItem("TELESCOPE"));
+
 
 
     }
@@ -55,15 +67,9 @@ public class Shop : MonoBehaviour
     void BuyItem(string itemName)
     {
 
-        print(merchantLocation);
-        print("Hero: " + hero.data.regionNumber);
-        print(isDawrf);
-        print(itemName);
-
-
-        if (hero.data.regionNumber != merchantLocation) //hero not here
+        if (hero.GetCurrentRegion().label != merchantLocation) //hero not here
         {
-        
+
             messageBox.SetActive(true);
             buttonOK.SetActive(true);
             message.text = "You are not at this shop yet! You can purchase when you are here. Welcome back in the future!";
@@ -111,27 +117,168 @@ public class Shop : MonoBehaviour
 
     private void CancelClicked()
     {
-        buttonOK.SetActive(false);
+        buttonCancel.SetActive(false);
+        buttonConfirm.SetActive(false);
         messageBox.SetActive(false);
+        itemToBuy = null;
 
     }
 
     private void ConfirmClicked(string itemName)
     {
-        if (itemName=="SP")
-        {
-            hero.data.SP += 1;
-            hero.data.gold -= price;
-        }
-        if (itemName == "WINESKIN")
-        {
-            hero.data.numWineskin += 1;
-            hero.data.gold -= price;
-        }
+       
+        itemToBuy = null;
+
+        messageBox.SetActive(false);
         buttonConfirm.SetActive(false);
         buttonCancel.SetActive(false);
-        messageBox.SetActive(false);
 
+        bool bought = false;
+
+    
+        if (itemName=="SP")
+        {
+            if (hero.data.SP < 14)
+            {
+                hero.data.SP += 1;
+                hero.data.gold -= price;
+                bought = true;
+            }
+            else
+            {
+                messageBox.SetActive(true);
+                buttonOK.SetActive(true);
+                message.text = "You already have full strength points!";
+            }
+            
+        }
+
+
+        
+        if (itemName == "WINESKIN")
+        {
+            if (PhotonNetwork.LocalPlayer.NumSmallItems() < 3)
+            {
+                Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Wineskin);
+                hero.data.gold -= price;
+                bought = true;
+            }
+            else
+            {
+                messageBox.SetActive(true);
+                buttonOK.SetActive(true);
+                message.text = "You have no space for this item";
+            }
+        }
+
+
+        //
+        if (itemName == "FALCON")
+        {
+            if (!PhotonNetwork.LocalPlayer.HasLargeItem())
+            {
+
+                PhotonNetwork.LocalPlayer.ItemIncrement(ItemType.Falcon);
+                hero.data.gold -= price;
+                bought = true;
+            }
+            else
+            {
+                print("here! hasLarge");
+                messageBox.SetActive(true);
+                buttonOK.SetActive(true);
+                message.text = "You have no space for this item";
+            }       
+        }
+
+
+
+        if (itemName == "SHIELD")
+        {
+            if (!Bag.Helper.HasLargeItem(PhotonNetwork.LocalPlayer))
+            {
+                PhotonNetwork.LocalPlayer.ItemIncrement(ItemType.Shield);
+                hero.data.gold -= price;
+                bought = true;
+            }
+            else
+            {
+                messageBox.SetActive(true);
+                buttonOK.SetActive(true);
+                message.text = "You have no space for this item";
+            }
+        }
+
+
+
+        if (itemName == "BOW")
+        {
+            if (hero.type == Hero.Type.ARCHER)
+            {
+                messageBox.SetActive(true);
+                buttonOK.SetActive(true);
+                message.text = "You already have a Bow";
+               
+            }
+            else if (!Bag.Helper.HasLargeItem(PhotonNetwork.LocalPlayer))
+            {
+                Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Bow);
+                hero.data.gold -= price;
+                bought = true;
+            }
+            else
+            {
+                messageBox.SetActive(true);
+                buttonOK.SetActive(true);
+                message.text = "You do not have space for this item";
+            }
+
+        }
+
+
+        if (itemName == "HELM")
+        {
+            if (!Bag.Helper.HasItem(PhotonNetwork.LocalPlayer, ItemType.Helm))
+            {
+                Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Helm);
+                hero.data.gold -= price;
+                bought = true;
+            }
+            else
+            {
+                messageBox.SetActive(true);
+                buttonOK.SetActive(true);
+                message.text = "You already heve a helmet.";
+            }
+        }
+
+
+        if (itemName == "TELESCOPE")
+        {
+            if (Bag.Helper.NumSmallItems(PhotonNetwork.LocalPlayer) < 3)
+            {
+                Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Telescope);
+                hero.data.gold -= price;
+                bought = true;
+            }
+            else
+            {
+                messageBox.SetActive(true);
+                buttonOK.SetActive(true);
+                message.text = "You do not have space for this item";
+            }
+        }
+
+
+        if (bought)
+        {
+            messageBox.SetActive(true);
+            buttonOK.SetActive(true);
+            message.text = "You bought a " + itemName + "!";
+            print("bought " + itemName);
+        }
+
+        
 
 
 

@@ -159,7 +159,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void playerTurn()
     {
-        hero.data.times = hero.getDiceNum();
+        hero.data.times = hero.GetDiceNum();
         hero.data.btimes = hero.data.blackDice;
         fHUD.setFightHUD_PLAYER();
         hero.data.diceNum = 0;
@@ -199,7 +199,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         }
         print("rolling");
-        hero.heroRoll();
+        hero.HeroRoll();
         string s;
         if (hero.type == Hero.Type.ARCHER)
         {
@@ -310,7 +310,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void setNumber(string result)
     {
         print("others");
-        aMonster.setDice(result);
+        aMonster.SetDice(result);
         StartCoroutine(MonsterRoll());
     }
 
@@ -420,7 +420,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void onMagicClick()
     {
-        if (fightstate != FightState.HERO || !hero.getMagic())
+        if (fightstate != FightState.HERO || !hero.GetMagic())
         {
             return;
         }
@@ -449,11 +449,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void onSheildClick()
     {
-        if (fightstate != FightState.CHECK || !hero.getSheild() || usedhelm || !FightTurnManager.IsMyProtectedTurn())
+        if (fightstate != FightState.CHECK || !hero.HasShield() || usedhelm || !FightTurnManager.IsMyProtectedTurn())
         {
             return;
         }
-        hero.data.sheild -= 1;
+        hero.data.shield -= 1;
         aMonster.damage = 0;
         fHUD.rollResult("Applied Sheild" );
 
@@ -461,7 +461,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void onHelmClick()
     {
-        if (fightstate != FightState.HERO || !hero.getHelm() || !FightTurnManager.IsMyTurn())
+        if (fightstate != FightState.HERO || !hero.HasHelm() || !FightTurnManager.IsMyTurn())
         {
             return;
         }
@@ -476,7 +476,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void onHerbSClick()
     {
-        if (fightstate != FightState.HERO || !hero.getherb() || !FightTurnManager.IsMyTurn())
+        if (fightstate != FightState.HERO || !hero.HasHerb() || !FightTurnManager.IsMyTurn())
         {
             return;
         }
@@ -489,7 +489,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void onHerbWClick()
     {
-        if (fightstate != FightState.HERO||!hero.getherb() || !FightTurnManager.IsMyTurn())
+        if (fightstate != FightState.HERO||!hero.HasHerb() || !FightTurnManager.IsMyTurn())
         {
             return;
         }
@@ -503,7 +503,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void onBrewClick()
     {
-        if (fightstate != FightState.HERO || !hero.getBrew() || !FightTurnManager.IsMyTurn())
+        if (fightstate != FightState.HERO || !hero.HasBrew() || !FightTurnManager.IsMyTurn())
         {
             return;
         }

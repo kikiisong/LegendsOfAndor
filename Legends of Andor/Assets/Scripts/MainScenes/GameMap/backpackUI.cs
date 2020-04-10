@@ -77,9 +77,9 @@ public void populateBag()
         fillBag(emptySlot, "coin", 23);
         emptySlot++;
     }
-        if (hero.data.numWineskin > 0)
+        if (hero.data.wineskin > 0)
     {
-        fillBag(emptySlot, "wineskin", hero.data.numWineskin);
+        fillBag(emptySlot, "wineskin", hero.data.wineskin);
         emptySlot++;
     }
     if (hero.data.gold > 0 )
@@ -97,9 +97,9 @@ public void populateBag()
         fillBag(emptySlot, "herb", hero.data.herb);
         emptySlot++;
     }
-    if (hero.data.sheild > 0)
+    if (hero.data.shield > 0)
     {
-        fillBag(emptySlot, "shield", hero.data.sheild);
+        fillBag(emptySlot, "shield", hero.data.shield);
         emptySlot++;
     }
     if (hero.data.helm > 0)
