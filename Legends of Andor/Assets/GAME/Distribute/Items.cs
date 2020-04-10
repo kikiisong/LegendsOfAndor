@@ -25,10 +25,13 @@ namespace Bag
 
     public enum ItemType
     {
-        Coin, Brew, Wineskin, Herb, Shield, Helm, Bow, Falcon
+        Coin, Brew, Wineskin, Herb, Shield, Helm, Bow, Falcon, Telescope
     }
 
     public static class Helper {
+
+
+
         private static ref int ItemField(this Player player, ItemType type)
         {
             var hero = player.GetHero();
@@ -43,10 +46,16 @@ namespace Bag
             }
         }
 
+
+
+
         public static int GetItemField(this Player player, ItemType type)
         {
             return ItemField(player, type);
         }
+
+
+
 
         public static void ItemIncrement(this Player player, ItemType type)
         {
@@ -60,15 +69,26 @@ namespace Bag
             }
         }
 
+
+
+
         public static void ItemDecrement(this Player player, ItemType type)
         {
             player.ItemField(type)--;
         }
 
+
+
+
+
         public static bool HasItem(this Player player, ItemType type)
         {
             return player.ItemField(type) > 0;
         }
+
+
+
+
 
         public static int NumSmallItems(this Player player)
         {
@@ -82,7 +102,34 @@ namespace Bag
             }
             return count;
         }
+
+
+        public static bool hasLarge (this Player player)
+        {
+            bool has = false;
+
+            foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
+            {
+                if (type.IsLargeItem())
+                {
+                    has = true;
+                    break;
+                }
+            }
+
+            return has;
+        }
+
+
     }
+
+
+
+
+
+
+
+
 
     public static class ItemProperties
     {
@@ -95,5 +142,14 @@ namespace Bag
         {
             return new[] {ItemType.Wineskin, ItemType.Brew, ItemType.Herb }.All(t => t == type);
         }
+
+        public static bool IsLargeItem(this ItemType type)
+        {
+            return new[] { ItemType.Shield, ItemType.Bow, ItemType.Falcon }.All(t => t == type);
+        }
+
+        
+
+
     }
 }
