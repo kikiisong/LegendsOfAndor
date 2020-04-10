@@ -13,10 +13,10 @@ public class useShield : MonoBehaviourPun
         var p = PhotonNetwork.LocalPlayer;
         Hero myhero = PhotonNetwork.LocalPlayer.GetHero();
         int currentEventIndex = eventCardManager.GetComponent<EventCardController>().currentEventIndex;
-        if (myhero.getSheild())
+        if (myhero.HasShield())
         {
             photonView.RPC("decreaseShiled", RpcTarget.AllBuffered, currentEventIndex);
-            myhero.data.sheild -= 1;
+            myhero.data.shield -= 1;
         }
         else
         {

@@ -22,7 +22,7 @@ public class EventCardController : MonoBehaviourPun
     Hero myhero;
 
     // store the previous WP before the sheild has been used
-    int perviousWP;
+    int[] perviousWP = new int[PhotonNetwork.PlayerList.Length];
 
     internal void flipped()
     {
@@ -123,20 +123,26 @@ public class EventCardController : MonoBehaviourPun
     public void eventCard2()
     {
      //   print("hero's WP was " + myhero.data.WP);
-        currentRegion = findCurrentRegion();
-        perviousWP = myhero.data.WP;
-        if (currentRegion.label >= 0 && currentRegion.label <= 20)
+
+        Player[] players = PhotonNetwork.PlayerList;
+        for(int i = 0; i < players.Length; i++)
         {
-            if (myhero.data.WP <= 2)
+           
+            Hero hero = (Hero)players[i].GetHero();
+            perviousWP[i] = hero.data.WP;
+            if (players[i].GetCurrentRegion().label >= 0 && players[i].GetCurrentRegion().label <= 20)
             {
-                myhero.data.WP = 0;
-            }
-            else
-            {
-                myhero.data.WP = myhero.data.WP - 3;
+                if (hero.data.WP <= 2)
+                {
+                    hero.data.WP = 0;
+                }
+                else
+                {
+                    hero.data.WP = hero.data.WP - 3;
+                }
             }
         }
-    //    print("hero's WP is " + myhero.data.WP);
+        //    print("hero's WP is " + myhero.data.WP);
     }
 
     // #4 Any hero standing on a space between 37 and 70 looses 3 WP  (shiled)
@@ -144,22 +150,25 @@ public class EventCardController : MonoBehaviourPun
     public void eventCard4()
     {
       //  print("hero's WP was " + myhero.data.WP);
-
-        currentRegion = findCurrentRegion();
-        perviousWP = myhero.data.WP;
-        if (currentRegion.label >= 37 && currentRegion.label <= 70)
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
         {
-            if (myhero.data.WP <= 2)
+
+            Hero hero = (Hero)players[i].GetHero();
+            perviousWP[i] = hero.data.WP;
+            if (players[i].GetCurrentRegion().label >= 37 && players[i].GetCurrentRegion().label <= 70)
             {
-                myhero.data.WP = 0;
-            }
-            else
-            {
-                myhero.data.WP = myhero.data.WP - 3;
+                if (hero.data.WP <= 2)
+                {
+                    hero.data.WP = 0;
+                }
+                else
+                {
+                    hero.data.WP = hero.data.WP - 3;
+                }
             }
         }
-
-      //  print("hero's WP is " + myhero.data.WP);
+        //  print("hero's WP is " + myhero.data.WP);
     }
 
     // #5 Wizard and Archer get 3 WP
@@ -168,12 +177,17 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        if (myhero.type == Hero.Type.WIZARD || myhero.type == Hero.Type.ARCHER)
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
         {
-            myhero.data.WP += 3;
-        }
 
-      //  print("hero's WP is " + myhero.data.WP);
+            Hero hero = (Hero)players[i].GetHero();
+            if (hero.type == Hero.Type.WIZARD || hero.type == Hero.Type.ARCHER)
+            {
+                hero.data.WP += 3;
+            }
+        }
+        //  print("hero's WP is " + myhero.data.WP);
     }
 
     // #11 On this day every creature has +1 SP  (shiled)
@@ -190,13 +204,20 @@ public class EventCardController : MonoBehaviourPun
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        if (myhero.data.WP < 10)
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
         {
-            myhero.data.WP = 10;
+
+            Hero hero = (Hero)players[i].GetHero();
+            perviousWP[i] = hero.data.WP;
+
+            if (hero.data.WP < 10)
+            {
+                hero.data.WP = 10;
+            }
         }
 
-
-      //  print("hero's WP is " + myhero.data.WP);
+        //  print("hero's WP is " + myhero.data.WP);
     }
 
     // #14 Dwarf and Warrior receive 3 WP
@@ -204,27 +225,35 @@ public class EventCardController : MonoBehaviourPun
     public void eventCard14()
     {
       //  print("hero's WP was " + myhero.data.WP);
-
-        if (myhero.type == Hero.Type.DWARF || myhero.type == Hero.Type.WARRIOR)
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
         {
-            myhero.data.WP += 3;
-        }
 
-      //  print("hero's WP is " + myhero.data.WP);
+            Hero hero = (Hero)players[i].GetHero();
+            if (hero.type == Hero.Type.DWARF || hero.type == Hero.Type.WARRIOR)
+            {
+                hero.data.WP += 3;
+            }
+        }
+        //  print("hero's WP is " + myhero.data.WP);
     }
 
-    // #17 Every hero with more than 12 WP goes down to 12 WP  (shiled)
+    // #17 Every hero with more than 12 WP goes down to 12 WP  (shield)
     [PunRPC]
     public void eventCard17()
     {
-        //  print("hero's WP was " + myhero.data.WP);
-        perviousWP = myhero.data.WP;
-        if (myhero.data.WP > 12)
+        //  print("hero's WP was " + myhero.data.WP)
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
         {
-            myhero.data.WP = 12;
+            Hero hero = (Hero)players[i].GetHero();
+            perviousWP[i] = hero.data.WP;
+            if (hero.data.WP > 12)
+            {
+                hero.data.WP = 12;
+            }
         }
-
-      //  print("hero's WP is " + myhero.data.WP);
+        //  print("hero's WP is " + myhero.data.WP);
     }
 
     // #22 Well token on space 45 is removed from the game  (shiled)
@@ -240,37 +269,38 @@ public class EventCardController : MonoBehaviourPun
         {
             well[0].gameObject.SetActive(false);
         }
+
     }
 
-    // #24 Any hero not on a forest space or in the mine, tavern or castle loses 2 WP 
+    // #24 Any hero not on a forest space or in the mine, tavern or castle loses 2 WP (shield)
     [PunRPC]
     public void eventCard24()
     {
       //  print("hero's WP was " + myhero.data.WP);
 
-        currentRegion = findCurrentRegion();
-        perviousWP = myhero.data.WP;
-        if ((currentRegion.label >= 47 && currentRegion.label <= 63)||
-            (currentRegion.label >= 22 && currentRegion.label <= 25) ||
-            (currentRegion.label == 71) ||
-            (currentRegion.label == 72) ||
-            (currentRegion.label == 0))
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
         {
-            return;
-        }
-        else
-        {
-            if(myhero.data.WP <= 2)
-            {
-                myhero.data.WP = 0;
-            }
-            else
-            {
-                myhero.data.WP -= 2;
-            }
-        }
 
-      //  print("hero's WP is " + myhero.data.WP);
+            Hero hero = (Hero)players[i].GetHero();
+            perviousWP[i] = hero.data.WP;
+            if ((players[i].GetCurrentRegion().label >= 47 && players[i].GetCurrentRegion().label <= 63)||
+                (players[i].GetCurrentRegion().label >= 22 && players[i].GetCurrentRegion().label <= 25) ||
+                (players[i].GetCurrentRegion().label == 71) ||
+                (players[i].GetCurrentRegion().label == 72) ||
+                (players[i].GetCurrentRegion().label == 0))
+            {
+                if (hero.data.WP <= 2)
+                {
+                    hero.data.WP = 0;
+                }
+                else
+                {
+                    hero.data.WP = hero.data.WP - 2;
+                }
+            }
+        }
+        //  print("hero's WP is " + myhero.data.WP);
     }
 
     // #28 Every hero whose time marker is in the sunrise box gains 2 WP
@@ -278,13 +308,18 @@ public class EventCardController : MonoBehaviourPun
     public void eventCard28()
     {
         //  print("hero's WP was " + myhero.data.WP);
-        
-        if (myhero.data.numHours == 0)
-        {
-            myhero.data.WP += 2;
-        }
 
-     //   print("hero's WP is " + myhero.data.WP);
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+
+            Hero hero = (Hero)players[i].GetHero();
+            if (hero.data.numHours == 0)
+            {
+                hero.data.WP += 2;
+            }
+        }
+        //   print("hero's WP is " + myhero.data.WP);
     }
 
     // #29 Shield appears on space 57
@@ -301,52 +336,62 @@ public class EventCardController : MonoBehaviourPun
         print("this is event card 30");
     }
 
-    // #31 Any hero not on a forest space or in the mine, tavern or castle loses 2 WP  (shiled)
+    // #31 Any hero not on a forest space or in the mine, tavern or castle loses 2 WP  (shield)
     [PunRPC]
     public void eventCard31()
     {
         //  print("hero's WP was " + myhero.data.WP);
-        perviousWP = myhero.data.WP;
-        currentRegion = findCurrentRegion();
-        if ((currentRegion.label >= 47 && currentRegion.label <= 63) ||
-            (currentRegion.label >= 22 && currentRegion.label <= 25) ||
-            (currentRegion.label == 71) ||
-            (currentRegion.label == 72) ||
-            (currentRegion.label == 0))
-        {
-            return;
-        }
-        else
-        {
-            if (myhero.data.WP <= 2)
-            {
-                myhero.data.WP = 0;
-            }
-            else
-            {
-                myhero.data.WP -= 2;
-            }
-        }
 
-      //  print("hero's WP is " + myhero.data.WP);
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+
+            Hero hero = (Hero)players[i].GetHero();
+            perviousWP[i] = hero.data.WP;
+            if ((players[i].GetCurrentRegion().label >= 47 && players[i].GetCurrentRegion().label <= 63) ||
+                (players[i].GetCurrentRegion().label >= 22 && players[i].GetCurrentRegion().label <= 25) ||
+                (players[i].GetCurrentRegion().label == 71) ||
+                (players[i].GetCurrentRegion().label == 72) ||
+                (players[i].GetCurrentRegion().label == 0))
+            {
+                if (hero.data.WP <= 2)
+                {
+                    hero.data.WP = 0;
+                }
+                else
+                {
+                    hero.data.WP = hero.data.WP - 2;
+                }
+            }
+        }
+        //  print("hero's WP is " + myhero.data.WP);
     }
 
-    // #32 Every hero whose time marker is in the sunrise box loses 2 WP.  (shiled)
+    // #32 Every hero whose time marker is in the sunrise box loses 2 WP.  (shield)
     [PunRPC]
     public void eventCard32()
     {
         //  print("hero's WP was " + myhero.data.WP);
-        perviousWP = myhero.data.WP;
-        if (myhero.data.WP <= 2)
-        {
-            myhero.data.WP = 0;
-        }
-        else
-        {
-            myhero.data.WP -= 2;
-        }
 
-       // print("hero's WP is " + myhero.data.WP);
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+
+            Hero hero = (Hero)players[i].GetHero();
+            perviousWP[i] = hero.data.WP;
+            if (hero.data.numHours == 0)
+            {
+                if (hero.data.WP <= 2)
+                {
+                    hero.data.WP = 0;
+                }
+                else
+                {
+                    hero.data.WP = hero.data.WP - 2;
+                }
+            }
+        }
+        // print("hero's WP is " + myhero.data.WP);
     }
 
     // If any user used the shield, then every players wp goes back to normal.
@@ -354,9 +399,16 @@ public class EventCardController : MonoBehaviourPun
     {
         if(eventNumber == 0 || eventNumber == 1 || eventNumber == 6 || eventNumber == 12 || eventNumber == 13)
         {
-            myhero.data.WP = perviousWP;
-        }
+            Player[] players = PhotonNetwork.PlayerList;
+            for (int i = 0; i < players.Length; i++)
+            {
 
+                Hero hero = (Hero)players[i].GetHero();
+
+                hero.data.WP = perviousWP[i];
+            }
+        }
+        
     }
 
 }
