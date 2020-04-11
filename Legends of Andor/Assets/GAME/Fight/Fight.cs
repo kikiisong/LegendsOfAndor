@@ -159,6 +159,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void playerTurn()
     {
+        //TODO:clean the prefab of existing hero
         hero.data.times = hero.GetDiceNum();
         hero.data.btimes = hero.data.blackDice;
         fHUD.setFightHUD_PLAYER();
@@ -208,13 +209,14 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         else {
             s = hero.data.dice.printArrayList() + "Max:" + hero.data.diceNum;
         }
-        Instance.photonView.RPC("HeroRoll", RpcTarget.All, hero, s);
+        Instance.photonView.RPC("HeroRoll", RpcTarget.All, player, s);
     }
 
     //--------ROLL--------//
     [PunRPC]
-    public void HeroRoll(Hero rolledhero, string s)
+    public void HeroRoll(Player player, string s)
     {
+        Hero rolledhero = player.GetHero();
         print("heroroll running");
         if (rolledhero.type == Hero.Type.ARCHER)
         {

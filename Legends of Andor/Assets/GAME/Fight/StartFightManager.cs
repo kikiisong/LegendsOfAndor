@@ -48,29 +48,31 @@ public class StartFightManager : MonoBehaviourPun, TurnManager.IOnMove
                 {
                     fight.SetActive(true);
 
-                    print("Invite other to join in ");
+                    if (player.HasMoved()) { 
+                        print("Invite other to join in ");
 
-                    fight.GetComponent<Button>().onClick.RemoveAllListeners();
-                    fight.GetComponent<Button>().onClick.AddListener(() =>
+                        fight.GetComponent<Button>().onClick.RemoveAllListeners();
+                        fight.GetComponent<Button>().onClick.AddListener(() =>
 
-                    {
-                        
-                        //photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
-                        MonsterMoveController monster = MonsterOnMap[0];
-                        monster.m.isFighted = true;
-                        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
-                            { P.K.isFight, true }
+                        
+                            //photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
+                            MonsterMoveController monster = MonsterOnMap[0];
+                            monster.m.isFighted = true;
+                            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+                            {
+                                { P.K.isFight, true }
+                            });
+                            print(PhotonNetwork.LocalPlayer.NickName +" start a fight ");
+
+                            isFight = true;
+                            //LightUpJoin();
+                            photonView.RPC("LightUpJoin", RpcTarget.Others);
+                            start.SetActive(true);
+
+
                         });
-                        print(PhotonNetwork.LocalPlayer.NickName +" start a fight ");
-
-                        isFight = true;
-                        //LightUpJoin();
-                        photonView.RPC("LightUpJoin", RpcTarget.Others);
-                        start.SetActive(true);
-
-
-                    });
+                    }
 
                 }
                 else

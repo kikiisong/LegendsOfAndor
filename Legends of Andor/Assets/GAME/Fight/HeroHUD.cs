@@ -37,7 +37,7 @@ public class HeroHUD : MonoBehaviour
         dice.text = h.GetDiceNum() + " /" + h.data.blackDice;
         currentWillpower.text = "" + h.data.WP;
         strengthPower.text = "" + h.data.SP;
-
+        
         if (!h.GetMagic()) changeColor(magic);
         if (!h.HasShield()) changeColor(sheild);
         if (!h.HasHelm()) changeColor(helm);
@@ -56,6 +56,8 @@ public class HeroHUD : MonoBehaviour
     }
 
     public void basicInfoUpdate(Hero h) {
+        print(h.data.WP);
+
         dice.text = h.GetDiceNum() + " /" + h.data.blackDice;
         currentWillpower.text = "" + h.data.WP;
         strengthPower.text = "" + h.data.SP;

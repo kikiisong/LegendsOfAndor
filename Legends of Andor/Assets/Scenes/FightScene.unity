@@ -1050,7 +1050,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1987893035}
-        m_MethodName: onBrewWClick
+        m_MethodName: onBrewClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1086,7 +1086,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &223122900
 CanvasRenderer:
@@ -2661,7 +2661,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: de3a9011a15f1544aaada2f9f0668e55, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1db6b6f014905f4a8e2f85977409d06, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3684,8 +3684,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250.69997, y: 28.541014}
-  m_SizeDelta: {x: 20, y: 20}
+  m_AnchoredPosition: {x: -249.93, y: 24.596}
+  m_SizeDelta: {x: 18.47, y: 16.508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1517132918
 MonoBehaviour:
@@ -3705,7 +3705,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 956d1b1bad25443cba595f5e1765f44e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e1e1ebcc6b044b90b7ec9f9488c0ca8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4716,7 +4716,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4a02d987f50b02c44b83ebe15056e15e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8dd0cc5a9d138d7428085fc4630fcc92, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4849,7 +4849,6 @@ MonoBehaviour:
   myArcherYesButton: {fileID: 398354685539841886}
   mySkillYesButton: {fileID: 189760077}
   dice: {fileID: 3050911576872939159}
-  aHeroes: []
   archerPrefabs: {fileID: 5904007845418553197, guid: 05d537d5a61b24caea7399d228950275,
     type: 3}
   warriorPrefabs: {fileID: 2794928651808161829, guid: 820d1340efaaa49f3b4a4b11ebfcbb5e,
@@ -5022,7 +5021,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e224731b91dec134a9042cf61e29ad02, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ad7d83311fdb2436fa7213d42f9d93d3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5501,7 +5500,8 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 184.3781
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3050911577596829773, guid: 4514c5379f49d438ba00ad6976d6156c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4514c5379f49d438ba00ad6976d6156c, type: 3}
 --- !u!114 &3050911576872939159 stripped
 MonoBehaviour:
