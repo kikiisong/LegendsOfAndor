@@ -24,6 +24,9 @@ namespace Card
 
         public bool updatedMonsters = false;
 
+        public GameObject taskC;
+        public GameObject newTaskIcon;
+
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -36,7 +39,14 @@ namespace Card
         void Start()
         {
             TurnManager.Register(this);
-            //TODO: move from region 80 to A
+
+            // Do event A
+            if (PhotonNetwork.IsMasterClient)
+            {
+                LegendCard.Cards[LegendCard.Letter.A].Event();
+            }
+
+
             shuffleArray(temp);
             currentEventIndex = 0;
 
@@ -131,6 +141,9 @@ namespace Card
             if(currentLoc == 2)
             {
                 print("time to release Legend C");
+                taskC.SetActive(true);
+                newTaskIcon.SetActive(true);
+
             }
             else if(currentLoc == 6)
             {
