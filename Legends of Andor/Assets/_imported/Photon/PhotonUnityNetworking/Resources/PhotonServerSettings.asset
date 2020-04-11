@@ -122,11 +122,8 @@ MonoBehaviour:
   - InitTower
   - updateDice
   - Wineskin
-<<<<<<< HEAD
   - HerbPicked
   - HerbDropped
-=======
   - decreaseShield
->>>>>>> eeaf2e3a7d6f613704d1536494b0dd11d9b7e864
   DisableAutoOpenWizard: 1
   ShowSettings: 1
