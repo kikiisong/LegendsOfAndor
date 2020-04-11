@@ -27,7 +27,7 @@ public class EventCardController : MonoBehaviourPun
     Hero myhero;
 
     // store the previous WP before the sheild has been used
-    int[] perviousWP = new int[PhotonNetwork.PlayerList.Length];
+    int[] perviousWP;
 
     internal void flipped()
     {
@@ -43,6 +43,7 @@ public class EventCardController : MonoBehaviourPun
         // photonView.RPC("getCards", RpcTarget.AllBuffered, cards);
         myhero = PhotonNetwork.LocalPlayer.GetHero();
         myhero.data.shield += 1;
+        perviousWP = new int[PhotonNetwork.PlayerList.Length];
     }
 
     public void newEventCard(int a)
