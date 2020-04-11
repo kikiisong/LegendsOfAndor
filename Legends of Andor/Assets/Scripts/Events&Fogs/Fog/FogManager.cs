@@ -12,7 +12,6 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
     public GameObject fogInfo;
     public GameObject herbDice;
     public GameObject herbGorPrefab;
-    private HerbHandler herbManager;
 
 
     // Start is called before the first frame update
@@ -375,10 +374,8 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         herbDice.transform.GetChild(2).gameObject.SetActive(true);
 
         Region target = GameGraph.Instance.Find(herbAt);
-        //Instantiate(herbGorPrefab, target.position, Quaternion.identity);
-        GameObject herb = Instantiate(herbGorPrefab, target.position, Quaternion.identity);
-        herbManager = GameObject.FindGameObjectWithTag("manager").GetComponent<HerbHandler>();
-        herbManager.myHerb = herb;
+        Instantiate(herbGorPrefab, target.position, Quaternion.identity);
+       
     }
 
     [PunRPC]
