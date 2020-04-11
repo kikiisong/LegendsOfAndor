@@ -52,61 +52,64 @@ public class EventCardController : MonoBehaviourPun
         myEventCardButton.GetComponent<eventCardButton>().setEventCard(currentEventCard);
         currentEventCard.SetActive(true);
 
-        if (a == 0)
+        if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("eventCard2", RpcTarget.AllBuffered);
-        }
-        else if(a == 1)
-        {
-            photonView.RPC("eventCard4", RpcTarget.AllBuffered);
-        }
-        else if (a == 2)
-        {
-            photonView.RPC("eventCard5", RpcTarget.AllBuffered);
-        }
-        else if (a == 3)
-        {
-            photonView.RPC("eventCard11", RpcTarget.AllBuffered);
-        }
-        else if (a == 4)
-        {
-            photonView.RPC("eventCard13", RpcTarget.AllBuffered);
-        }
-        else if (a == 5)
-        {
-            photonView.RPC("eventCard14", RpcTarget.AllBuffered);
-        }
-        else if (a == 6)
-        {
-            photonView.RPC("eventCard17", RpcTarget.AllBuffered);
-        }
-        else if (a == 7)
-        {
-            photonView.RPC("eventCard22", RpcTarget.AllBuffered);
-        }
-        else if (a == 8)
-        {
-            photonView.RPC("eventCard24", RpcTarget.AllBuffered);
-        }
-        else if (a == 9)
-        {
-            photonView.RPC("eventCard28", RpcTarget.AllBuffered);
-        }
-        else if (a == 10)
-        {
-            photonView.RPC("eventCard29", RpcTarget.AllBuffered);
-        }
-        else if (a == 11)
-        {
-            photonView.RPC("eventCard30", RpcTarget.AllBuffered);
-        }
-        else if (a == 12)
-        {
-            photonView.RPC("eventCard31", RpcTarget.AllBuffered);
-        }
-        else if (a == 13)
-        {
-            photonView.RPC("eventCard32", RpcTarget.AllBuffered);
+            if (a == 0)
+            {
+                photonView.RPC("eventCard2", RpcTarget.AllBuffered);
+            }
+            else if (a == 1)
+            {
+                photonView.RPC("eventCard4", RpcTarget.AllBuffered);
+            }
+            else if (a == 2)
+            {
+                photonView.RPC("eventCard5", RpcTarget.AllBuffered);
+            }
+            else if (a == 3)
+            {
+                photonView.RPC("eventCard11", RpcTarget.AllBuffered);
+            }
+            else if (a == 4)
+            {
+                photonView.RPC("eventCard13", RpcTarget.AllBuffered);
+            }
+            else if (a == 5)
+            {
+                photonView.RPC("eventCard14", RpcTarget.AllBuffered);
+            }
+            else if (a == 6)
+            {
+                photonView.RPC("eventCard17", RpcTarget.AllBuffered);
+            }
+            else if (a == 7)
+            {
+                photonView.RPC("eventCard22", RpcTarget.AllBuffered);
+            }
+            else if (a == 8)
+            {
+                photonView.RPC("eventCard24", RpcTarget.AllBuffered);
+            }
+            else if (a == 9)
+            {
+                photonView.RPC("eventCard28", RpcTarget.AllBuffered);
+            }
+            else if (a == 10)
+            {
+                photonView.RPC("eventCard29", RpcTarget.AllBuffered);
+            }
+            else if (a == 11)
+            {
+                photonView.RPC("eventCard30", RpcTarget.AllBuffered);
+            }
+            else if (a == 12)
+            {
+                photonView.RPC("eventCard31", RpcTarget.AllBuffered);
+            }
+            else if (a == 13)
+            {
+                photonView.RPC("eventCard32", RpcTarget.AllBuffered);
+            }
         }
     }
 
@@ -204,10 +207,13 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard11()
     {
+        print("Event card 3 has beeen called here at eventCard11");
+
         useShieldOptionPanel.SetActive(true);
 
         foreach (MonsterMoveController monster in FindObjectsOfType<MonsterMoveController>())
         {
+            print("Event card 3 has beeen called here at inside foreach");
             monster.data.sp += 1;
         }
     }
