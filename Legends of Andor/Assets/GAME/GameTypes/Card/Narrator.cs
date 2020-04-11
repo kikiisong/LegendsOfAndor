@@ -21,6 +21,9 @@ namespace Card
 
         public GameObject myEventCardController;
         public int[] temp = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+
+        public bool updatedMonsters = false;
+
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -92,6 +95,17 @@ namespace Card
             }
 
             handLegendCard();
+            if(updatedMonsters == true)
+            {
+                updatedMonsters = false;
+                foreach (MonsterMoveController monster in FindObjectsOfType<MonsterMoveController>())
+                {
+                    if(monster.data.sp > 0)
+                    {
+                        monster.data.sp -= 1;
+                    }
+                }
+            }
             if (PhotonNetwork.IsMasterClient)
             {
                 photonView.RPC("releaseNewRventCard", RpcTarget.AllBuffered, temp);
@@ -102,6 +116,10 @@ namespace Card
         [PunRPC]
         public void releaseNewRventCard(int[] temp)
         {
+            if (temp[currentEventIndex] == 3)
+            {
+                updatedMonsters = true;
+            }
             // should send orderofEvents[currentEventIndex]
             myEventCardController.GetComponent<EventCardController>().newEventCard(temp[currentEventIndex]);
             // increase the event card index, next time will pick another one

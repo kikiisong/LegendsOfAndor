@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class useShield : MonoBehaviourPun
@@ -10,13 +11,11 @@ public class useShield : MonoBehaviourPun
 
     public void usedShieldAndClosePanel()
     {
-        var p = PhotonNetwork.LocalPlayer;
         Hero myhero = PhotonNetwork.LocalPlayer.GetHero();
         int currentEventIndex = eventCardManager.GetComponent<EventCardController>().currentEventIndex;
         if (myhero.HasShield())
         {
-            photonView.RPC("decreaseShiled", RpcTarget.AllBuffered, currentEventIndex);
-            myhero.data.shield -= 1;
+            photonView.RPC("decreaseShield", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer ,currentEventIndex);
         }
         else
         {
@@ -25,8 +24,11 @@ public class useShield : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void decreaseShiled(int currentEventIndex)
+    public void decreaseShield(Player player, int currentEventIndex)
     {
+        eventCardManager.GetComponent<EventCardController>().useShieldOptionPanel.SetActive(false);
+        Hero hero = player.GetHero();
+        hero.data.shield -= 1;
         eventCardManager.GetComponent<EventCardController>().usedShield(currentEventIndex);
     }
 }

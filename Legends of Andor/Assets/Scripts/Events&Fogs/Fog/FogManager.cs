@@ -11,7 +11,8 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
     public Witch myWitch;
     public GameObject fogInfo;
     public GameObject herbDice;
-
+    public GameObject herbGorPrefab;
+    private HerbHandler herbManager;
 
 
     // Start is called before the first frame update
@@ -369,9 +370,15 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
 
         Text t2 = fogInfo.transform.GetChild(1).GetComponent<Text>();
         t2.text = "Medical herb is placed at Region " + herbAt + ".";
-        fogInfo.transform.GetChild(2).gameObject.SetActive(true);
 
+        fogInfo.transform.GetChild(2).gameObject.SetActive(true);
         herbDice.transform.GetChild(2).gameObject.SetActive(true);
+
+        Region target = GameGraph.Instance.Find(herbAt);
+        //Instantiate(herbGorPrefab, target.position, Quaternion.identity);
+        GameObject herb = Instantiate(herbGorPrefab, target.position, Quaternion.identity);
+        herbManager = GameObject.FindGameObjectWithTag("manager").GetComponent<HerbHandler>();
+        herbManager.myHerb = herb;
     }
 
     [PunRPC]
