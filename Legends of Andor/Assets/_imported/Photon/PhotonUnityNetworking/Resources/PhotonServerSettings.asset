@@ -122,5 +122,6 @@ MonoBehaviour:
   - InitTower
   - updateDice
   - Wineskin
+  - decreaseShield
   DisableAutoOpenWizard: 1
   ShowSettings: 1

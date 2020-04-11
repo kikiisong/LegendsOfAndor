@@ -13,8 +13,13 @@ public class EventCardController : MonoBehaviourPun
     public List<GameObject> evnetCardList;
     public int currentEventIndex;
     public GameObject currentEventCard;
+    public GameObject useShieldOptionPanel;
 
+    public GameObject wellBackUp45;
 
+    public GameObject narrator;
+
+    public bool usedShieldFor3;
     // store the current region of this player's hero
     Region currentRegion;
 
@@ -37,6 +42,7 @@ public class EventCardController : MonoBehaviourPun
         //then call RPCPun to other clients
         // photonView.RPC("getCards", RpcTarget.AllBuffered, cards);
         myhero = PhotonNetwork.LocalPlayer.GetHero();
+        myhero.data.shield += 1;
     }
 
     public void newEventCard(int a)
@@ -122,13 +128,8 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard2()
     {
+        useShieldOptionPanel.SetActive(true);
         Player[] players = PhotonNetwork.PlayerList;
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -148,28 +149,16 @@ public class EventCardController : MonoBehaviourPun
             }
         }
 
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
     // #4 Any hero standing on a space between 37 and 70 looses 3 WP  (shiled)
     [PunRPC]
     public void eventCard4()
     {
-      //  print("hero's WP was " + myhero.data.WP);
+        useShieldOptionPanel.SetActive(true);
+        //  print("hero's WP was " + myhero.data.WP);
         Player[] players = PhotonNetwork.PlayerList;
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -189,13 +178,6 @@ public class EventCardController : MonoBehaviourPun
             }
         }
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
-
     }
 
     // #5 Wizard and Archer get 3 WP
@@ -208,13 +190,6 @@ public class EventCardController : MonoBehaviourPun
 
         for (int i = 0; i < players.Length; i++)
         {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
-
-        for (int i = 0; i < players.Length; i++)
-        {
 
             Hero hero = (Hero)players[i].GetHero();
             if (hero.type == Hero.Type.WIZARD || hero.type == Hero.Type.ARCHER)
@@ -223,21 +198,18 @@ public class EventCardController : MonoBehaviourPun
             }
         }
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
-
     }
 
     // #11 On this day every creature has +1 SP  (shiled)
     [PunRPC]
     public void eventCard11()
     {
-        // TODO do not know how to do this
-        print("this is event card 11");
+        useShieldOptionPanel.SetActive(true);
+
+        foreach (MonsterMoveController monster in FindObjectsOfType<MonsterMoveController>())
+        {
+            monster.data.sp += 1;
+        }
     }
 
     // #13 Every hero with WP < 10 increments WP to 10 
@@ -247,13 +219,6 @@ public class EventCardController : MonoBehaviourPun
       //  print("hero's WP was " + myhero.data.WP);
 
         Player[] players = PhotonNetwork.PlayerList;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -267,12 +232,6 @@ public class EventCardController : MonoBehaviourPun
             }
         }
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
     // #14 Dwarf and Warrior receive 3 WP
@@ -284,13 +243,6 @@ public class EventCardController : MonoBehaviourPun
 
         for (int i = 0; i < players.Length; i++)
         {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
-
-        for (int i = 0; i < players.Length; i++)
-        {
 
             Hero hero = (Hero)players[i].GetHero();
             if (hero.type == Hero.Type.DWARF || hero.type == Hero.Type.WARRIOR)
@@ -298,28 +250,15 @@ public class EventCardController : MonoBehaviourPun
                 hero.data.WP += 3;
             }
         }
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
     // #17 Every hero with more than 12 WP goes down to 12 WP  (shield)
     [PunRPC]
     public void eventCard17()
     {
+        useShieldOptionPanel.SetActive(true);
         //  print("hero's WP was " + myhero.data.WP)
         Player[] players = PhotonNetwork.PlayerList;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -330,20 +269,13 @@ public class EventCardController : MonoBehaviourPun
                 hero.data.WP = 12;
             }
         }
-
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
     // #22 Well token on space 45 is removed from the game  (shiled)
     [PunRPC]
     public void eventCard22()
     {
+        useShieldOptionPanel.SetActive(true);
         List<Well> well = GameGraph.Instance.FindObjectsOnRegion<Well>(GameGraph.Instance.Find(45));
         if (well.Count == 0)
         {
@@ -360,16 +292,9 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard24()
     {
-      //  print("hero's WP was " + myhero.data.WP);
-
+        //  print("hero's WP was " + myhero.data.WP);
+        useShieldOptionPanel.SetActive(true);
         Player[] players = PhotonNetwork.PlayerList;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -396,14 +321,6 @@ public class EventCardController : MonoBehaviourPun
                 }
             }
         }
-
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
     // #28 Every hero whose time marker is in the sunrise box gains 2 WP
@@ -416,13 +333,6 @@ public class EventCardController : MonoBehaviourPun
 
         for (int i = 0; i < players.Length; i++)
         {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
-
-        for (int i = 0; i < players.Length; i++)
-        {
 
             Hero hero = (Hero)players[i].GetHero();
             if (hero.data.numHours == 0)
@@ -431,13 +341,6 @@ public class EventCardController : MonoBehaviourPun
             }
         }
 
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
     // #29 Shield appears on space 57
@@ -459,15 +362,8 @@ public class EventCardController : MonoBehaviourPun
     public void eventCard31()
     {
         //  print("hero's WP was " + myhero.data.WP);
-
+        useShieldOptionPanel.SetActive(true);
         Player[] players = PhotonNetwork.PlayerList;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -495,13 +391,6 @@ public class EventCardController : MonoBehaviourPun
             }
         }
 
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
     // #32 Every hero whose time marker is in the sunrise box loses 2 WP.  (shield)
@@ -509,15 +398,8 @@ public class EventCardController : MonoBehaviourPun
     public void eventCard32()
     {
         //  print("hero's WP was " + myhero.data.WP);
-
+        useShieldOptionPanel.SetActive(true);
         Player[] players = PhotonNetwork.PlayerList;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log(h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -537,13 +419,6 @@ public class EventCardController : MonoBehaviourPun
             }
         }
 
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Hero h = (Hero)players[i].GetHero();
-            Debug.Log("new" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
-
-        }
     }
 
     // If any user used the shield, then every players wp goes back to normal.
@@ -560,7 +435,33 @@ public class EventCardController : MonoBehaviourPun
                 hero.data.WP = perviousWP[i];
             }
         }
-        
+
+        if(eventNumber == 7)
+        {
+            print("Entered the usedShield Function ");
+            wellBackUp45.SetActive(true);
+        }
+
+        if(eventNumber == 3)
+        {
+            usedShieldFor3 = true;
+            narrator.GetComponent<Card.Narrator>().updatedMonsters = false;
+            foreach (MonsterMoveController monster in FindObjectsOfType<MonsterMoveController>())
+            {
+                if (monster.data.sp > 0)
+                {
+                    monster.data.sp -= 1;
+                }
+            }
+        }
+
+        Player[] player = PhotonNetwork.PlayerList;
+        for (int i = 0; i < player.Length; i++)
+        {
+            Hero h = (Hero)player[i].GetHero();
+            Debug.Log("used shields" + h.type + " " + h.data.SP + " " + h.data.WP + " " + h.data.gold);
+
+        }
     }
 
 }
