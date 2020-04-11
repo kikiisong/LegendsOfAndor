@@ -37,7 +37,7 @@ namespace Card
             shuffleArray(temp);
             currentEventIndex = 0;
 
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
             if (PhotonNetwork.IsMasterClient)
             {
                 photonView.RPC("releaseNewRventCard", RpcTarget.AllBuffered, temp);
