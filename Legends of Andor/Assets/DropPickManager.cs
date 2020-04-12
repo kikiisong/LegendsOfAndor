@@ -64,7 +64,6 @@ public class DropPickManager : MonoBehaviour
         oc = b;
 
         cleanBag(); //when closing bag clean it
-
         loadItemsOnRegion(); //load data from current region
 
         groundBag.SetActive(b);
@@ -122,8 +121,6 @@ public class DropPickManager : MonoBehaviour
 
         for (int i = size - 1; i >= 0; i--)
         {
-            //GameObject bag = typeBag == 0 ? groundBag : backpack;
-
             GameObject image = bag.gameObject.transform.GetChild(1).GetChild(i).GetChild(0).gameObject;
             Image img = image.gameObject.GetComponent<Image>();
             // Debug.Log(img.sprite.name + " " + name);
@@ -165,7 +162,7 @@ public class DropPickManager : MonoBehaviour
         if (spriteName == "falcon") Current.data.falcon += updateUnit;
 
         Current.data.numOfItems += updateUnit;
-        Debug.Log("region coin is " + Current.data.gold);
+       // Debug.Log("region coin is " + Current.data.gold);
         if (Current.data.numOfItems == 0) displayRegionIcon(false);
         if (Current.data.numOfItems == 1) displayRegionIcon(true);
 
@@ -175,10 +172,10 @@ public class DropPickManager : MonoBehaviour
     {
         if (display)
         {
-            Debug.Log("inside display region icon");
-            var missle = Instantiate<GameObject>(goldpotPrefab);
+          //var missle = Instantiate<GameObject>(goldpotPrefab);
+            GameObject missle = PhotonNetwork.Instantiate(goldpotPrefab);
             missle.transform.parent = groundBag.transform.parent;
-            //Debug.Log("instantiated goldpot prefab");
+
             GameGraph.Instance.PlaceAt(missle, Current.label);
         }
         else
@@ -187,7 +184,7 @@ public class DropPickManager : MonoBehaviour
             {
                 if (obj.transform.position == Current.position)
                 {
-                    Destroy(obj); //change it to 
+                    PhotonNetwork.Destroy(obj); //change it to 
                 }
             }
         }
