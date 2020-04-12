@@ -355,6 +355,15 @@ public class EventCardController : MonoBehaviourPun
     public void eventCard29()
     {
         print("this is event card 29");
+
+        //place shield icon on region 57
+        GameObject g = PhotonNetwork.Instantiate(Resources.Load<GameObject>("ShieldPrefab"));
+        GameGraph.Instance.PlaceAt(g.gameObject, 57);
+
+        //update region stats
+        Region r = GameGraph.Instance.Find(57);
+        r.data.numOfItems++;
+        r.data.sheild++;
     }
 
     // #30 Wineskin appears on space 72
@@ -362,7 +371,17 @@ public class EventCardController : MonoBehaviourPun
     public void eventCard30()
     {
         print("this is event card 30");
+
+        //place wineskin icon on region 72
+        GameObject g = PhotonNetwork.Instantiate(Resources.Load<GameObject>("WineskinPrefab"));
+        GameGraph.Instance.PlaceAt(g.gameObject, 72);
+
+        //update region stats
+        Region r = GameGraph.Instance.Find(72);
+        r.data.numOfItems++;
+        r.data.numWineskin++;
     }
+
 
     // #31 Any hero not on a forest space or in the mine, tavern or castle loses 2 WP  (shield)
     [PunRPC]
