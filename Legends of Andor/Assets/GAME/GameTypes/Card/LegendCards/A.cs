@@ -24,7 +24,8 @@ namespace Card
             //TODO difficulty
             switch (difficulty)
             {
-                default:
+
+                case Difficulty.Easy:
                     photonView.RPC("MoveHeroes", RpcTarget.All);
 
                     //Monsters
@@ -45,8 +46,28 @@ namespace Card
 
                     FarmerManager.Instance.SetFarmerRPC();
                     break;
-                
 
+                case Difficulty.Normal:
+                    photonView.RPC("MoveHeroes", RpcTarget.All);
+
+                    //Monsters
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        foreach (int r in new int[] { 8, 20, 21, 26, 48 })
+                        {
+                            GameObject gor = PhotonNetwork.Instantiate(gorPrefab);
+                            gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                            GameGraph.Instance.PlaceAt(gor, r);
+                        }
+                    }
+
+                    GameObject skraln = PhotonNetwork.Instantiate(skralPrefab);
+                    skraln.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                    GameGraph.Instance.PlaceAt(skraln, 19);
+
+
+                    FarmerManager.Instance.SetFarmerRPCNormal();
+                    break;
             }
         }
 

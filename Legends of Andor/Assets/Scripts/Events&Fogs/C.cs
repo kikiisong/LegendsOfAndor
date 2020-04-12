@@ -27,9 +27,38 @@ namespace Card
             //TODO difficulty
             switch (difficulty)
             {
-                default:
+                case Difficulty.Easy:
                     //Farmer
+                    FarmerManager.Instance.SetFamerRPCAtRegion28();
 
+
+                    //Monsters
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        photonView.RPC("PlaceTowerMonster", RpcTarget.AllBuffered);
+
+                        foreach (int r in new int[] { 27, 31 })
+                        {
+                            GameObject gor = PhotonNetwork.Instantiate(gorPerfab);
+                            gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                            GameGraph.Instance.PlaceAt(gor, r);
+
+                        }
+
+                        GameObject skral = PhotonNetwork.Instantiate(skralPerfab);
+                        skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                        GameGraph.Instance.PlaceAt(skral, 29);
+
+                        GameObject prince = PhotonNetwork.Instantiate(princePrefab);
+                        prince.transform.SetParent(GameObject.Find("Map").transform);
+                        GameGraph.Instance.PlaceAt(prince, 72);
+                    }
+
+
+                    break;
+
+                case Difficulty.Normal:
+                    //Farmer
                     FarmerManager.Instance.SetFamerRPCAtRegion28();
 
 
@@ -127,18 +156,36 @@ namespace Card
             Player[] players = PhotonNetwork.PlayerList;
             int numberOfPlayer = players.Length;
 
-            // TODO due to the difficulty of the room, the skral will have different sp 
-            if (numberOfPlayer == 2)
+            // TODO due to the difficulty of the room, the skral will have different sp
+            if(Room.Difficulty == Difficulty.Easy)
             {
-                linkedMonster.data.sp = 10;
+                if (numberOfPlayer == 2)
+                {
+                    linkedMonster.data.sp = 10;
+                }
+                else if (numberOfPlayer == 3)
+                {
+                    linkedMonster.data.sp = 20;
+                }
+                else if (numberOfPlayer == 4)
+                {
+                    linkedMonster.data.sp = 30;
+                }
             }
-            else if (numberOfPlayer == 3)
+            else
             {
-                linkedMonster.data.sp = 20;
-            }
-            else if (numberOfPlayer == 4)
-            {
-                linkedMonster.data.sp = 30;
+                if (numberOfPlayer == 2)
+                {
+                    linkedMonster.data.sp = 20;
+                }
+                else if (numberOfPlayer == 3)
+                {
+                    linkedMonster.data.sp = 30;
+                }
+                else if (numberOfPlayer == 4)
+                {
+                    linkedMonster.data.sp = 40;
+                }
             }
         }
     }
