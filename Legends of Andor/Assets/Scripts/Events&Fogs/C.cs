@@ -18,6 +18,8 @@ namespace Card
         public GameObject skralWithTowerPrefab;
         public GameObject towerInfo;
         public GameObject towerDice;
+        public GameObject princePrefab;
+
         MonsterMoveController linkedMonster;
 
         public GameObject tempSkral;
@@ -49,6 +51,10 @@ namespace Card
                         GameObject skral = PhotonNetwork.Instantiate(skralPerfab);
                         skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
                         GameGraph.Instance.PlaceAt(skral, 29);
+
+                        GameObject prince = PhotonNetwork.Instantiate(princePrefab);
+                        prince.transform.SetParent(GameObject.Find("Map").transform);
+                        GameGraph.Instance.PlaceAt(prince, 72);
                     }
 
 
