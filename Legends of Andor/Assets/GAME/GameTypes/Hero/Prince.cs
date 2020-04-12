@@ -9,7 +9,6 @@ public class Prince : MonoBehaviour
         get
         {
             var prince = FindObjectOfType<Prince>();
-            if(prince != null) Debug.Log(prince.name + " " + prince.transform.position);
             return prince;
         }
     }
