@@ -20,6 +20,8 @@ namespace Card
         public GameObject towerDice;
         MonsterMoveController linkedMonster;
 
+        public GameObject tempSkral;
+
         protected override void Event(Difficulty difficulty)
         {
             //TODO difficulty
@@ -43,11 +45,12 @@ namespace Card
                             GameGraph.Instance.PlaceAt(gor, r);
 
                         }
+
+                        GameObject skral = PhotonNetwork.Instantiate(skralPerfab);
+                        skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                        GameGraph.Instance.PlaceAt(skral, 29);
                     }
 
-                    GameObject skral = PhotonNetwork.Instantiate(skralPerfab);
-                    skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-                    GameGraph.Instance.PlaceAt(skral, 29);
 
                     break;
             }
@@ -105,9 +108,12 @@ namespace Card
 
         public void SetSkral(int herbAt)
         {
-            GameObject skral = PhotonNetwork.Instantiate(skralWithTowerPrefab);
-            skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-            GameGraph.Instance.PlaceAt(skralWithTowerPrefab, herbAt);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                tempSkral = PhotonNetwork.Instantiate(skralWithTowerPrefab);
+            }
+            tempSkral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+            GameGraph.Instance.PlaceAt(tempSkral, herbAt);
 
             print("set the skral cannot move");
 

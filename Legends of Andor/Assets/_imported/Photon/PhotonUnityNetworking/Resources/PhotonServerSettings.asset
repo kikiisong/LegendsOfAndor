@@ -128,5 +128,6 @@ MonoBehaviour:
   - PlaceTowerMonster
   - setSkral
   - SetSkral
+  - buyBrew
   DisableAutoOpenWizard: 1
   ShowSettings: 1
