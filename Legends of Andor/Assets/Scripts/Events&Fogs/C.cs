@@ -22,16 +22,47 @@ namespace Card
 
         MonsterMoveController linkedMonster;
 
-        public GameObject tempSkral;
+        public string difficultyLevel;
 
         protected override void Event(Difficulty difficulty)
         {
             //TODO difficulty
             switch (difficulty)
             {
-                default:
+                case Difficulty.Easy:
                     //Farmer
+                    difficultyLevel = "Easy";
+                    FarmerManager.Instance.SetFamerRPCAtRegion28();
 
+
+                    //Monsters
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        photonView.RPC("PlaceTowerMonster", RpcTarget.AllBuffered);
+
+                        foreach (int r in new int[] { 27, 31 })
+                        {
+                            GameObject gor = PhotonNetwork.Instantiate(gorPerfab);
+                            gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                            GameGraph.Instance.PlaceAt(gor, r);
+
+                        }
+
+                        GameObject skral = PhotonNetwork.Instantiate(skralPerfab);
+                        skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                        GameGraph.Instance.PlaceAt(skral, 29);
+
+                        GameObject prince = PhotonNetwork.Instantiate(princePrefab);
+                        prince.transform.SetParent(GameObject.Find("Map").transform);
+                        GameGraph.Instance.PlaceAt(prince, 72);
+                    }
+
+
+                    break;
+
+                case Difficulty.Normal:
+                    //Farmer
+                    difficultyLevel = "Normal";
                     FarmerManager.Instance.SetFamerRPCAtRegion28();
 
 
@@ -116,10 +147,10 @@ namespace Card
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                tempSkral = PhotonNetwork.Instantiate(skralWithTowerPrefab);
+                var go = PhotonNetwork.Instantiate(skralWithTowerPrefab);
+                go.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                GameGraph.Instance.PlaceAt(go, herbAt);
             }
-            tempSkral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-            GameGraph.Instance.PlaceAt(tempSkral, herbAt);
 
             print("set the skral cannot move");
 
@@ -129,18 +160,36 @@ namespace Card
             Player[] players = PhotonNetwork.PlayerList;
             int numberOfPlayer = players.Length;
 
-            // TODO due to the difficulty of the room, the skral will have different sp 
-            if (numberOfPlayer == 2)
+            // TODO due to the difficulty of the room, the skral will have different sp
+            if(difficultyLevel == "Easy")
             {
-                linkedMonster.data.sp = 10;
+                if (numberOfPlayer == 2)
+                {
+                    linkedMonster.data.sp = 10;
+                }
+                else if (numberOfPlayer == 3)
+                {
+                    linkedMonster.data.sp = 20;
+                }
+                else if (numberOfPlayer == 4)
+                {
+                    linkedMonster.data.sp = 30;
+                }
             }
-            else if (numberOfPlayer == 3)
+            else
             {
-                linkedMonster.data.sp = 20;
-            }
-            else if (numberOfPlayer == 4)
-            {
-                linkedMonster.data.sp = 30;
+                if (numberOfPlayer == 2)
+                {
+                    linkedMonster.data.sp = 20;
+                }
+                else if (numberOfPlayer == 3)
+                {
+                    linkedMonster.data.sp = 30;
+                }
+                else if (numberOfPlayer == 4)
+                {
+                    linkedMonster.data.sp = 40;
+                }
             }
         }
     }
