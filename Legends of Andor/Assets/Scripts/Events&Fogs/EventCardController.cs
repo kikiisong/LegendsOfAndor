@@ -42,7 +42,7 @@ public class EventCardController : MonoBehaviourPun
         //then call RPCPun to other clients
         // photonView.RPC("getCards", RpcTarget.AllBuffered, cards);
         myhero = PhotonNetwork.LocalPlayer.GetHero();
-        myhero.data.shield += 1;
+       // myhero.data.shield += 1;
         perviousWP = new int[PhotonNetwork.PlayerList.Length];
     }
 
