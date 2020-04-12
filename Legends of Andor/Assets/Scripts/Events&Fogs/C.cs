@@ -13,7 +13,9 @@ namespace Card
         public override Letter Key => Letter.C;
 
         public GameObject monsterParent;
-        public GameObject skralPrefab;
+        public GameObject gorPerfab;
+        public GameObject skralPerfab;
+        public GameObject skralWithTowerPrefab;
         public GameObject towerInfo;
         public GameObject towerDice;
         MonsterMoveController linkedMonster;
@@ -24,15 +26,30 @@ namespace Card
             switch (difficulty)
             {
                 default:
+                    //Farmer
+
+                    FarmerManager.Instance.SetFamerRPCAtRegion28();
+
+
                     //Monsters
                     if (PhotonNetwork.IsMasterClient)
                     {
                         photonView.RPC("PlaceTowerMonster", RpcTarget.AllBuffered);
+
+                        foreach (int r in new int[] { 27, 31 })
+                        {
+                            GameObject gor = PhotonNetwork.Instantiate(gorPerfab);
+                            gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                            GameGraph.Instance.PlaceAt(gor, r);
+
+                        }
                     }
-                    FarmerManager.Instance.SetFamerRPCAtRegion28();
+
+                    GameObject skral = PhotonNetwork.Instantiate(skralPerfab);
+                    skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                    GameGraph.Instance.PlaceAt(skral, 29);
+
                     break;
-
-
             }
         }
 
@@ -83,12 +100,36 @@ namespace Card
             towerInfo.transform.GetChild(2).gameObject.SetActive(true);
             towerDice.transform.GetChild(2).gameObject.SetActive(true);
 
-            GameObject skral = PhotonNetwork.Instantiate(skralPrefab);
-            skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-            GameGraph.Instance.PlaceAt(skral, herbAt);
+            SetSkral(herbAt);
+        }
 
-            linkedMonster = skral.GetComponent<MonsterMoveController>();
+        public void SetSkral(int herbAt)
+        {
+            GameObject skral = PhotonNetwork.Instantiate(skralWithTowerPrefab);
+            skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+            GameGraph.Instance.PlaceAt(skralWithTowerPrefab, herbAt);
+
+            print("set the skral cannot move");
+
+            linkedMonster = skralWithTowerPrefab.GetComponent<MonsterMoveController>();
             linkedMonster.canMove = false;
+
+            Player[] players = PhotonNetwork.PlayerList;
+            int numberOfPlayer = players.Length;
+
+            // TODO due to the difficulty of the room, the skral will have different sp 
+            if (numberOfPlayer == 2)
+            {
+                linkedMonster.data.sp = 10;
+            }
+            else if (numberOfPlayer == 3)
+            {
+                linkedMonster.data.sp = 20;
+            }
+            else if (numberOfPlayer == 4)
+            {
+                linkedMonster.data.sp = 30;
+            }
         }
     }
 }
