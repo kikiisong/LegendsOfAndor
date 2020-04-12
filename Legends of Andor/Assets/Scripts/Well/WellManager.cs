@@ -39,12 +39,8 @@ public class WellManager : MonoBehaviourPun, TurnManager.IOnMove
                     drinkButton.GetComponent<Button>().onClick.RemoveAllListeners();
                     drinkButton.GetComponent<Button>().onClick.AddListener(() =>
                     {
-                        //Debug.Log(hero.data.WP);
-                        hero.data.WP += 3;
-                        string wp = hero.data.WP.ToString();
-                        //Debug.Log(hero.data.WP);
 
-                        photonView.RPC("Empty", RpcTarget.AllBuffered, currentRegion.label);
+                        photonView.RPC("Empty", RpcTarget.AllBuffered, currentRegion.label, (int)hero.type);
 
                         drinkButton.gameObject.SetActive(false);
                     });
@@ -60,8 +56,27 @@ public class WellManager : MonoBehaviourPun, TurnManager.IOnMove
     }
 
     [PunRPC]
-    public void Empty(int currentRegion)
+    public void Empty(int currentRegion ,int heroType)
     {
+
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Length; i++)
+        {
+            Hero hero = (Hero)players[i].GetHero();
+            if ((int)hero.type == heroType)
+            {
+                if (hero.type == Hero.Type.WARRIOR)
+                {
+                    hero.data.WP += 5;
+                }
+                else
+                {
+                    hero.data.WP += 3;
+                }
+                break;
+            }
+        }
+
         List<Well> wellOnRegion = GameGraph.Instance.FindObjectsOnRegion <Well>(GameGraph.Instance.Find(currentRegion));
 
         Well temp = wellOnRegion[0];

@@ -281,7 +281,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
             Hero hero = (Hero)players[i].GetHero();
             if ((int)hero.type == whichHero)
             {
-                hero.data.wineskin += 1;
+                hero.data.wineskin += 2;
                 break;
             }
         }
@@ -365,8 +365,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         {
             herbAt = 61;
         }
-        //TODO:place herb and gor
-
+      
         Text t2 = fogInfo.transform.GetChild(1).GetComponent<Text>();
         t2.text = "Medical herb is placed at Region " + herbAt + ".";
 
