@@ -306,7 +306,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
             Hero hero = (Hero)players[i].GetHero();
             if ((int)hero.type == whichHero)
             {
-                hero.data.brew += 1;
+                hero.data.brew += 2;
                 break;
             }
         }
