@@ -64,10 +64,10 @@ namespace Saving
         {
             PhotonNetwork.Instantiate(heroPrefab); //each player creates a hero
             PhotonNetwork.Instantiate(timeMarkerPrefab);
-            if (PhotonNetwork.IsMasterClient)
-            {
-                LegendCard.Cards[LegendCard.Letter.A].Event();
-            }
+           // if (PhotonNetwork.IsMasterClient)
+           // {
+          //      LegendCard.Cards[LegendCard.Letter.A].Event();
+           // }
         }
 
         void LoadPreviousState()

@@ -143,7 +143,10 @@ namespace Card
                 print("time to release Legend C");
                 taskC.SetActive(true);
                 newTaskIcon.SetActive(true);
-
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    LegendCard.Cards[LegendCard.Letter.C].Event();
+                }
             }
             else if(currentLoc == 6)
             {

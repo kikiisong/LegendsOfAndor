@@ -125,5 +125,8 @@ MonoBehaviour:
   - HerbPicked
   - HerbDropped
   - decreaseShield
+  - PlaceTowerMonster
+  - setSkral
+  - SetSkral
   DisableAutoOpenWizard: 1
   ShowSettings: 1

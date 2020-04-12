@@ -124,4 +124,9 @@ public class FarmerManager : MonoBehaviourPun, TurnManager.IOnMove
         photonView.RPC("Increase", RpcTarget.AllBuffered, 24);
         photonView.RPC("Increase", RpcTarget.AllBuffered, 32);
     }
+
+    public void SetFamerRPCAtRegion28()
+    {
+        photonView.RPC("Increase", RpcTarget.AllBuffered, 28);
+    }
 }

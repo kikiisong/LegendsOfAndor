@@ -42,7 +42,7 @@ public class EventCardController : MonoBehaviourPun
         //then call RPCPun to other clients
         // photonView.RPC("getCards", RpcTarget.AllBuffered, cards);
         myhero = PhotonNetwork.LocalPlayer.GetHero();
-        myhero.data.shield += 1;
+       // myhero.data.shield += 1;
         perviousWP = new int[PhotonNetwork.PlayerList.Length];
     }
 
@@ -208,13 +208,13 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard11()
     {
-        print("Event card 3 has beeen called here at eventCard11");
+       // print("Event card 3 has beeen called here at eventCard11");
 
         useShieldOptionPanel.SetActive(true);
 
         foreach (MonsterMoveController monster in FindObjectsOfType<MonsterMoveController>())
         {
-            print("Event card 3 has beeen called here at inside foreach");
+           // print("Event card 3 has beeen called here at inside foreach");
             monster.data.sp += 1;
         }
     }
