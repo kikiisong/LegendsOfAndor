@@ -5588,6 +5588,9 @@ MonoBehaviour:
     type: 3}
   towerInfo: {fileID: 1834386522}
   towerDice: {fileID: 459271756}
+  princePrefab: {fileID: 3951969135777665330, guid: 2fdb4a3b66dbc40cf85923e7f21c5e1d,
+    type: 3}
+  tempSkral: {fileID: 0}
 --- !u!4 &329153908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8759363441600987595, guid: 8105aba088aef45c68321fbcdd16a68a,
