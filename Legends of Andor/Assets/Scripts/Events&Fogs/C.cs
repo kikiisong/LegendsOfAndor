@@ -22,8 +22,6 @@ namespace Card
 
         MonsterMoveController linkedMonster;
 
-        public GameObject tempSkral;
-
         protected override void Event(Difficulty difficulty)
         {
             //TODO difficulty
@@ -116,10 +114,10 @@ namespace Card
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                tempSkral = PhotonNetwork.Instantiate(skralWithTowerPrefab);
+                var go = PhotonNetwork.Instantiate(skralWithTowerPrefab);
+                go.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                GameGraph.Instance.PlaceAt(go, herbAt);
             }
-            tempSkral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-            GameGraph.Instance.PlaceAt(tempSkral, herbAt);
 
             print("set the skral cannot move");
 
