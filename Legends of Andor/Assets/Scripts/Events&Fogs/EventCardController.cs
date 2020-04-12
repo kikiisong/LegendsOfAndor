@@ -208,13 +208,13 @@ public class EventCardController : MonoBehaviourPun
     [PunRPC]
     public void eventCard11()
     {
-        print("Event card 3 has beeen called here at eventCard11");
+       // print("Event card 3 has beeen called here at eventCard11");
 
         useShieldOptionPanel.SetActive(true);
 
         foreach (MonsterMoveController monster in FindObjectsOfType<MonsterMoveController>())
         {
-            print("Event card 3 has beeen called here at inside foreach");
+           // print("Event card 3 has beeen called here at inside foreach");
             monster.data.sp += 1;
         }
     }

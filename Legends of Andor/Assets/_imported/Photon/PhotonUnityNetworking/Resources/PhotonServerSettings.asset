@@ -125,5 +125,6 @@ MonoBehaviour:
   - HerbPicked
   - HerbDropped
   - decreaseShield
+  - PlaceTowerMonster
   DisableAutoOpenWizard: 1
   ShowSettings: 1

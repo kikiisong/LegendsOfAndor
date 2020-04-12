@@ -145,7 +145,7 @@ namespace Card
                 newTaskIcon.SetActive(true);
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    LegendCard.Cards[LegendCard.Letter.A].Event();
+                    LegendCard.Cards[LegendCard.Letter.C].Event();
                 }
             }
             else if(currentLoc == 6)

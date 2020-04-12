@@ -4,6 +4,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Card
 {
@@ -12,9 +13,10 @@ namespace Card
         public override Letter Key => Letter.C;
 
         public GameObject monsterParent;
-        public GameObject gorPrefab;
         public GameObject skralPrefab;
-        public GameObject towerPrefab;
+        public GameObject towerInfo;
+        public GameObject towerDice;
+        MonsterMoveController linkedMonster;
 
         protected override void Event(Difficulty difficulty)
         {
@@ -25,24 +27,68 @@ namespace Card
                     //Monsters
                     if (PhotonNetwork.IsMasterClient)
                     {
-                        foreach (int r in new int[] { 8, 20, 21, 26, 48 })
-                        {
-                            GameObject gor = PhotonNetwork.Instantiate(gorPrefab);
-                            gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-                            GameGraph.Instance.PlaceAt(gor, r);
-                        }
+                        photonView.RPC("PlaceTowerMonster", RpcTarget.AllBuffered);
                     }
-
-                    GameObject skral = PhotonNetwork.Instantiate(skralPrefab);
-                    skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
-                    GameGraph.Instance.PlaceAt(skral, 19);
-
-
-                    FarmerManager.Instance.SetFarmerRPC();
+                    FarmerManager.Instance.SetFamerRPCAtRegion28();
                     break;
 
 
             }
+        }
+
+        [PunRPC]
+        public void PlaceTowerMonster()
+        {
+            Text t = towerInfo.transform.GetChild(1).GetComponent<Text>();
+            t.text = "The room owner will roll the dice to locate the tower.";
+            towerInfo.SetActive(true);
+            towerInfo.transform.GetChild(2).gameObject.SetActive(false);
+
+            towerDice.SetActive(true);
+            towerDice.transform.GetChild(0).gameObject.SetActive(false);
+            towerDice.transform.GetChild(2).gameObject.SetActive(false);
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                towerDice.transform.GetChild(0).gameObject.SetActive(true);
+                GameObject rollButton = towerDice.transform.GetChild(0).gameObject;
+                rollButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                rollButton.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    rollDice();
+                });
+
+            }
+        }
+
+        public void rollDice()
+        {
+            towerDice.transform.GetChild(0).gameObject.SetActive(false);
+            System.Random rand = new System.Random();
+            int rInt = rand.Next(1, 7);
+            photonView.RPC("updateDice", RpcTarget.AllBuffered, rInt);
+        }
+
+        [PunRPC]
+        public void updateDice(int dice)
+        {
+            Text t = towerDice.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Text>();
+            t.text = dice.ToString();
+
+            int herbAt = 50 + dice;
+
+            Text t2 = towerInfo.transform.GetChild(1).GetComponent<Text>();
+            t2.text = "The tower and a skral has located at " + herbAt + " region.";
+
+            towerInfo.transform.GetChild(2).gameObject.SetActive(true);
+            towerDice.transform.GetChild(2).gameObject.SetActive(true);
+
+            GameObject skral = PhotonNetwork.Instantiate(skralPrefab);
+            skral.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+            GameGraph.Instance.PlaceAt(skral, herbAt);
+
+            linkedMonster = skral.GetComponent<MonsterMoveController>();
+            linkedMonster.canMove = false;
         }
     }
 }
