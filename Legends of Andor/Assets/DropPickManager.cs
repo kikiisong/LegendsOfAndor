@@ -72,7 +72,7 @@ public class DropPickManager : MonoBehaviour
 
     public void opCl()
     {
-        Debug.Log("pressed");
+       // Debug.Log("pressed");
         openClose(oc ? false : true);
     }
 
