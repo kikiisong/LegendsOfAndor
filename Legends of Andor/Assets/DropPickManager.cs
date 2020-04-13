@@ -190,9 +190,10 @@ public class DropPickManager : MonoBehaviourPun
 
     }
 
+
     public void displayRegionIcon(Region current, bool display)
     {
-        if (display)
+        if (display && PhotonNetwork.IsMasterClient)
         {
           //var missle = Instantiate<GameObject>(goldpotPrefab);
             GameObject missle = PhotonNetwork.Instantiate(goldpotPrefab);
@@ -200,7 +201,7 @@ public class DropPickManager : MonoBehaviourPun
 
             GameGraph.Instance.PlaceAt(missle, current.label);
         }
-        else
+        if(!display && PhotonNetwork.IsMasterClient)
         {
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("goldpot"))
             {
