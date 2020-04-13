@@ -129,5 +129,7 @@ MonoBehaviour:
   - setSkral
   - SetSkral
   - buyBrew
+  - updateHeroStats
+  - updateRegionStats
   DisableAutoOpenWizard: 1
   ShowSettings: 1

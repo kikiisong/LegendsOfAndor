@@ -206,6 +206,7 @@ public class DropPickManager : MonoBehaviourPun
             {
                 if (obj.transform.position == Current.position)
                 {
+                    obj.GetPhotonView().RequestOwnership();
                     PhotonNetwork.Destroy(obj); //change it to 
                 }
             }
