@@ -185,12 +185,12 @@ public class DropPickManager : MonoBehaviourPun
 
         current.data.numOfItems += updateUnit;
        // Debug.Log("region coin is " + Current.data.gold);
-        if (current.data.numOfItems == 0) displayRegionIcon(false);
-        if (current.data.numOfItems == 1) displayRegionIcon(true);
+        if (current.data.numOfItems == 0) displayRegionIcon(current, false);
+        if (current.data.numOfItems == 1) displayRegionIcon(current, true);
 
     }
 
-    public void displayRegionIcon(bool display)
+    public void displayRegionIcon(Region current, bool display)
     {
         if (display)
         {
@@ -198,13 +198,13 @@ public class DropPickManager : MonoBehaviourPun
             GameObject missle = PhotonNetwork.Instantiate(goldpotPrefab);
            // missle.transform.parent = groundBag.transform.parent;
 
-            GameGraph.Instance.PlaceAt(missle, Current.label);
+            GameGraph.Instance.PlaceAt(missle, current.label);
         }
         else
         {
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("goldpot"))
             {
-                if (obj.transform.position == Current.position)
+                if (obj.transform.position == current.position)
                 {
                     obj.GetPhotonView().RequestOwnership();
                     PhotonNetwork.Destroy(obj); //change it to 
