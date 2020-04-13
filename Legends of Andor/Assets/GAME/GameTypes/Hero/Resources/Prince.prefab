@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7986964805883928042}
   - component: {fileID: 8059965320195813193}
-  - component: {fileID: 76215826908919138}
   - component: {fileID: 416927878417737699}
+  - component: {fileID: -8916317124753825863}
+  - component: {fileID: 8834522656809906799}
   m_Layer: 0
   m_Name: Prince
   m_TagString: Untagged
@@ -68,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -720007671
-  m_SortingLayer: 4
+  m_SortingLayerID: 1478140479
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d2615a1dcbd7e4430acf3d7a23918599, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -82,18 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &76215826908919138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3951969135777665330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da44e48cfb2d54b139fcb7ab708aea69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &416927878417737699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,9 +98,37 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -8916317124753825863}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-8916317124753825863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3951969135777665330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+--- !u!114 &8834522656809906799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3951969135777665330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceea3e2a951a9c34ca14357fc07f72d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

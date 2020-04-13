@@ -7,7 +7,7 @@ namespace Card
 {
     public abstract class LegendCard : MonoBehaviourPun
     {
-        public static Dictionary<Letter, LegendCard> Cards = new Dictionary<LegendCard.Letter, LegendCard>();
+        public static Dictionary<Letter, LegendCard> Cards = new Dictionary<Letter, LegendCard>();
 
         public abstract Letter Key { get; }
     

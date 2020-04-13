@@ -63,7 +63,7 @@ namespace Card
 
 
                     //Monsters
-                    if (PhotonNetwork.IsMasterClient)
+                    if (PhotonNetwork.IsMasterClient) 
                     {
                         photonView.RPC("PlaceTowerMonster", RpcTarget.AllBuffered);
 
