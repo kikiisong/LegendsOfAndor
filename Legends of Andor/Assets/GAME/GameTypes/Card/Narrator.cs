@@ -150,9 +150,19 @@ namespace Card
             }
             else if(currentLoc == 6)
             {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    //LegendCard.Cards[LegendCard.Letter.G].Event();
+                }
                 print("time to release Legend G");
+
+                foreach (KeyValuePair<LegendCard.Letter, LegendCard> kvp in LegendCard.Cards)
+                {
+                    //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+                    print(string.Format("Letter = {0}, LegendCard = {1}", kvp.Key, kvp.Value));
+                }
             }
-            else if(currentLoc == 13)
+            else if(currentLoc == 13)   
             {
                 print("time to release Legend N");
             }

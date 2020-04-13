@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Prince : MonoBehaviour
 {
+    public static Prince Instance
+    {
+        get
+        {
+            return FindObjectOfType<Prince>();
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

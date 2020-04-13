@@ -25,7 +25,7 @@ namespace Card
 
         public enum Letter
         {
-            A, B, C, N, G
+            A, B, C, G, N
         }
     }
 }
