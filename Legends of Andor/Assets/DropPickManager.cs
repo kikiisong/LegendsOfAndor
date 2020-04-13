@@ -174,7 +174,7 @@ public class DropPickManager : MonoBehaviour
         {
           //var missle = Instantiate<GameObject>(goldpotPrefab);
             GameObject missle = PhotonNetwork.Instantiate(goldpotPrefab);
-            missle.transform.parent = groundBag.transform.parent;
+           // missle.transform.parent = groundBag.transform.parent;
 
             GameGraph.Instance.PlaceAt(missle, Current.label);
         }

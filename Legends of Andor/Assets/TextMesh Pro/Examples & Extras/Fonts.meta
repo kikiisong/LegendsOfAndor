@@ -1,4 +1,5 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Legends of Andor/Assets/Photon.meta
 <<<<<<< HEAD
 guid: d36ad8c2240090c41b5275405010ff90
 =======
@@ -8,6 +9,9 @@ guid: fffcd8ff7767a4140b0e3804b2e6fb4e
 guid: d36ad8c2240090c41b5275405010ff90
 >>>>>>> 40fc9c6205b3c7e6478c30b1ba74953a8485d252:Legends of Andor/Assets/Photon.meta
 >>>>>>> 40fc9c6205b3c7e6478c30b1ba74953a8485d252
+=======
+guid: b63e0053080646b9819789bf3bf9fa17
+>>>>>>> 005b72161c6cec6029a6ef178ac20a51dd7a639a:Legends of Andor/Assets/TextMesh Pro/Examples & Extras/Fonts.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
