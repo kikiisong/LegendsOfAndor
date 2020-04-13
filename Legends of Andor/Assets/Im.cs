@@ -39,7 +39,7 @@ public class Im : MonoBehaviour
                     //update region stats
                     int updUnit = bagType == 1 ? -1 : 1;
 
-                    i.updateRegionStats(img.sprite.name, updUnit);
+                    i.updateRegionStatsRPC(img.sprite.name, updUnit);
                     img.sprite = uimask;
 
                 }
@@ -52,7 +52,7 @@ public class Im : MonoBehaviour
 
                     //update region stats
                     int updUnit = bagType == 1 ? -1 : 1;
-                    i.updateRegionStats(img.sprite.name, updUnit);
+                    i.updateRegionStatsRPC(img.sprite.name, updUnit);
 
                     //empty slot if dropped item
                     if (count != 0)
@@ -68,7 +68,7 @@ public class Im : MonoBehaviour
 
                 //update hero stats
                 int updateUnit = bagType == 0 ? -1 : 1;
-                i.updateHeroStats(img.sprite.name, updateUnit);
+                i.updateHeroStatsRPC(img.sprite.name, updateUnit);
 
             }
         }

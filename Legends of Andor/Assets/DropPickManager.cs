@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using UnityEngine.UI;
  * warn block if one wants to add more elements that they are allowed (--)
  * destroy object in 
  */
-public class DropPickManager : MonoBehaviour
+public class DropPickManager : MonoBehaviourPun
 {
     // Start is called before the first frame update
     public GameObject groundBag;
@@ -25,7 +26,16 @@ public class DropPickManager : MonoBehaviour
     private int emptySlot = 0;
     public int objGroundBag = 0;
     private bool oc = false; //open close
+   // private Region Current;
 
+    Region Current
+    {
+        get
+        {
+           return PhotonNetwork.LocalPlayer.GetCurrentRegion();
+        }
+    }
+    /*
     Region Current
     {
         get
@@ -41,7 +51,7 @@ public class DropPickManager : MonoBehaviour
             throw new System.Exception("No current region");
         }
     }
-
+    */
     Hero hero
     {
         get
@@ -72,7 +82,7 @@ public class DropPickManager : MonoBehaviour
 
     public void opCl()
     {
-       // Debug.Log("pressed");
+        // Debug.Log("pressed");
         openClose(oc ? false : true);
     }
 
@@ -136,8 +146,18 @@ public class DropPickManager : MonoBehaviour
         return -1;
     }
 
-    public void updateHeroStats(string spriteName, int updateUnit)
+    public void updateRegionStatsRPC( string spriteName, int updateUnit)
     {
+        photonView.RPC("updateRegionStats", RpcTarget.All, PhotonNetwork.LocalPlayer , spriteName, updateUnit);
+    }
+    public void updateHeroStatsRPC(string spriteName, int updateUnit)
+    {
+        photonView.RPC("updateHeroStats", RpcTarget.All, PhotonNetwork.LocalPlayer, spriteName, updateUnit);
+    }
+    [PunRPC]
+    public void updateHeroStats(Player player, string spriteName, int updateUnit)
+    {
+        Hero hero = player.GetHero();
         if (spriteName == "coin") hero.data.gold += updateUnit;
         if (spriteName == "brew") hero.data.brew += updateUnit;
         if (spriteName == "wineskin") hero.data.wineskin += updateUnit;
@@ -148,23 +168,25 @@ public class DropPickManager : MonoBehaviour
         if (spriteName == "falcon") hero.data.falcon += updateUnit;
     }
 
-
-    public void updateRegionStats(string spriteName, int updateUnit)
+    [PunRPC]
+    public void updateRegionStats(Player player, string spriteName, int updateUnit)
     {
-        Debug.Log("sprite name " + spriteName);
-        if (spriteName == "coin") Current.data.gold += updateUnit;
-        if (spriteName == "brew") Current.data.brew += updateUnit;
-        if (spriteName == "wineskin") Current.data.numWineskin += updateUnit;
-        if (spriteName == "herb") Current.data.herb += updateUnit;
-        if (spriteName == "shield") Current.data.sheild += updateUnit;
-        if (spriteName == "helm") Current.data.helm += updateUnit;
-        if (spriteName == "bow") Current.data.bow += updateUnit;
-        if (spriteName == "falcon") Current.data.falcon += updateUnit;
+        Region current = player.GetCurrentRegion();
 
-        Current.data.numOfItems += updateUnit;
+        Debug.Log("sprite name " + spriteName);
+        if (spriteName == "coin") current.data.gold += updateUnit;
+        if (spriteName == "brew") current.data.brew += updateUnit;
+        if (spriteName == "wineskin") current.data.numWineskin += updateUnit;
+        if (spriteName == "herb") current.data.herb += updateUnit;
+        if (spriteName == "shield") current.data.sheild += updateUnit;
+        if (spriteName == "helm") current.data.helm += updateUnit;
+        if (spriteName == "bow") current.data.bow += updateUnit;
+        if (spriteName == "falcon") current.data.falcon += updateUnit;
+
+        current.data.numOfItems += updateUnit;
        // Debug.Log("region coin is " + Current.data.gold);
-        if (Current.data.numOfItems == 0) displayRegionIcon(false);
-        if (Current.data.numOfItems == 1) displayRegionIcon(true);
+        if (current.data.numOfItems == 0) displayRegionIcon(false);
+        if (current.data.numOfItems == 1) displayRegionIcon(true);
 
     }
 
