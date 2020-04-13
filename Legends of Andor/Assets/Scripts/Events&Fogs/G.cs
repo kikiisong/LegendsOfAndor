@@ -25,17 +25,24 @@ namespace Card
                     //Monsters
                     if (PhotonNetwork.IsMasterClient)
                     {
-                        foreach (int r in new int[] { 26, 27 })
+                        /*foreach (int r in new int[] { 26, 27 })
                         {
                             GameObject gor = PhotonNetwork.Instantiate(wardraksPrefab);
                             gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
                             GameGraph.Instance.PlaceAt(gor, r);
-                        }
+                        }*/
+
+                        photonView.RPC("RemovePrince", RpcTarget.All);
                     }
 
-                    Prince.Instance.gameObject.SetActive(false);
                 break;
             }
+        }
+
+        [PunRPC]
+        public void RemovePrince()
+        {
+            Prince.Instance.gameObject.SetActive(false);
         }
     }
 }

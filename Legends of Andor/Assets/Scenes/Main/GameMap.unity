@@ -5540,6 +5540,7 @@ GameObject:
   - component: {fileID: 328684575}
   - component: {fileID: 328684574}
   - component: {fileID: 328684576}
+  - component: {fileID: 328684577}
   m_Layer: 0
   m_Name: LegendCards
   m_TagString: Untagged
@@ -5622,6 +5623,21 @@ MonoBehaviour:
   towerInfo: {fileID: 1834386522}
   towerDice: {fileID: 459271756}
   princePrefab: {fileID: 3951969135777665330, guid: 2fdb4a3b66dbc40cf85923e7f21c5e1d,
+    type: 3}
+--- !u!114 &328684577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328684572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4800bfad121c44227a8de4aac7e65c84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterParent: {fileID: 655722766}
+  wardraksPrefab: {fileID: 2075337786204200553, guid: d265625ed029cf646bca19d77cf60361,
     type: 3}
 --- !u!4 &329153908 stripped
 Transform:
@@ -17901,7 +17917,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.012046814, y: -0.0015678406, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1676669743}

@@ -140,7 +140,6 @@ namespace Card
         {
             if(currentLoc == 2)
             {
-                print("time to release Legend C");
                 taskC.SetActive(true);
                 newTaskIcon.SetActive(true);
                 if (PhotonNetwork.IsMasterClient)
@@ -152,15 +151,9 @@ namespace Card
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    //LegendCard.Cards[LegendCard.Letter.G].Event();
+                    LegendCard.Cards[LegendCard.Letter.G].Event();
                 }
                 print("time to release Legend G");
-
-                foreach (KeyValuePair<LegendCard.Letter, LegendCard> kvp in LegendCard.Cards)
-                {
-                    //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-                    print(string.Format("Letter = {0}, LegendCard = {1}", kvp.Key, kvp.Value));
-                }
             }
             else if(currentLoc == 13)   
             {
