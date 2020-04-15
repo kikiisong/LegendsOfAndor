@@ -40,7 +40,6 @@ public class TradeManager : MonoBehaviourPun
 
         if (player1 != null && player2 != null) {
         //if (player1 != null )
-        {
             object[] content = new object[] { true };
 
             RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
