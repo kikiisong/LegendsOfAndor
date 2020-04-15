@@ -71,32 +71,47 @@ public class TradeManager : MonoBehaviourPun
             object[] data = (object[])obj.CustomData;
             string name = (string)data[0];
             int bagType = (int)data[1];
+            int slotID = (int)data[2];
+
             Debug.Log(bagType);
 
-            GameObject panel = (bagType == 1) ? panelTwo : panelOne; //selectign panel to increment
-            incrItem(name, panel);
+            GameObject panelReceive = (bagType == 1) ? panelTwo : panelOne; //selectign panel to increment
+            GameObject panelSend = (bagType == 2) ? panelTwo : panelOne; //selectign panel to increment
 
+            decrItem(panelSend, slotID);
+            incrItem(name, panelReceive);
+
+
+            Debug.Log(panelOne.name + " - panel one");
+            Debug.Log(panelTwo.name + " - panel two");
+            Debug.Log(player1.NickName + " - player 1 nickname");
+            Debug.Log(player2.NickName + " - player 2 nickname");
             if (bagType == 1) {
-                updateHeroStatsRPC(name, player1, -1);
-                updateHeroStatsRPC(name, player2, 1);
+                //updateHeroStatsRPC(name, player1, -1);
+                //updateHeroStatsRPC(name, player2, 1);
+                updateHeroStats(player1, name, (-1));
+                updateHeroStats(player2, name, 1);
             }
             else
             {
-                updateHeroStatsRPC(name, player1, 1);
-                updateHeroStatsRPC(name, player2, -1);
+                updateHeroStats(player1, name, 1);
+                updateHeroStats(player2, name, -1);
+                //updateHeroStatsRPC(name, player1, 1);
+                //updateHeroStatsRPC(name, player2, -1);
             }
         }
 
         //open window only to two players
         if (obj.Code == OPENWIND)
         {
-            object[] data = (object[])obj.CustomData;
-            int player1ID = (int)data[0];
-            int player2ID = (int)data[1];
+            //object[] data = (object[])obj.CustomData;
+            //int player1ID = (int)data[0];
+            //int player2ID = (int)data[1];
 
-            player1 = PhotonNetwork.CurrentRoom.GetPlayer(player1ID);
-            player2 = PhotonNetwork.CurrentRoom.GetPlayer(player2ID);
+            //player1 = PhotonNetwork.CurrentRoom.GetPlayer(player1ID);
+            //player2 = PhotonNetwork.CurrentRoom.GetPlayer(player2ID);
 
+            initPlayers();
             if (panelOne != null && panelTwo != null)
             {
                 bool isActive1 = panelOne.activeSelf;
@@ -104,12 +119,55 @@ public class TradeManager : MonoBehaviourPun
                 panelOne.SetActive(!isActive1);
                 panelTwo.SetActive(!isActive2);
 
+                cleanBag(panelOne);
+                cleanBag(panelTwo);
 
                 populateBag(player1, panelOne);
                 populateBag(player2, panelTwo);
             }
         }
     }
+
+ 
+    private void decrItem( GameObject bag , int slotID)
+    {
+        GameObject slot = bag.gameObject.transform.GetChild(1).GetChild(slotID).gameObject; //to change later
+
+        GameObject image = slot.transform.GetChild(0).gameObject;
+        Image img = image.gameObject.GetComponent<Image>();
+
+        GameObject text = slot.transform.GetChild(1).gameObject;
+        Text tx = text.gameObject.GetComponent<Text>();
+
+        Sprite uimask = Resources.Load<Sprite>("UIMask");
+
+        //usure that clicking on empty icon won't do anything
+        if (img.sprite.name != uimask.name)
+        {
+
+            if (tx.text == "")
+            {
+                img.sprite = uimask;
+            }
+            else
+            {
+                int count = int.Parse(tx.text);
+                count--;
+
+               //empty slot if dropped item
+                if (count != 0)
+                {
+                    tx.text = (count).ToString();
+                }
+                else
+                {
+                    img.sprite = uimask;
+                    tx.text = "";
+                }
+            }
+        }
+    }
+
     public void updateHeroStatsRPC(string spriteName, Player player, int updateUnit)
     {
         photonView.RPC("updateHeroStats", RpcTarget.All, player, spriteName, updateUnit);
@@ -118,7 +176,14 @@ public class TradeManager : MonoBehaviourPun
     [PunRPC]
     public void updateHeroStats(Player player, string spriteName, int updateUnit)
     {
+        Debug.Log("----------------------------------");
+        Debug.Log("----------------------------------");
+        Debug.Log("player stats " + player.NickName);
         Hero hero = player.GetHero();
+        
+        Debug.Log("     coin " + hero.data.gold);
+        Debug.Log("     wineskin " + hero.data.wineskin);
+        
         if (spriteName == "coin") hero.data.gold += updateUnit;
         if (spriteName == "brew") hero.data.brew += updateUnit;
         if (spriteName == "wineskin") hero.data.wineskin += updateUnit;
@@ -127,6 +192,11 @@ public class TradeManager : MonoBehaviourPun
         if (spriteName == "helm") hero.data.helm += updateUnit;
         if (spriteName == "bow") hero.data.bow += updateUnit;
         if (spriteName == "falcon") hero.data.falcon += updateUnit;
+        Debug.Log("----------------------------------");
+        Debug.Log("      coin " + hero.data.gold);
+        Debug.Log("      wineskin " + hero.data.wineskin);
+        Debug.Log("----------------------------------");
+        Debug.Log("----------------------------------");
     }
 
     //bag - to which we should increase the element
@@ -189,8 +259,19 @@ public class TradeManager : MonoBehaviourPun
         {
             tx.text = parameter.ToString();
         }
+        if (spriteName == "UIMask" && parameter == -12)
+        {
+            tx.text = "";
+        }
     }
 
+    private void cleanBag(GameObject bag)
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            fillBag(i, "UIMask", -12, bag);
+        }
+    }
 
     private void populateBag(Player player, GameObject bag)
     {
@@ -243,12 +324,17 @@ public class TradeManager : MonoBehaviourPun
     //works only if there are two ppl on the same region
     private void initPlayers()
     {
-        player1 = PhotonNetwork.LocalPlayer;
+        Region region = PhotonNetwork.LocalPlayer.GetCurrentRegion();
+        int r = 0;
 
         Player[] playerList = PhotonNetwork.PlayerList;
         for (int i = 0; i < playerList.Length; i++)
         {
-            if (playerList[i].GetCurrentRegion() == player1.GetCurrentRegion() && playerList[i] != player1)
+            if (playerList[i].GetCurrentRegion() == region && r==0)
+            {
+                player1 = playerList[i];
+                r++;
+            }else if (playerList[i].GetCurrentRegion() == region && r == 1)
             {
                 player2 = playerList[i];
             }

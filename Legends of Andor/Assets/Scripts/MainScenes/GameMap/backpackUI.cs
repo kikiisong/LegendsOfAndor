@@ -21,12 +21,6 @@ public class backpackUI : MonoBehaviour
     private void Start()
 
     {
-        /*     GameObject itemsList = GameObject.Find("/Canvas/Backpack/ItemsList");
-             for(int i = 0; i < 18; i++)
-             {
-                 slots.Add(itemsList.transform.GetChild(i).gameObject);
-             }
-           //  populateBag();*/
 
     }
 
@@ -41,7 +35,8 @@ public class backpackUI : MonoBehaviour
 
         }
         emptySlot = 0;
-       // Debug.Log("clicked");
+        // Debug.Log("clicked");
+        cleanBag();
         populateBag();
   
     }
@@ -50,15 +45,12 @@ public class backpackUI : MonoBehaviour
 {
 
     GameObject itemsList = GameObject.Find("/Canvas/Backpack/ItemsList");
-       // Debug.Log("found itemlist");
+
     Sprite spriteToLoad = Resources.Load<Sprite>(spriteName);
 
-    GameObject image = itemsList.gameObject.transform.GetChild(slotNumber).GetChild(0).gameObject;
-    //    Debug.Log("found item");
-      //  Debug.Log(image.name);
-       
+    GameObject image = itemsList.gameObject.transform.GetChild(slotNumber).GetChild(0).gameObject;       
     GameObject text = itemsList.gameObject.transform.GetChild(slotNumber).GetChild(1).gameObject;
-   // Debug.Log("found itemlist");
+
 
     Image img = image.gameObject.GetComponent<Image>();
     Text tx = text.gameObject.GetComponent<Text>();
@@ -68,7 +60,11 @@ public class backpackUI : MonoBehaviour
     {
         tx.text = parameter.ToString();
     }
-}
+        if (spriteName == "UIMask" && parameter == 0)
+        {
+            tx.text = "";
+        }
+    }
 public void populateBag()
 {
  
@@ -118,7 +114,7 @@ public void populateBag()
 
 public int EmptySlot()
 {
-    for (int i = 0; i < 18; i++)
+    for (int i = 0; i < 9; i++)
     {
         if (slots[i].gameObject.GetComponent<Image>().name == "UIMask")
         {
@@ -127,6 +123,14 @@ public int EmptySlot()
     }
     return 0;
 }
-   } 
+
+    private void cleanBag()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            fillBag(i, "UIMask", 0);
+        }
+    }
+} 
     
 

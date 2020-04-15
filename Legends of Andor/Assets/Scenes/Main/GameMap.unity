@@ -9615,6 +9615,7 @@ MonoBehaviour:
   slot: {fileID: 467964565}
   otherPanel: {fileID: 1531788383}
   bagType: 1
+  slotID: 1
 --- !u!114 &467964570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17531,6 +17532,7 @@ MonoBehaviour:
   slot: {fileID: 870470407}
   otherPanel: {fileID: 0}
   bagType: 2
+  slotID: 2
 --- !u!114 &870470412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18944,6 +18946,7 @@ MonoBehaviour:
   slot: {fileID: 939485367}
   otherPanel: {fileID: 0}
   bagType: 2
+  slotID: 4
 --- !u!114 &939485372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20004,7 +20007,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -10.162437, y: -2.124382, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1676669743}
@@ -21244,6 +21247,7 @@ MonoBehaviour:
   slot: {fileID: 1027001631}
   otherPanel: {fileID: 0}
   bagType: 2
+  slotID: 3
 --- !u!114 &1027001636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25686,6 +25690,7 @@ MonoBehaviour:
   slot: {fileID: 1300079201}
   otherPanel: {fileID: 1531788383}
   bagType: 1
+  slotID: 5
 --- !u!114 &1300079206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31183,6 +31188,7 @@ MonoBehaviour:
   slot: {fileID: 1563265776}
   otherPanel: {fileID: 0}
   bagType: 2
+  slotID: 1
 --- !u!114 &1563265781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33690,6 +33696,7 @@ MonoBehaviour:
   slot: {fileID: 1686374168}
   otherPanel: {fileID: 0}
   bagType: 2
+  slotID: 5
 --- !u!114 &1686374173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34344,6 +34351,7 @@ MonoBehaviour:
   slot: {fileID: 1718057077}
   otherPanel: {fileID: 0}
   bagType: 2
+  slotID: 0
 --- !u!114 &1718057082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36360,6 +36368,7 @@ MonoBehaviour:
   slot: {fileID: 1821252889}
   otherPanel: {fileID: 1531788383}
   bagType: 1
+  slotID: 0
 --- !u!114 &1821252894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39601,6 +39610,7 @@ MonoBehaviour:
   slot: {fileID: 1953280215}
   otherPanel: {fileID: 1531788383}
   bagType: 1
+  slotID: 2
 --- !u!114 &1953280220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42468,6 +42478,7 @@ MonoBehaviour:
   slot: {fileID: 2096715345}
   otherPanel: {fileID: 1531788383}
   bagType: 1
+  slotID: 3
 --- !u!114 &2096715350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42951,6 +42962,7 @@ MonoBehaviour:
   slot: {fileID: 2108412906}
   otherPanel: {fileID: 1531788383}
   bagType: 1
+  slotID: 4
 --- !u!114 &2108412911
 MonoBehaviour:
   m_ObjectHideFlags: 0

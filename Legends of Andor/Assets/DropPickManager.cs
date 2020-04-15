@@ -297,5 +297,9 @@ public class DropPickManager : MonoBehaviourPun
         {
             tx.text = parameter.ToString();
         }
+        if(spriteName == "UIMask" && parameter == 0)
+        {
+            tx.text = "";
+        }
     }
 }
