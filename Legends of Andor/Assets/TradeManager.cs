@@ -38,13 +38,13 @@ public class TradeManager : MonoBehaviourPun
     {   
         initPlayers();
 
-        //if (player1 != null && player2 != null) {
-        if (player1 != null )
+        if (player1 != null && player2 != null) {
+        //if (player1 != null )
         {
             object[] content = new object[] { true };
 
-            //RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber } };
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
+            //RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber } };
             SendOptions sendOptions = new SendOptions { Reliability = true };
             PhotonNetwork.RaiseEvent(OPENWIND, content, raiseEventOptions, sendOptions);
         }
@@ -74,12 +74,12 @@ public class TradeManager : MonoBehaviourPun
 
             if (bagType == 1) {
                 updateHeroStatsRPC(name, player1, -1);
-                // updateHeroStatsRPC(name, player2, 1);
+                updateHeroStatsRPC(name, player2, 1);
             }
             else
             {
                 updateHeroStatsRPC(name, player1, 1);
-                // updateHeroStatsRPC(name, player2, -1);
+                updateHeroStatsRPC(name, player2, -1);
             }
         }
 
@@ -95,7 +95,7 @@ public class TradeManager : MonoBehaviourPun
 
 
                 populateBag(player1, panelOne);
-                //populateBag(player2, panelTwo);
+                populateBag(player2, panelTwo);
             }
         }
     }
