@@ -37,15 +37,20 @@ public class TradeManager : MonoBehaviourPun
     public void Open()
     {   
         initPlayers();
-
+        Debug.Log(player1);
+        Debug.Log(player2);
         if (player1 != null && player2 != null) {
         //if (player1 != null )
-            object[] content = new object[] { true };
+            object[] content = new object[] { player1.ActorNumber, player2.ActorNumber };
 
             RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
             //RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber } };
             SendOptions sendOptions = new SendOptions { Reliability = true };
             PhotonNetwork.RaiseEvent(OPENWIND, content, raiseEventOptions, sendOptions);
+        }
+        else
+        {
+            Debug.Log("cannot press");
         }
 
     }
@@ -85,6 +90,13 @@ public class TradeManager : MonoBehaviourPun
         //open window only to two players
         if (obj.Code == OPENWIND)
         {
+            object[] data = (object[])obj.CustomData;
+            int player1ID = (int)data[0];
+            int player2ID = (int)data[1];
+
+            player1 = PhotonNetwork.CurrentRoom.GetPlayer(player1ID);
+            player2 = PhotonNetwork.CurrentRoom.GetPlayer(player2ID);
+
             if (panelOne != null && panelTwo != null)
             {
                 bool isActive1 = panelOne.activeSelf;
