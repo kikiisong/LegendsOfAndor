@@ -53,7 +53,7 @@ namespace Saving
         {
             return new JArray(
                 from player in PhotonNetwork.CurrentRoom.Players.Values
-                select J.FromHero(player.GetHero(), player.GetCurrentRegion().label));
+                select J.FromHero(player.GetHero(), player.GetCurrentRegion(). label));
         }
 
         private JArray JMonsters()

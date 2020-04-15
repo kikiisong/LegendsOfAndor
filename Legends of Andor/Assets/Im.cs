@@ -31,6 +31,9 @@ public class Im : MonoBehaviour
             // usure that clicking on empty icon won't do anything
             if (img.sprite.name != uimask.name)
             {
+                //update hero stats
+                int updateUnit = bagType == 0 ? -1 : 1;
+                i.updateHeroStatsRPC(img.sprite.name, updateUnit);
 
                 if (tx.text == "")
                 {
@@ -66,10 +69,7 @@ public class Im : MonoBehaviour
                     }
                 }
 
-                //update hero stats
-                int updateUnit = bagType == 0 ? -1 : 1;
-                i.updateHeroStatsRPC(img.sprite.name, updateUnit);
-
+               
             }
         }
     }

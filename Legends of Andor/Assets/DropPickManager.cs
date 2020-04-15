@@ -154,6 +154,7 @@ public class DropPickManager : MonoBehaviourPun
     {
         photonView.RPC("updateHeroStats", RpcTarget.All, PhotonNetwork.LocalPlayer, spriteName, updateUnit);
     }
+
     [PunRPC]
     public void updateHeroStats(Player player, string spriteName, int updateUnit)
     {
@@ -274,14 +275,11 @@ public class DropPickManager : MonoBehaviourPun
     // simply loads images of data of a region
     public void fillBag(int slotNumber, string spriteName, int parameter)
     {
-        Debug.Log("fill bag");
         GameObject itemsList = groundBag.gameObject.transform.GetChild(1).gameObject;
         Sprite spriteToLoad;
         if (spriteName == "UIMask")
         {
-            // spriteToLoad = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
             spriteToLoad = Resources.Load<Sprite>("UIMask");
-            //spriteToLoad = uimask;
         }
         else
         {
