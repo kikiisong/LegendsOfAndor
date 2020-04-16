@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using UnityEngine.UI;
+
 public class HeroMoveController : MonoBehaviourPun
 {
     public float radius = 3;
@@ -15,6 +17,11 @@ public class HeroMoveController : MonoBehaviourPun
     bool isMoving = false;
 
     bool isControllingPrince = false;
+
+
+    public GameObject princeButton;
+
+
     public bool IsControllingPrince
     {
         set
@@ -27,15 +34,31 @@ public class HeroMoveController : MonoBehaviourPun
         }
     }
 
+    void activateMovePrince()
+    {
+        isControllingPrince=true;
+
+    }
+
     void Start()
     {
         Hero hero = photonView.Owner.GetHero();
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
+        princeButton.GetComponent<Button>().onClick.AddListener(() => activateMovePrince());
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Prince.Instance != null)
+        {
+            princeButton.SetActive(true);
+        }
+        else
+        {
+            princeButton.SetActive(false);
+        }
+
         if (!isMoving && photonView.IsMine && TurnManager.CanMove() && Input.GetMouseButtonDown(0))
         {
             if (!IsControllingPrince)
@@ -73,6 +96,10 @@ public class HeroMoveController : MonoBehaviourPun
         }
     }
 
+
+   
+
+
     void MovePrince()
     {
         try
@@ -91,6 +118,8 @@ public class HeroMoveController : MonoBehaviourPun
                     //TurnManager.TriggerEvent_Move(clicked);
                     isMoving = false;
                 }));
+
+                isControllingPrince = false;
             }
         }
         catch (Exception)

@@ -215,3 +215,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 4
   animation_time: 1
+  princeButton: {fileID: 7323062765120856764, guid: 3cc22b3fc09cb4373a7b8d9512896c5c,
+    type: 3}
