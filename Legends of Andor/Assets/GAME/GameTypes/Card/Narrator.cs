@@ -27,6 +27,10 @@ namespace Card
         public GameObject taskC;
         public GameObject newTaskIcon;
 
+        public GameObject winManager;
+        [SceneName] public string winScene;
+        [SceneName] public string loseScene;
+
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -157,10 +161,32 @@ namespace Card
             }
             else if(currentLoc == 13)   
             {
-                print("time to release Legend N");
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    bool result = winManager.GetComponent<WinManager>().checkIsWinning();
+                    if (result)
+                    {
+                        photonView.RPC("loadWinningScreen", RpcTarget.AllBuffered);
+                    }
+                    else
+                    {
+                        photonView.RPC("loadLosingScreen", RpcTarget.AllBuffered);
+                    }
+                }
             }
         }
 
+        [PunRPC]
+        public void loadWinningScreen()
+        {
+            PhotonNetwork.LoadLevel(winScene);
+        }
+
+        [PunRPC]
+        public void loadLosingScreen()
+        {
+            PhotonNetwork.LoadLevel(loseScene);
+        }
 
         public void MoveToLetter(int letter)
         {
