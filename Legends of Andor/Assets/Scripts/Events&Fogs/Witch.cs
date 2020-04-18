@@ -138,8 +138,8 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
                             {
                                 displayPrice = price - 1;
                             }
-                            Text t = askWindow.transform.GetChild(5).GetComponent<Text>();
-                            t.text = displayPrice + " Gold";
+                            Text t = askWindow.transform.GetChild(1).GetComponent<Text>();
+                            t.text = "Do you want to buy witch's brew for with  "+ displayPrice + " Gold";
 
                             askWindow.SetActive(true);
                             
@@ -156,23 +156,12 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
                                 yesButton.GetComponent<Button>().onClick.RemoveAllListeners();
                                 yesButton.GetComponent<Button>().onClick.AddListener(() =>
                                 {
-
-                                    
                                         photonView.RPC("buyBrew", RpcTarget.AllBuffered, r.label, (int)hero.type, displayPrice);
 
                                         askWindow.SetActive(false);
                                     
                                 });
                             }
-                            
-
-                            
-
-
-                            //pop up window
-                            //if click yes to buy then call bought
-
-
 
                         });
 
