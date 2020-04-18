@@ -56,7 +56,7 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
 
     public void OnTurnCompleted(Player player)
     {
-        /*if (PhotonNetwork.LocalPlayer == player)
+        if (PhotonNetwork.LocalPlayer == player)
         {
             if (found)
             {
@@ -76,32 +76,34 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
                         {
                             displayPrice = price - 1;
                         }
-                        Text t = askWindow.transform.GetChild(5).GetComponent<Text>();
-                        t.text = displayPrice + " Gold";
+                        Text t = askWindow.transform.GetChild(1).GetComponent<Text>();
+                        t.text = "Do you want to buy witch's brew for with  " + displayPrice + " Gold";
 
                         askWindow.SetActive(true);
-                        GameObject yesButton = askWindow.transform.GetChild(2).gameObject;
-                        yesButton.GetComponent<Button>().onClick.RemoveAllListeners();
-                        yesButton.GetComponent<Button>().onClick.AddListener(() =>
+
+
+                        if (hero.data.gold < displayPrice)
                         {
-                            if (hero.data.gold < displayPrice)
-                            {
-                                t = askWindow.transform.GetChild(1).GetComponent<Text>();
-                                t.text = "You don't have enough gold.";
-                                askWindow.transform.GetChild(2).gameObject.SetActive(false);
-                            }
-                            else
+                            t = askWindow.transform.GetChild(1).GetComponent<Text>();
+                            t.text = "You don't have enough gold.";
+                            askWindow.transform.GetChild(2).gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            askWindow.SetActive(true);
+                            GameObject yesButton = askWindow.transform.GetChild(2).gameObject;
+                            yesButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                            yesButton.GetComponent<Button>().onClick.AddListener(() =>
                             {
                                 photonView.RPC("buyBrew", RpcTarget.AllBuffered, r.label, (int)hero.type, displayPrice);
 
                                 askWindow.SetActive(false);
-                            }
-                        });
 
-
-                        
+                            });
+                        }
 
                     });
+
 
                 }
                 else
@@ -112,7 +114,7 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
             }
 
         }
-        */
+
     }
 
     public void OnEndDay(Player player)
@@ -152,6 +154,7 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
                             }
                             else
                             {
+                                askWindow.SetActive(true);
                                 GameObject yesButton = askWindow.transform.GetChild(2).gameObject;
                                 yesButton.GetComponent<Button>().onClick.RemoveAllListeners();
                                 yesButton.GetComponent<Button>().onClick.AddListener(() =>
