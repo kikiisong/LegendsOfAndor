@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class MonsterMoveManager : MonoBehaviour, TurnManager.IOnSunrise
 {
+    public GameObject castle;
+
     public static List<MonsterMoveController> MonstersInOrder
     {
         get
@@ -77,6 +79,6 @@ public class MonsterMoveManager : MonoBehaviour, TurnManager.IOnSunrise
             {
                 m.MoveAlongPath(path);
             }
-        }     
+        }
     }
 }

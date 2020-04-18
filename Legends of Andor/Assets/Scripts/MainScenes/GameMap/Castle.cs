@@ -9,7 +9,7 @@ using UnityEngine;
 // 1. function returns how many monsters are here on the sun rise
 // 2. function that tells you if there is a herb in here
 // 3. increase and decrease the shields number
-public class Castle : MonoBehaviourPun, TurnManager.IOnSunrise
+public class Castle : MonoBehaviourPun
 {
     public ExtraShield extraShiled;
     [SceneName] public string nextScene;
@@ -21,7 +21,6 @@ public class Castle : MonoBehaviourPun, TurnManager.IOnSunrise
     {
         GameGraph.Instance.PlaceAt(gameObject, 0);
 
-        TurnManager.Register(this);
 
         // According to the number of players the shield should be different.
         numberOfPlayers = PhotonNetwork.PlayerList.Length;
@@ -51,16 +50,16 @@ public class Castle : MonoBehaviourPun, TurnManager.IOnSunrise
     // Update is called once per frame
     void Update()
     {
-        //Castle.isGameEnd();
+        monsterMove();
     }
 
-    public void OnSunrise()
+    public void monsterMove()
     {
         
         Region temp = GameGraph.Instance.FindNearest(gameObject.transform.position);
         List<MonsterMoveController> monsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(temp);
 
-        print("The number of monsters on the region castle is " + monsterOnRegion.Count);
+//        print("The number of monsters on the region castle is " + monsterOnRegion.Count);
         if (PhotonNetwork.IsMasterClient)
         {
             if (monsterOnRegion.Count > 0)
@@ -70,8 +69,8 @@ public class Castle : MonoBehaviourPun, TurnManager.IOnSunrise
                     int differenceBetweenShieldAndMonsters = extraShiled.numberOfShileds - monsterOnRegion.Count;
                     if (differenceBetweenShieldAndMonsters < 0)
                     {
-                        print("game is over");
-                     //   PhotonNetwork.LoadLevel(nextScene);
+                      //  print("game is over");
+                      //   PhotonNetwork.LoadLevel(nextScene);
                     }
                     else
                     {
@@ -81,7 +80,7 @@ public class Castle : MonoBehaviourPun, TurnManager.IOnSunrise
                 }
                 else
                 {
-                    print("game is over");
+                   //  print("game is over");
                    // PhotonNetwork.LoadLevel(nextScene);
                 }
             }

@@ -19408,6 +19408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ec8a31086e8a549a7175c6d76257a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  castle: {fileID: 228638062}
 --- !u!114 &943947481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43477,7 +43478,7 @@ MonoBehaviour:
   taskC: {fileID: 1455049820}
   newTaskIcon: {fileID: 450796934}
   winManager: {fileID: 1036738300}
-  winScene: EndScene
+  winScene: WinScene
   loseScene: EndScene
 --- !u!114 &373802472815136273
 MonoBehaviour:
