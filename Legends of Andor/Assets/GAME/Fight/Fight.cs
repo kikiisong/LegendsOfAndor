@@ -60,6 +60,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public Transform[] transforms = new Transform[4];
 
     public Monster aMonster;
+    public Herb myHerb;
     //public int diceNum;
     //public int damage;
 
@@ -71,8 +72,17 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             if (monsterC.m.isFighted)
             {
-
                 aMonster = monsterC.m;
+                if (monsterC.hasHerb)
+                {
+                    Herb[] herbs = GameObject.FindObjectsOfType<Herb>();
+                    myHerb = herbs[0];  
+                    myHerb.transform.position = monsterC.transform.position;
+                }
+                else
+                {
+                    myHerb = null;
+                }
                 Debug.Log(aMonster);
                 break;
             }
@@ -364,6 +374,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             fightstate = FightState.WIN;
             fHUD.setFightHUD_WIN();
             yield return new WaitForSeconds(2f);
+            if(myHerb!=null)
+            {
+                myHerb.gameObject.SetActive(true);
+            }
             Destroy(aMonster);
             print("WIN");
             SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);

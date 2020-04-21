@@ -16,7 +16,7 @@ public class HerbHandler : MonoBehaviourPun, TurnManager.IOnMove
     {
         dropButton.gameObject.SetActive(false);
         pickButton.gameObject.SetActive(false);
-
+        myHerb.SetActive(false);
         TurnManager.Register(this);
 
     }

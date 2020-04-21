@@ -13,6 +13,7 @@ public class MonsterMoveController : MonoBehaviourPun
     public MonsterType type;
     public MonsterData data;
     public bool canMove = true;
+    public bool hasHerb = false;
 
     public Monster m;
 
