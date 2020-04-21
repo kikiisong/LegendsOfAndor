@@ -19610,6 +19610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gorPrefab: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99,
     type: 3}
+  brewButton: {fileID: 0}
   myWitch: {fileID: 1206904353}
   fogInfo: {fileID: 1936702371}
   herbDice: {fileID: 1265257985}
@@ -28732,7 +28733,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1444155914}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1206904353}
+        m_MethodName: btAppear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1444155914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35641,7 +35653,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1780114914}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1206904353}
+        m_MethodName: bought
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1780114914
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using Photon.Realtime;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class WellManager : MonoBehaviourPun, TurnManager.IOnMove
+public class WellManager : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
     public Button drinkButton;
 
@@ -26,21 +26,30 @@ public class WellManager : MonoBehaviourPun, TurnManager.IOnMove
     {
         if (PhotonNetwork.LocalPlayer == player)
         {
+            drinkButton.gameObject.SetActive(false);
+        }
+
+    }
+
+    public void OnTurnCompleted(Player player)
+    {
+        if (PhotonNetwork.LocalPlayer == player)
+        {
             Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
+            var r = player.GetCurrentRegion();
+            List<Well> wellOnRegion = GameGraph.Instance.FindObjectsOnRegion<Well>(r.label);
 
-            List<Well> wellOnRegion = GameGraph.Instance.FindObjectsOnRegion<Well>(currentRegion);
-
-            if(wellOnRegion.Count > 0)
+            if (wellOnRegion.Count > 0)
             {
 
-                if(wellOnRegion[0].IsFilled)
+                if (wellOnRegion[0].IsFilled)
                 {
                     drinkButton.gameObject.SetActive(true);
                     drinkButton.GetComponent<Button>().onClick.RemoveAllListeners();
                     drinkButton.GetComponent<Button>().onClick.AddListener(() =>
                     {
 
-                        photonView.RPC("Empty", RpcTarget.AllBuffered, currentRegion.label, (int)hero.type);
+                        photonView.RPC("Empty", RpcTarget.AllBuffered, r.label, (int)hero.type);
 
                         drinkButton.gameObject.SetActive(false);
                     });
@@ -52,8 +61,40 @@ public class WellManager : MonoBehaviourPun, TurnManager.IOnMove
                 drinkButton.gameObject.SetActive(false);
             }
         }
-
     }
+
+    public void OnEndDay(Player player)
+    {
+        if (PhotonNetwork.LocalPlayer == player)
+        {
+            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
+            var r = player.GetCurrentRegion();
+            List<Well> wellOnRegion = GameGraph.Instance.FindObjectsOnRegion<Well>(r.label);
+
+            if (wellOnRegion.Count > 0)
+            {
+
+                if (wellOnRegion[0].IsFilled)
+                {
+                    drinkButton.gameObject.SetActive(true);
+                    drinkButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                    drinkButton.GetComponent<Button>().onClick.AddListener(() =>
+                    {
+
+                        photonView.RPC("Empty", RpcTarget.AllBuffered, r.label, (int)hero.type);
+
+                        drinkButton.gameObject.SetActive(false);
+                    });
+                }
+
+            }
+            else
+            {
+                drinkButton.gameObject.SetActive(false);
+            }
+        }
+    }
+
 
     [PunRPC]
     public void Empty(int currentRegion ,int heroType)

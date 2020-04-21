@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
     public MonsterMoveController gorPrefab;
+    public Button brewButton;
     public Witch myWitch;
     public GameObject fogInfo;
     public GameObject herbDice;
