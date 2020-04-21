@@ -341,6 +341,8 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         //make sure fog is removed
         curr.fogIcon.enabled = false;
         Destroy(curr);
+
+        brewButton.gameObject.SetActive(true);
     }
 
     public void rollDice()
