@@ -113,11 +113,11 @@ public class TurnManager : MonoBehaviourPun
     {
         Instance.photonView.RPC("NextTurn", RpcTarget.All, PhotonNetwork.LocalPlayer);
 
-        // TODO: ??? why this line
-        //if (!helper.HasMoved)
-        //{
-        //    TriggerEvent_Move(PhotonNetwork.LocalPlayer.GetCurrentRegion());
-        //}
+        if (!helper.HasMoved)
+        {
+            TriggerEvent_Move(PhotonNetwork.LocalPlayer.GetCurrentRegion());
+            helper.HasMoved = false;
+        }
     }
 
     //Day
@@ -132,7 +132,7 @@ public class TurnManager : MonoBehaviourPun
         turnIndex = players.IndexOf(next);
         waiting.Add(player);
 
-        Hero hero = (Hero)player.GetHero();
+        Hero hero = player.GetHero();
         hero.data.numHours = 0;
 
         //Notify
@@ -248,7 +248,7 @@ public class TurnManager : MonoBehaviourPun
 
 public class TurnHelper: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
 {
-    public bool HasMoved { get; private set; } = false;
+    public bool HasMoved { get; set; } = false;
 
     public void OnMove(Player player, Region currentRegion)
     {
