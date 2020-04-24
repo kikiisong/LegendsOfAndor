@@ -113,10 +113,11 @@ public class TurnManager : MonoBehaviourPun
     {
         Instance.photonView.RPC("NextTurn", RpcTarget.All, PhotonNetwork.LocalPlayer);
 
-        if (!helper.HasMoved)
-        {
-            TriggerEvent_Move(PhotonNetwork.LocalPlayer.GetCurrentRegion());
-        }
+        // TODO: ??? why this line
+        //if (!helper.HasMoved)
+        //{
+        //    TriggerEvent_Move(PhotonNetwork.LocalPlayer.GetCurrentRegion());
+        //}
     }
 
     //Day
