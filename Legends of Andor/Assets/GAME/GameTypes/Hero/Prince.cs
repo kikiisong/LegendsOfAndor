@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Prince : MonoBehaviour
 {
+    public bool inFight = false;
+    private bool alive = true;
     public static Prince Instance
     {
         get
@@ -23,5 +25,9 @@ public class Prince : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void getAlive() {
+    //maybe this is to check if prince still alive?
     }
 }

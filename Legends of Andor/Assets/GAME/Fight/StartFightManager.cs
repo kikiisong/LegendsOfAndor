@@ -78,7 +78,11 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                         fight.GetComponent<Button>().onClick.AddListener(() =>
 
                         {
+                            List<Prince> PrincerOnMap = GameGraph.Instance.FindObjectsOnRegion<Prince>(currentRegion);
 
+                            if (PrincerOnMap.Count > 0) {
+                                Prince.Instance.inFight = true;
+                            }
                             //photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
                             MonsterMoveController monster = MonsterOnMap[0];
                             monster.m.isFighted = true;

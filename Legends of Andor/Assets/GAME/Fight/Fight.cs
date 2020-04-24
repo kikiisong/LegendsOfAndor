@@ -59,6 +59,12 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public GameObject wizardPrefabs;
     public Transform[] transforms = new Transform[4];
 
+    GameObject go1 = null;
+    GameObject go2 = null;
+    GameObject go3 = null;
+    GameObject go4 = null;
+
+    public bool princeInFight = false;
     public Monster aMonster;
     public Herb myHerb;
     //public int diceNum;
@@ -90,10 +96,16 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         Instantiate(aMonster.gameObject, monsterStation);
         //aMonster = monsterGo.GetComponent<Monster>();
         //go5.transform.position = monsterStation.position;
+        //TODO: prince functionality
+        if (Prince.Instance.inFight) {
+            princeInFight = true;
+            //TODO:maybe display some thing on map
+        }
 
         fightstate = FightState.START;
         FightTurnManager.Register(this);
         StartCoroutine(setUpBattle());
+        
     }
 
 
@@ -105,29 +117,30 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         if (player.CustomProperties.ContainsKey(P.K.isFight))
         {
             bool fight = (bool)player.CustomProperties[P.K.isFight];
-            if (fight) {
+            if (fight)
+            {
                 Debug.Log(player.NickName + "in fight");
                 Hero hero = (Hero)player.GetHero();
 
                 switch (hero.type)
                 {
                     case Hero.Type.ARCHER:
-                        GameObject go1 = PhotonNetwork.Instantiate(archerPrefabs);
+                        go1 = PhotonNetwork.Instantiate(archerPrefabs);
                         go1.transform.position = transforms[0].position;
                         go1.SetActive(true);
                         break;
                     case Hero.Type.WARRIOR:
-                        GameObject go2 = PhotonNetwork.Instantiate(warriorPrefabs);
+                        go2 = PhotonNetwork.Instantiate(warriorPrefabs);
                         go2.transform.position = transforms[1].position;
                         go2.SetActive(true);
                         break;
                     case Hero.Type.DWARF:
-                        GameObject go3 = PhotonNetwork.Instantiate(dwarfPrefabs);
+                        go3 = PhotonNetwork.Instantiate(dwarfPrefabs);
                         go3.transform.position = transforms[2].position;
                         go3.SetActive(true);
                         break;
                     case Hero.Type.WIZARD:
-                        GameObject go4 = PhotonNetwork.Instantiate(wizardPrefabs);
+                        go4 = PhotonNetwork.Instantiate(wizardPrefabs);
                         go4.transform.position = transforms[3].position;
                         go4.SetActive(true);
                         break;
@@ -137,9 +150,35 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 mHUD.setMonsterHUD(aMonster);
 
                 //GameObject go5 = PhotonNetwork.
-
-
                 //}
+            }
+            else {
+                switch (hero.type)
+                {
+                    case Hero.Type.ARCHER:
+                        if (go1 != null) {
+                            PhotonNetwork.Destroy(go1.GetPhotonView());
+                        }
+                        break;
+                    case Hero.Type.WARRIOR:
+                        if (go2 != null)
+                        {
+                            PhotonNetwork.Destroy(go2.GetPhotonView());
+                        }
+                        break;
+                    case Hero.Type.DWARF:
+                        if (go3 != null)
+                        {
+                            PhotonNetwork.Destroy(go3.GetPhotonView());
+                        }
+                        break;
+                    case Hero.Type.WIZARD:
+                        if (go3 != null)
+                        {
+                            PhotonNetwork.Destroy(go4.GetPhotonView());
+                        }
+                        break;
+                }
             }
         }
 
@@ -279,6 +318,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void OnMonsterTurn() {
         hero.data.attackNum += hero.data.diceNum;
+        //TODO: prince functionality
+        if (princeInFight) {
+            hero.data.attackNum += 4;
+        }
         fHUD.rollResult("HeroAttacl" + hero.data.attackNum);
         print("Monster");
         StartCoroutine(MonsterStart());
@@ -408,13 +451,14 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     public void Leave() {
-
+        // TODO: delete the initialize object
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable
                         {
                             { P.K.isFight, false }
                         });
         //not possible to pass a Monster 
         FightTurnManager.TriggerRemove(player);
+
 
     }
 
