@@ -135,5 +135,7 @@ MonoBehaviour:
   - decreseTheShield
   - loadLosingScreen
   - loadWinningScreen
+  - realaseNewEventCardFog
+  - FogEventCard
   DisableAutoOpenWizard: 1
   ShowSettings: 1

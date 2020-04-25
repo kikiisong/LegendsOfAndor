@@ -7,7 +7,7 @@ using System;
 
 public class EventCardController : MonoBehaviourPun
 {
-    public List<int> cards = new List<int>(34);
+   // public List<int> cards = new List<int>(34);
     private static System.Random rand = new System.Random();
 
     public List<GameObject> evnetCardList;

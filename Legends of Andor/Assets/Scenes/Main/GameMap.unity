@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -18418,7 +18418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14a64706b04f9d4181ce143da5e29b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cards: 
   evnetCardList:
   - {fileID: 749293710}
   - {fileID: 385829574}
@@ -19931,6 +19930,7 @@ MonoBehaviour:
   herbDice: {fileID: 1265257985}
   herbGorPrefab: {fileID: 7977644024437883379, guid: f3122c4edf50def44bcd4a8df2681222,
     type: 3}
+  narrator: {fileID: 373802472815136271}
 --- !u!114 &943947480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44841,7 +44841,7 @@ MonoBehaviour:
   orderofEvents: 
   currentEventIndex: 0
   myEventCardController: {fileID: 887652260}
-  temp: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d000000
+  temp: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000200000002000000040000000500000009000000
   updatedMonsters: 0
   taskC: {fileID: 1455049820}
   newTaskIcon: {fileID: 450796934}
