@@ -84,9 +84,9 @@ public static class P
         throw new Exception("Not found");
     }
 
-    public static bool HasMoved(this Player player)
+    public static bool HasConsumedHour(this Player player)
     {
-        return TurnManager.helper.HasMoved;
+        return player.GetHero().data.HoursConsumed > 0;
     }
 }
 

@@ -20,7 +20,25 @@ public class Hero : ScriptableObject
         //Main
         public int WP;
         public int SP;
-        public int numHours;
+        public int NumHours { get; private set; }
+        public int HoursConsumed { get; private set; }
+
+        public void ConsumeHour()
+        {
+            NumHours++;
+            HoursConsumed++;
+        }
+
+        public void ResetNumHours()
+        {
+            NumHours = 0;
+            HoursConsumed = 0;
+        }
+
+        public void ResetHoursConsumed()
+        {
+            HoursConsumed = 0;
+        }
 
         public int gold;
         public int numFarmers; // 0 or 1 or 2
@@ -55,7 +73,7 @@ public class Hero : ScriptableObject
         {
             get
             {
-                return numHours - wineskinStacked;
+                return NumHours - wineskinStacked;
             }
         }
     }

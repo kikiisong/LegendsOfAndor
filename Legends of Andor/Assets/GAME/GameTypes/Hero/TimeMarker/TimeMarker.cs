@@ -6,7 +6,7 @@ using UnityEngine;
 using Routines;
 
 
-public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnEndDay
+public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
     CoroutineQueue coroutineQueue;
 
@@ -30,10 +30,10 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
     {
         if (photonView.Owner == player) {
             var h = player.GetHero();
-            if (h.data.numHours != 0)
+            if (h.data.NumHours != 0)
             {
                 var transforms = GameMapManager.Instance.timeMarkerUpdatePositions;
-                var position = transforms[h.data.numHours - 1].position;
+                var position = transforms[h.data.NumHours - 1].position;
                 coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, position, 2));
             }
         }
@@ -56,5 +56,10 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
             Vector3 waitPosition = GameMapManager.Instance.timeMarkerInitialPositions[i].position;
             coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, waitPosition, 2));           
         }
+    }
+
+    public void OnTurnCompleted(Player player)
+    {
+        OnMove(player, player.GetCurrentRegion());
     }
 }

@@ -72,7 +72,7 @@ public class TurnManager : MonoBehaviourPun
         foreach (Player p in players)
         {
             Hero hero = p.GetHero();
-            if (hero.data.numHours == 0) inSunriseBox.Add(p);
+            if (hero.data.NumHours == 0) inSunriseBox.Add(p);
         }
         foreach (Player p in waiting)
         {
@@ -102,8 +102,16 @@ public class TurnManager : MonoBehaviourPun
     {
         turnIndex = Helper.Mod(turnIndex + 1, players.Count);
 
+        //Consume hour if Pass
+        var hero = player.GetHero();
+        if (hero.data.HoursConsumed == 0)
+        {
+            hero.data.ConsumeHour();
+        }
+        hero.data.ResetHoursConsumed();
+
         //Notify
-        foreach(IOnTurnCompleted onTurnCompleted in onTurnCompleteds)
+        foreach (IOnTurnCompleted onTurnCompleted in onTurnCompleteds)
         {
             onTurnCompleted.OnTurnCompleted(player);
         }
@@ -111,13 +119,7 @@ public class TurnManager : MonoBehaviourPun
 
     public static void TriggerEvent_EndTurn()
     {
-        Instance.photonView.RPC("NextTurn", RpcTarget.All, PhotonNetwork.LocalPlayer);
-
-        if (!helper.HasMoved)
-        {
-            TriggerEvent_Move(PhotonNetwork.LocalPlayer.GetCurrentRegion());
-            helper.HasMoved = false;
-        }
+        Instance.photonView.RPC("NextTurn", RpcTarget.All, PhotonNetwork.LocalPlayer);        
     }
 
     //Day
@@ -132,8 +134,7 @@ public class TurnManager : MonoBehaviourPun
         turnIndex = players.IndexOf(next);
         waiting.Add(player);
 
-        Hero hero = player.GetHero();
-        hero.data.numHours = 0;
+        player.GetHero().data.ResetNumHours();
 
         //Notify
         foreach (IOnEndDay onEndDay in onEndDays)
@@ -183,11 +184,11 @@ public class TurnManager : MonoBehaviourPun
     {
         Hero hero = player.GetHero();
 
-        if(hero.data.numHours == hero.data.NumHoursEffective)
+        if(hero.data.NumHours == hero.data.NumHoursEffective)
         {
-            hero.data.numHours++;
+            hero.data.ConsumeHour();
 
-            if (hero.data.numHours > 7)
+            if (hero.data.NumHours > 7)
             {
                 hero.data.WP -= 2;
             }
@@ -248,23 +249,19 @@ public class TurnManager : MonoBehaviourPun
 
 public class TurnHelper: TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay, TurnManager.IOnSunrise
 {
-    public bool HasMoved { get; set; } = false;
 
     public void OnMove(Player player, Region currentRegion)
     {
-        HasMoved = true;
         Debug.Log("Move " + player.NickName);
     }
 
     public void OnTurnCompleted(Player player)
     {
-        HasMoved = false;
         Debug.Log("Turn completed " + player.NickName);
     }
 
     public void OnEndDay(Player player)
     {
-        HasMoved = false;
         Debug.Log("End day " + player.NickName);
     }
 
