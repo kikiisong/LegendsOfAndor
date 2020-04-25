@@ -13,7 +13,7 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
     // Start is called before the first frame update
     void Start()
     {
-        Hero hero = (Hero)photonView.Owner.GetHero();
+        Hero hero = photonView.Owner.GetHero();
         GetComponent<MeshRenderer>().material = hero.ui.color;
         int i = TurnManager.Instance.GetWaitIndex(photonView.Owner);
         if(i != -1)
@@ -23,8 +23,9 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
         TurnManager.Register(this);
         coroutineQueue = new CoroutineQueue(this);
         coroutineQueue.StartLoop();
+        OnMove(photonView.Owner, photonView.Owner.GetCurrentRegion());
     }
-    
+
 
     public void OnMove(Player player, Region currentRegion)
     {
