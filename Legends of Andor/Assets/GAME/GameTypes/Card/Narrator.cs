@@ -45,17 +45,19 @@ namespace Card
             TurnManager.Register(this);
 
             // Do event A
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && !Room.IsSaved)
             {
                 LegendCard.Cards[LegendCard.Letter.A].Event();
+                shuffleArray(temp);
+                currentEventIndex = 0;
             }
 
 
-            shuffleArray(temp);
-            currentEventIndex = 0;
+            //shuffleArray(temp);
+            //currentEventIndex = 0;
 
             //Thread.Sleep(500);
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && !Room.IsSaved)
             {
                 photonView.RPC("releaseNewRventCard", RpcTarget.AllBuffered, temp);
             }

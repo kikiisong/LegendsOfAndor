@@ -24910,7 +24910,8 @@ MonoBehaviour:
     type: 3}
   timeMarkerPrefab: {fileID: 6007742235842389979, guid: 1e94290d65eec984c8dd81355c769607,
     type: 3}
-  goldpotPrefab: {fileID: 0}
+  goldpotPrefab: {fileID: 271639790225361722, guid: 94463acae0e17bb4fb3033f9298abd6a,
+    type: 3}
   gor: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99, type: 3}
   skral: {fileID: 6717272833108817557, guid: b126bebfc04f4f34aab824f3144485e2, type: 3}
   wardrak: {fileID: 6328688999872481308, guid: d265625ed029cf646bca19d77cf60361, type: 3}

@@ -24,7 +24,16 @@ public class Castle : MonoBehaviourPun
 
         // According to the number of players the shield should be different.
         numberOfPlayers = PhotonNetwork.PlayerList.Length;
-        setInitialShield();
+        if (!Room.IsSaved)
+        {
+            setInitialShield();
+        }
+        
+    }
+
+    public void setShieldNum(int numOfS)
+    {
+        extraShiled.numberOfShileds = numOfS;
     }
 
     private void setInitialShield()
