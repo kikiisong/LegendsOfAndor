@@ -91,7 +91,9 @@ public class Castle : MonoBehaviourPun
     // test the ground bag see if there is a herb in it
     public bool isHerbBack()
     {
-        return false;
+        Region r = GameGraph.Instance.Find(0);
+        bool hasHerb = (r.data.herb > 0) ? true : false;
+        return hasHerb;
     }
 
     // After the skrall on tower is defeated, this function should be triggered

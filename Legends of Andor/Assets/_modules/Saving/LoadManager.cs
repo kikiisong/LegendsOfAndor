@@ -116,6 +116,26 @@ namespace Saving
                     reg.data.falcon = j["falcon"].ToObject<int>();
                 }
             }
+
+            // set the farmer number on each region to the original one
+            foreach(var j in Room.Json["farmers"])
+            {
+                int label = j["region"].ToObject<int>();
+                Region reg = GameGraph.Instance.Find(label);
+                List<Farmer> temp = GameGraph.Instance.FindObjectsOnRegion<Farmer>(reg.label);
+                int numOfFar = j["numberOfFarmer"].ToObject<int>();
+                temp[0].numberOfFarmer = numOfFar;
+            }
+
+            // set the narrator position and the current event card
+            // but the effect of this card won't be taken
+            print("has this line been executed!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            var Narrator = Room.Json["narrator"];
+            int currentLocation = Narrator["currentLoc"].ToObject<int>();
+            GameObject.FindObjectOfType<Card.Narrator>().transform.position = GameObject.FindObjectOfType<Card.Narrator>().GetComponent<Card.Narrator>().narratorPositions[currentLocation].position;
+            List<GameObject> currentEventCardList = GameObject.FindObjectOfType<EventCardController>().GetComponent<EventCardController>().evnetCardList;
+            int currentEventIndex = Narrator["currentEventCard"].ToObject<int>();
+            GameObject.FindObjectOfType<eventCardButton>().GetComponent<eventCardButton>().setEventCard(currentEventCardList[currentEventIndex]);
         }
     }
 }
