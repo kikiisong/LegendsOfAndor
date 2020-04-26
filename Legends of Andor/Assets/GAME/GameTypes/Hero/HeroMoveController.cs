@@ -50,7 +50,7 @@ public class HeroMoveController : MonoBehaviourPun
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();     
         movePrinceButton = GameObject.Find("MovePrince").GetComponent<Button>();
         movePrinceButton.onClick.AddListener(activateControllingPrince);
-      
+        movePrinceButton.gameObject.SetActive(false);
 
     }
 

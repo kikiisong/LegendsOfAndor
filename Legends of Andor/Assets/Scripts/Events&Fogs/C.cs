@@ -54,7 +54,8 @@ namespace Card
                         prince.transform.SetParent(GameObject.Find("Map").transform);
                         GameGraph.Instance.PlaceAt(prince, 72);
 
-                        movePrinceButton = GameObject.Find("MovePrince");
+                        movePrinceButton = GameObject.Find("Actions").transform.Find("MovePrince").gameObject;
+                      
                         movePrinceButton.SetActive(true);
                         
 
