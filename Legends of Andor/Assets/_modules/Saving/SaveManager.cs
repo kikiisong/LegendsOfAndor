@@ -30,7 +30,8 @@ namespace Saving
                 new JProperty("monsters", JMonsters()),
                 new JProperty("goldpots", JGoldpot()),
                 new JProperty("farmers",JFarmers()),
-                new JProperty("narrator", JNarrator()));
+                new JProperty("narrator", JNarrator()),
+                new JProperty("castle", JCastle()));
 
             File.WriteAllText(Helper.GetPath(file_name), jObject.ToString());
         }
@@ -109,6 +110,13 @@ namespace Saving
             return new JObject { 
                 { "currentLoc", GameObject.FindObjectOfType<Card.Narrator>().GetComponent<Card.Narrator>().currentLoc},
                 { "currentEventCard", GameObject.FindObjectOfType<EventCardController>().GetComponent<EventCardController>().currentEventIndex }
+            };
+        }
+
+        private JObject JCastle()
+        {
+            return new JObject {
+                { "currentNumOfShield", GameObject.FindObjectOfType<Castle>().GetComponent<Castle>().extraShiled.numberOfShileds}
             };
         }
     }

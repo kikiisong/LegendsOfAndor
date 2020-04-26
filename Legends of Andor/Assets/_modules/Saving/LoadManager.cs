@@ -117,7 +117,7 @@ namespace Saving
                 }
             }
 
-            print("It is correct until here !!!!!");
+            //print("It is correct until here !!!!!");
             // set the farmer number on each region to the original one
             foreach (var j in Room.Json["farmers"])
             {
@@ -128,33 +128,34 @@ namespace Saving
                 if(temp.Count > 0)
                 {
                     temp[0].setNumOfFarmer(numOfFar);
+                    /*
                     if(numOfFar == 1)
                     {
                         print("the farmer number is 1 and this region is region " + reg.label);
                     }
 
                     print("The farmer number on region " + reg.label + " is " + temp[0].numberOfFarmer);
-                }
-                else
-                {
-                    print(" is no farmer on this region " + reg.label);
+                    */
                 }
                 
             }
 
             // set the narrator position and the current event card
             // but the effect of this card won't be taken
-          //  print("the current loc of the narrator is " + Narrator["currentLoc"].ToObject<int>());
             var Narrator = Room.Json["narrator"];
-
-          //  print("the current loc of the narrator is " + Narrator["currentLoc"].ToObject<int>());
             int currentLocation = Narrator["currentLoc"].ToObject<int>();
             GameObject.FindObjectOfType<Card.Narrator>().transform.position = GameObject.FindObjectOfType<Card.Narrator>().GetComponent<Card.Narrator>().narratorPositions[currentLocation].position;
             GameObject.FindObjectOfType<Card.Narrator>().GetComponent<Card.Narrator>().currentLoc = currentLocation;
             List<GameObject> currentEventCardList = GameObject.FindObjectOfType<EventCardController>().GetComponent<EventCardController>().evnetCardList;
             int currentEventIndex = Narrator["currentEventCard"].ToObject<int>();
-          //  print("the current index of the eventCard is " + Narrator["currentEventCard"].ToObject<int>());
             GameObject.FindObjectOfType<eventCardButton>().GetComponent<eventCardButton>().setEventCard(currentEventCardList[currentEventIndex]);
+
+
+            // set the Castle's shield back to the old value
+            var castle = Room.Json["castle"];
+            int shieldNum = castle["currentNumOfShield"].ToObject<int>();
+            GameObject.FindObjectOfType<Castle>().GetComponent<Castle>().setShieldNum(shieldNum);
+
         }
     }
 }
