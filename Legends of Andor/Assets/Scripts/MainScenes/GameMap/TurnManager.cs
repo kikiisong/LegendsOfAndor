@@ -101,9 +101,20 @@ public class TurnManager : MonoBehaviourPun
     public void NextTurn(Player player)
     {
         turnIndex = Helper.Mod(turnIndex + 1, players.Count);
+        var hero = player.GetHero();
+
+        //Reset move prince, and consume one more hour if needed
+        HeroMoveController[] controllers = GameObject.FindObjectsOfType<HeroMoveController>();
+        foreach (HeroMoveController controller in controllers)
+        {
+            if (controller.photonView.IsMine)
+            {
+                if (controller.PrinceMoveCounter > 0) hero.data.ConsumeHour();
+                controller.IsControllingPrince = false;
+            }
+        }
 
         //Consume hour if Pass
-        var hero = player.GetHero();
         if (hero.data.HoursConsumed == 0)
         {
             hero.data.ConsumeHour();
@@ -210,6 +221,7 @@ public class TurnManager : MonoBehaviourPun
         Instance.photonView.RPC("HeroMoved", RpcTarget.All, PhotonNetwork.LocalPlayer, currentRegion.label);
     }
 
+   
     //Register
     static void AddNotNull<I>(I i, List<I> list)
     {

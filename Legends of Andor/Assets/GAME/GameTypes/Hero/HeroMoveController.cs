@@ -15,8 +15,8 @@ public class HeroMoveController : MonoBehaviourPun
     public float animation_time = 1;
 
     bool isMoving = false;
-
     bool isControllingPrince = false;
+    public int princeMoveCounter = 0;
 
     public Button movePrinceButton;
 
@@ -28,6 +28,21 @@ public class HeroMoveController : MonoBehaviourPun
        
         if (Prince.Instance != null) isControllingPrince = true;
     }
+
+
+    public int PrinceMoveCounter
+    {
+        set
+        {
+            princeMoveCounter = value;
+        }
+        get
+        {
+            return princeMoveCounter;
+        }
+    }
+
+
 
 
     public bool IsControllingPrince
@@ -117,11 +132,17 @@ public class HeroMoveController : MonoBehaviourPun
                 isMoving = true;
                 StartCoroutine(CommonRoutines.MoveTo(Prince.Instance.gameObject.transform, clicked.position, animation_time, () =>
                 {
-                    //TurnManager.TriggerEvent_Move(clicked);
+                    //prince move counter
+                    princeMoveCounter++;
+                    if (princeMoveCounter == 4)//or end turn clicked
+                    {
+                        TurnManager.TriggerEvent_Move(clicked);
+                        princeMoveCounter = 0;
+                    }
+
                     isMoving = false;
                 }));
 
-                //isControllingPrince = false;
             }
         }
         catch (Exception)

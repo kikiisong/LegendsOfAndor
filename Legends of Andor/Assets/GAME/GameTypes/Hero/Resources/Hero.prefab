@@ -215,4 +215,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 4
   animation_time: 1
+  princeMoveCounter: 0
   movePrinceButton: {fileID: 0}
