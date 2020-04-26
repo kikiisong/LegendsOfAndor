@@ -50,6 +50,7 @@ public class HeroMoveController : MonoBehaviourPun
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();     
         movePrinceButton = GameObject.Find("MovePrince").GetComponent<Button>();
         movePrinceButton.onClick.AddListener(activateControllingPrince);
+      
 
     }
 
@@ -58,7 +59,6 @@ public class HeroMoveController : MonoBehaviourPun
     void Update()
     {
 
-      
         if (!isMoving && photonView.IsMine && TurnManager.CanMove() && Input.GetMouseButtonDown(0))
         {
            if (!IsControllingPrince)
@@ -100,8 +100,6 @@ public class HeroMoveController : MonoBehaviourPun
     }
 
 
-   
-
 
     void MovePrince()
     {
@@ -123,7 +121,7 @@ public class HeroMoveController : MonoBehaviourPun
                     isMoving = false;
                 }));
 
-                isControllingPrince = false;
+                //isControllingPrince = false;
             }
         }
         catch (Exception)
