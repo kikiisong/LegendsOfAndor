@@ -211,10 +211,10 @@ namespace Saving
             if (jprince != null)
             {
                 print("load prince");
-                Region r = jprince["r"].ToObject<Region>();
+                int r = jprince["r"].ToObject<int>();
                 GameObject prince = PhotonNetwork.Instantiate(princePrefab);
                 prince.transform.SetParent(GameObject.Find("Map").transform);
-                GameGraph.Instance.PlaceAt(prince, r.label);
+                GameGraph.Instance.PlaceAt(prince, r);
                 Prince instance = prince.GetComponent<Prince>();
                 instance.regionlable = r;
                 instance.inFight = jprince["princeInFight"].ToObject<bool>();

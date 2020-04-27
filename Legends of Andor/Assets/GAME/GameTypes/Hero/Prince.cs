@@ -6,7 +6,7 @@ public class Prince : MonoBehaviour
 {
     public bool inFight = false;
     private bool alive = true;
-    public Region r;
+    public int regionlable;
     public static Prince Instance
     {
         get
@@ -27,7 +27,7 @@ public class Prince : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        r = GameGraph.Instance.FindNearest(this.transform.position);
+        r = GameGraph.Instance.FindNearest(this.transform.position).label;
         //print("Prince" +r.label);
     }
 

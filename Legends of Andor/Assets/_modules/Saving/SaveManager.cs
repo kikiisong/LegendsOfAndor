@@ -169,7 +169,7 @@ namespace Saving
             if (Prince.Instance != null)
             {
                 savedPrince =  new JObject {
-                    { "r", Prince.Instance.Region},
+                    { "r", Prince.Instance.r.label},
                     { "princeInFight", Prince.Instance.inFight}
                 };
                 print("princeSaved");

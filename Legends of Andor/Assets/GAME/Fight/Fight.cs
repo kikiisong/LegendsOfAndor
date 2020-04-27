@@ -83,18 +83,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             {
                 mc = monsterC;
                 aMonster = monsterC.m;
-                if (monsterC.hasHerb)
-                {
-                    Herb[] herbs = GameObject.FindObjectsOfType<Herb>();
-                    myHerb = herbs[0];  
-                    myHerb.transform.position = monsterC.transform.position;
-                }
-                else
-                {
-                    myHerb = null;
-                }
-                Debug.Log(aMonster);
-                break;
+                
             }
         }
         archerPrefabsfemale.SetActive(false);
@@ -441,6 +430,19 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 myHerb.gameObject.SetActive(true);
                 //myHerb.found = true;
             }
+            if (mc.hasHerb)
+            {
+                Herb[] herbs = GameObject.FindObjectsOfType<Herb>();
+                myHerb = herbs[0];
+                myHerb.transform.position = mc.transform.position;
+            }
+            else
+            {
+                myHerb = null;
+            }
+
+            Debug.Log(aMonster);
+            
             //TOOD: can we do this？
             if (PhotonNetwork.isMasterClient) {
                 PhotonNetwork.Destroy(mc);

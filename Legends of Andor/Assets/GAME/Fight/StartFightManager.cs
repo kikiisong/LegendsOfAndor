@@ -83,7 +83,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                         AdjacentRegions.Add(MonsterRegion);
                         foreach (Region r in AdjacentRegions){
                             
-                            if (Prince.Instance != null && Prince.Instance.r.label == r.label)
+                            if (Prince.Instance != null && Prince.Instance.regionlable == r.label)
                             {
                                 Prince.Instance.inFight = true;
                             }
@@ -137,7 +137,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                 AdjacentMonsterRegions.Add(MonsterRegion);
                 foreach (Region r in AdjacentMonsterRegions)
                 {
-                    if (Prince.Instance!=null&&Prince.Instance.r.label==r.label)
+                    if (Prince.Instance!=null&&Prince.Instance.regionlable == r.label)
                     {
                         Prince.Instance.inFight = true;
                     }
