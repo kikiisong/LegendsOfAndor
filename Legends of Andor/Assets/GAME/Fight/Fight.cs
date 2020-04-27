@@ -64,12 +64,12 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public GameObject dwarfPrefabsmale;
     public GameObject wizardPrefabsfemale;
     public GameObject wizardPrefabsmale;
-    
+    public GameObject herbPrefab;
+
     public MonsterMoveController mc;
 
     public bool princeInFight = false;
     public Monster aMonster;
-    public Herb myHerb;
     public GameObject prince;
 
     // Use this for initialization
@@ -425,20 +425,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             fightstate = FightState.WIN;
             fHUD.setFightHUD_WIN();
             yield return new WaitForSeconds(2f);
-            if(myHerb!=null)
-            {
-                myHerb.gameObject.SetActive(true);
-                //myHerb.found = true;
-            }
             if (mc.hasHerb)
             {
-                Herb[] herbs = GameObject.FindObjectsOfType<Herb>();
-                myHerb = herbs[0];
-                myHerb.transform.position = mc.transform.position;
-            }
-            else
-            {
-                myHerb = null;
+                photonView.RPC("placeHerb", RpcTarget.AllBuffered, mc.CurrentRegion.label);
             }
 
             Debug.Log(aMonster);
@@ -480,6 +469,15 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             yield return new WaitForSeconds(2f);
         }
 
+    }
+
+    [PunRPC]
+    public void placeHerb(int label)
+    {
+        var target = GameGraph.Instance.Find(label);
+        target.data.herb += 1;
+        HerbHandler herbManager = GameObject.FindGameObjectWithTag("manager").GetComponent<HerbHandler>();
+        herbManager.myHerb = Instantiate(herbPrefab, target.position, Quaternion.identity);
     }
 
     public void Leave() {
