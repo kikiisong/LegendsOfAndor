@@ -14,6 +14,7 @@ namespace Saving
         public GameObject heroPrefab;
         public GameObject timeMarkerPrefab;
         public GameObject goldpotPrefab;
+        public GameObject fogPrefab;
         [Header("Monsters")]
         public MonsterMoveController gor;
         public MonsterMoveController skral;
@@ -155,6 +156,15 @@ namespace Saving
             var castle = Room.Json["castle"];
             int shieldNum = castle["currentNumOfShield"].ToObject<int>();
             GameObject.FindObjectOfType<Castle>().GetComponent<Castle>().setShieldNum(shieldNum);
+
+
+            foreach (var j in Room.Json["fogs"])
+            {
+                int label = j["region"].ToObject<int>();
+                GameObject myFog = Instantiate(fogPrefab, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                Fog f = myFog.GetComponent<Fog>();
+                f.type = j["type"].ToObject<FogType>();
+            }
 
         }
     }

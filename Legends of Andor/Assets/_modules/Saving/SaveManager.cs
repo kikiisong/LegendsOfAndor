@@ -29,6 +29,7 @@ namespace Saving
                 new JProperty("heroes", JHeroes()),                
                 new JProperty("monsters", JMonsters()),
                 new JProperty("goldpots", JGoldpot()),
+                new JProperty("fogs", JFog()),
                 new JProperty("farmers",JFarmers()),
                 new JProperty("narrator", JNarrator()),
                 new JProperty("castle", JCastle()));
@@ -88,6 +89,18 @@ namespace Saving
                     {"helm", bagRegion.data.helm },
                     {"bow", bagRegion.data.bow },
                     {"falcon", bagRegion.data.falcon }
+                }
+            );
+        }
+
+        private JArray JFog()
+        {
+            return new JArray(
+                from fog in FindObjectsOfType<Fog>()
+                select new JObject
+                {
+                    {"region", fog.region },
+                    {"type", new JValue(fog.type) },
                 }
             );
         }
