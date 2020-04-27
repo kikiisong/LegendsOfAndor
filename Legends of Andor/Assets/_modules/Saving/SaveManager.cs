@@ -71,6 +71,7 @@ namespace Saving
                 {
                     {"type", new JValue(monster.type)},
                     {"region", monster.CurrentRegion.label},
+                    {"isSkralOnTower", monster.canMove},
                     {"data",  JObject.FromObject(monster.data)}
                 });
         }

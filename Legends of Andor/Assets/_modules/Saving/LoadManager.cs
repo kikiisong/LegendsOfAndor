@@ -22,6 +22,7 @@ namespace Saving
         public MonsterMoveController gor;
         public MonsterMoveController skral;
         public MonsterMoveController wardrak;
+        public MonsterMoveController skralOnTower;
 
     
 
@@ -96,8 +97,17 @@ namespace Saving
                             go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
                             break;
                         case MonsterType.Skral:
-                            go = PhotonNetwork.Instantiate(skral.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
-                            go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
+                            if (j["isSkralOnTower"].ToObject<bool>() == false)
+                            {
+                                go = PhotonNetwork.Instantiate(skralOnTower.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                                go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
+                                go.GetComponent<MonsterMoveController>().canMove = false;
+                            }
+                            else
+                            {
+                                go = PhotonNetwork.Instantiate(skral.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                                go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
+                            }
                             break;
                         case MonsterType.Wardrak:
                             go = PhotonNetwork.Instantiate(wardrak.name, GameGraph.Instance.Find(label).position, Quaternion.identity);

@@ -22,6 +22,7 @@ namespace Card
         public GameObject movePrinceButton;
 
         MonsterMoveController linkedMonster;
+        public int skralOnTowerLoc;
 
         protected override void Event(Difficulty difficulty)
         {
@@ -133,6 +134,7 @@ namespace Card
             t.text = dice.ToString();
 
             int herbAt = 50 + dice;
+            skralOnTowerLoc = herbAt;
 
             Text t2 = towerInfo.transform.GetChild(1).GetComponent<Text>();
             t2.text = "The tower and a skral has located at " + herbAt + " region.";

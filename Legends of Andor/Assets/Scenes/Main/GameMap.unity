@@ -6305,6 +6305,7 @@ MonoBehaviour:
   princePrefab: {fileID: 3951969135777665330, guid: 2fdb4a3b66dbc40cf85923e7f21c5e1d,
     type: 3}
   movePrinceButton: {fileID: 0}
+  skralOnTowerLoc: 0
 --- !u!114 &328684577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23966,6 +23967,8 @@ MonoBehaviour:
   gor: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99, type: 3}
   skral: {fileID: 6717272833108817557, guid: b126bebfc04f4f34aab824f3144485e2, type: 3}
   wardrak: {fileID: 6328688999872481308, guid: d265625ed029cf646bca19d77cf60361, type: 3}
+  skralOnTower: {fileID: 729027944542912367, guid: 78793c09cb9d84ee3939bd2729809f77,
+    type: 3}
 --- !u!1001 &1167451227
 PrefabInstance:
   m_ObjectHideFlags: 0
