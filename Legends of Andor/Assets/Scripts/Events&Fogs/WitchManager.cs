@@ -57,18 +57,21 @@ public class WitchManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, Turn
             Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
             var r = player.GetCurrentRegion();
             List<Witch> witchOnRegion = GameGraph.Instance.FindObjectsOnRegion<Witch>(r.label);
-            int left = witchOnRegion[0].left;
 
-            if (witchOnRegion.Count > 0 && left > 0)
+            if (witchOnRegion.Count > 0)
             {
-                brewButton.gameObject.SetActive(true);
-            }
-            else
-            {
-                brewButton.gameObject.SetActive(false);
-            }
+                int left = witchOnRegion[0].left;
+                if (left > 0)
+                {
+                    brewButton.gameObject.SetActive(true);
+                }
+                else
+                {
+                    brewButton.gameObject.SetActive(false);
+                }
 
 
+            }
         }
     }
 
@@ -80,18 +83,21 @@ public class WitchManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, Turn
             Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
             var r = player.GetCurrentRegion();
             List<Witch> witchOnRegion = GameGraph.Instance.FindObjectsOnRegion<Witch>(r.label);
-            int left = witchOnRegion[0].left;
 
-            if (witchOnRegion.Count > 0 && left > 0)
+            if (witchOnRegion.Count > 0)
             {
-                brewButton.gameObject.SetActive(true);
-            }
-            else
-            {
-                brewButton.gameObject.SetActive(false);
-            }
+                int left = witchOnRegion[0].left;
+                if (left > 0)
+                {
+                    brewButton.gameObject.SetActive(true);
+                }
+                else
+                {
+                    brewButton.gameObject.SetActive(false);
+                }
 
 
+            }
         }
     }
 
