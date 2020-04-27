@@ -144,7 +144,7 @@ public class HeroMoveController : MonoBehaviourPun
                     {
                         princeMoveCounter = 0;
                     }
-                    
+                    Debug.Log("prince moved to:" + clicked.label);
                     isMoving = false;
                 }));
 

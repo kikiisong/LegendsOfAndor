@@ -23,7 +23,9 @@ namespace Saving
         public MonsterMoveController skral;
         public MonsterMoveController wardrak;
 
- 
+        
+
+
 
         //Getters
         Region InitialRegion
@@ -208,22 +210,23 @@ namespace Saving
             var jprince = Room.Json["prince"];
             if (jprince != null)
             {
-                
                 print("load prince");
                 int princeRegionlabel = jprince["regionLabel"].ToObject<int>();
                 GameObject prince = PhotonNetwork.Instantiate(princePrefab);
-                //Instantiate(princePrefab, GameGraph.Instance.Find(princeRegionlabel).position, Quaternion.identity);
                 prince.transform.SetParent(GameObject.Find("Map").transform);
                 GameGraph.Instance.PlaceAt(prince, princeRegionlabel);
                 Prince instance = prince.GetComponent<Prince>();
                 instance.regionlable = princeRegionlabel;
                 instance.inFight = jprince["princeInFight"].ToObject<bool>();
-                print("here");
+
+                GameObject movePrinceButton = GameObject.Find("Actions").transform.Find("MovePrince").gameObject;
+                movePrinceButton.SetActive(true);
+                
+                Debug.Log("missing button? "+ movePrinceButton.name);
+
+
             }
-            else
-            {
-                print("there is no prince");
-            }
+            
 
 
 
