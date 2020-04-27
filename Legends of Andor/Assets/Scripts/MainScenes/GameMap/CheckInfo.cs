@@ -24,7 +24,7 @@ public class CheckInfo : MonoBehaviour
     private int current = 0;
     private int max = 0;
 
-    private List<Monster> monsters;
+    private List<MonsterData> monsters;
 
     private List<HeroMoveController> heroMoveControllers;
 
@@ -80,7 +80,7 @@ public class CheckInfo : MonoBehaviour
 
         int clickedRegionLabel = clicked.label;
 
-        monsters = GameGraph.Instance.FindObjectsOnRegion<Monster>(clicked);
+        monsters = GameGraph.Instance.FindObjectsOnRegion<MonsterData>(clicked);
 
         heroMoveControllers = GameGraph.Instance.FindObjectsOnRegion<HeroMoveController>(clicked);
 

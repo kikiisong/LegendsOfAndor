@@ -64,6 +64,13 @@ namespace Bag
             Distribute(array, pairs);
         }
 
+        public static void DistributeWinFight(List<Player> winplayers, params (ItemType type, int amount)[] pairs ) {
+            var players = winplayers;
+            var array = new Player[players.Count];
+            players.CopyTo(array, 0);
+            Distribute(array, pairs);
+        }
+
         public static void Distribute(Player[] players, params (ItemType type, int amount)[] pairs)
         {
             Instance.photonView.RPC("BeginDistribute", RpcTarget.All);

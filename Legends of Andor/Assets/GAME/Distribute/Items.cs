@@ -25,7 +25,7 @@ namespace Bag
 
     public enum ItemType
     {
-        Coin, Brew, Wineskin, Herb, Shield, Helm, Bow, Falcon, Telescope
+        Coin, Brew, Wineskin, Herb, Shield, Helm, Bow, Falcon, Telescope, WillPower
     }
 
     public static class Helper {
@@ -53,6 +53,8 @@ namespace Bag
                     return ref hero.data.brew;
                 case ItemType.Herb:
                     return ref hero.data.herb;
+                case ItemType.WillPower:
+                    return ref hero.data.WP;
                 default:
                     throw new Exception();
             }

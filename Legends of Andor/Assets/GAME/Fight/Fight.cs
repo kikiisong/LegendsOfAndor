@@ -8,7 +8,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using Routines;
 using System.Collections.Generic;
-
+using Bag;
 public enum FightState
     {
         START,
@@ -402,7 +402,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
         else if (aMonster.damage <= hero.data.attackNum)
         {
-            //TODO:
+           
             aMonster.Attacked(hero.data.attackNum - aMonster.damage);
             mHUD.basicInfo(aMonster);
             yield return new WaitForSeconds(2f);
@@ -420,8 +420,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     IEnumerator Check()
     {
         mySkillYesButton.gameObject.SetActive(false);
+        print("MonsterWP"+aMonster.currentWP);
         if (aMonster.currentWP <= 0)
         {
+            print("WIN");
             fightstate = FightState.WIN;
             fHUD.setFightHUD_WIN();
             yield return new WaitForSeconds(2f);
@@ -443,13 +445,14 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
             Debug.Log(aMonster);
             
-            //TOOD: can we do this？
-            //if (PhotonNetwork.isMasterClient) {
-            //    PhotonNetwork.Destroy(mc);
-            //}
+            //TODO: Test if win desoty the mosnter
+            if (PhotonNetwork.IsMasterClient) {
+                PhotonNetwork.Destroy(mc.gameObject);
+                DistributionManager.DistributeWinFight(FightTurnManager.Instance.players,(ItemType.Coin, aMonster.rewardc), (ItemType.WillPower, aMonster.rewardw));
                 
-  
-            print("WIN");
+            }
+               
+            
             if (aMonster.isTower) {
                 photonView.RPC("tellCastle", RpcTarget.AllBuffered);
             }
@@ -538,8 +541,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     bool usedhelm = false;
-
-    public GameObject go2 { get; private set; }
 
     public void onSheildClick()
     {
@@ -665,7 +666,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        //Initialize the mosnter
+
         print("Falcon");
     }
 
@@ -675,7 +676,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        //Initialize the mosnter
+
         print("Trade");
     }
 

@@ -39,6 +39,7 @@ public class Monster : MonoBehaviourPun
     public void Attacked(int damage)
     {
         currentWP -= damage;
+        print("CurrentWP"+currentWP);
     }
 
 
