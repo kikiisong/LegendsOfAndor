@@ -137,5 +137,6 @@ MonoBehaviour:
   - loadWinningScreen
   - realaseNewEventCardFog
   - FogEventCard
+  - placeHerb
   DisableAutoOpenWizard: 1
   ShowSettings: 1
