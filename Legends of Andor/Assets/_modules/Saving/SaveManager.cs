@@ -69,7 +69,10 @@ namespace Saving
                 {
                     {"type", new JValue(monster.type)},
                     {"region", monster.CurrentRegion.label},
-                    {"data",  JObject.FromObject(monster.data)}
+                    {"data",  JObject.FromObject(monster.data)},
+                    //TODO:{ "monster", monster.m}
+                    //TODO: skral on tower cannot be shown
+                    
                 });
         }
 
@@ -146,5 +149,15 @@ namespace Saving
                 { "currentNumOfShield", GameObject.FindObjectOfType<Castle>().GetComponent<Castle>().extraShiled.numberOfShileds}
             };
         }
+
+        //TODO: should be write
+        //private JObject JPrince()
+        //{
+        //    return new JObject {
+        //        { "region"
+        //        }
+
+        //    }
+        //}
     }
 }
