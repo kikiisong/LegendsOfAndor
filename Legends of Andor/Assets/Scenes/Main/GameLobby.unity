@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -415,6 +415,43 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!1 &295133403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 295133404}
+  m_Layer: 0
+  m_Name: options
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &295133404
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295133403}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 964539822}
+  - {fileID: 699104213}
+  m_Father: {fileID: 1219169485}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &399663689
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,12 +761,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 725183892}
-  m_Father: {fileID: 1219169485}
-  m_RootOrder: 5
+  m_Father: {fileID: 295133404}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -353, y: 129}
+  m_AnchoredPosition: {x: -353.00003, y: -460}
   m_SizeDelta: {x: 327.7, y: 158.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &699104214
@@ -957,7 +994,7 @@ MonoBehaviour:
   m_text: Current Players
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: d75b8f41e959450c84ac6e967084d3e1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1234,7 +1271,7 @@ MonoBehaviour:
   m_text: RoomName
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: d75b8f41e959450c84ac6e967084d3e1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1430,15 +1467,15 @@ RectTransform:
   m_GameObject: {fileID: 964539821}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7391305, y: 1.7391305, z: 1.7391305}
+  m_LocalScale: {x: 1.7391307, y: 1.7391307, z: 1.7391307}
   m_Children:
   - {fileID: 1311110272}
-  m_Father: {fileID: 1219169485}
-  m_RootOrder: 6
+  m_Father: {fileID: 295133404}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -977, y: -1402.5}
+  m_AnchoredPosition: {x: -67.00006, y: -558}
   m_SizeDelta: {x: 188.43, y: 91.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &964539823
@@ -1683,8 +1720,7 @@ RectTransform:
   - {fileID: 886339242}
   - {fileID: 1536581647}
   - {fileID: 1501736642}
-  - {fileID: 699104213}
-  - {fileID: 964539822}
+  - {fileID: 295133404}
   - {fileID: 15694402}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -2613,7 +2649,7 @@ PrefabInstance:
     - target: {fileID: 2227597745735908994, guid: 5b74ebe1bf0b59244b8684f09a6d69e3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2227597745735908994, guid: 5b74ebe1bf0b59244b8684f09a6d69e3,
         type: 3}
