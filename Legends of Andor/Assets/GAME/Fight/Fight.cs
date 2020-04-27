@@ -38,7 +38,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public FightState fightstate;
 
     [Header("Monster")]
-    public Transform monsterStation;
+    public GameObject Gor;
+    public GameObject Skral;
+    public GameObject Wardrak;
+    //public Transform monsterStation;
 
     [Header("HUD")]
     public MonsterHUD mHUD;
@@ -53,33 +56,32 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public Dice dice;
 
     [Header("Prefabs")]
-    public GameObject archerPrefabs;
-    public GameObject warriorPrefabs;
-    public GameObject dwarfPrefabs;
-    public GameObject wizardPrefabs;
-    public Transform[] transforms = new Transform[4];
-
-    GameObject go1 = null;
-    GameObject go2 = null;
-    GameObject go3 = null;
-    GameObject go4 = null;
+    public GameObject archerPrefabsfemale;
+    public GameObject archerPrefabsmale;
+    public GameObject warriorPrefabsfemale;
+    public GameObject warriorPrefabsmale;
+    public GameObject dwarfPrefabsfemale;
+    public GameObject dwarfPrefabsmale;
+    public GameObject wizardPrefabsfemale;
+    public GameObject wizardPrefabsmale;
+    
+    public MonsterMoveController mc;
 
     public bool princeInFight = false;
     public Monster aMonster;
     public Herb myHerb;
     public GameObject prince;
-    //public int diceNum;
-    //public int damage;
 
     // Use this for initialization
     void Start()
     {
         if (Instance == null) Instance = this;
-        if (Prince.Instance != null) prince.SetActive(false);
+        prince.SetActive(false);
         foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
         {
             if (monsterC.m.isFighted)
             {
+                mc = monsterC;
                 aMonster = monsterC.m;
                 if (monsterC.hasHerb)
                 {
@@ -95,18 +97,35 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 break;
             }
         }
-        
-        Instantiate(aMonster.gameObject, monsterStation);
-        //aMonster = monsterGo.GetComponent<Monster>();
-        //go5.transform.position = monsterStation.position;
-        //TODO: prince functionality
-        print(Prince.Instance != null);
-        print(Prince.Instance.inFight);
+        archerPrefabsfemale.SetActive(false);
+        archerPrefabsmale.SetActive(false);
+        warriorPrefabsfemale.SetActive(false);
+        warriorPrefabsmale.SetActive(false);
+        dwarfPrefabsfemale.SetActive(false);
+        dwarfPrefabsmale.SetActive(false);
+        wizardPrefabsfemale.SetActive(false);
+        wizardPrefabsmale.SetActive(false);
+        Gor.SetActive(false);
+        Skral.SetActive(false);
+        Wardrak.SetActive(false);
+
+        switch (mc.type) {
+            case Monsters.MonsterType.Gor:
+                Gor.SetActive(true);
+                break;
+            case Monsters.MonsterType.Skral:
+                Skral.SetActive(true);
+                break;
+            case Monsters.MonsterType.Wardrak:
+                Wardrak.SetActive(true);
+                break;
+
+        }
+            
         if (Prince.Instance != null && Prince.Instance.inFight) {
             print("Prince is in fight");
             princeInFight = true;
             prince.SetActive(true);
-            //TODO:maybe display some thing on map
         }
         fightstate = FightState.START;
         FightTurnManager.Register(this);
@@ -119,7 +138,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     //--------START--------//
     void plotCharacter() {
-
+       
         print("Plot");
         Player player = PhotonNetwork.LocalPlayer;
         if (player.CustomProperties.ContainsKey(P.K.isFight))
@@ -129,28 +148,24 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             {
                 Debug.Log(player.NickName + "in fight");
                 Hero hero = (Hero)player.GetHero();
-
+                
                 switch (hero.type)
                 {
                     case Hero.Type.ARCHER:
-                        go1 = PhotonNetwork.Instantiate(archerPrefabs);
-                        go1.transform.position = transforms[0].position;
-                        go1.SetActive(true);
+                        if (hero.ui.gender)archerPrefabsmale.SetActive(true);
+                        else archerPrefabsfemale.SetActive(true);
                         break;
                     case Hero.Type.WARRIOR:
-                        go2 = PhotonNetwork.Instantiate(warriorPrefabs);
-                        go2.transform.position = transforms[1].position;
-                        go2.SetActive(true);
+                        if (hero.ui.gender) warriorPrefabsmale.SetActive(true);
+                        else warriorPrefabsfemale.SetActive(true);
                         break;
                     case Hero.Type.DWARF:
-                        go3 = PhotonNetwork.Instantiate(dwarfPrefabs);
-                        go3.transform.position = transforms[2].position;
-                        go3.SetActive(true);
+                        if (hero.ui.gender) dwarfPrefabsmale.SetActive(true);
+                        else dwarfPrefabsfemale.SetActive(true);
                         break;
                     case Hero.Type.WIZARD:
-                        go4 = PhotonNetwork.Instantiate(wizardPrefabs);
-                        go4.transform.position = transforms[3].position;
-                        go4.SetActive(true);
+                        if (hero.ui.gender) wizardPrefabsmale.SetActive(true);
+                        else wizardPrefabsfemale.SetActive(true);
                         break;
                 }
                 hero.data.dice = dice;
@@ -164,27 +179,20 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 switch (hero.type)
                 {
                     case Hero.Type.ARCHER:
-                        if (go1 != null) {
-                            PhotonNetwork.Destroy(go1.GetPhotonView());
-                        }
+                        archerPrefabsfemale.SetActive(false);
+                        archerPrefabsmale.SetActive(false);
                         break;
                     case Hero.Type.WARRIOR:
-                        if (go2 != null)
-                        {
-                            PhotonNetwork.Destroy(go2.GetPhotonView());
-                        }
+                        warriorPrefabsfemale.SetActive(false);
+                        warriorPrefabsmale.SetActive(false);
                         break;
                     case Hero.Type.DWARF:
-                        if (go3 != null)
-                        {
-                            PhotonNetwork.Destroy(go3.GetPhotonView());
-                        }
+                        dwarfPrefabsfemale.SetActive(false);
+                        dwarfPrefabsmale.SetActive(false);
                         break;
                     case Hero.Type.WIZARD:
-                        if (go3 != null)
-                        {
-                            PhotonNetwork.Destroy(go4.GetPhotonView());
-                        }
+                        wizardPrefabsfemale.SetActive(false);
+                        wizardPrefabsmale.SetActive(false);
                         break;
                 }
             }
@@ -433,12 +441,17 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 myHerb.gameObject.SetActive(true);
                 //myHerb.found = true;
             }
-            //TODO: how to destory the corresponding MoveMonsterController
-            Destroy(aMonster);
+            //TOOD: can we do this？
+            if (PhotonNetwork.isMasterClient) {
+                PhotonNetwork.Destroy(mc);
+            }
+                
+  
             print("WIN");
             if (aMonster.isTower) {
                 photonView.RPC("tellCastle", RpcTarget.AllBuffered);
             }
+            
            
             SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);
 
@@ -468,7 +481,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     public void Leave() {
-        // TODO: delete the initialize object
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable
                         {
                             { P.K.isFight, false }
@@ -524,6 +536,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     bool usedhelm = false;
+
+    public GameObject go2 { get; private set; }
 
     public void onSheildClick()
     {
@@ -619,10 +633,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-
+        
         //Initialize the mosnter
         Leave();
-        
         SceneManager.UnloadSceneAsync("FightScene");
 
     }

@@ -42,7 +42,6 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
         {
             update = 0.0f;
             Debug.Log("Update");
-            print(!player.HasConsumedHour());
             if (!player.HasConsumedHour()) {
                 
                 displayFight(player, currentRegion);
@@ -56,7 +55,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
     }
 
     public void displayFight(Player player, Region currentRegion) {
-        List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(currentRegion);
+        
 
         if (PhotonNetwork.LocalPlayer == player)
         {
@@ -78,14 +77,18 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                     fight.GetComponent<Button>().onClick.AddListener(() =>
 
                     {
+                        Region MonsterRegion = MonsterOnMap[0].CurrentRegion;
+                        print("Monster lable" + MonsterRegion.label);
+                        List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(MonsterRegion);
+                        AdjacentRegions.Add(MonsterRegion);
                         foreach (Region r in AdjacentRegions){
-                            List<Prince> PrincerOnMap = GameGraph.Instance.FindObjectsOnRegion<Prince>(currentRegion);
-
-                            if (PrincerOnMap.Count > 0)
+                            
+                            if (Prince.Instance != null && Prince.Instance.r.label == r.label)
                             {
                                 Prince.Instance.inFight = true;
                             }
                         }
+                        
                         
                         //photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
                         MonsterMoveController monster = MonsterOnMap[0];
@@ -113,8 +116,9 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
             }
             else if (hero.type == Hero.Type.ARCHER || hero.data.bow > 0)
             {
-                
+                List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(currentRegion);
                 List<MonsterMoveController> choicesOfJoin = new List<MonsterMoveController>();
+                AdjacentRegions.Add(currentRegion);
 
                 foreach (Region r in AdjacentRegions)
                 {
@@ -125,21 +129,25 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                         choicesOfJoin.Add(MonsterOnAdjacent[0]);
                     }
 
-                    List<Prince> PrincerOnMap = GameGraph.Instance.FindObjectsOnRegion<Prince>(r);
-
-                    if (PrincerOnMap.Count > 0) {
-                        Prince.Instance.inFight = true;
-                    }
 
                 }
+                Region MonsterRegion =choicesOfJoin[0].CurrentRegion;
+                print("Monster lable" + MonsterRegion.label);
+                List<Region> AdjacentMonsterRegions = GameGraph.Instance.AdjacentRegions(MonsterRegion);
+                AdjacentMonsterRegions.Add(MonsterRegion);
+                foreach (Region r in AdjacentMonsterRegions)
+                {
+                    if (Prince.Instance!=null&&Prince.Instance.r.label==r.label)
+                    {
+                        Prince.Instance.inFight = true;
+                    }
+                }
 
-                //if (choicesOfJoin.Count > 1)
-                //{
-                //TODO: have to choose one mosnter
-                //}
                 if (choicesOfJoin.Count >= 1)
                 {
-
+                    if (choicesOfJoin.Count > 1) {
+                        Debug.Log(choicesOfJoin[0]);
+                    }
                     if (hero.data.NumHours < 10)
                     {
                         fight.SetActive(true);
