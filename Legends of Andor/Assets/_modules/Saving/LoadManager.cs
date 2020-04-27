@@ -15,6 +15,7 @@ namespace Saving
         public GameObject timeMarkerPrefab;
         public GameObject goldpotPrefab;
         public GameObject fogPrefab;
+        public GameObject witchPrefab;
         [Header("Monsters")]
         public MonsterMoveController gor;
         public MonsterMoveController skral;
@@ -165,6 +166,17 @@ namespace Saving
                 Fog f = myFog.GetComponent<Fog>();
                 f.region = label;
                 f.type = j["type"].ToObject<FogType>();
+            }
+
+            foreach (var j in Room.Json["witch"])
+            {
+                int label = j["region"].ToObject<int>();
+                GameObject myWitch = Instantiate(witchPrefab, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                Witch w = myWitch.GetComponent<Witch>();
+                w.region = label;
+                w.left = j["left"].ToObject<int>();
+               
+
             }
 
         }

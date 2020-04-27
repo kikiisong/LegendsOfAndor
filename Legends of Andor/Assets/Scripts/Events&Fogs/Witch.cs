@@ -9,8 +9,6 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
 {
     public int region;
     public Button brewButton;
-    public Renderer witchIcon;
-    public bool found;
     public int left;
     public int price;
     int displayPrice;
@@ -20,23 +18,29 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
     void Start()
     {
         askWindow.SetActive(false);
-        witchIcon = GetComponent<Renderer>();
-        witchIcon.enabled = false;
         brewButton.gameObject.SetActive(false);
         TurnManager.Register(this);
-        found = false;
-        left = 5;
+
         Player[] players = PhotonNetwork.PlayerList;
-        if(players.Length == 2)
+        if (players.Length == 2)
         {
             price = 3;
-        }else if(players.Length == 3)
+        }
+        else if (players.Length == 3)
         {
             price = 4;
-        }else
+        }
+        else
         {
             price = 5; //will be 5 when testing with 1 player
         }
+
+        if (!Room.IsSaved)
+        {
+            left = 5;
+            
+        }
+        
     }
 
     // Update is called once per frame
@@ -57,25 +61,22 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
 
     public void OnTurnCompleted(Player player)
     {
+
         if (PhotonNetwork.LocalPlayer == player)
         {
-            if (found)
+            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
+            var r = player.GetCurrentRegion();
+            List<Witch> witchOnRegion = GameGraph.Instance.FindObjectsOnRegion<Witch>(r.label);
+
+            if (witchOnRegion.Count > 0 && left > 0)
             {
-                
-                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
-                var r = player.GetCurrentRegion();
-                List<Witch> witchOnRegion = GameGraph.Instance.FindObjectsOnRegion<Witch>(r.label);
-
-                if (witchOnRegion.Count > 0 && left > 0)
-                {
-                    brewButton.gameObject.SetActive(true);
-                }
-                else
-                {
-                    brewButton.gameObject.SetActive(false);
-                }
-
+                brewButton.gameObject.SetActive(true);
             }
+            else
+            {
+                brewButton.gameObject.SetActive(false);
+            }
+            
 
         }
     }
@@ -86,23 +87,20 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
 
         if (PhotonNetwork.LocalPlayer == player)
         {
-            if (found)
-            {
-                
-                    Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
-                    var r = player.GetCurrentRegion();
-                    List<Witch> witchOnRegion = GameGraph.Instance.FindObjectsOnRegion<Witch>(r.label);
 
-                    if (witchOnRegion.Count > 0 && left > 0)
-                    {
-                        brewButton.gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        brewButton.gameObject.SetActive(false);
-                    }
-                
+            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
+            var r = player.GetCurrentRegion();
+            List<Witch> witchOnRegion = GameGraph.Instance.FindObjectsOnRegion<Witch>(r.label);
+
+            if (witchOnRegion.Count > 0 && left > 0)
+            {
+                brewButton.gameObject.SetActive(true);
             }
+            else
+            {
+                brewButton.gameObject.SetActive(false);
+            }
+            
 
         }
     }
@@ -167,10 +165,7 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
 
     
 
-    public void locate(int currReg)
-    {
-        GameGraph.Instance.PlaceAt(gameObject, currReg);
-    }
+  
 
     
 }

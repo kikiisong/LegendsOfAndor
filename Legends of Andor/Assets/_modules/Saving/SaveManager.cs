@@ -30,6 +30,7 @@ namespace Saving
                 new JProperty("monsters", JMonsters()),
                 new JProperty("goldpots", JGoldpot()),
                 new JProperty("fogs", JFog()),
+                new JProperty("witch", JWitch()),
                 new JProperty("farmers",JFarmers()),
                 new JProperty("narrator", JNarrator()),
                 new JProperty("castle", JCastle()));
@@ -100,7 +101,20 @@ namespace Saving
                 select new JObject
                 {
                     {"region", fog.region },
-                    {"type", new JValue(fog.type) },
+                    {"type", new JValue(fog.type) }
+                }
+            );
+        }
+
+        private JArray JWitch()
+        {
+            return new JArray(
+                from witch in FindObjectsOfType<Witch>()
+                select new JObject
+                {
+                    {"region", witch.region },
+                    {"left", witch.left },
+                    {"price", witch.price }
                 }
             );
         }
