@@ -15,8 +15,7 @@ public class Fog : MonoBehaviourPun
     void Start()
     {
         fogIcon = GetComponent<Renderer>();
-        type = FogType.SP;
-        GameGraph.Instance.PlaceAt(gameObject, region);
+        //type = FogType.SP;
     }
 
 

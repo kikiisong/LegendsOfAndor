@@ -163,6 +163,7 @@ namespace Saving
                 int label = j["region"].ToObject<int>();
                 GameObject myFog = Instantiate(fogPrefab, GameGraph.Instance.Find(label).position, Quaternion.identity);
                 Fog f = myFog.GetComponent<Fog>();
+                f.region = label;
                 f.type = j["type"].ToObject<FogType>();
             }
 
