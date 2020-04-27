@@ -72,9 +72,7 @@ namespace Saving
                     {"type", new JValue(monster.type)},
                     {"region", monster.CurrentRegion.label},
                     {"data",  JObject.FromObject(monster.data)},
-                    //TODO:{ "monster", monster.m}
-                    //TODO: skral on tower cannot be shown
-                    
+                    { "monster", monster.m}
                 });
         }
 
@@ -171,7 +169,7 @@ namespace Saving
             if (Prince.Instance != null)
             {
                 savedPrince =  new JObject {
-                    { "regionLabel", Prince.Instance.regionlable},
+                    { "r", Prince.Instance.Region},
                     { "princeInFight", Prince.Instance.inFight}
                 };
                 print("princeSaved");

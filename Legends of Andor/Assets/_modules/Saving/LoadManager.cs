@@ -23,8 +23,7 @@ namespace Saving
         public MonsterMoveController skral;
         public MonsterMoveController wardrak;
 
-        
-
+    
 
 
         //Getters
@@ -90,6 +89,7 @@ namespace Saving
                 {
                     MonsterType type = j["type"].ToObject<MonsterType>();
                     int label = j["region"].ToObject<int>();
+                    Monster m = j["monster"].ToObject<Monster>();
                     switch (type)
                     {
                         case MonsterType.Gor:
@@ -211,12 +211,12 @@ namespace Saving
             if (jprince != null)
             {
                 print("load prince");
-                int princeRegionlabel = jprince["regionLabel"].ToObject<int>();
+                Region r = jprince["r"].ToObject<Region>();
                 GameObject prince = PhotonNetwork.Instantiate(princePrefab);
                 prince.transform.SetParent(GameObject.Find("Map").transform);
-                GameGraph.Instance.PlaceAt(prince, princeRegionlabel);
+                GameGraph.Instance.PlaceAt(prince, r.label);
                 Prince instance = prince.GetComponent<Prince>();
-                instance.regionlable = princeRegionlabel;
+                instance.regionlable = r;
                 instance.inFight = jprince["princeInFight"].ToObject<bool>();
 
             }
