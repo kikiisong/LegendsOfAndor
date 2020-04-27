@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7212973014301622450}
   - component: {fileID: 7684283073591853297}
   - component: {fileID: 5041133314650116859}
+  - component: {fileID: 8046658567311844445}
   - component: {fileID: 3386901637747087041}
   m_Layer: 0
   m_Name: Gor (Move)
@@ -171,6 +172,28 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
+--- !u!114 &8046658567311844445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212973014301622452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02068ae9b39884555a7f73c0849d1a94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWP: 0
+  maxSP: 0
+  redDice: 0
+  currentWP: 0
+  rewardc: 0
+  rewardw: 0
+  isFighted: 0
+  dice: {fileID: 0}
+  damage: 0
+  isTower: 0
 --- !u!114 &3386901637747087041
 MonoBehaviour:
   m_ObjectHideFlags: 0
