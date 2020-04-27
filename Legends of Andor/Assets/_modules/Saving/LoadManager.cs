@@ -89,7 +89,6 @@ namespace Saving
                 {
                     MonsterType type = j["type"].ToObject<MonsterType>();
                     int label = j["region"].ToObject<int>();
-                    Monster m = j["monster"].ToObject<Monster>();
                     switch (type)
                     {
                         case MonsterType.Gor:

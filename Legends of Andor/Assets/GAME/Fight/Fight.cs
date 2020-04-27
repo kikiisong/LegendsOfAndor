@@ -444,9 +444,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             Debug.Log(aMonster);
             
             //TOOD: can we do this？
-            if (PhotonNetwork.isMasterClient) {
-                PhotonNetwork.Destroy(mc);
-            }
+            //if (PhotonNetwork.isMasterClient) {
+            //    PhotonNetwork.Destroy(mc);
+            //}
                 
   
             print("WIN");

@@ -27,7 +27,7 @@ public class Prince : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        r = GameGraph.Instance.FindNearest(this.transform.position).label;
+        regionlable = GameGraph.Instance.FindNearest(this.transform.position).label;
         //print("Prince" +r.label);
     }
 
