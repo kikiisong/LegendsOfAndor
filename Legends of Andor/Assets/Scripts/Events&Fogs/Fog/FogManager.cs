@@ -10,7 +10,6 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
 {
     public MonsterMoveController gorPrefab;
     public Button brewButton;
-    public Witch myWitch;
     public GameObject fogInfo;
     public GameObject herbDice;
     public GameObject herbGorPrefab;

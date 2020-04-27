@@ -116,8 +116,7 @@ namespace Saving
                 select new JObject
                 {
                     {"region", witch.region },
-                    {"left", witch.left },
-                    {"price", witch.price }
+                    {"left", witch.left }
                 }
             );
         }

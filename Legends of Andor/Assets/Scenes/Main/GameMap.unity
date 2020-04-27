@@ -19533,6 +19533,7 @@ GameObject:
   - component: {fileID: 943947479}
   - component: {fileID: 943947482}
   - component: {fileID: 943947483}
+  - component: {fileID: 943947484}
   m_Layer: 0
   m_Name: Game Units
   m_TagString: Untagged
@@ -19707,6 +19708,21 @@ MonoBehaviour:
   useTele: {fileID: 1878870671}
   gGraph: {fileID: 1813410491}
   TeleInfo: {fileID: 1347304207}
+--- !u!114 &943947484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943947473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64643063079c81c4ca90f886385603c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brewButton: {fileID: 1444155913}
+  askWindow: {fileID: 2007609873}
+  price: 0
 --- !u!1 &956908218
 GameObject:
   m_ObjectHideFlags: 0
@@ -28783,7 +28799,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 943947484}
         m_MethodName: btAppear
         m_Mode: 1
         m_Arguments:
@@ -35408,7 +35424,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 943947484}
         m_MethodName: bought
         m_Mode: 1
         m_Arguments:
