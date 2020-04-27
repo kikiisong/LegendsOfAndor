@@ -15,6 +15,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
     public GameObject herbDice;
     public GameObject herbGorPrefab;
     public GameObject narrator;
+    public GameObject fogPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -22,16 +23,16 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         fogInfo.SetActive(false);
         herbDice.SetActive(false);
         TurnManager.Register(this);
-        int[] regions = { 8, 11, 12, 13, 16, 32, 46, 44, 42, 64, 63, 56, 47, 48, 49 };
-        Shuffle(regions);
-        //TODO assign types to fogs
-        if (PhotonNetwork.IsMasterClient)
+        if (!Room.IsSaved)
         {
-            photonView.RPC("Typing", RpcTarget.AllBuffered, regions);
+            int[] regions = { 8, 11, 12, 13, 16, 32, 46, 44, 42, 64, 63, 56, 47, 48, 49 };
+            Shuffle(regions);
+            //TODO assign types to fogs
+            if (PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("Typing", RpcTarget.AllBuffered, regions);
+            }
         }
-
-
-
     }
 
     void Shuffle(int[] list)
@@ -417,45 +418,46 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
     {
         int i;
         Fog curr;
-        List<Fog> fogOnRegion;
 
-        for (i = 0; i < 5; i++)
+        for (i = 0; i < 15; i++)
         {
-            fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(whereTo[i]));
-            curr = fogOnRegion[0];
-            curr.type = FogType.Event;
+            GameObject myFog = Instantiate(fogPrefab, GameGraph.Instance.Find(whereTo[i]).position, Quaternion.identity);
+            curr = myFog.GetComponent<Fog>();
+            curr.region = whereTo[i];
+
+            if (i < 5)
+            {
+                curr.type = FogType.Event;
+            }
+            else if (i == 5)
+            {
+                curr.type = FogType.SP;
+            }
+            else if (i == 6)
+            {
+                curr.type = FogType.TwoWP;
+            }
+            else if (i == 7)
+            {
+                curr.type = FogType.ThreeWP;
+            }
+            else if (i < 11)
+            {
+                curr.type = FogType.Gold;
+            }else if (i<13)
+            {
+                curr.type = FogType.Monster;
+            }else if (i == 13)
+            {
+                curr.type = FogType.Wineskin;
+            }
+            else
+            {
+                curr.type = FogType.Witch;
+            }
+            
         }
-        //5th is the SP default one
-
-        fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(whereTo[6]));
-        curr = fogOnRegion[0];
-        curr.type = FogType.TwoWP;
-
-        fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(whereTo[7]));
-        curr = fogOnRegion[0];
-        curr.type = FogType.ThreeWP;
-
-        for (i = 8; i < 11; i++)
-        {
-            fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(whereTo[i]));
-            curr = fogOnRegion[0];
-            curr.type = FogType.Gold;
-        }
-
-        for (; i < 13; i++)
-        {
-            fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(whereTo[i]));
-            curr = fogOnRegion[0];
-            curr.type = FogType.Monster;
-        }
-
-        fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(whereTo[13]));
-        curr = fogOnRegion[0];
-        curr.type = FogType.Wineskin;
-
-        fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(whereTo[14]));
-        curr = fogOnRegion[0];
-        curr.type = FogType.Witch;
+              
 
     }
 
