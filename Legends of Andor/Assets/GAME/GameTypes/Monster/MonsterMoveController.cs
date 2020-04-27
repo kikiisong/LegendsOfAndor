@@ -33,6 +33,9 @@ public class MonsterMoveController : MonoBehaviourPun
     {
         coroutineQueue = new CoroutineQueue(this);
         coroutineQueue.StartLoop();
+        if (!canMove) {
+            m.isTower = true;
+        }
     }
 
     public void InitRPC(JToken jToken)

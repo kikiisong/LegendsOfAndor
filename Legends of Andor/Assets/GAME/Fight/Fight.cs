@@ -67,6 +67,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public bool princeInFight = false;
     public Monster aMonster;
     public Herb myHerb;
+    public GameObject prince;
     //public int diceNum;
     //public int damage;
 
@@ -74,6 +75,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     void Start()
     {
         if (Instance == null) Instance = this;
+        if (Prince.Instance != null) prince.SetActive(false);
         foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
         {
             if (monsterC.m.isFighted)
@@ -93,17 +95,22 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 break;
             }
         }
+        
         Instantiate(aMonster.gameObject, monsterStation);
         //aMonster = monsterGo.GetComponent<Monster>();
         //go5.transform.position = monsterStation.position;
         //TODO: prince functionality
-        if (Prince.Instance.inFight) {
+        print(Prince.Instance != null);
+        print(Prince.Instance.inFight);
+        if (Prince.Instance != null && Prince.Instance.inFight) {
+            print("Prince is in fight");
             princeInFight = true;
+            prince.SetActive(true);
             //TODO:maybe display some thing on map
         }
-
         fightstate = FightState.START;
         FightTurnManager.Register(this);
+        
         StartCoroutine(setUpBattle());
         
     }
@@ -113,6 +120,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     //--------START--------//
     void plotCharacter() {
 
+        print("Plot");
         Player player = PhotonNetwork.LocalPlayer;
         if (player.CustomProperties.ContainsKey(P.K.isFight))
         {
@@ -189,13 +197,16 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     IEnumerator setUpBattle()
     {
+        
         myArcherYesButton.gameObject.SetActive(false);
         mySkillYesButton.gameObject.SetActive(false);
         fHUD.setFightHUD_START();
         fightstate = FightState.HERO;
         yield return new WaitForSeconds(2f);
         fHUD.setFightHUD_PLAYER();
+        
         plotCharacter();
+        print("Game Start2?");
         player = PhotonNetwork.LocalPlayer;
         hero = (Hero)player.GetHero();
         playerTurn();
@@ -422,8 +433,13 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 myHerb.gameObject.SetActive(true);
                 //myHerb.found = true;
             }
+            //TODO: how to destory the corresponding MoveMonsterController
             Destroy(aMonster);
             print("WIN");
+            if (aMonster.isTower) {
+                photonView.RPC("tellCastle", RpcTarget.AllBuffered);
+            }
+           
             SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);
 
         }
@@ -457,6 +473,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                         {
                             { P.K.isFight, false }
                         });
+        StartFightManager.Instance.fightStart = false;
         //not possible to pass a Monster 
         FightTurnManager.TriggerRemove(player);
 

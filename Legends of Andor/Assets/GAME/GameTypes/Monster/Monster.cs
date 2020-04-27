@@ -14,13 +14,14 @@ public class Monster : MonoBehaviourPun
     public bool isFighted;
     public Dice dice;
     public int damage;
-
+    public bool isTower;
     public void Destroy() {
         Destroy(gameObject);
     }
 
     public void Start()
     {
+        
     }
 
     public void InitRPC(MonsterData data)

@@ -11,6 +11,7 @@ using UnityEngine;
 // 3. increase and decrease the shields number
 public class Castle : MonoBehaviourPun
 {
+    public static Castle Instance;
     public ExtraShield extraShiled;
     [SceneName] public string nextScene;
     // [SerializeField] public GameGraph gameGraph;

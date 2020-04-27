@@ -23,13 +23,13 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
     public static StartFightManager Instance;
     private bool isFight;
     private float update;
-
+    public bool fightStart = false;
     public void Start()
     {
         fight.SetActive(false);
         ready.SetActive(false);
         start.SetActive(false);
-
+        Instance = this;
         TurnManager.Register(this);
     }
 
@@ -38,7 +38,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
         Player player = PhotonNetwork.LocalPlayer;
         Region currentRegion = player.GetCurrentRegion();
         update += Time.deltaTime;
-        if (update > 2.0f)
+        if (update > 2.0f && !fightStart)
         {
             update = 0.0f;
             Debug.Log("Update");
@@ -54,23 +54,95 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
     {
         fight.SetActive(false);
     }
+
     public void displayFight(Player player, Region currentRegion) {
-        if (!player.HasConsumedHour())
+        List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(currentRegion);
+
+        if (PhotonNetwork.LocalPlayer == player)
         {
-            if (PhotonNetwork.LocalPlayer == player)
+            Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Sce
+
+            List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(currentRegion);
+
+            if (MonsterOnMap.Count > 0)
             {
 
-                Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Sce
+                if (hero.data.NumHours < 10)
+                {
+                    fight.SetActive(true);
 
-                List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(currentRegion);
 
-                if (MonsterOnMap.Count > 0)
+                    print("Invite other to join in ");
+
+                    fight.GetComponent<Button>().onClick.RemoveAllListeners();
+                    fight.GetComponent<Button>().onClick.AddListener(() =>
+
+                    {
+                        foreach (Region r in AdjacentRegions){
+                            List<Prince> PrincerOnMap = GameGraph.Instance.FindObjectsOnRegion<Prince>(currentRegion);
+
+                            if (PrincerOnMap.Count > 0)
+                            {
+                                Prince.Instance.inFight = true;
+                            }
+                        }
+                        
+                        //photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
+                        MonsterMoveController monster = MonsterOnMap[0];
+                        monster.m.isFighted = true;
+                        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+                        {
+                            { P.K.isFight, true }
+                        });
+                        print(PhotonNetwork.LocalPlayer.NickName + " start a fight ");
+
+                        isFight = true;
+                        //LightUpJoin();
+                        photonView.RPC("LightUpJoin", RpcTarget.Others);
+                        start.SetActive(true);
+
+
+                    });
+
+
+                }
+                else
+                {
+                    fight.SetActive(false);
+                }
+            }
+            else if (hero.type == Hero.Type.ARCHER || hero.data.bow > 0)
+            {
+                
+                List<MonsterMoveController> choicesOfJoin = new List<MonsterMoveController>();
+
+                foreach (Region r in AdjacentRegions)
+                {
+                    List<MonsterMoveController> MonsterOnAdjacent = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(r);
+                    Debug.Log(MonsterOnAdjacent.Count);
+                    if (MonsterOnAdjacent.Count > 0)
+                    {
+                        choicesOfJoin.Add(MonsterOnAdjacent[0]);
+                    }
+
+                    List<Prince> PrincerOnMap = GameGraph.Instance.FindObjectsOnRegion<Prince>(r);
+
+                    if (PrincerOnMap.Count > 0) {
+                        Prince.Instance.inFight = true;
+                    }
+
+                }
+
+                //if (choicesOfJoin.Count > 1)
+                //{
+                //TODO: have to choose one mosnter
+                //}
+                if (choicesOfJoin.Count >= 1)
                 {
 
                     if (hero.data.NumHours < 10)
                     {
                         fight.SetActive(true);
-
 
                         print("Invite other to join in ");
 
@@ -78,91 +150,28 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                         fight.GetComponent<Button>().onClick.AddListener(() =>
 
                         {
-                            List<Prince> PrincerOnMap = GameGraph.Instance.FindObjectsOnRegion<Prince>(currentRegion);
-
-                            if (PrincerOnMap.Count > 0) {
-                                Prince.Instance.inFight = true;
-                            }
-                            //photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
-                            MonsterMoveController monster = MonsterOnMap[0];
+                            MonsterMoveController monster = choicesOfJoin[0];
                             monster.m.isFighted = true;
+                            //photonView.RPC("changeMonsterTofight", RpcTarget.All,choicesOfJoin[0].regionlabel);
                             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-                            {
-                                { P.K.isFight, true }
-                            });
-                            print(PhotonNetwork.LocalPlayer.NickName + " start a fight ");
+                        {
+                        {P.K.isFight, true }
+                        });
+                            print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
 
                             isFight = true;
                             //LightUpJoin();
                             photonView.RPC("LightUpJoin", RpcTarget.Others);
                             start.SetActive(true);
-
+                           
 
                         });
 
-
-                    }
-                    else
-                    {
-                        fight.SetActive(false);
-                    }
-                }
-                else if (hero.type == Hero.Type.ARCHER || hero.data.bow > 0)
-                {
-                    List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(currentRegion);
-
-                    List<MonsterMoveController> choicesOfJoin = new List<MonsterMoveController>();
-
-                    foreach (Region r in AdjacentRegions)
-                    {
-                        List<MonsterMoveController> MonsterOnAdjacent = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(r);
-                        Debug.Log(MonsterOnAdjacent.Count);
-                        if (MonsterOnAdjacent.Count > 0)
-                        {
-                            choicesOfJoin.Add(MonsterOnAdjacent[0]);
-                        }
-
-                    }
-
-                    //if (choicesOfJoin.Count > 1)
-                    //{
-                    //TODO: have to choose one mosnter
-                    //}
-                    if (choicesOfJoin.Count >= 1)
-                    {
-
-                        if (hero.data.NumHours < 10)
-                        {
-                            fight.SetActive(true);
-
-                            print("Invite other to join in ");
-
-                            fight.GetComponent<Button>().onClick.RemoveAllListeners();
-                            fight.GetComponent<Button>().onClick.AddListener(() =>
-
-                            {
-                                MonsterMoveController monster = choicesOfJoin[0];
-                                monster.m.isFighted = true;
-                                //photonView.RPC("changeMonsterTofight", RpcTarget.All,choicesOfJoin[0].regionlabel);
-                                PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-                            {
-                            {P.K.isFight, true }
-                            });
-                                print(PhotonNetwork.LocalPlayer.NickName + " join in a fight ");
-
-                                isFight = true;
-                                //LightUpJoin();
-                                photonView.RPC("LightUpJoin", RpcTarget.Others);
-                                start.SetActive(true);
-
-
-                            });
-
-                        }
                     }
                 }
             }
         }
+        
 
     }
 
@@ -241,6 +250,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
     [PunRPC]
     public void SwitchScene()
     {
+        fightStart = true;
         print("Load for" + PhotonNetwork.LocalPlayer.NickName);
         if(isFight){
             fight.SetActive(false);
