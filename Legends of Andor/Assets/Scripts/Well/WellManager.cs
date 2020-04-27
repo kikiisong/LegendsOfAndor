@@ -8,17 +8,31 @@ using UnityEngine.UI;
 public class WellManager : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
     public Button drinkButton;
+    public GameObject wellPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
          drinkButton.gameObject.SetActive(false);
          TurnManager.Register(this);
+        if (!Room.IsSaved)
+        {
+            initPlacement();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void initPlacement()
+    {
+        Instantiate(wellPrefab, GameGraph.Instance.Find(5).position, Quaternion.identity);
+        Instantiate(wellPrefab, GameGraph.Instance.Find(35).position, Quaternion.identity);
+        Instantiate(wellPrefab, GameGraph.Instance.Find(45).position, Quaternion.identity);
+        Instantiate(wellPrefab, GameGraph.Instance.Find(55).position, Quaternion.identity);
 
     }
 

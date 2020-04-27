@@ -16,6 +16,7 @@ namespace Saving
         public GameObject goldpotPrefab;
         public GameObject fogPrefab;
         public GameObject witchPrefab;
+        public GameObject wellPrefab;
         [Header("Monsters")]
         public MonsterMoveController gor;
         public MonsterMoveController skral;
@@ -176,6 +177,28 @@ namespace Saving
                 w.region = label;
                 w.left = j["left"].ToObject<int>();
                
+            }
+
+            foreach (var j in Room.Json["wells"])
+            {
+                int label = j["region"].ToObject<int>();
+                bool filled = j["filled"].ToObject<bool>();
+
+                GameObject myWell = Instantiate(wellPrefab, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                Well curr = myWell.GetComponent<Well>();
+
+                
+                if (!filled)
+                {
+                    curr.emptied();
+                }
+
+
+
+
+
+
+
 
             }
 

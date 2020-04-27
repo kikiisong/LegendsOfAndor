@@ -18,14 +18,15 @@ public class Well : MonoBehaviour, TurnManager.IOnSunrise
     {
         wellIcon = GetComponent<Renderer>();
         //wellIcon.enabled = false;
-        
+        Region r = GameGraph.Instance.FindNearest(transform.position);
+        region = r.label;
         TurnManager.Register(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameGraph.Instance.PlaceAt(gameObject, region);
+        
     }
 
     public void OnSunrise()
@@ -49,5 +50,11 @@ public class Well : MonoBehaviour, TurnManager.IOnSunrise
         wellIcon.enabled = false;
     }
 
+    public void emptied()
+    {
+        IsFilled = false;
+        wellIcon = GetComponent<Renderer>();
+        wellIcon.enabled = false;
+    }
 
 }
