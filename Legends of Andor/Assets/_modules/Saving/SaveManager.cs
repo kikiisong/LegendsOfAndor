@@ -34,7 +34,8 @@ namespace Saving
                 new JProperty("wells", JWell()),
                 new JProperty("farmers",JFarmers()),
                 new JProperty("narrator", JNarrator()),
-                new JProperty("castle", JCastle()));
+                new JProperty("castle", JCastle()),
+                new JProperty("prince", JPrince()));
 
             File.WriteAllText(Helper.GetPath(file_name), jObject.ToString());
         }
@@ -162,14 +163,27 @@ namespace Saving
             };
         }
 
-        //TODO: should be write
-        //private JObject JPrince()
-        //{
-        //    return new JObject {
-        //        { "region"
-        //        }
 
-        //    }
-        //}
+        //save prince if exists
+        private JObject JPrince()
+        {
+            JObject savedPrince = null;
+            if (Prince.Instance != null)
+            {
+                savedPrince =  new JObject {
+                    { "regionLabel", Prince.Instance.regionlable},
+                    { "princeInFight", Prince.Instance.inFight}
+                };
+                print("princeSaved");
+            }
+            else
+            {
+                print("No prince to be saved");
+            }
+            return savedPrince;
+        }
+
+
+
     }
 }

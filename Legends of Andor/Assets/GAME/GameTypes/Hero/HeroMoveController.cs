@@ -125,21 +125,26 @@ public class HeroMoveController : MonoBehaviourPun
             Region current = GameGraph.Instance.FindNearest(Prince.Instance.transform.position);
             Region clicked = GameGraph.Instance.FindNearest(mousePos);
             bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
-            print(contained + " "+ (current.label != clicked.label));
-            print((current.position - clicked.position).magnitude);
+      
             if (current.label != clicked.label && contained && (clicked.position - mousePos).magnitude <= radius)
             {
                 isMoving = true;
                 StartCoroutine(CommonRoutines.MoveTo(Prince.Instance.gameObject.transform, clicked.position, animation_time, () =>
                 {
                     //prince move counter
+                    Prince.Instance.regionlable = clicked.label;
+
                     princeMoveCounter++;
-                    if (princeMoveCounter == 4)//or end turn clicked
+                    if (princeMoveCounter == 1)
                     {
-                        TurnManager.TriggerEvent_Move(clicked);
-                        princeMoveCounter = 0;
+                        TurnManager.TriggerEvent_Move(clicked);     
                     }
 
+                    if (princeMoveCounter == 4)
+                    {
+                        princeMoveCounter = 0;
+                    }
+                    
                     isMoving = false;
                 }));
 
