@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
 using UnityEngine.UI;
+using Card;
 
 public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
@@ -13,7 +14,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
     public GameObject fogInfo;
     public GameObject herbDice;
     public GameObject herbGorPrefab;
-
+    public GameObject narrator;
 
     // Start is called before the first frame update
     void Start()
@@ -151,11 +152,12 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         else if (curr.type == FogType.Gold)//Gold
         {
             photonView.RPC("Gold", RpcTarget.AllBuffered, currentRegion, heroType);
-        }/*
+        }
         else if (curr.type == FogType.Event)//Event
         {
-            myEvents.flipped();
-        }*/
+            // Matt's part
+            photonView.RPC("FogEventCard", RpcTarget.AllBuffered, currentRegion);
+        }
         else if (curr.type == FogType.Wineskin)//Wineskin
         {
             photonView.RPC("Wineskin", RpcTarget.AllBuffered, currentRegion, heroType);
@@ -169,6 +171,18 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
             photonView.RPC("Gor", RpcTarget.AllBuffered, currentRegion, heroType);
         }
     }
+
+    // trigger the event card on narrrator
+    [PunRPC]
+    public void FogEventCard(int currentRegion)
+    {
+        List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
+        Fog curr = fogOnRegion[0];
+        curr.fogIcon.enabled = false;
+        Destroy(curr);
+        narrator.GetComponent<Narrator>().realaseNewEventCardFog();
+    }
+
 
     [PunRPC]
     public void SP(int currentRegion, int whichHero)

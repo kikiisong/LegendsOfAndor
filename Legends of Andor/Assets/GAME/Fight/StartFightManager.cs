@@ -42,8 +42,8 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
         {
             update = 0.0f;
             Debug.Log("Update");
-            print(!player.HasMoved());
-            if (!player.HasMoved()) {
+            print(!player.HasConsumedHour());
+            if (!player.HasConsumedHour()) {
                 
                 displayFight(player, currentRegion);
             }
@@ -55,7 +55,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
         fight.SetActive(false);
     }
     public void displayFight(Player player, Region currentRegion) {
-        if (!player.HasMoved())
+        if (!player.HasConsumedHour())
         {
             if (PhotonNetwork.LocalPlayer == player)
             {
@@ -67,7 +67,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                 if (MonsterOnMap.Count > 0)
                 {
 
-                    if (hero.data.numHours < 10)
+                    if (hero.data.NumHours < 10)
                     {
                         fight.SetActive(true);
 
@@ -131,7 +131,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                     if (choicesOfJoin.Count >= 1)
                     {
 
-                        if (hero.data.numHours < 10)
+                        if (hero.data.NumHours < 10)
                         {
                             fight.SetActive(true);
 

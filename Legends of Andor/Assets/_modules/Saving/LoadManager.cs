@@ -116,6 +116,46 @@ namespace Saving
                     reg.data.falcon = j["falcon"].ToObject<int>();
                 }
             }
+
+            //print("It is correct until here !!!!!");
+            // set the farmer number on each region to the original one
+            foreach (var j in Room.Json["farmers"])
+            {
+                int label = j["region"].ToObject<int>();
+                Region reg = GameGraph.Instance.Find(label);
+                List<Farmer> temp = GameGraph.Instance.FindObjectsOnRegion<Farmer>(reg.label);
+                int numOfFar = j["numberOfFarmer"].ToObject<int>();
+                if(temp.Count > 0)
+                {
+                    temp[0].setNumOfFarmer(numOfFar);
+                    /*
+                    if(numOfFar == 1)
+                    {
+                        print("the farmer number is 1 and this region is region " + reg.label);
+                    }
+
+                    print("The farmer number on region " + reg.label + " is " + temp[0].numberOfFarmer);
+                    */
+                }
+                
+            }
+
+            // set the narrator position and the current event card
+            // but the effect of this card won't be taken
+            var Narrator = Room.Json["narrator"];
+            int currentLocation = Narrator["currentLoc"].ToObject<int>();
+            GameObject.FindObjectOfType<Card.Narrator>().transform.position = GameObject.FindObjectOfType<Card.Narrator>().GetComponent<Card.Narrator>().narratorPositions[currentLocation].position;
+            GameObject.FindObjectOfType<Card.Narrator>().GetComponent<Card.Narrator>().currentLoc = currentLocation;
+            List<GameObject> currentEventCardList = GameObject.FindObjectOfType<EventCardController>().GetComponent<EventCardController>().evnetCardList;
+            int currentEventIndex = Narrator["currentEventCard"].ToObject<int>();
+            GameObject.FindObjectOfType<eventCardButton>().GetComponent<eventCardButton>().setEventCard(currentEventCardList[currentEventIndex]);
+
+
+            // set the Castle's shield back to the old value
+            var castle = Room.Json["castle"];
+            int shieldNum = castle["currentNumOfShield"].ToObject<int>();
+            GameObject.FindObjectOfType<Castle>().GetComponent<Castle>().setShieldNum(shieldNum);
+
         }
     }
 }

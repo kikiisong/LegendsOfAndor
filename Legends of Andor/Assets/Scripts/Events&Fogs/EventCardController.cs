@@ -7,7 +7,7 @@ using System;
 
 public class EventCardController : MonoBehaviourPun
 {
-    public List<int> cards = new List<int>(34);
+   // public List<int> cards = new List<int>(34);
     private static System.Random rand = new System.Random();
 
     public List<GameObject> evnetCardList;
@@ -342,7 +342,7 @@ public class EventCardController : MonoBehaviourPun
         {
 
             Hero hero = (Hero)players[i].GetHero();
-            if (hero.data.numHours == 0)
+            if (hero.data.NumHours == 0)
             {
                 hero.data.WP += 2;
             }
@@ -432,7 +432,7 @@ public class EventCardController : MonoBehaviourPun
 
             Hero hero = (Hero)players[i].GetHero();
             perviousWP[i] = hero.data.WP;
-            if (hero.data.numHours == 0)
+            if (hero.data.NumHours == 0)
             {
                 if (hero.data.WP <= 2)
                 {

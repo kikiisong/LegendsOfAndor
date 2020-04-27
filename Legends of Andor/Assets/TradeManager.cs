@@ -13,6 +13,7 @@ public class TradeManager : MonoBehaviourPun
 {
     public GameObject panelOne;
     public GameObject panelTwo;
+    public TradeWithManyUI tradeMany;
 
     private Player player1;
     private Player player2;
@@ -23,30 +24,46 @@ public class TradeManager : MonoBehaviourPun
 
     private byte TRADEITEM = 1;
     private byte OPENWIND = 2;
+    private byte OPENWINDWHENMANY = 3;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void Open()
-    {   
-        initPlayers();
-        Debug.Log(player1);
-        Debug.Log(player2);
-        if (player1 != null && player2 != null) {
-        //if (player1 != null )
-            object[] content = new object[] { player1.ActorNumber, player2.ActorNumber };
+    {
 
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
-            //RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber } };
-            SendOptions sendOptions = new SendOptions { Reliability = true };
-            PhotonNetwork.RaiseEvent(OPENWIND, content, raiseEventOptions, sendOptions);
+        //If more than 2 players on the same region, display panel allowing choosing a player you want to trade with
+        int playersOnRegion = 0;
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            if (PhotonNetwork.PlayerList[i].GetCurrentRegion() == PhotonNetwork.LocalPlayer.GetCurrentRegion()) playersOnRegion++;
+
+        }
+        //if more there are more than 2 person on the same region and we wish to trade,
+        // we will display a panel allowing player to select a player they wish to trade with
+        if (playersOnRegion > 2) tradeMany.Open(PhotonNetwork.LocalPlayer);
+        else if (playersOnRegion == 2)
+        { // if only two players are on the same region, then we will trigger this function 
+            initPlayers();
+            Debug.Log(player1);
+            Debug.Log(player2);
+            if (player1 != null && player2 != null)
+            {
+                //if (player1 != null )
+                object[] content = new object[] { player1.ActorNumber, player2.ActorNumber };
+
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
+                //RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber } };
+                SendOptions sendOptions = new SendOptions { Reliability = true };
+                PhotonNetwork.RaiseEvent(OPENWIND, content, raiseEventOptions, sendOptions);
+            }
         }
         else
         {
@@ -86,7 +103,8 @@ public class TradeManager : MonoBehaviourPun
             Debug.Log(panelTwo.name + " - panel two");
             Debug.Log(player1.NickName + " - player 1 nickname");
             Debug.Log(player2.NickName + " - player 2 nickname");
-            if (bagType == 1) {
+            if (bagType == 1)
+            {
                 //updateHeroStatsRPC(name, player1, -1);
                 //updateHeroStatsRPC(name, player2, 1);
                 updateHeroStats(player1, name, (-1));
@@ -102,16 +120,20 @@ public class TradeManager : MonoBehaviourPun
         }
 
         //open window only to two players
-        if (obj.Code == OPENWIND)
+        if (obj.Code == OPENWIND || obj.Code == OPENWINDWHENMANY)
         {
-            //object[] data = (object[])obj.CustomData;
-            //int player1ID = (int)data[0];
-            //int player2ID = (int)data[1];
+            object[] data = (object[])obj.CustomData;
+            int player1ID = (int)data[0];
+            int player2ID = (int)data[1];
 
-            //player1 = PhotonNetwork.CurrentRoom.GetPlayer(player1ID);
-            //player2 = PhotonNetwork.CurrentRoom.GetPlayer(player2ID);
 
-            initPlayers();
+            if (obj.Code == OPENWIND) initPlayers();
+            else // when there are multiple player's on the same region
+            {
+                // in this case scenario we know for a fact who is who, so shouldn't be an issue when it comes to players' intialization
+                player1 = PhotonNetwork.CurrentRoom.GetPlayer(player1ID);
+                player2 = PhotonNetwork.CurrentRoom.GetPlayer(player2ID);
+            }
             if (panelOne != null && panelTwo != null)
             {
                 bool isActive1 = panelOne.activeSelf;
@@ -128,8 +150,8 @@ public class TradeManager : MonoBehaviourPun
         }
     }
 
- 
-    private void decrItem( GameObject bag , int slotID)
+
+    private void decrItem(GameObject bag, int slotID)
     {
         GameObject slot = bag.gameObject.transform.GetChild(1).GetChild(slotID).gameObject; //to change later
 
@@ -154,7 +176,7 @@ public class TradeManager : MonoBehaviourPun
                 int count = int.Parse(tx.text);
                 count--;
 
-               //empty slot if dropped item
+                //empty slot if dropped item
                 if (count != 0)
                 {
                     tx.text = (count).ToString();
@@ -180,10 +202,10 @@ public class TradeManager : MonoBehaviourPun
         Debug.Log("----------------------------------");
         Debug.Log("player stats " + player.NickName);
         Hero hero = player.GetHero();
-        
+
         Debug.Log("     coin " + hero.data.gold);
         Debug.Log("     wineskin " + hero.data.wineskin);
-        
+
         if (spriteName == "coin") hero.data.gold += updateUnit;
         if (spriteName == "brew") hero.data.brew += updateUnit;
         if (spriteName == "wineskin") hero.data.wineskin += updateUnit;
@@ -280,7 +302,7 @@ public class TradeManager : MonoBehaviourPun
 
         if (hero.data.wineskin > 0)
         {
-        fillBag(emptySlot, "wineskin", hero.data.wineskin, bag);
+            fillBag(emptySlot, "wineskin", hero.data.wineskin, bag);
             emptySlot++;
         }
         if (hero.data.gold > 0)
@@ -318,7 +340,7 @@ public class TradeManager : MonoBehaviourPun
             fillBag(emptySlot, "falcon", hero.data.falcon, bag);
             emptySlot++;
         }
-        
+
     }
 
     //works only if there are two ppl on the same region
@@ -330,11 +352,12 @@ public class TradeManager : MonoBehaviourPun
         Player[] playerList = PhotonNetwork.PlayerList;
         for (int i = 0; i < playerList.Length; i++)
         {
-            if (playerList[i].GetCurrentRegion() == region && r==0)
+            if (playerList[i].GetCurrentRegion() == region && r == 0)
             {
                 player1 = playerList[i];
                 r++;
-            }else if (playerList[i].GetCurrentRegion() == region && r == 1)
+            }
+            else if (playerList[i].GetCurrentRegion() == region && r == 1)
             {
                 player2 = playerList[i];
             }
@@ -346,8 +369,8 @@ public class TradeManager : MonoBehaviourPun
     //sets emptySlot of a bag to the first empty slot
     public int containsElement(string name, GameObject bag)
     {
-        Debug.Log("inside contains elements. Sprite name " +  name);
-      //  emptySlotBag = 0;
+        Debug.Log("inside contains elements. Sprite name " + name);
+        //  emptySlotBag = 0;
         for (int i = 5; i >= 0; i--)
         {
             GameObject image = bag.gameObject.transform.GetChild(1).GetChild(i).GetChild(0).gameObject;
@@ -359,7 +382,7 @@ public class TradeManager : MonoBehaviourPun
             }
             else if (img.sprite.name == "UIMask")
             {
-                emptySlot= i;
+                emptySlot = i;
             }
         }
 

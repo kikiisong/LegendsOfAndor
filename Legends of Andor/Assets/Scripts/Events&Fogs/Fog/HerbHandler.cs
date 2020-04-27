@@ -11,12 +11,14 @@ public class HerbHandler : MonoBehaviourPun, TurnManager.IOnMove
     public Button dropButton, pickButton;
     public GameObject myHerb;
     public GameObject herbPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
         dropButton.gameObject.SetActive(false);
         pickButton.gameObject.SetActive(false);
         myHerb.SetActive(false);
+        //myHerb.GetComponent<Herb>().found = false;
         TurnManager.Register(this);
 
     }
@@ -40,30 +42,14 @@ public class HerbHandler : MonoBehaviourPun, TurnManager.IOnMove
 
 
                 pickButton.gameObject.SetActive(true);
-                pickButton.GetComponent<Button>().onClick.RemoveAllListeners();
-                pickButton.GetComponent<Button>().onClick.AddListener(() =>
-                {
-
-                    photonView.RPC("HerbPicked", RpcTarget.AllBuffered, (int)hero.type);
-
-                    pickButton.gameObject.SetActive(false);
-                    dropButton.gameObject.SetActive(true);
-                });
+               
 
 
             }
             else if (hero.data.herb > 0)
             {
                 dropButton.gameObject.SetActive(true);
-                dropButton.GetComponent<Button>().onClick.RemoveAllListeners();
-                dropButton.GetComponent<Button>().onClick.AddListener(() =>
-                {
-
-                    photonView.RPC("HerbDropped", RpcTarget.AllBuffered, currentRegion.label, (int)hero.type);
-
-                    pickButton.gameObject.SetActive(true);
-                    dropButton.gameObject.SetActive(false);
-                });
+                
             }
             else
             {
@@ -72,6 +58,25 @@ public class HerbHandler : MonoBehaviourPun, TurnManager.IOnMove
             }
         }
 
+    }
+
+    public void pickUpHerb()
+    {
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
+        photonView.RPC("HerbPicked", RpcTarget.AllBuffered, (int)hero.type);
+
+        pickButton.gameObject.SetActive(false);
+        dropButton.gameObject.SetActive(true);
+    }
+
+    public void dropHerb()
+    {
+        Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
+        var r = PhotonNetwork.LocalPlayer.GetCurrentRegion();
+        photonView.RPC("HerbDropped", RpcTarget.AllBuffered, r.label, (int)hero.type);
+
+        pickButton.gameObject.SetActive(true);
+        dropButton.gameObject.SetActive(false);
     }
 
     [PunRPC]
@@ -84,8 +89,10 @@ public class HerbHandler : MonoBehaviourPun, TurnManager.IOnMove
             Hero hero = (Hero)players[i].GetHero();
             if ((int)hero.type == whichHero)
             {
-                Debug.Log(hero.data.herb);
+                //Debug.Log(hero.data.herb);
                 hero.data.herb += 1;
+                var r = hero.GetCurrentRegion();
+                r.data.herb -= 1;
                 break;
             }
         }
@@ -103,8 +110,10 @@ public class HerbHandler : MonoBehaviourPun, TurnManager.IOnMove
             Hero hero = (Hero)players[i].GetHero();
             if ((int)hero.type == whichHero)
             {
-                Debug.Log(hero.data.herb);
+                //Debug.Log(hero.data.herb);
                 hero.data.herb -= 1;
+                var r = hero.GetCurrentRegion();
+                r.data.herb += 1;
                 break;
             }
         }

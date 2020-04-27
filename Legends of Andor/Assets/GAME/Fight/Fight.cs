@@ -420,6 +420,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             if(myHerb!=null)
             {
                 myHerb.gameObject.SetActive(true);
+                //myHerb.found = true;
             }
             Destroy(aMonster);
             print("WIN");

@@ -15,11 +15,34 @@ public class HeroMoveController : MonoBehaviourPun
     public float animation_time = 1;
 
     bool isMoving = false;
-
     bool isControllingPrince = false;
+    public int princeMoveCounter = 0;
+
+    public Button movePrinceButton;
 
 
-    public GameObject princeButton;
+    
+
+    public void activateControllingPrince()
+    {
+       
+        if (Prince.Instance != null) isControllingPrince = true;
+    }
+
+
+    public int PrinceMoveCounter
+    {
+        set
+        {
+            princeMoveCounter = value;
+        }
+        get
+        {
+            return princeMoveCounter;
+        }
+    }
+
+
 
 
     public bool IsControllingPrince
@@ -34,53 +57,47 @@ public class HeroMoveController : MonoBehaviourPun
         }
     }
 
-    void activateMovePrince()
-    {
-        isControllingPrince=true;
 
-    }
 
     void Start()
     {
         Hero hero = photonView.Owner.GetHero();
-        GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
-        princeButton.GetComponent<Button>().onClick.AddListener(() => activateMovePrince());
+        GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();     
+        movePrinceButton = GameObject.Find("MovePrince").GetComponent<Button>();
+        movePrinceButton.onClick.AddListener(activateControllingPrince);
+        movePrinceButton.gameObject.SetActive(false);
+
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Prince.Instance != null)
-        {
-            princeButton.SetActive(true);
-        }
-        else
-        {
-            princeButton.SetActive(false);
-        }
 
         if (!isMoving && photonView.IsMine && TurnManager.CanMove() && Input.GetMouseButtonDown(0))
         {
-            if (!IsControllingPrince)
-            {
+           if (!IsControllingPrince)
+           {
                 MoveToClick();
-            }
-            else
-            {
-                MovePrince();
-            }
+           }
+           else
+           {
+               MovePrince();
+           }
         }
     }
 
     void MoveToClick()
     {
         try
-        {
-            Region current = GameGraph.Instance.FindNearest(transform.position);
+        {    
+            Region heroCurrent = GameGraph.Instance.FindNearest(transform.position); //hero current region
             Vector3 position = GameGraph.Instance.CastRay(Input.mousePosition);
-            Region clicked = GameGraph.Instance.FindNearest(position);
-            bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
-            if (current.label != clicked.label && contained && (clicked.position - position).magnitude <= radius)
+            Region clicked = GameGraph.Instance.FindNearest(position);//clicked region
+
+            bool contained = GameGraph.Instance.AdjacentVertices(heroCurrent).Contains(clicked);
+
+            if (heroCurrent.label != clicked.label && contained && (clicked.position - position).magnitude <= radius)
             {
                 isMoving = true;
                 StartCoroutine(CommonRoutines.MoveTo(gameObject.transform, clicked.position, animation_time, () =>
@@ -89,6 +106,7 @@ public class HeroMoveController : MonoBehaviourPun
                     isMoving = false;
                 }));
             }
+
         }
         catch (Exception)
         {
@@ -97,14 +115,13 @@ public class HeroMoveController : MonoBehaviourPun
     }
 
 
-   
-
 
     void MovePrince()
     {
         try
         {
             Vector3 mousePos = GameGraph.Instance.CastRay(Input.mousePosition);
+
             Region current = GameGraph.Instance.FindNearest(Prince.Instance.transform.position);
             Region clicked = GameGraph.Instance.FindNearest(mousePos);
             bool contained = GameGraph.Instance.AdjacentVertices(current).Contains(clicked);
@@ -115,11 +132,17 @@ public class HeroMoveController : MonoBehaviourPun
                 isMoving = true;
                 StartCoroutine(CommonRoutines.MoveTo(Prince.Instance.gameObject.transform, clicked.position, animation_time, () =>
                 {
-                    //TurnManager.TriggerEvent_Move(clicked);
+                    //prince move counter
+                    princeMoveCounter++;
+                    if (princeMoveCounter == 4)//or end turn clicked
+                    {
+                        TurnManager.TriggerEvent_Move(clicked);
+                        princeMoveCounter = 0;
+                    }
+
                     isMoving = false;
                 }));
 
-                isControllingPrince = false;
             }
         }
         catch (Exception)

@@ -61,11 +61,11 @@ public class FightTurnManager : MonoBehaviourPun
     //Turn
     public static bool CanFight()
     {
-        if (CurrentHero.data.numHours >= 7)
+        if (CurrentHero.data.NumHours >= 7)
         {
             return IsMyTurn() && CurrentHero.data.WP >= 2;
         }
-        return IsMyTurn() && CurrentHero.data.numHours < 10;
+        return IsMyTurn() && CurrentHero.data.NumHours < 10;
     }
 
     //Turn
@@ -160,9 +160,9 @@ public class FightTurnManager : MonoBehaviourPun
     public void HeroFight(Player player)
     {
         Hero hero = player.GetHero();
-        hero.data.numHours++;
+        hero.data.ConsumeHour();
 
-        if (hero.data.numHours > 7)
+        if (hero.data.NumHours > 7)
         {
             hero.data.WP -= 2;
         }

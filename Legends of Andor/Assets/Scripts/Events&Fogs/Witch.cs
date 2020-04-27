@@ -61,7 +61,7 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
         {
             if (found)
             {
-                Debug.Log("Witch found turn1");
+                
                 Hero hero = (Hero)PhotonNetwork.LocalPlayer.GetHero();//photonView.Owner is the Scene
                 var r = player.GetCurrentRegion();
                 List<Witch> witchOnRegion = GameGraph.Instance.FindObjectsOnRegion<Witch>(r.label);
@@ -69,7 +69,6 @@ public class Witch : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnManager
                 if (witchOnRegion.Count > 0 && left > 0)
                 {
                     brewButton.gameObject.SetActive(true);
-                    Debug.Log("Witch found turn2");
                 }
                 else
                 {

@@ -20,7 +20,7 @@ namespace Card
         public int currentEventIndex;
 
         public GameObject myEventCardController;
-        public int[] temp = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+        public int[] temp = { 0, 1, 2, 2, 2, 3, 4, 4, 5, 5, 6, 7, 8, 9, 9, 10, 11, 12, 13 };
 
         public bool updatedMonsters = false;
 
@@ -45,17 +45,19 @@ namespace Card
             TurnManager.Register(this);
 
             // Do event A
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && !Room.IsSaved)
             {
                 LegendCard.Cards[LegendCard.Letter.A].Event();
+                shuffleArray(temp);
+                currentEventIndex = 0;
             }
 
 
-            shuffleArray(temp);
-            currentEventIndex = 0;
+            //shuffleArray(temp);
+            //currentEventIndex = 0;
 
             //Thread.Sleep(500);
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && !Room.IsSaved)
             {
                 photonView.RPC("releaseNewRventCard", RpcTarget.AllBuffered, temp);
             }
@@ -138,6 +140,15 @@ namespace Card
             myEventCardController.GetComponent<EventCardController>().newEventCard(temp[currentEventIndex]);
             // increase the event card index, next time will pick another one
             currentEventIndex += 1;
+
+        }
+
+        
+        public void realaseNewEventCardFog()
+        {
+            myEventCardController.GetComponent<EventCardController>().newEventCard(temp[currentEventIndex]);
+            // increase the event card index, next time will pick another one
+            currentEventIndex += 1;
         }
 
         private void handLegendCard()
@@ -171,7 +182,7 @@ namespace Card
                     else
                     {
                         photonView.RPC("loadLosingScreen", RpcTarget.AllBuffered);
-                    }
+                 }
                 }
             }
         }

@@ -6,14 +6,14 @@ using UnityEngine;
 using Routines;
 
 
-public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnEndDay
+public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOnTurnCompleted, TurnManager.IOnEndDay
 {
     CoroutineQueue coroutineQueue;
 
     // Start is called before the first frame update
     void Start()
     {
-        Hero hero = (Hero)photonView.Owner.GetHero();
+        Hero hero = photonView.Owner.GetHero();
         GetComponent<MeshRenderer>().material = hero.ui.color;
         int i = TurnManager.Instance.GetWaitIndex(photonView.Owner);
         if(i != -1)
@@ -23,17 +23,18 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
         TurnManager.Register(this);
         coroutineQueue = new CoroutineQueue(this);
         coroutineQueue.StartLoop();
+        OnMove(photonView.Owner, photonView.Owner.GetCurrentRegion());
     }
-    
+
 
     public void OnMove(Player player, Region currentRegion)
     {
         if (photonView.Owner == player) {
             var h = player.GetHero();
-            if (h.data.numHours != 0)
+            if (h.data.NumHours != 0)
             {
                 var transforms = GameMapManager.Instance.timeMarkerUpdatePositions;
-                var position = transforms[h.data.numHours - 1].position;
+                var position = transforms[h.data.NumHours - 1].position;
                 coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, position, 2));
             }
         }
@@ -56,5 +57,10 @@ public class TimeMarker : MonoBehaviourPun, TurnManager.IOnMove, TurnManager.IOn
             Vector3 waitPosition = GameMapManager.Instance.timeMarkerInitialPositions[i].position;
             coroutineQueue.Enqueue(CommonRoutines.MoveTo(transform, waitPosition, 2));           
         }
+    }
+
+    public void OnTurnCompleted(Player player)
+    {
+        OnMove(player, player.GetCurrentRegion());
     }
 }

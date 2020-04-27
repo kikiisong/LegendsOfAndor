@@ -24,7 +24,16 @@ public class Castle : MonoBehaviourPun
 
         // According to the number of players the shield should be different.
         numberOfPlayers = PhotonNetwork.PlayerList.Length;
-        setInitialShield();
+        if (!Room.IsSaved)
+        {
+            setInitialShield();
+        }
+        
+    }
+
+    public void setShieldNum(int numOfS)
+    {
+        extraShiled.numberOfShileds = numOfS;
     }
 
     private void setInitialShield()
@@ -91,7 +100,9 @@ public class Castle : MonoBehaviourPun
     // test the ground bag see if there is a herb in it
     public bool isHerbBack()
     {
-        return false;
+        Region r = GameGraph.Instance.Find(0);
+        bool hasHerb = (r.data.herb > 0) ? true : false;
+        return hasHerb;
     }
 
     // After the skrall on tower is defeated, this function should be triggered

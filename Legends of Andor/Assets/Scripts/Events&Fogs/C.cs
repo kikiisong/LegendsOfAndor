@@ -19,6 +19,7 @@ namespace Card
         public GameObject towerInfo;
         public GameObject towerDice;
         public GameObject princePrefab;
+        public GameObject movePrinceButton;
 
         MonsterMoveController linkedMonster;
 
@@ -52,6 +53,10 @@ namespace Card
                         GameObject prince = PhotonNetwork.Instantiate(princePrefab);
                         prince.transform.SetParent(GameObject.Find("Map").transform);
                         GameGraph.Instance.PlaceAt(prince, 72);
+                        movePrinceButton = GameObject.Find("Actions").transform.Find("MovePrince").gameObject;
+                        movePrinceButton.SetActive(true);
+                        
+
                     }
 
 
@@ -80,6 +85,8 @@ namespace Card
                         GameGraph.Instance.PlaceAt(skral, 29);
 
                         GameObject prince = PhotonNetwork.Instantiate(princePrefab);
+                        movePrinceButton = GameObject.Find("MovePrince");
+                        movePrinceButton.SetActive(true);
                         prince.transform.SetParent(GameObject.Find("Map").transform);
                         GameGraph.Instance.PlaceAt(prince, 72);
                     }

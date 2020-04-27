@@ -13,7 +13,8 @@ namespace Card
 
         public GameObject monsterParent;
         public GameObject wardraksPrefab;
-       
+        public GameObject movePrinceButton;
+
 
         protected override void Event(Difficulty difficulty)
         {
@@ -42,6 +43,8 @@ namespace Card
         [PunRPC]
         public void RemovePrince()
         {
+            movePrinceButton = GameObject.Find("MovePrince");
+            movePrinceButton.SetActive(false);
             Prince.Instance.gameObject.SetActive(false);
         }
     }

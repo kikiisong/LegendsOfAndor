@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Herb : MonoBehaviour
 {
-    public Renderer herbIcon;
+    //public Renderer herbIcon;
+    //public bool found = true;
     // Start is called before the first frame update
     void Start()
     {
-        herbIcon = GetComponent<Renderer>();
+        //herbIcon = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
