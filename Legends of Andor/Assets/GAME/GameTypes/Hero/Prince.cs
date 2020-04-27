@@ -6,6 +6,7 @@ public class Prince : MonoBehaviour
 {
     public bool inFight = false;
     private bool alive = true;
+    public int regionlable;
     public static Prince Instance
     {
         get
@@ -18,7 +19,6 @@ public class Prince : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
