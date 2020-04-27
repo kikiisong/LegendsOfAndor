@@ -30,9 +30,12 @@ namespace Saving
                 new JProperty("monsters", JMonsters()),
                 new JProperty("goldpots", JGoldpot()),
                 new JProperty("fogs", JFog()),
+                new JProperty("witch", JWitch()),
+                new JProperty("wells", JWell()),
                 new JProperty("farmers",JFarmers()),
                 new JProperty("narrator", JNarrator()),
-                new JProperty("castle", JCastle()));
+                new JProperty("castle", JCastle()),
+                new JProperty("prince", JPrince()));
 
             File.WriteAllText(Helper.GetPath(file_name), jObject.ToString());
         }
@@ -103,7 +106,31 @@ namespace Saving
                 select new JObject
                 {
                     {"region", fog.region },
-                    {"type", new JValue(fog.type) },
+                    {"type", new JValue(fog.type) }
+                }
+            );
+        }
+
+        private JArray JWitch()
+        {
+            return new JArray(
+                from witch in FindObjectsOfType<Witch>()
+                select new JObject
+                {
+                    {"region", witch.region },
+                    {"left", witch.left }
+                }
+            );
+        }
+
+        private JArray JWell()
+        {
+            return new JArray(
+                from well in FindObjectsOfType<Well>()
+                select new JObject
+                {
+                    {"region", well.region },
+                    {"filled", new JValue(well.IsFilled) }
                 }
             );
         }
@@ -136,14 +163,27 @@ namespace Saving
             };
         }
 
-        //TODO: should be write
-        //private JObject JPrince()
-        //{
-        //    return new JObject {
-        //        { "region"
-        //        }
 
-        //    }
-        //}
+        //save prince if exists
+        private JObject JPrince()
+        {
+            JObject savedPrince = null;
+            if (Prince.Instance != null)
+            {
+                savedPrince =  new JObject {
+                    { "regionLabel", Prince.Instance.regionlable},
+                    { "princeInFight", Prince.Instance.inFight}
+                };
+                print("princeSaved");
+            }
+            else
+            {
+                print("No prince to be saved");
+            }
+            return savedPrince;
+        }
+
+
+
     }
 }

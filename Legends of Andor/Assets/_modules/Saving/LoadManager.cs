@@ -15,12 +15,17 @@ namespace Saving
         public GameObject timeMarkerPrefab;
         public GameObject goldpotPrefab;
         public GameObject fogPrefab;
+        public GameObject witchPrefab;
+        public GameObject wellPrefab;
+        public GameObject princePrefab;
         [Header("Monsters")]
         public MonsterMoveController gor;
         public MonsterMoveController skral;
         public MonsterMoveController wardrak;
 
- 
+        
+
+
 
         //Getters
         Region InitialRegion
@@ -39,6 +44,8 @@ namespace Saving
                 throw new System.Exception();
             }
         }
+
+
 
         // Start is called before the first frame update
         void Start()
@@ -79,7 +86,7 @@ namespace Saving
             //Monsters
             if (PhotonNetwork.IsMasterClient)
             {
-                foreach(var j in Room.Json["monsters"])
+                foreach (var j in Room.Json["monsters"])
                 {
                     MonsterType type = j["type"].ToObject<MonsterType>();
                     int label = j["region"].ToObject<int>();
@@ -100,8 +107,10 @@ namespace Saving
                     }
                 }
 
+
+
                 //Goldpots 
-                foreach(var j in Room.Json["goldpots"])
+                foreach (var j in Room.Json["goldpots"])
                 {
                     int label = j["region"].ToObject<int>();
                     PhotonNetwork.Instantiate(goldpotPrefab.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
@@ -126,7 +135,7 @@ namespace Saving
                 Region reg = GameGraph.Instance.Find(label);
                 List<Farmer> temp = GameGraph.Instance.FindObjectsOnRegion<Farmer>(reg.label);
                 int numOfFar = j["numberOfFarmer"].ToObject<int>();
-                if(temp.Count > 0)
+                if (temp.Count > 0)
                 {
                     temp[0].setNumOfFarmer(numOfFar);
                     /*
@@ -138,7 +147,7 @@ namespace Saving
                     print("The farmer number on region " + reg.label + " is " + temp[0].numberOfFarmer);
                     */
                 }
-                
+
             }
 
             // set the narrator position and the current event card
@@ -166,6 +175,61 @@ namespace Saving
                 f.region = label;
                 f.type = j["type"].ToObject<FogType>();
             }
+
+            foreach (var j in Room.Json["witch"])
+            {
+                int label = j["region"].ToObject<int>();
+                GameObject myWitch = Instantiate(witchPrefab, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                Witch w = myWitch.GetComponent<Witch>();
+                w.region = label;
+                w.left = j["left"].ToObject<int>();
+               
+            }
+
+            foreach (var j in Room.Json["wells"])
+            {
+                int label = j["region"].ToObject<int>();
+                bool filled = j["filled"].ToObject<bool>();
+
+                GameObject myWell = Instantiate(wellPrefab, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                Well curr = myWell.GetComponent<Well>();
+
+                
+                if (!filled)
+                {
+                    curr.emptied();
+                }
+
+            }
+
+
+            
+            
+
+            //load prince if exists
+            var jprince = Room.Json["prince"];
+            if (jprince != null)
+            {
+                print("load prince");
+                int princeRegionlabel = jprince["regionLabel"].ToObject<int>();
+                GameObject prince = PhotonNetwork.Instantiate(princePrefab);
+                prince.transform.SetParent(GameObject.Find("Map").transform);
+                GameGraph.Instance.PlaceAt(prince, princeRegionlabel);
+                Prince instance = prince.GetComponent<Prince>();
+                instance.regionlable = princeRegionlabel;
+                instance.inFight = jprince["princeInFight"].ToObject<bool>();
+
+            }
+            
+
+
+
+
+
+
+
+
+
 
         }
     }

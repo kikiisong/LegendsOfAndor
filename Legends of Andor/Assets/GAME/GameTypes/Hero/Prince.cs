@@ -19,7 +19,9 @@ public class Prince : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject movePrinceButton = GameObject.Find("Actions").transform.Find("MovePrince").gameObject;
+        movePrinceButton.SetActive(true);
+
     }
 
     // Update is called once per frame

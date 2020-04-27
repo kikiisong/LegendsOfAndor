@@ -10,12 +10,12 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
 {
     public MonsterMoveController gorPrefab;
     public Button brewButton;
-    public Witch myWitch;
     public GameObject fogInfo;
     public GameObject herbDice;
     public GameObject herbGorPrefab;
     public GameObject narrator;
     public GameObject fogPrefab;
+    public GameObject witchPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -327,10 +327,9 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
             }
         }
 
-        myWitch.locate(currentRegion);
+        GameObject w = Instantiate(witchPrefab, GameGraph.Instance.Find(currentRegion).position, Quaternion.identity);
+        Witch myWitch = w.GetComponent<Witch>();
         myWitch.region = currentRegion;
-        myWitch.found = true;
-        myWitch.witchIcon.enabled = true;
 
         Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
         t.text = (Hero.Type)whichHero + " discovered the witch Reka and got her brew for free! You can now buy brew from Reka.";
