@@ -219,12 +219,6 @@ namespace Saving
                 instance.regionlable = princeRegionlabel;
                 instance.inFight = jprince["princeInFight"].ToObject<bool>();
 
-                GameObject movePrinceButton = GameObject.Find("Actions").transform.Find("MovePrince").gameObject;
-                movePrinceButton.SetActive(true);
-                
-                Debug.Log("missing button? "+ movePrinceButton.name);
-
-
             }
             
 
