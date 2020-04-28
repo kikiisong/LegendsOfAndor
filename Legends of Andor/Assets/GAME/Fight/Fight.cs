@@ -71,6 +71,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public Monster aMonster;
     public Herb myHerb;
     public GameObject prince;
+    public int currentWP;
+    public int damage;
 
     // Use this for initialization
     void Start()
@@ -83,6 +85,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             {
                 mc = monsterC;
                 aMonster = monsterC.m;
+                currentWP = monsterC.m.maxWP;
                 
             }
         }
@@ -123,6 +126,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         
     }
 
+    public void Attacked(int damage)
+    {
+        currentWP -= damage;
+        print("CurrentWP" + currentWP);
+    }
 
 
     //--------START--------//
@@ -159,7 +167,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 }
                 hero.data.dice = dice;
                 hHUD.setHeroHUD(hero);
-                mHUD.setMonsterHUD(aMonster);
+                mHUD.setMonsterHUD(aMonster,currentWP);
 
                 //GameObject go5 = PhotonNetwork.
                 //}
@@ -207,6 +215,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         player = PhotonNetwork.LocalPlayer;
         hero = (Hero)player.GetHero();
         playerTurn();
+        damage = 0;
         yield return new WaitForSeconds(2f);
 
     }
@@ -222,7 +231,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         fHUD.setFightHUD_PLAYER();
         hero.data.diceNum = 0;
         hero.data.attackNum = 0;
-        aMonster.damage = 0;
+        //aMonster.damage = 0;
 
         if (fightstate != FightState.HERO || !FightTurnManager.IsMyTurn()
             || !photonView.IsMine || !FightTurnManager.CanFight())
@@ -355,9 +364,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
         if (FightTurnManager.IsMyProtectedTurn()) {
             print("only run once");
-            aMonster.MonsterRoll();
+            damage = aMonster.MonsterRoll()+ aMonster.maxSP;
             string s = aMonster.dice.printArrayList();
-            fHUD.rollResult(s + "Max:" + aMonster.damage);
+            fHUD.rollResult(s + "Max:" + damage);
             Instance.photonView.RPC("setNumber", RpcTarget.Others, s);
             StartCoroutine(MonsterRoll());
             print("this"); 
@@ -385,26 +394,26 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         //yield return new WaitForSeconds(2f);
         mySkillYesButton.gameObject.SetActive(true);
         fightstate = FightState.CHECK;
-        fHUD.setFightHUD_CHECK(hero.data.attackNum, aMonster.damage);
+        fHUD.setFightHUD_CHECK(hero.data.attackNum, damage);
         StartCoroutine(CheckOnShield());
         yield return new WaitForSeconds(4f);
     }
 
     //--------CHECK--------//
     IEnumerator CheckOnShield()
-    { fHUD.rollResult("Attack By Hero: "+ hero.data.attackNum+ " Attack By Monster: " +aMonster.damage);
+    { fHUD.rollResult("Attack By Hero: "+ hero.data.attackNum+ " Attack By Monster: " +damage);
         yield return new WaitForSeconds(2f);
-        if (aMonster.damage > hero.data.attackNum)
+        if (damage > hero.data.attackNum)
         {
             //go thouth everything to check if want to use sheild
             fHUD.setFightHUD_SHIELD();
  
         }
-        else if (aMonster.damage <= hero.data.attackNum)
+        else if (damage <= hero.data.attackNum)
         {
            
-            aMonster.Attacked(hero.data.attackNum - aMonster.damage);
-            mHUD.basicInfo(aMonster);
+            Attacked(hero.data.attackNum - damage);
+            mHUD.basicInfo(aMonster,currentWP);
             yield return new WaitForSeconds(2f);
         }
 
@@ -413,15 +422,16 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void OnShield(Player player)
     {
 
-        hero.data.WP -= aMonster.damage - hero.data.attackNum;
+        hero.data.WP -= damage - hero.data.attackNum;
         hHUD.basicInfoUpdate(hero);
     }
 
     IEnumerator Check()
     {
+        yield return new WaitForSeconds(2f);
         mySkillYesButton.gameObject.SetActive(false);
-        print("MonsterWP"+aMonster.currentWP);
-        if (aMonster.currentWP <= 0)
+        print("MonsterWP"+currentWP);
+        if (currentWP <= 0)
         {
             print("WIN");
             fightstate = FightState.WIN;
@@ -443,23 +453,26 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 myHerb = null;
             }
 
-            Debug.Log(aMonster);
-            
+
+            int rewardc = aMonster.rewardc;
+            int rewardw = aMonster.rewardw;
             //TODO: Test if win desoty the mosnter
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Destroy(mc.gameObject);
-                DistributionManager.DistributeWinFight(FightTurnManager.Instance.players,(ItemType.Coin, aMonster.rewardc), (ItemType.WillPower, aMonster.rewardw));
-                
+    
             }
-               
-            
+            Debug.Log(mc);
+
             if (aMonster.isTower) {
                 photonView.RPC("tellCastle", RpcTarget.AllBuffered);
             }
-            
-           
-            SceneManager.LoadSceneAsync("Distribution", LoadSceneMode.Additive);
 
+
+            SceneManager.UnloadSceneAsync("FightScene");
+            if (PhotonNetwork.IsMasterClient)
+            {
+                DistributionManager.DistributeWinFight(FightTurnManager.Instance.players, (ItemType.Coin, rewardc), (ItemType.WillPower, rewardw));
+            }
         }
         else if (hero.data.WP <= 0)
         {
@@ -500,7 +513,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void OnLastLeave() {
         aMonster.isFighted = false;
-        aMonster.currentWP = aMonster.maxWP;
+        //currentWP = aMonster.maxWP;
     }
     public void OnYesClick()
     {

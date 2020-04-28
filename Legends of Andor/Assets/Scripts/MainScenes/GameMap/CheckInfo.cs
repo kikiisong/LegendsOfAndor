@@ -24,7 +24,7 @@ public class CheckInfo : MonoBehaviour
     private int current = 0;
     private int max = 0;
 
-    private List<MonsterData> monsters;
+    private List<Monster> monsters;
 
     private List<HeroMoveController> heroMoveControllers;
 
@@ -80,7 +80,7 @@ public class CheckInfo : MonoBehaviour
 
         int clickedRegionLabel = clicked.label;
 
-        monsters = GameGraph.Instance.FindObjectsOnRegion<MonsterData>(clicked);
+        monsters = GameGraph.Instance.FindObjectsOnRegion<Monster>(clicked);
 
         heroMoveControllers = GameGraph.Instance.FindObjectsOnRegion<HeroMoveController>(clicked);
 
@@ -139,7 +139,8 @@ public class CheckInfo : MonoBehaviour
 
             if (num <= monsters.Count - 1)
             {
-                int monsterWP = monsters[num].currentWP;
+                //TODO: change from currentWP to maxinum WP
+                int monsterWP = monsters[num].maxWP;
                 int monsterDamage = monsters[num].damage;
                 field1.text = "WILLPOWER:  " + monsterWP.ToString();
                 field2.text = "DAMAGE:  " + monsterDamage.ToString();
