@@ -171,7 +171,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         }
         else if (curr.type == FogType.Monster)//Gor
         {
-            photonView.RPC("Gor", RpcTarget.AllBuffered, currentRegion, heroType);
+            photonView.RPC("Gor", RpcTarget.AllBuffered, currentRegion);
         }
     }
 
@@ -401,12 +401,16 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
     }
 
     [PunRPC]
-    public void Gor(int currentRegion, int whichHero)
+    public void Gor(int currentRegion)
     {
         List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
         Fog curr = fogOnRegion[0];
 
-        Instantiate(gorPrefab, curr.transform.position, curr.transform.rotation);
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(gorPrefab.name, curr.transform.position, curr.transform.rotation);
+        }
+        
 
         Text t = fogInfo.transform.GetChild(1).GetComponent<Text>();
         t.text = "A Gor was hiding behind the fog...";
