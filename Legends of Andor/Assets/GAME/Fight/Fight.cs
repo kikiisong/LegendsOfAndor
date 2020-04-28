@@ -659,7 +659,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         if (fightstate == FightState.HERO&& FightTurnManager.IsMyTurn())
         {
-            Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, hero.data.diceNum);
+            Instance.photonView.RPC("displayRollResult", RpcTarget.All, player,);
             mySkillYesButton.gameObject.SetActive(false);
             FightTurnManager.TriggerEvent_Fight();
             FightTurnManager.TriggerEvent_NewFightRound(player);

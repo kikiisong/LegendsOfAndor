@@ -42,7 +42,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
         {
             update = 0.0f;
             Debug.Log("Update");
-            if (!player.HasConsumedHour()) {
+            if (!player.HasConsumedHour()&&TurnManager.IsMyTurn()) {
                 
                 displayFight(player, currentRegion);
             }
@@ -118,7 +118,6 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
             {
                 List<Region> AdjacentRegions = GameGraph.Instance.AdjacentRegions(currentRegion);
                 List<MonsterMoveController> choicesOfJoin = new List<MonsterMoveController>();
-                AdjacentRegions.Add(currentRegion);
 
                 foreach (Region r in AdjacentRegions)
                 {
@@ -198,9 +197,8 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
         isFight = true;
         var p = PhotonNetwork.LocalPlayer;
         var hero = p.GetHero();
-        print(p.GetCurrentRegion().label);
         print(hero.GetCurrentRegion().label);
-        List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(p.GetCurrentRegion());
+        List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(hero.GetCurrentRegion().label);
 
         if (MonsterOnMap.Count > 0)
         {
