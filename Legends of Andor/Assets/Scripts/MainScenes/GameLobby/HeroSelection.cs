@@ -11,20 +11,31 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
     [Header("UI")]
     public Image image; //change image based on current hero
 
-    private List<Hero> heroes;
+    private List<Hero> _heroes;
+    private List<Hero> Heroes
+    {
+        get
+        {
+            if(_heroes == null)
+            {
+                _heroes = Hero.FindAllInResources();
+            }
+            return _heroes;
+        }
+    }
+
     private int selectedHeroIndex = 0; 
     
     public Hero CurrentHero {
         get
         {
-            return heroes[selectedHeroIndex];
+            return Heroes[selectedHeroIndex];
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        heroes = Hero.FindAllInResources();
         transform.position = SetUp.Instance.spawnPoints[photonView.Owner.ActorNumber - 1].position;
         Display();
     }
@@ -60,24 +71,24 @@ public class HeroSelection : MonoBehaviourPun, IPunObservable
 
     public void Display()
     {
-        image.sprite = heroes[selectedHeroIndex].ui.GetSprite();
+        image.sprite = Heroes[selectedHeroIndex].ui.GetSprite();
     }
 
     public void Switch()
     {
-        heroes[selectedHeroIndex].ui.ToggleGender();
+        Heroes[selectedHeroIndex].ui.ToggleGender();
         Display();
     }
 
     private void Next()
     {
-        selectedHeroIndex = (selectedHeroIndex + 1) % heroes.Count;
+        selectedHeroIndex = (selectedHeroIndex + 1) % Heroes.Count;
         Display();
     }
 
     private void Previous()
     {
-        selectedHeroIndex = Helper.Mod(selectedHeroIndex - 1, heroes.Count);
+        selectedHeroIndex = Helper.Mod(selectedHeroIndex - 1, Heroes.Count);
         Display();
     }
 
