@@ -239,6 +239,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
             }
 
         }
+        ready.SetActive(false);
     }
 
 

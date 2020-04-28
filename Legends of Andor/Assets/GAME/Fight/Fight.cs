@@ -331,9 +331,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     [PunRPC]
     public void displayRollResult(Player actplayer, int diceNum) {
-        actplayer.GetHero().data.diceNum += diceNum;
+        if (!actplayer.NickName.Equals(player.NickName)) {
+            actplayer.GetHero().data.diceNum += diceNum;
+        }
+       
         print("Noice "+actplayer.GetHero().data.diceNum);
-        //TODO: bug
         fHUD.rollResult(player.NickName +"finished roll" );
 
     }
@@ -472,8 +474,16 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     public void OnShield(Player player)
     {
-
-        hero.data.WP -= damage - hero.data.attackNum;
+        if (damage - hero.data.attackNum > 0)
+        {
+            hero.data.WP -= damage - hero.data.attackNum;
+        }
+        else {
+            print("Damage" + damage);
+            print(hero.data.attackNum);
+            print("why less than zero");
+        }
+       
         hHUD.basicInfoUpdate(hero);
     }
 
@@ -506,7 +516,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             if (aMonster.isTower) {
                 photonView.RPC("tellCastle", RpcTarget.AllBuffered);
             }
-
+            StartFightManager.Instance.fightStart = false;
 
             SceneManager.UnloadSceneAsync("FightScene");
             if (PhotonNetwork.IsMasterClient)
@@ -526,6 +536,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
             //initialize everything
             Leave();
+            StartFightManager.Instance.fightStart = false;
             SceneManager.UnloadSceneAsync("FightScene");
 
         }
@@ -567,6 +578,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void showSkillResult(Player player, string skill, int result, int resultNum) {
         if (skill.Equals("magic")) {
             player.GetHero().data.diceNum = result;
+            print("?"+hero.data.diceNum) ;
         }
         else if (skill.Equals("Helm"))
         {

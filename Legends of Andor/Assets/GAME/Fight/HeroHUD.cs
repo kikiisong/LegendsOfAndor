@@ -51,13 +51,11 @@ public class HeroHUD : MonoBehaviour
     {
         Image image = magic.GetComponent<Image>();
         image.color = new Color((float)1, (float)1, (float)1);
-        Debug.Log(magic);
 
     }
 
     public void basicInfoUpdate(Hero h) {
-        print(h.data.WP);
-
+        print("WP"+ h.data.WP);
         dice.text = h.GetDiceNum() + " /" + h.data.blackDice;
         currentWillpower.text = "" + h.data.WP;
         strengthPower.text = "" + h.data.SP;
