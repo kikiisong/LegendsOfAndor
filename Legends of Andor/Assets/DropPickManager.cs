@@ -144,6 +144,7 @@ public class DropPickManager : MonoBehaviourPun
         if (spriteName == "helm") hero.data.helm += updateUnit;
         if (spriteName == "bow") hero.data.bow += updateUnit;
         if (spriteName == "falcon") hero.data.falcon += updateUnit;
+        if (spriteName == "farmer") hero.data.numFarmers += updateUnit;
     }
 
     [PunRPC]
@@ -159,6 +160,7 @@ public class DropPickManager : MonoBehaviourPun
         if (spriteName == "helm") current.data.helm += updateUnit;
         if (spriteName == "bow") current.data.bow += updateUnit;
         if (spriteName == "falcon") current.data.falcon += updateUnit;
+        if (spriteName == "farmer") hero.data.numFarmers += updateUnit;
 
         current.data.numOfItems += updateUnit;
 
