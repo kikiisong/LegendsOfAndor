@@ -14,7 +14,7 @@ public class MonsterMoveController : MonoBehaviourPun
     public MonsterData data;
     public bool canMove = true;
     public bool hasHerb = false;
-
+    public bool isFighted = false;
     public Monster m;
 
     CoroutineQueue coroutineQueue;
