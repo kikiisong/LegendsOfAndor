@@ -634,7 +634,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             if (diceNum < 7 && diceNum>0)
             {
                 temp = 7 - diceNum;
-                FightTurnManager.CurrentHero.data.diceNum = temp;
+                //FightTurnManager.CurrentHero.data.diceNum = temp;
+                hero.data.diceNum = temp;
                 print("Should only turn one applied magic with value" + temp);
                 Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "magic", temp, 0);
             }
