@@ -32,6 +32,7 @@ namespace Saving
                 new JProperty("fogs", JFog()),
                 new JProperty("witch", JWitch()),
                 new JProperty("wells", JWell()),
+                new JProperty("herb", JHerb()),
                 new JProperty("farmers",JFarmers()),
                 new JProperty("narrator", JNarrator()),
                 new JProperty("castle", JCastle()),
@@ -129,6 +130,17 @@ namespace Saving
                 {
                     {"region", well.region },
                     {"filled", new JValue(well.IsFilled) }
+                }
+            );
+        }
+
+        private JArray JHerb()
+        {
+            return new JArray(
+                from herb in FindObjectsOfType<Herb>()
+                select new JObject
+                {
+                    {"region", herb.getRegion() }
                 }
             );
         }

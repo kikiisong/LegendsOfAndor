@@ -17,4 +17,9 @@ public class Herb : MonoBehaviour
     {
         
     }
+
+    public int getRegion()
+    {
+        return GameGraph.Instance.FindNearest(gameObject).label;
+    }
 }

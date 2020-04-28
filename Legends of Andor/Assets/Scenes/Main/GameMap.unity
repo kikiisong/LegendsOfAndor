@@ -23881,6 +23881,8 @@ MonoBehaviour:
     type: 3}
   princePrefab: {fileID: 3951969135777665330, guid: 2fdb4a3b66dbc40cf85923e7f21c5e1d,
     type: 3}
+  herbPrefab: {fileID: 1651612307940232636, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
+    type: 3}
   gor: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99, type: 3}
   skral: {fileID: 6717272833108817557, guid: b126bebfc04f4f34aab824f3144485e2, type: 3}
   wardrak: {fileID: 6328688999872481308, guid: d265625ed029cf646bca19d77cf60361, type: 3}

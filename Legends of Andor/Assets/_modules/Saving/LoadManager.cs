@@ -18,6 +18,7 @@ namespace Saving
         public GameObject witchPrefab;
         public GameObject wellPrefab;
         public GameObject princePrefab;
+        public GameObject herbPrefab;
         [Header("Monsters")]
         public MonsterMoveController gor;
         public MonsterMoveController skral;
@@ -212,9 +213,19 @@ namespace Saving
 
             }
 
+            foreach (var j in Room.Json["herb"])
+            {
+                int label = j["region"].ToObject<int>();
 
-            
-            
+                GameObject myHerb = Instantiate(herbPrefab, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                HerbHandler herbManager = GameObject.FindGameObjectWithTag("manager").GetComponent<HerbHandler>();
+                herbManager.myHerb = myHerb;
+
+            }
+
+
+
+
 
             //load prince if exists
             var jprince = Room.Json["prince"];
