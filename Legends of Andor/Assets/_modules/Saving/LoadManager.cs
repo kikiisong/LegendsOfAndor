@@ -22,8 +22,9 @@ namespace Saving
         public MonsterMoveController gor;
         public MonsterMoveController skral;
         public MonsterMoveController wardrak;
+        public MonsterMoveController gorHerb;
 
-    
+
 
 
         //Getters
@@ -89,21 +90,31 @@ namespace Saving
                 {
                     MonsterType type = j["type"].ToObject<MonsterType>();
                     int label = j["region"].ToObject<int>();
-                    switch (type)
+                    bool hasHerb = j["herb"].ToObject<bool>();
+                    if(hasHerb)
                     {
-                        case MonsterType.Gor:
-                            var go = PhotonNetwork.Instantiate(gor.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
-                            go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
-                            break;
-                        case MonsterType.Skral:
-                            go = PhotonNetwork.Instantiate(skral.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
-                            go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
-                            break;
-                        case MonsterType.Wardrak:
-                            go = PhotonNetwork.Instantiate(wardrak.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
-                            go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
-                            break;
+                        var go = PhotonNetwork.Instantiate(gorHerb.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                        go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
                     }
+                    else
+                    {
+                        switch (type)
+                        {
+                            case MonsterType.Gor:
+                                var go = PhotonNetwork.Instantiate(gor.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                                go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
+                                break;
+                            case MonsterType.Skral:
+                                go = PhotonNetwork.Instantiate(skral.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                                go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
+                                break;
+                            case MonsterType.Wardrak:
+                                go = PhotonNetwork.Instantiate(wardrak.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
+                                go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
+                                break;
+                        }
+                    }
+                    
                 }
 
 

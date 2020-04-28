@@ -71,6 +71,7 @@ namespace Saving
                 {
                     {"type", new JValue(monster.type)},
                     {"region", monster.CurrentRegion.label},
+                    {"herb", new JValue(monster.hasHerb)},
                     {"data",  JObject.FromObject(monster.data)}
                 });
         }

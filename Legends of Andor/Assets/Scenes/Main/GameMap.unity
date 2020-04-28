@@ -7914,7 +7914,6 @@ Transform:
   - {fileID: 1627274562}
   - {fileID: 887652261}
   - {fileID: 714773210}
-  - {fileID: 864541742}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17521,87 +17520,6 @@ MonoBehaviour:
     helm: 0
     bow: 0
     falcon: 0
---- !u!1001 &864541741
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 399278439}
-    m_Modifications:
-    - target: {fileID: 1651612307940232636, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_Name
-      value: Herb
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -14.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7b91a92f9c3b2ca4db3e065a7c59c807, type: 3}
---- !u!4 &864541742 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5670501519042798272, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-    type: 3}
-  m_PrefabInstance: {fileID: 864541741}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &864541743 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1651612307940232636, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
-    type: 3}
-  m_PrefabInstance: {fileID: 864541741}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &870389885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19447,7 +19365,7 @@ GameObject:
   - component: {fileID: 943947484}
   m_Layer: 0
   m_Name: Game Units
-  m_TagString: Untagged
+  m_TagString: manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19602,7 +19520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropButton: {fileID: 457734299}
   pickButton: {fileID: 893625605}
-  myHerb: {fileID: 864541743}
+  myHerb: {fileID: 0}
   herbPrefab: {fileID: 1651612307940232636, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
     type: 3}
 --- !u!114 &943947483
@@ -23966,6 +23884,7 @@ MonoBehaviour:
   gor: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99, type: 3}
   skral: {fileID: 6717272833108817557, guid: b126bebfc04f4f34aab824f3144485e2, type: 3}
   wardrak: {fileID: 6328688999872481308, guid: d265625ed029cf646bca19d77cf60361, type: 3}
+  gorHerb: {fileID: 2715487355519932294, guid: f3122c4edf50def44bcd4a8df2681222, type: 3}
 --- !u!1001 &1167451227
 PrefabInstance:
   m_ObjectHideFlags: 0

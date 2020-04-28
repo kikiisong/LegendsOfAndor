@@ -5746,10 +5746,11 @@ MonoBehaviour:
   dwarfPrefabsmale: {fileID: 422830749}
   wizardPrefabsfemale: {fileID: 125190684}
   wizardPrefabsmale: {fileID: 574937164}
+  herbPrefab: {fileID: 1651612307940232636, guid: 7b91a92f9c3b2ca4db3e065a7c59c807,
+    type: 3}
   mc: {fileID: 0}
   princeInFight: 0
   aMonster: {fileID: 0}
-  myHerb: {fileID: 0}
   prince: {fileID: 1059051691}
 --- !u!4 &1987893036
 Transform:
