@@ -618,24 +618,33 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        Instance.photonView.RPC("AppliedMagic", RpcTarget.All);
+        Instance.photonView.RPC("AppliedMagic", player, RpcTarget.All);
 
 
     }
     [PunRPC]
-    public void AppliedMagic() {
-        
+    public void AppliedMagic(Player actPlayer) {
+        //FightTurnManager.IsMyTurn()
+        print(FightTurnManager.IsMyTurn());
+        print(FightTurnManager.CurrentHero.type);
+
         if (FightTurnManager.IsMyTurn()) {
-            int diceNum = hero.data.diceNum;
-            int temp = diceNum;
-            if (diceNum < 7)
+            int diceNum = FightTurnManager.CurrentHero.data.diceNum;
+            int temp;
+            if (diceNum < 7 && diceNum>0)
             {
                 temp = 7 - diceNum;
                 FightTurnManager.CurrentHero.data.diceNum = temp;
                 print("Should only turn one applied magic with value" + temp);
+                Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "magic", temp, 0);
+            }
+            else
+            {
+                print("error");
+                return;
             }
 
-            Instance.photonView.RPC("showSkillResult", RpcTarget.All, player,"magic", temp,0);
+            
 
         }
     }
