@@ -9,6 +9,7 @@ using Photon.Realtime;
 using Routines;
 using System.Collections.Generic;
 using Bag;
+using System.Text.RegularExpressions;
 public enum FightState
     {
         START,
@@ -78,7 +79,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     void Start()
     {
         if (Instance == null) Instance = this;
-        prince.SetActive(false);
+        
         foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
         {
             if (monsterC.m.isFighted)
@@ -89,6 +90,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 
             }
         }
+
+        prince.SetActive(false);
         archerPrefabsfemale.SetActive(false);
         archerPrefabsmale.SetActive(false);
         warriorPrefabsfemale.SetActive(false);
@@ -126,71 +129,64 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         
     }
 
-    public void Attacked(int damage)
-    {
-        currentWP -= damage;
-        print("CurrentWP" + currentWP);
-    }
-
 
     //--------START--------//
     void plotCharacter() {
        
         print("Plot");
-        Player player = PhotonNetwork.LocalPlayer;
-        if (player.CustomProperties.ContainsKey(P.K.isFight))
-        {
-            bool fight = (bool)player.CustomProperties[P.K.isFight];
-            if (fight)
+        foreach (Player p in PhotonNetwork.PlayerList) {
+        
+            if (p.CustomProperties.ContainsKey(P.K.isFight))
             {
-                Debug.Log(player.NickName + "in fight");
-                Hero hero = (Hero)player.GetHero();
+                bool fight = (bool)p.CustomProperties[P.K.isFight];
+                if (fight)
+                {
+                    Debug.Log(p.NickName + "in fight");
+                    Hero hero = (Hero)p.GetHero();
                 
-                switch (hero.type)
-                {
-                    case Hero.Type.ARCHER:
-                        if (hero.ui.gender)archerPrefabsmale.SetActive(true);
-                        else archerPrefabsfemale.SetActive(true);
-                        break;
-                    case Hero.Type.WARRIOR:
-                        if (hero.ui.gender) warriorPrefabsmale.SetActive(true);
-                        else warriorPrefabsfemale.SetActive(true);
-                        break;
-                    case Hero.Type.DWARF:
-                        if (hero.ui.gender) dwarfPrefabsmale.SetActive(true);
-                        else dwarfPrefabsfemale.SetActive(true);
-                        break;
-                    case Hero.Type.WIZARD:
-                        if (hero.ui.gender) wizardPrefabsmale.SetActive(true);
-                        else wizardPrefabsfemale.SetActive(true);
-                        break;
-                }
-                hero.data.dice = dice;
-                hHUD.setHeroHUD(hero);
-                mHUD.setMonsterHUD(aMonster,currentWP);
+                    switch (hero.type)
+                    {
+                        case Hero.Type.ARCHER:
+                            if (hero.ui.gender)archerPrefabsmale.SetActive(true);
+                            else archerPrefabsfemale.SetActive(true);
+                            break;
+                        case Hero.Type.WARRIOR:
+                            if (hero.ui.gender) warriorPrefabsmale.SetActive(true);
+                            else warriorPrefabsfemale.SetActive(true);
+                            break;
+                        case Hero.Type.DWARF:
+                            if (hero.ui.gender) dwarfPrefabsmale.SetActive(true);
+                            else dwarfPrefabsfemale.SetActive(true);
+                            break;
+                        case Hero.Type.WIZARD:
+                            if (hero.ui.gender) wizardPrefabsmale.SetActive(true);
+                            else wizardPrefabsfemale.SetActive(true);
+                            break;
+                    }
 
-                //GameObject go5 = PhotonNetwork.
-                //}
-            }
-            else {
-                switch (hero.type)
-                {
-                    case Hero.Type.ARCHER:
-                        archerPrefabsfemale.SetActive(false);
-                        archerPrefabsmale.SetActive(false);
-                        break;
-                    case Hero.Type.WARRIOR:
-                        warriorPrefabsfemale.SetActive(false);
-                        warriorPrefabsmale.SetActive(false);
-                        break;
-                    case Hero.Type.DWARF:
-                        dwarfPrefabsfemale.SetActive(false);
-                        dwarfPrefabsmale.SetActive(false);
-                        break;
-                    case Hero.Type.WIZARD:
-                        wizardPrefabsfemale.SetActive(false);
-                        wizardPrefabsmale.SetActive(false);
-                        break;
+                    //GameObject go5 = PhotonNetwork.
+                    //}
+                }
+                else {
+                    switch (hero.type)
+                    {
+                        case Hero.Type.ARCHER:
+                            archerPrefabsfemale.SetActive(false);
+                            archerPrefabsmale.SetActive(false);
+                            break;
+                        case Hero.Type.WARRIOR:
+                            warriorPrefabsfemale.SetActive(false);
+                            warriorPrefabsmale.SetActive(false);
+                            break;
+                        case Hero.Type.DWARF:
+                            dwarfPrefabsfemale.SetActive(false);
+                            dwarfPrefabsmale.SetActive(false);
+                            break;
+                        case Hero.Type.WIZARD:
+                            wizardPrefabsfemale.SetActive(false);
+                            wizardPrefabsmale.SetActive(false);
+                            break;
+                    }
                 }
             }
         }
@@ -211,9 +207,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         fHUD.setFightHUD_PLAYER();
         
         plotCharacter();
-        print("Game Start2?");
         player = PhotonNetwork.LocalPlayer;
         hero = (Hero)player.GetHero();
+        hero.data.dice = dice;
+        hHUD.setHeroHUD(hero);
+        mHUD.setMonsterHUD(aMonster, currentWP);
         playerTurn();
         damage = 0;
         yield return new WaitForSeconds(2f);
@@ -231,11 +229,12 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         fHUD.setFightHUD_PLAYER();
         hero.data.diceNum = 0;
         hero.data.attackNum = 0;
-        //aMonster.damage = 0;
+        damage = 0;
 
         if (fightstate != FightState.HERO || !FightTurnManager.IsMyTurn()
             || !photonView.IsMine || !FightTurnManager.CanFight())
         {
+            
             print("return");
             return;
 
@@ -244,6 +243,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         fHUD.rollResult("Player Turn: " + player.NickName);
 
     }
+
 
     public void OnRollDice()
     {
@@ -325,7 +325,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     [PunRPC]
-    public void displayRollResult(Player player,int result) {
+    public void displayRollResult(Player player) {
         fHUD.rollResult(player.NickName +"finished roll" );
 
     }
@@ -334,13 +334,13 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     //--------ATTACK--------//
 
     public void OnMonsterTurn() {
+        print("Total sum of Attack" + hero.data.attackNum);
         hero.data.attackNum += hero.data.diceNum;
-        //TODO: prince functionality
+        print("Total Damage " + hero.data.attackNum);
         if (princeInFight) {
             hero.data.attackNum += 4;
         }
-        fHUD.rollResult("HeroAttacl" + hero.data.attackNum);
-        print("Monster");
+        fHUD.rollResult("HeroAttack " + hero.data.attackNum);
         StartCoroutine(MonsterStart());
     }
 
@@ -364,7 +364,17 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
         if (FightTurnManager.IsMyProtectedTurn()) {
             print("only run once");
-            damage = aMonster.MonsterRoll()+ aMonster.maxSP;
+
+            dice.rollDice(aMonster.redDice, 0);
+            if (dice.CheckRepet())
+            {
+                damage = dice.getSum();
+            }
+            else
+            {
+                damage = dice.getMax();
+            }
+            //damage = aMonster.MonsterRoll();
             string s = aMonster.dice.printArrayList();
             fHUD.rollResult(s + "Max:" + damage);
             Instance.photonView.RPC("setNumber", RpcTarget.Others, s);
@@ -378,17 +388,42 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     }
 
+    public void SetDice(string a)
+    {
+        char[] seperator = { ' ' };
+        string[] array = a.Split(seperator);
+        List<int> l = new List<int>();
+        foreach (string s in array)
+        {
+            if (Regex.IsMatch(s, @"^\d+$"))
+            {
+                print(s);
+                l.Add(int.Parse(s));
+            }
+        }
+        dice.setResult(l);
+        if (dice.CheckRepet())
+        {
+            damage = dice.getSum();
+        }
+        else
+        {
+            damage = dice.getMax();
+        }
+        print(this.damage);
+    }
+
     [PunRPC]
     public void setNumber(string result)
     {
         print("others");
-        aMonster.SetDice(result);
+        SetDice(result);
         StartCoroutine(MonsterRoll());
     }
 
     IEnumerator MonsterRoll()
     {
-        aMonster.damage += aMonster.maxSP;
+        damage += aMonster.maxSP;
         yield return new WaitForSeconds(2f);
         //fHUD.rollResult( "Damage:" + aMonster.damage);
         //yield return new WaitForSeconds(2f);
@@ -397,6 +432,13 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         fHUD.setFightHUD_CHECK(hero.data.attackNum, damage);
         StartCoroutine(CheckOnShield());
         yield return new WaitForSeconds(4f);
+    }
+
+
+    public void Attacked(int damage)
+    {
+        currentWP -= damage;
+        print("CurrentWP" + currentWP);
     }
 
     //--------CHECK--------//
@@ -560,7 +602,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
         }
         hero.data.shield -= 1;
-        aMonster.damage = 0;
+        damage = 0;
         fHUD.rollResult("Applied Sheild" );
 
     }
@@ -666,6 +708,12 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         if (hero.type == Hero.Type.WIZARD)
         {
             hHUD.backColorMagic();
+        }
+        if (!FightTurnManager.CanFight())
+        {
+
+            fHUD.rollResult("You dont have enough hour, you can leave fight");
+            return;
         }
 
         playerTurn();
