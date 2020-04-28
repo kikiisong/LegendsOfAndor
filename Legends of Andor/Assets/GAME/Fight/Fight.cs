@@ -511,10 +511,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 PhotonNetwork.Instantiate(herbPrefab.name, GameGraph.Instance.Find(mc.CurrentRegion.label).position, Quaternion.identity);
             }
 
-
+            Leave();
             int rewardc = aMonster.rewardc;
             int rewardw = aMonster.rewardw;
-            //TODO: Test if win desoty the mosnter
+
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Destroy(mc.gameObject);
     
