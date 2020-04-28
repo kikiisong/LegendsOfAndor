@@ -11,52 +11,18 @@ public class Merchant : MonoBehaviour
     public GameObject shopPanel;
     
 
-
-
-
     // Start is called before the first frame update
     void Start()
-    {
-       
-           
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         GameGraph.Instance.PlaceAt(gameObject, regionLabel);
     }
 
-
-    
-    /*
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
-        print("Working");
-
-        popUp.locationLabel = regionLabel;
-        popUp.isDawrf = this.isDawrf;
-
-
-
-        SceneManager.LoadSceneAsync("MerchantScene", LoadSceneMode.Additive);
-
-    }
-    */
-
-
-    private void OnMouseDown()
-    {
-    
-
+        if (!Input.GetMouseButtonDown(1)) return;
         Shop.merchantLocation = regionLabel;
-        Shop.isDawrf = this.isDawrf;
+        Shop.isDawrf = isDawrf;
         shopPanel.SetActive(true);
-
-
-
     }
 
     public void closeShop()

@@ -4,6 +4,7 @@ using UnityEngine;
 using Graph;
 using Routines;
 using System;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
 public class GameGraph : Graph<Region, Border>
@@ -126,10 +127,20 @@ public class GameGraph : Graph<Region, Border>
         return FindNearest(gameObject.transform.position);
     }
 
+
+    private bool isPointingUI()
+    {
+        PointerEventData currentPos = new PointerEventData(EventSystem.current);
+        currentPos.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(currentPos, results);
+        return results.Count > 0;
+    }
+
     public Vector3 CastRay(Vector3 mousePosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        if(Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Graph"))){
+        if(Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Graph")) && !isPointingUI()){
             return hit.point;
         }
         else
