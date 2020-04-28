@@ -321,10 +321,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
        
 
         Hero CurrentHero = (Hero)currentplayer.GetHero();
-        if (player.Equals(currentplayer)) {
-            print(hero.name + "get changed");
-            hero.data.rollResult += diceNum;
-        }
+        print(hero.name + "get changed");
+        hero.data.rollResult += diceNum;
         
         hero.data.attackNum += CurrentHero.data.SP;
         
@@ -332,6 +330,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     [PunRPC]
     public void displayRollResult(Player actplayer, int diceNum) {
+        print("Act:" + actplayer.NickName + "Player" + player.NickName);
         if (!actplayer.NickName.Equals(player.NickName)) {
             actplayer.GetHero().data.diceNum += diceNum;
         }
@@ -511,10 +510,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 PhotonNetwork.Instantiate(herbPrefab.name, GameGraph.Instance.Find(mc.CurrentRegion.label).position, Quaternion.identity);
             }
 
-
+            Leave();
             int rewardc = aMonster.rewardc;
             int rewardw = aMonster.rewardw;
-            //TODO: Test if win desoty the mosnter
+
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Destroy(mc.gameObject);
     
@@ -619,24 +618,33 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        Instance.photonView.RPC("AppliedMagic", RpcTarget.All);
+        Instance.photonView.RPC("AppliedMagic", RpcTarget.All,player);
 
 
     }
     [PunRPC]
-    public void AppliedMagic() {
-        
+    public void AppliedMagic(Player actPlayer) {
+        //FightTurnManager.IsMyTurn()
+        print(FightTurnManager.IsMyTurn());
+        print(FightTurnManager.CurrentHero.type);
+
         if (FightTurnManager.IsMyTurn()) {
-            int diceNum = hero.data.diceNum;
-            int temp = diceNum;
-            if (diceNum < 7)
+            int diceNum = FightTurnManager.CurrentHero.data.diceNum;
+            int temp;
+            if (diceNum < 7 && diceNum>0)
             {
                 temp = 7 - diceNum;
                 FightTurnManager.CurrentHero.data.diceNum = temp;
                 print("Should only turn one applied magic with value" + temp);
+                Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "magic", temp, 0);
+            }
+            else
+            {
+                print("error");
+                return;
             }
 
-            Instance.photonView.RPC("showSkillResult", RpcTarget.All, player,"magic", temp,0);
+            
 
         }
     }
