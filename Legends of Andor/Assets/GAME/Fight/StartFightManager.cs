@@ -198,6 +198,8 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
         isFight = true;
         var p = PhotonNetwork.LocalPlayer;
         var hero = p.GetHero();
+        print(p.GetCurrentRegion().label);
+        print(hero.GetCurrentRegion().label);
         List<MonsterMoveController> MonsterOnMap = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(p.GetCurrentRegion());
 
         if (MonsterOnMap.Count > 0)

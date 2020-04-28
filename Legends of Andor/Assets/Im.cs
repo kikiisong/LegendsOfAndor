@@ -26,7 +26,7 @@ public class Im : MonoBehaviour
             GameObject calledBag = slot.transform.parent.parent.gameObject;
 
             int bagType = calledBag.name == "GroundBag" ? 1 : 0;
-            //   Debug.Log(calledBag.name + "bad type " + bagType);
+
 
             // usure that clicking on empty icon won't do anything
             if (img.sprite.name != uimask.name)

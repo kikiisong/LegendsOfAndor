@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 //TO do:
@@ -13,6 +14,8 @@ public class TradeManager : MonoBehaviourPun
 {
     public GameObject panelOne;
     public GameObject panelTwo;
+    public GameObject panelErrMsg;
+
     public TradeWithManyUI tradeMany;
 
     private Player player1;
@@ -21,53 +24,70 @@ public class TradeManager : MonoBehaviourPun
     private int emptySlotBag1;
     private int emptySlotBag2;
     private int emptySlot;
+    private bool falconTrade;
 
     private byte TRADEITEM = 1;
     private byte OPENWIND = 2;
     private byte OPENWINDWHENMANY = 3;
-    // Start is called before the first frame update
-    void Start()
-    {
 
+
+    private void isFalconTrade()
+    {
+        
+        string name = EventSystem.current.currentSelectedGameObject.name;
+       
+        if (name == "FalconTrade")
+        {
+    
+            falconTrade = true;
+            int falcon = PhotonNetwork.LocalPlayer.GetHero().data.falcon;
+
+            //check whether local player has falcon to trade 
+            if (falcon == 0)
+            {
+                Text t = panelErrMsg.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
+                t.text = "You need to purchase a falcon before be able to trade with it.";
+                panelErrMsg.SetActive(true);
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void Open()
-    {
+    {   
+        //check if we want to do a falcon trade
+        isFalconTrade();
 
         //If more than 2 players on the same region, display panel allowing choosing a player you want to trade with
         int playersOnRegion = 0;
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             if (PhotonNetwork.PlayerList[i].GetCurrentRegion() == PhotonNetwork.LocalPlayer.GetCurrentRegion()) playersOnRegion++;
-
         }
         //if more there are more than 2 person on the same region and we wish to trade,
         // we will display a panel allowing player to select a player they wish to trade with
-        if (playersOnRegion > 2) tradeMany.Open(PhotonNetwork.LocalPlayer);
+        if (playersOnRegion > 2)
+        {
+            tradeMany.Open(PhotonNetwork.LocalPlayer);
+        }
         else if (playersOnRegion == 2)
-        { // if only two players are on the same region, then we will trigger this function 
+        {
+            // if only two players are on the same region, then we will trigger this function 
             initPlayers();
-            Debug.Log(player1);
-            Debug.Log(player2);
             if (player1 != null && player2 != null)
             {
-                //if (player1 != null )
-                object[] content = new object[] { player1.ActorNumber, player2.ActorNumber };
+
+                object[] content = new object[] { player1.ActorNumber, player2.ActorNumber, false };
 
                 RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
-                //RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber } };
                 SendOptions sendOptions = new SendOptions { Reliability = true };
                 PhotonNetwork.RaiseEvent(OPENWIND, content, raiseEventOptions, sendOptions);
             }
         }
-        else
+        else // display error message
         {
-            Debug.Log("cannot press");
+            Text t = panelErrMsg.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
+            t.text = "You need to be on the same region as the person you want to trade with. Otherwise, you can use falcon if you have it.";
+            panelErrMsg.SetActive(true);
         }
 
     }
@@ -90,32 +110,34 @@ public class TradeManager : MonoBehaviourPun
             int bagType = (int)data[1];
             int slotID = (int)data[2];
 
-            Debug.Log(bagType);
+            bool canTrade = true;
+            //check whethear the item can be trade if we're using falcon
+            if (falconTrade) canTrade = canTradeFalcon(name);
 
-            GameObject panelReceive = (bagType == 1) ? panelTwo : panelOne; //selectign panel to increment
-            GameObject panelSend = (bagType == 2) ? panelTwo : panelOne; //selectign panel to increment
-
-            decrItem(panelSend, slotID);
-            incrItem(name, panelReceive);
-
-
-            Debug.Log(panelOne.name + " - panel one");
-            Debug.Log(panelTwo.name + " - panel two");
-            Debug.Log(player1.NickName + " - player 1 nickname");
-            Debug.Log(player2.NickName + " - player 2 nickname");
-            if (bagType == 1)
+            if (canTrade)
             {
-                //updateHeroStatsRPC(name, player1, -1);
-                //updateHeroStatsRPC(name, player2, 1);
-                updateHeroStats(player1, name, (-1));
-                updateHeroStats(player2, name, 1);
-            }
-            else
-            {
-                updateHeroStats(player1, name, 1);
-                updateHeroStats(player2, name, -1);
-                //updateHeroStatsRPC(name, player1, 1);
-                //updateHeroStatsRPC(name, player2, -1);
+
+                GameObject panelReceive = (bagType == 1) ? panelTwo : panelOne; //selectign panel to increment
+                GameObject panelSend = (bagType == 2) ? panelTwo : panelOne; //selectign panel to increment
+
+                decrItem(panelSend, slotID);
+                incrItem(name, panelReceive);
+
+
+                Debug.Log(panelOne.name + " - panel one");
+                Debug.Log(panelTwo.name + " - panel two");
+                Debug.Log(player1.NickName + " - player 1 nickname");
+                Debug.Log(player2.NickName + " - player 2 nickname");
+                if (bagType == 1)
+                {
+                    updateHeroStats(player1, name, (-1));
+                    updateHeroStats(player2, name, 1);
+                }
+                else
+                {
+                    updateHeroStats(player1, name, 1);
+                    updateHeroStats(player2, name, -1);
+                }
             }
         }
 
@@ -125,7 +147,10 @@ public class TradeManager : MonoBehaviourPun
             object[] data = (object[])obj.CustomData;
             int player1ID = (int)data[0];
             int player2ID = (int)data[1];
+            bool falconTrade = (bool)data[2];
 
+            //update hero's parameter's 
+            if (falconTrade) PhotonNetwork.CurrentRoom.GetPlayer(player1ID).GetHero().data.usedFalcon = true; 
 
             if (obj.Code == OPENWIND) initPlayers();
             else // when there are multiple player's on the same region
@@ -198,13 +223,7 @@ public class TradeManager : MonoBehaviourPun
     [PunRPC]
     public void updateHeroStats(Player player, string spriteName, int updateUnit)
     {
-        Debug.Log("----------------------------------");
-        Debug.Log("----------------------------------");
-        Debug.Log("player stats " + player.NickName);
         Hero hero = player.GetHero();
-
-        Debug.Log("     coin " + hero.data.gold);
-        Debug.Log("     wineskin " + hero.data.wineskin);
 
         if (spriteName == "coin") hero.data.gold += updateUnit;
         if (spriteName == "brew") hero.data.brew += updateUnit;
@@ -214,11 +233,6 @@ public class TradeManager : MonoBehaviourPun
         if (spriteName == "helm") hero.data.helm += updateUnit;
         if (spriteName == "bow") hero.data.bow += updateUnit;
         if (spriteName == "falcon") hero.data.falcon += updateUnit;
-        Debug.Log("----------------------------------");
-        Debug.Log("      coin " + hero.data.gold);
-        Debug.Log("      wineskin " + hero.data.wineskin);
-        Debug.Log("----------------------------------");
-        Debug.Log("----------------------------------");
     }
 
     //bag - to which we should increase the element
@@ -226,7 +240,6 @@ public class TradeManager : MonoBehaviourPun
     {
         int empty = containsElement(spriteName, bag);
 
-        Debug.Log("empty space is " + empty);
         Sprite spriteToLoad = Resources.Load<Sprite>(spriteName);
 
         //if we already have the element we just need to update its number
@@ -253,7 +266,6 @@ public class TradeManager : MonoBehaviourPun
             img.sprite = spriteToLoad;
         }
     }
-
 
 
     //displays image of a certain item in the bag
@@ -369,7 +381,6 @@ public class TradeManager : MonoBehaviourPun
     //sets emptySlot of a bag to the first empty slot
     public int containsElement(string name, GameObject bag)
     {
-        Debug.Log("inside contains elements. Sprite name " + name);
         //  emptySlotBag = 0;
         for (int i = 5; i >= 0; i--)
         {
@@ -385,9 +396,20 @@ public class TradeManager : MonoBehaviourPun
                 emptySlot = i;
             }
         }
-
-        Debug.Log("emptyslotbag " + emptySlot);
         return -1;
+    }
+
+    //check whethear the item can be trade using falcon
+    private bool canTradeFalcon(string itemName)
+    {
+        if (itemName != "shield" || itemName != "bow") return true;
+        else
+        {
+            Text t = panelErrMsg.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
+            t.text = "Cannot trade " + itemName + " using falcon trade";
+            panelErrMsg.SetActive(true);
+            return false;
+        } 
     }
 
 }

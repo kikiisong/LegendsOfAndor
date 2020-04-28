@@ -141,7 +141,7 @@ public class CheckInfo : MonoBehaviour
             {
                 //TODO: change from currentWP to maxinum WP
                 int monsterWP = monsters[num].maxWP;
-                int monsterDamage = monsters[num].damage;
+                int monsterDamage = monsters[num].maxSP;
                 field1.text = "WILLPOWER:  " + monsterWP.ToString();
                 field2.text = "DAMAGE:  " + monsterDamage.ToString();
 

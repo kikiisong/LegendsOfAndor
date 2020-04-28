@@ -10,9 +10,11 @@ using UnityEngine.UI;
 public class TradeWithManyUI : MonoBehaviour
 {
 
-    private GameObject[] buttons = new GameObject[4];
+    private GameObject[] buttons = new GameObject[4]; 
     public GameObject panel;
+    public GameObject panelErrMsg;
 
+    private bool falconTrade = false;
     public string playerInput;
 
     // Start is called before the first frame update
@@ -27,7 +29,7 @@ public class TradeWithManyUI : MonoBehaviour
 
     //populate buttons and open the panel
     public void Open(Player player)
-    {
+    { 
         nameButtons(player);
         panel.SetActive(true);
     }
@@ -63,11 +65,11 @@ public class TradeWithManyUI : MonoBehaviour
         if (name != "")
         {
             panel.SetActive(false);
+
             //raise an event for trade with multiple ppl
-            object[] content = new object[] { PhotonNetwork.LocalPlayer.ActorNumber, player2.ActorNumber };
+            object[] content = new object[] { PhotonNetwork.LocalPlayer.ActorNumber, player2.ActorNumber, falconTrade };
 
             RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
-            //RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber } };
             SendOptions sendOptions = new SendOptions { Reliability = true };
             PhotonNetwork.RaiseEvent(3, content, raiseEventOptions, sendOptions);
 

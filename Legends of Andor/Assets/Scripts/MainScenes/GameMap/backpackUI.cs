@@ -18,14 +18,6 @@ public class backpackUI : MonoBehaviour
         }
     }
 
-    private void Start()
-
-    {
-
-    }
-
-
-
     public void Open()
     {
         if (Panel != null)
@@ -35,7 +27,7 @@ public class backpackUI : MonoBehaviour
 
         }
         emptySlot = 0;
-        // Debug.Log("clicked");
+
         cleanBag();
         populateBag();
   
