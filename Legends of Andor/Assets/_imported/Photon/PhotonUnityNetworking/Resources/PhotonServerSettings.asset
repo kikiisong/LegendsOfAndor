@@ -29,74 +29,25 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
-  - Change
-  - ClickRpc
-  - decreaseNumOfFarmer
-  - DestroyRpc
-  - DestroySpaceship
-  - EndDay
-  - Fire
-  - HeroMoved
-  - increaseNumOfFarmer
-  - NextTurn
-  - RespawnSpaceship
-  - SetParentWithName
-  - Sunrise
-  - ToggleGender
-  - decreaseShieldsNum
-  - increaseShieldsNum
-  - decrese
-  - increase
-  - decrease
-  - Plus
-  - Minus
-  - Decrease
-  - decrem
-  - drop
-  - Increase
-  - increaseShield
-  - increm
-  - pickup
-  - Empty
-  - MoveHeroes
-  - Click_Start
-  - OnLeaveClick
-  - playerturn
-  - SwitchScene
-  - lightUpJoin
-  - LightUpJoin
-  - DecremHero
-  - IncremHero
-  - EndFightRound
-  - HeroFight
-  - HeroRoll
-  - showSkillResult
-  - MonsterTurn
-  - changeMonsterTofight
-  - OnShield
-  - removeFighter
-  - setNumber
-  - displayRollResult
-  - AppliedMagic
-  - getCards
-  - bought
-  - createGor
-  - createWitch
-  - SetHero
-  - Init
-  - LeaveRoom
-  - Encounter
-  - Place
-  - Typing
-  - SP
-  - releaseNewRventCard
   - AddDistributeItem
   - AddTakeItem
+  - AppliedMagic
   - BeginDistribute
+  - buyBrew
+  - changeMonsterTofight
   - ClickMinus
   - ClickPlus
+  - ClickRpc
+  - Decrease
+  - decreaseShield
+  - decreaseShieldsNum
+  - decreseTheShield
+  - DestroyRpc
+  - displayRollResult
+  - Empty
+  - EndDay
   - EndDistribute
-  - SetParent_Position
+  - EndFightRound
   - eventCard11
   - eventCard13
   - eventCard14
@@ -111,32 +62,47 @@ MonoBehaviour:
   - eventCard32
   - eventCard4
   - eventCard5
-  - ThreeWP
-  - TwoWP
+  - FogEventCard
   - Gold
-  - Witch
   - Gor
-  - usedShield
-  - decreaseShiled
+  - HerbDropped
+  - HerbPicked
+  - HeroFight
+  - HeroMoved
+  - HeroRoll
+  - Increase
+  - increaseShield
+  - increaseShieldsNum
+  - Init
   - InitMonster
   - InitTower
-  - updateDice
-  - Wineskin
-  - HerbPicked
-  - HerbDropped
-  - decreaseShield
-  - PlaceTowerMonster
-  - setSkral
-  - SetSkral
-  - buyBrew
-  - updateHeroStats
-  - updateRegionStats
-  - RemovePrince
-  - decreseTheShield
+  - LeaveRoom
+  - LightUpJoin
   - loadLosingScreen
   - loadWinningScreen
-  - realaseNewEventCardFog
-  - FogEventCard
-  - placeHerb
+  - MonsterTurn
+  - MoveHeroes
+  - NextTurn
+  - OnShield
+  - PlaceTowerMonster
+  - releaseNewRventCard
+  - removeFighter
+  - RemovePrince
+  - setNumber
+  - SetParent_Position
+  - SetParentWithName
+  - showSkillResult
+  - SP
+  - Sunrise
+  - SwitchScene
+  - ThreeWP
+  - ToggleGender
+  - TwoWP
+  - Typing
+  - updateDice
+  - updateHeroStats
+  - updateRegionStats
+  - Wineskin
+  - Witch
   DisableAutoOpenWizard: 1
   ShowSettings: 1

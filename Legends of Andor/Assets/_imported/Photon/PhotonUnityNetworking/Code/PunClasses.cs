@@ -198,9 +198,9 @@ namespace Photon.Pun
         /// Uses name to set parent.
         /// </summary>
         /// <param name="parent"></param>
-        public void SetParentRPC(GameObject parent)
+        public void SetParentRPC(GameObject parent, bool buffered=true)
         {
-            photonView.RPC("SetParentWithName", RpcTarget.AllBuffered, parent.name, transform.localScale);
+            photonView.RPC("SetParentWithName", buffered? RpcTarget.AllBuffered: RpcTarget.All, parent.name, transform.localScale);
         }
 
         public void SetParentRPC_Keep(GameObject parent)

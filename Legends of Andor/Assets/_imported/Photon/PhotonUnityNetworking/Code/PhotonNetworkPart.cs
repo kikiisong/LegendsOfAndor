@@ -542,7 +542,7 @@ namespace Photon.Pun
                 }
                 else
                 {
-                    Debug.LogError("PhotonView with ID " + netViewID + " has " + receivers + " methods \"" +
+                    Debug.LogWarning("PhotonView with ID " + netViewID + " has " + receivers + " methods \"" +
                                    inMethodName + "\" that takes " + argsLength + " argument(s): " +
                                    argsString + ". Should be just one?");
                 }

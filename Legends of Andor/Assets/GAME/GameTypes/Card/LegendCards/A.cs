@@ -22,7 +22,6 @@ namespace Card
             {
                 DistributionManager.Distribute((ItemType.Coin, 5), (ItemType.Wineskin, 2));
             }
-            //TODO difficulty
             switch (difficulty)
             {
 
@@ -35,7 +34,7 @@ namespace Card
                         foreach (int r in new int[] { 8, 20, 21, 26, 48 })
                         {
                             GameObject gor = PhotonNetwork.Instantiate(gorPrefab);
-                            gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent);
+                            gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent, buffered:false);
                             GameGraph.Instance.PlaceAt(gor, r);
                         }
                     }
