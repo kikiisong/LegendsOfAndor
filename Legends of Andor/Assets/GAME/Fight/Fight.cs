@@ -321,10 +321,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
        
 
         Hero CurrentHero = (Hero)currentplayer.GetHero();
-        if (player.Equals(currentplayer)) {
-            print(hero.name + "get changed");
-            hero.data.rollResult += diceNum;
-        }
+        print(hero.name + "get changed");
+        hero.data.rollResult += diceNum;
         
         hero.data.attackNum += CurrentHero.data.SP;
         
@@ -332,6 +330,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     [PunRPC]
     public void displayRollResult(Player actplayer, int diceNum) {
+        print("Act:" + actplayer.NickName + "Player" + player.NickName);
         if (!actplayer.NickName.Equals(player.NickName)) {
             actplayer.GetHero().data.diceNum += diceNum;
         }
