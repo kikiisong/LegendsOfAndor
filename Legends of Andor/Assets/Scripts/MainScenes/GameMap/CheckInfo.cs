@@ -139,7 +139,8 @@ public class CheckInfo : MonoBehaviour
 
             if (num <= monsters.Count - 1)
             {
-                int monsterWP = monsters[num].currentWP;
+                //TODO: change from currentWP to maxinum WP
+                int monsterWP = monsters[num].maxWP;
                 int monsterDamage = monsters[num].damage;
                 field1.text = "WILLPOWER:  " + monsterWP.ToString();
                 field2.text = "DAMAGE:  " + monsterDamage.ToString();

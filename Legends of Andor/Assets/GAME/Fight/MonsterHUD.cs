@@ -10,17 +10,17 @@ public class MonsterHUD : MonoBehaviour
     public Text currentWillpower;
     public Text strengthPower;
     
-    public void setMonsterHUD(Monster m) {
+    public void setMonsterHUD(Monster m,int currentWP) {
         reward.text = m.rewardc + " /" + m.rewardw;
-        currentWillpower.text = ""+m.currentWP;
+        currentWillpower.text = ""+currentWP;
         strengthPower.text = "" + m.maxSP;
 
 
     }
 
-    public void basicInfo(Monster m) {
+    public void basicInfo(Monster m, int currentWP) {
         reward.text = m.rewardc + " /" + m.rewardw;
-        currentWillpower.text = "" + m.currentWP;
+        currentWillpower.text = "" + currentWP;
         strengthPower.text = "" + m.maxSP;
     }
 }

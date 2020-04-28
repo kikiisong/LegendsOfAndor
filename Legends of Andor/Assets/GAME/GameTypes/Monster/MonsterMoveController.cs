@@ -47,7 +47,7 @@ public class MonsterMoveController : MonoBehaviourPun
     public void InitMonster(string json)
     {
         var j = JObject.Parse(json);
-        data = j.ToObject<MonsterData>();
+        data = j.ToObject<Monsters.MonsterData>();
     }
 
     public void MoveAlongPath(List<Region> path)

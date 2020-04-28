@@ -10,7 +10,7 @@ using Monsters;
 
 public class Monster : MonoBehaviourPun
 {
-    public int maxWP, maxSP, redDice, currentWP, rewardc, rewardw;
+    public int maxWP, maxSP, redDice, rewardc, rewardw;
     public bool isFighted;
     public Dice dice;
     public int damage;
@@ -36,10 +36,7 @@ public class Monster : MonoBehaviourPun
         maxSP = sp;
     }
 
-    public void Attacked(int damage)
-    {
-        currentWP -= damage;
-    }
+
 
 
     public string PrintRoll()
@@ -47,7 +44,7 @@ public class Monster : MonoBehaviourPun
         return dice.printArrayList();
     }
 
-    public void MonsterRoll()
+    public int MonsterRoll()
     {
 
         dice.rollDice(redDice, 0);
@@ -59,6 +56,7 @@ public class Monster : MonoBehaviourPun
         {
             damage = dice.getMax();
         }
+        return damage;
     }
 
     public void SetDice(string a) {

@@ -9,7 +9,7 @@ public class FightTurnManager : MonoBehaviourPun
 {
     public static FightTurnManager Instance;
 
-    private List<Player> players = new List<Player>();
+    public List<Player> players = new List<Player>();
     private List<Player> waiting = new List<Player>();
     private List<Player> finished = new List<Player>();
     private int turnIndex = 0;

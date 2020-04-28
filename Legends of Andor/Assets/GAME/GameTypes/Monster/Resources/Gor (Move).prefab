@@ -187,7 +187,6 @@ MonoBehaviour:
   maxWP: 0
   maxSP: 0
   redDice: 0
-  currentWP: 0
   rewardc: 0
   rewardw: 0
   isFighted: 0
