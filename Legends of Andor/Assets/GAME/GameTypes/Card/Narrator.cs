@@ -144,9 +144,15 @@ namespace Card
         }
 
         
-        public void realaseNewEventCardFog(int[] temp)
+        public void realaseNewEventCardFog(int[] input)
         {
-            myEventCardController.GetComponent<EventCardController>().newEventCard(temp[currentEventIndex]);
+            photonView.RPC("fodReleaseMethod", RpcTarget.AllBuffered, input);
+        }
+
+        [PunRPC]
+        public void fodReleaseMethod(int[] input)
+        {
+            myEventCardController.GetComponent<EventCardController>().newEventCard(input[currentEventIndex]);
             // increase the event card index, next time will pick another one
             currentEventIndex += 1;
         }
