@@ -130,6 +130,7 @@ public class HeroMoveController : MonoBehaviourPun
             if (current.label != clicked.label && contained && (clicked.position - mousePos).magnitude <= radius)
             {
                 isMoving = true;
+                Prince.Instance.photonView.RequestOwnership();
                 StartCoroutine(CommonRoutines.MoveTo(Prince.Instance.gameObject.transform, clicked.position, animation_time, () =>
                 {
                     //prince move counter
