@@ -233,25 +233,10 @@ namespace Saving
             {
                 print("load prince");
                 int r = jprince["r"].ToObject<int>();
-                GameObject prince = PhotonNetwork.Instantiate(princePrefab);
-                prince.transform.SetParent(GameObject.Find("Map").transform);
-                GameGraph.Instance.PlaceAt(prince, r);
-                Prince instance = prince.GetComponent<Prince>();
-                //TODO what is this: instance.regionlable = r;
-                instance.inFight = jprince["princeInFight"].ToObject<bool>();
-
+                var prince = PhotonNetwork.Instantiate(princePrefab).GetComponent<Prince>();
+                GameGraph.Instance.PlaceAt(prince.gameObject, r);
+                prince.GetComponent<Prince>().inFight = jprince["princeInFight"].ToObject<bool>();
             }
-            
-
-
-
-
-
-
-
-
-
-
         }
     }
 }
