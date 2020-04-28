@@ -381,7 +381,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 damage = dice.getMax();
             }
             //damage = aMonster.MonsterRoll();
-            string s = aMonster.dice.printArrayList();
+            string s = dice.printArrayList();
             fHUD.rollResult(s + "Max:" + damage);
             Instance.photonView.RPC("setNumber", RpcTarget.Others, s);
             StartCoroutine(MonsterRoll());
