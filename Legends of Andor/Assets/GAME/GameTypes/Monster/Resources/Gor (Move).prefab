@@ -189,7 +189,6 @@ MonoBehaviour:
   redDice: 0
   rewardc: 0
   rewardw: 0
-  isFighted: 0
   dice: {fileID: 0}
   isTower: 0
 --- !u!114 &3386901637747087041
@@ -210,4 +209,5 @@ MonoBehaviour:
     sp: 2
   canMove: 1
   hasHerb: 0
+  isFighted: 0
   m: {fileID: 4858113096683849941, guid: dcaea54e850af45fc98ff764bce8ea75, type: 3}
