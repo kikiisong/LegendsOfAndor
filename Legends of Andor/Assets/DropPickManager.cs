@@ -7,26 +7,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-/*TO DO:
- *
- * save region stats using json (+++++)
- * warn block if one wants to add more elements that they are allowed (--)
- * destroy object in 
- */
 public class DropPickManager : MonoBehaviourPun
 {
     // Start is called before the first frame update
     public GameObject groundBag;
     public GameObject backpack;
     public GameObject goldpotPrefab;
-    // public Sprite uimask;
+   
 
     private int groundSize = 9;
     private int backpackSize = 6;
     private int emptySlot = 0;
     public int objGroundBag = 0;
     private bool oc = false; //open close
-   // private Region Current;
 
     Region Current
     {
@@ -35,23 +28,7 @@ public class DropPickManager : MonoBehaviourPun
            return PhotonNetwork.LocalPlayer.GetCurrentRegion();
         }
     }
-    /*
-    Region Current
-    {
-        get
-        {
-            //Extract current player's region
-            foreach (HeroMoveController c in GameObject.FindObjectsOfType<HeroMoveController>())
-            {
-                if (c.photonView.Owner == PhotonNetwork.LocalPlayer)
-                {
-                    return GameGraph.Instance.FindNearest(c.transform.position);
-                }
-            }
-            throw new System.Exception("No current region");
-        }
-    }
-    */
+
     Hero hero
     {
         get
@@ -174,7 +151,6 @@ public class DropPickManager : MonoBehaviourPun
     {
         Region current = player.GetCurrentRegion();
 
-        Debug.Log("sprite name " + spriteName);
         if (spriteName == "coin") current.data.gold += updateUnit;
         if (spriteName == "brew") current.data.brew += updateUnit;
         if (spriteName == "wineskin") current.data.numWineskin += updateUnit;
@@ -185,7 +161,7 @@ public class DropPickManager : MonoBehaviourPun
         if (spriteName == "falcon") current.data.falcon += updateUnit;
 
         current.data.numOfItems += updateUnit;
-       // Debug.Log("region coin is " + Current.data.gold);
+
         if (current.data.numOfItems == 0) displayRegionIcon(current, false);
         if (current.data.numOfItems == 1) displayRegionIcon(current, true);
 
@@ -196,10 +172,7 @@ public class DropPickManager : MonoBehaviourPun
     {
         if (display && PhotonNetwork.IsMasterClient)
         {
-          //var missle = Instantiate<GameObject>(goldpotPrefab);
             GameObject missle = PhotonNetwork.Instantiate(goldpotPrefab);
-           // missle.transform.parent = groundBag.transform.parent;
-
             GameGraph.Instance.PlaceAt(missle, current.label);
         }
         if(!display && PhotonNetwork.IsMasterClient)
@@ -209,7 +182,7 @@ public class DropPickManager : MonoBehaviourPun
                 if (obj.transform.position == current.position)
                 {
                     obj.GetPhotonView().RequestOwnership();
-                    PhotonNetwork.Destroy(obj); //change it to 
+                    PhotonNetwork.Destroy(obj); 
                 }
             }
         }
@@ -218,8 +191,6 @@ public class DropPickManager : MonoBehaviourPun
 
     private void loadItemsOnRegion()
     {
-        Debug.Log("within load items on region");
-        Debug.Log("total numebr of items " + Current.data.numOfItems);
         emptySlot = 0;
         if (Current.data.numWineskin > 0)
         {
