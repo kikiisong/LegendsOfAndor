@@ -15577,7 +15577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061717, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -24.099976, y: -157.80005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &736475645
@@ -19790,7 +19790,7 @@ MonoBehaviour:
   brewButton: {fileID: 1444155913}
   fogInfo: {fileID: 1936702371}
   herbDice: {fileID: 1265257985}
-  herbGorPrefab: {fileID: 7977644024437883379, guid: f3122c4edf50def44bcd4a8df2681222,
+  herbGorPrefab: {fileID: 2715487355519932294, guid: f3122c4edf50def44bcd4a8df2681222,
     type: 3}
   narrator: {fileID: 373802472815136271}
   fogPrefab: {fileID: 3472078008113554938, guid: 03c71fe83439da048ab796e405c7dc3b,
