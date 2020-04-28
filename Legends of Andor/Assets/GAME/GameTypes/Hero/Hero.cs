@@ -66,6 +66,7 @@ public class Hero : ScriptableObject
         public int diceNum;
         public int damage;
         public int blackDice;
+        public int rollResult;
 
         //Helper
         public int wineskinStacked;
