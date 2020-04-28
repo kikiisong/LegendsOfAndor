@@ -11,8 +11,11 @@ public class Prince : MonoBehaviour
         get
         {
             var prince = FindObjectsOfType<Prince>();
+            if (prince != null) { 
             if (prince.Length > 1) Debug.LogWarning("More than one prince " + prince[1].transform.position);
             return prince[0];
+            }
+            return null;
         }
     }
 
