@@ -9,7 +9,8 @@ public class Herb : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //herbIcon = GetComponent<Renderer>();
+        HerbHandler herbManager = GameObject.FindGameObjectWithTag("manager").GetComponent<HerbHandler>();
+        herbManager.myHerb = gameObject;
     }
 
     // Update is called once per frame

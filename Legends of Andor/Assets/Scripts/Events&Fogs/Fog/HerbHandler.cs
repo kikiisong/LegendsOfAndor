@@ -119,7 +119,7 @@ public class HerbHandler : MonoBehaviourPun, TurnManager.IOnMove
 
         
         Region target = GameGraph.Instance.Find(currentRegion);
-        myHerb = Instantiate(herbPrefab, target.position, Quaternion.identity);
+        Instantiate(herbPrefab, target.position, Quaternion.identity);
 
     }
     /*private HerbHandler herbManager;
