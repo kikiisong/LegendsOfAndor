@@ -111,8 +111,6 @@ public class HerbHandler : MonoBehaviourPun, TurnManager.IOnMove
             {
                 //Debug.Log(hero.data.herb);
                 hero.data.herb -= 1;
-                var r = hero.GetCurrentRegion();
-                r.data.herb += 1;
                 break;
             }
         }

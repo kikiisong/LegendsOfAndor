@@ -11,6 +11,8 @@ public class Herb : MonoBehaviour
     {
         HerbHandler herbManager = GameObject.FindGameObjectWithTag("manager").GetComponent<HerbHandler>();
         herbManager.myHerb = gameObject;
+        Region r = GameGraph.Instance.FindNearest(gameObject);
+        r.data.herb += 1;
     }
 
     // Update is called once per frame

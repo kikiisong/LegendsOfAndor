@@ -439,7 +439,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             yield return new WaitForSeconds(2f);
             if (mc.hasHerb)
             {
-                photonView.RPC("placeHerb", RpcTarget.AllBuffered, mc.CurrentRegion.label);
+                PhotonNetwork.Instantiate(herbPrefab.name, GameGraph.Instance.Find(mc.CurrentRegion.label).position, Quaternion.identity);
             }
 
 
@@ -487,14 +487,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     }
 
-    [PunRPC]
-    public void placeHerb(int label)
-    {
-        var target = GameGraph.Instance.Find(label);
-        target.data.herb += 1;
-        HerbHandler herbManager = GameObject.FindGameObjectWithTag("manager").GetComponent<HerbHandler>();
-        herbManager.myHerb = Instantiate(herbPrefab, target.position, Quaternion.identity);
-    }
+
 
     public void Leave() {
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable
