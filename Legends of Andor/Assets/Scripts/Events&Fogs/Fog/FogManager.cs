@@ -157,7 +157,9 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         else if (curr.type == FogType.Event)//Event
         {
             // Matt's part
+
             photonView.RPC("FogEventCard", RpcTarget.AllBuffered, currentRegion);
+
         }
         else if (curr.type == FogType.Wineskin)//Wineskin
         {
@@ -181,7 +183,11 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         Fog curr = fogOnRegion[0];
         curr.fogIcon.enabled = false;
         Destroy(curr);
-        narrator.GetComponent<Narrator>().realaseNewEventCardFog();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            int[] masterEventList = narrator.GetComponent<Narrator>().temp;
+            narrator.GetComponent<Narrator>().realaseNewEventCardFog(masterEventList);
+        }
     }
 
 
