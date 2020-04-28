@@ -62,8 +62,9 @@ public class HeroMoveController : MonoBehaviourPun
     void Start()
     {
         Hero hero = photonView.Owner.GetHero();
-        GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();     
-        movePrinceButton = GameObject.Find("MovePrince").GetComponent<Button>();
+        GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
+        movePrinceButton = GameObject.Find("Actions").transform.Find("MovePrince").gameObject.GetComponent<Button>();
+  
         movePrinceButton.onClick.AddListener(activateControllingPrince);
         movePrinceButton.gameObject.SetActive(false);
 
