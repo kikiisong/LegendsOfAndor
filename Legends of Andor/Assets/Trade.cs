@@ -12,7 +12,6 @@ public class Trade : MonoBehaviourPun
     public GameObject slot;
     public GameObject otherPanel;
 
-    public FalconTrade ft;
 
     public int bagType;
     public int slotID;

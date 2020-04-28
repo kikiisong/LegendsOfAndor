@@ -100,9 +100,14 @@ public void populateBag()
         fillBag(emptySlot, "falcon", hero.data.falcon);
         emptySlot++;
     }
+    if (hero.data.numFarmers > 0)
+    {
+        fillBag(emptySlot, "farmer", hero.data.numFarmers);
+        emptySlot++;
+    }
 
 
-}
+    }
 
 public int EmptySlot()
 {
