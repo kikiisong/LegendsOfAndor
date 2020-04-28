@@ -82,10 +82,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         
         foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
         {
-            if (monsterC.m.isFighted)
+            if (monsterC.isFighted)
             {
                 mc = monsterC;
-                aMonster = monsterC.m;
+                aMonster = mc.m;
                 currentWP = monsterC.m.maxWP;
                 
             }
@@ -331,8 +331,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     [PunRPC]
     public void displayRollResult(Player actplayer, int diceNum) {
-        actplayer.GetHero().data.diceNum = diceNum;
-        print("Noice"+actplayer.GetHero().data.diceNum);
+        actplayer.GetHero().data.diceNum += diceNum;
+        print("Noice "+actplayer.GetHero().data.diceNum);
+        //TODO: bug
         fHUD.rollResult(player.NickName +"finished roll" );
 
     }
@@ -553,7 +554,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
 
     public void OnLastLeave() {
-        aMonster.isFighted = false;
+        mc.isFighted = false;
         //currentWP = aMonster.maxWP;
     }
     public void OnYesClick()
@@ -612,6 +613,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             {
                 temp = 7 - diceNum;
                 FightTurnManager.CurrentHero.data.diceNum = temp;
+                print("Should only turn one applied magic with value" + temp);
             }
 
             Instance.photonView.RPC("showSkillResult", RpcTarget.All, player,"magic", temp,0);
@@ -695,7 +697,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         if (fightstate == FightState.HERO&& FightTurnManager.IsMyTurn())
         {
-            int resultNum = hero.GetDiceNum();
+            int resultNum = hero.data.diceNum;
             Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, resultNum);
             mySkillYesButton.gameObject.SetActive(false);
             FightTurnManager.TriggerEvent_Fight();
