@@ -154,8 +154,20 @@ namespace Card
         {
             myEventCardController.GetComponent<EventCardController>().newEventCard(input[currentEventIndex]);
             // increase the event card index, next time will pick another one
+
+           // printListMethod(input);
+
             currentEventIndex += 1;
         }
+        /*
+        private void printListMethod(int[] input)
+        {
+            for(int i = 0; i < input.Length; i++)
+            {
+                print("The list in the client here is " + i + " and the index is " + input[i] + "the currentEventIndex is " + currentEventIndex);
+            }
+        }
+        */
 
         private void handLegendCard()
         {
