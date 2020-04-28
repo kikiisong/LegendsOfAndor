@@ -11,7 +11,6 @@ using Monsters;
 public class Monster : MonoBehaviourPun
 {
     public int maxWP, maxSP, redDice, rewardc, rewardw;
-    public bool isFighted;
     public Dice dice;
     public bool isTower;
     public void Destroy() {
