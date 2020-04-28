@@ -118,7 +118,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
             
         if (Prince.Instance != null && Prince.Instance.inFight) {
-            print("Prince is in fight");
+            //print("Prince is in fight");
             princeInFight = true;
             prince.SetActive(true);
         }
@@ -133,7 +133,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     //--------START--------//
     void plotCharacter() {
        
-        print("Plot");
+        //print("Plot");
         foreach (Player p in PhotonNetwork.PlayerList) {
         
             if (p.CustomProperties.ContainsKey(P.K.isFight))
@@ -330,7 +330,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     [PunRPC]
-    public void displayRollResult(Player player) {
+    public void displayRollResult(Player actplayer, int diceNum) {
+        actplayer.GetHero().data.diceNum = diceNum;
+        print("Noice"+actplayer.GetHero().data.diceNum);
         fHUD.rollResult(player.NickName +"finished roll" );
 
     }
@@ -382,10 +384,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             }
             //damage = aMonster.MonsterRoll();
             string s = dice.printArrayList();
+            print(s.ToString());
             fHUD.rollResult(s + "Max:" + damage);
             Instance.photonView.RPC("setNumber", RpcTarget.Others, s);
             StartCoroutine(MonsterRoll());
-            print("this"); 
             return;
         }
 
@@ -561,7 +563,32 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     [PunRPC]
-    public void showSkillResult(Hero h, string skill, int result) {
+    public void showSkillResult(Player player, string skill, int result, int resultNum) {
+        if (skill.Equals("magic")) {
+            player.GetHero().data.diceNum = result;
+        }
+        else if (skill.Equals("Helm"))
+        {
+            player.GetHero().data.helm = resultNum;
+            player.GetHero().data.diceNum = result;
+        }
+        else if (skill.Equals("HerbStrength"))
+        {
+            player.GetHero().data.herb = resultNum;
+            player.GetHero().data.diceNum = result;
+        }
+        else if (skill.Equals("HerbWill"))
+        {
+            player.GetHero().data.herb = resultNum;
+            player.GetHero().data.diceNum = result;
+        }
+        else if (skill.Equals("Brew"))
+        {
+            player.GetHero().data.brew = resultNum;
+            player.GetHero().data.diceNum = result;
+        }
+
+        print(player.NickName + " update " + result + "" +resultNum);
         fHUD.rollResult("Applied:" +skill + result);
     }
 
@@ -587,7 +614,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 FightTurnManager.CurrentHero.data.diceNum = temp;
             }
 
-            Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "magic", temp);
+            Instance.photonView.RPC("showSkillResult", RpcTarget.All, "magic", temp,0);
 
         }
     }
@@ -617,7 +644,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         usedhelm = true;
         hero.data.helm-=1;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Helm",temp);
+        int changedNum = hero.data.helm;
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Helm",temp,changedNum);
 
     }
 
@@ -629,9 +657,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
         int temp = hero.data.diceNum + hero.data.herb;
         hero.data.diceNum =temp;
-        
         hero.data.herb = 0;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbStrength",temp);
+        int changedNum = 0;
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbStrength",temp, changedNum);
     }
 
     public void onHerbWClick()
@@ -643,7 +671,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         int temp = hero.data.WP + hero.data.herb;
         hero.data.WP = temp;
         hero.data.herb = 0;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbWill",temp);
+        int changedNum = 0;
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbWill",temp, changedNum);
         hHUD.basicInfoUpdate(hero);
 
     }
@@ -657,7 +686,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         int temp = hero.data.diceNum * 2;
         hero.data.diceNum =temp;
         hero.data.brew -=1 ;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Brew",temp);
+        int changedNum = hero.data.brew;
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Brew",temp, changedNum);
     }
 
     public void onSkillClick()
@@ -665,7 +695,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         if (fightstate == FightState.HERO&& FightTurnManager.IsMyTurn())
         {
-            Instance.photonView.RPC("displayRollResult", RpcTarget.All, player);
+            int resultNum = hero.GetDiceNum();
+            Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, resultNum);
             mySkillYesButton.gameObject.SetActive(false);
             FightTurnManager.TriggerEvent_Fight();
             FightTurnManager.TriggerEvent_NewFightRound(player);
@@ -681,7 +712,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         
     }
 
-    /*Four button*/
+    /*
+           LEAVE, CONTINUE, FALCON, TRADE
+         */
     public void OnLeaveClick()
     {
         if (fightstate != FightState.DECISION)
@@ -708,7 +741,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             hHUD.backColorMagic();
         }
-        if (!FightTurnManager.CanFight())
+        if (!FightTurnManager.enoughTime())
         {
 
             fHUD.rollResult("You dont have enough hour, you can leave fight");
@@ -725,7 +758,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
         }
 
-        print("Falcon");
     }
 
     public void OnTradeClick()
@@ -735,7 +767,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
         }
 
-        print("Trade");
     }
 
     public void OnSunrise()

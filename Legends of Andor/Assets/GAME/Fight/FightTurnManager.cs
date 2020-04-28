@@ -68,6 +68,16 @@ public class FightTurnManager : MonoBehaviourPun
         return IsMyTurn() && CurrentHero.data.NumHours < 10;
     }
 
+    public static bool enoughTime()
+    {
+        if (CurrentHero.data.NumHours >= 7)
+        {
+            return  CurrentHero.data.WP >= 2;
+        }
+        return  CurrentHero.data.NumHours < 10;
+    }
+
+
     //Turn
     public static bool IsMyTurn()
     {
