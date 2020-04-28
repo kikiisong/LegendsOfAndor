@@ -323,7 +323,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         Hero CurrentHero = (Hero)currentplayer.GetHero();
         print(hero.name + "get changed" + diceNum);
         hero.data.rollResult += diceNum;
-        
+        print("Roll"+ hero.data.rollResult);
         hero.data.attackNum += CurrentHero.data.SP;
         
     }
@@ -725,7 +725,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         if (fightstate == FightState.HERO&& FightTurnManager.IsMyTurn())
         {
-            int resultNum = hero.data.rollResult;
+            int resultNum = hero.data.diceNum;
             Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, resultNum);
             mySkillYesButton.gameObject.SetActive(false);
             FightTurnManager.TriggerEvent_Fight();
