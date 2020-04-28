@@ -127,7 +127,7 @@ public class Castle : MonoBehaviourPun
         List<MonsterMoveController> monsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(temp);
         for(int i = 0; i < monsterOnRegion.Count; i++)
         {
-            monsterOnRegion[i].gameObject.SetActive(false);
+            Destroy(monsterOnRegion[i].gameObject);
         }
     }
 
