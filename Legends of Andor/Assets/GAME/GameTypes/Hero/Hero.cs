@@ -155,6 +155,9 @@ public class Hero : ScriptableObject
                 {
                     return 2;
                 }
+            case (Type.WIZARD): {
+                    return 1;
+                }
             default:
                 throw new Exception();
         }
