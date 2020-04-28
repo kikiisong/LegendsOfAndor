@@ -131,22 +131,23 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
 
 
                 }
-                Region MonsterRegion =choicesOfJoin[0].CurrentRegion;
-                print("Monster lable" + MonsterRegion.label);
-                List<Region> AdjacentMonsterRegions = GameGraph.Instance.AdjacentRegions(MonsterRegion);
-                AdjacentMonsterRegions.Add(MonsterRegion);
-                foreach (Region r in AdjacentMonsterRegions)
-                {
-                    if (Prince.Instance!=null&&Prince.Instance.regionlable == r.label)
-                    {
-                        Prince.Instance.inFight = true;
-                    }
-                }
+                
 
                 if (choicesOfJoin.Count >= 1)
                 {
                     if (choicesOfJoin.Count > 1) {
                         Debug.Log(choicesOfJoin[0]);
+                    }
+                    Region MonsterRegion = choicesOfJoin[0].CurrentRegion;
+                    print("Monster lable" + MonsterRegion.label);
+                    List<Region> AdjacentMonsterRegions = GameGraph.Instance.AdjacentRegions(MonsterRegion);
+                    AdjacentMonsterRegions.Add(MonsterRegion);
+                    foreach (Region r in AdjacentMonsterRegions)
+                    {
+                        if (Prince.Instance != null && Prince.Instance.regionlable == r.label)
+                        {
+                            Prince.Instance.inFight = true;
+                        }
                     }
                     if (hero.data.NumHours < 10)
                     {
