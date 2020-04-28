@@ -12,8 +12,6 @@ public class Trade : MonoBehaviourPun
     public GameObject slot;
     public GameObject otherPanel;
 
-    public FalconTrade ft;
-
     public int bagType;
     public int slotID;
 
@@ -25,7 +23,7 @@ public class Trade : MonoBehaviourPun
          
         GameObject image = slot.transform.GetChild(0).gameObject;
         Image img = image.gameObject.GetComponent<Image>();
-        String n = img.sprite.name;
+        string n = img.sprite.name;
 
         Debug.Log(slot.name);
    

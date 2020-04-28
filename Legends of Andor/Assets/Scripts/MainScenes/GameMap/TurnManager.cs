@@ -152,6 +152,8 @@ public class TurnManager : MonoBehaviourPun
         {
             onEndDay.OnEndDay(player);
         }
+
+        player.GetHero().data.usedFalcon = false;
     }
 
     public static void TriggerEvent_EndDay()
