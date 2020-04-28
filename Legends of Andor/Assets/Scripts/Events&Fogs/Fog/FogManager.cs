@@ -157,7 +157,12 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         else if (curr.type == FogType.Event)//Event
         {
             // Matt's part
-            photonView.RPC("FogEventCard", RpcTarget.AllBuffered, currentRegion);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                int[] temp = narrator.GetComponent<Narrator>().temp;
+                photonView.RPC("FogEventCard", RpcTarget.AllBuffered, currentRegion, temp);
+            }
+
         }
         else if (curr.type == FogType.Wineskin)//Wineskin
         {
@@ -175,13 +180,13 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
 
     // trigger the event card on narrrator
     [PunRPC]
-    public void FogEventCard(int currentRegion)
+    public void FogEventCard(int currentRegion, int[] temp)
     {
         List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
         Fog curr = fogOnRegion[0];
         curr.fogIcon.enabled = false;
         Destroy(curr);
-        narrator.GetComponent<Narrator>().realaseNewEventCardFog();
+        narrator.GetComponent<Narrator>().realaseNewEventCardFog(temp);
     }
 
 

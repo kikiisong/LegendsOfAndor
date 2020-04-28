@@ -144,7 +144,7 @@ namespace Card
         }
 
         
-        public void realaseNewEventCardFog()
+        public void realaseNewEventCardFog(int[] temp)
         {
             myEventCardController.GetComponent<EventCardController>().newEventCard(temp[currentEventIndex]);
             // increase the event card index, next time will pick another one
