@@ -23884,6 +23884,7 @@ MonoBehaviour:
   gor: {fileID: 3386901637747087041, guid: c8dcc999392c15749a74b16e631faa99, type: 3}
   skral: {fileID: 6717272833108817557, guid: b126bebfc04f4f34aab824f3144485e2, type: 3}
   wardrak: {fileID: 6328688999872481308, guid: d265625ed029cf646bca19d77cf60361, type: 3}
+  gorHerb: {fileID: 2715487355519932294, guid: f3122c4edf50def44bcd4a8df2681222, type: 3}
 --- !u!1001 &1167451227
 PrefabInstance:
   m_ObjectHideFlags: 0
