@@ -6,13 +6,21 @@ public class Prince : MonoBehaviour
 {
     public bool inFight = false;
     private bool alive = true;
-    public int regionlable;
     public static Prince Instance
     {
         get
         {
-          var prince = FindObjectOfType<Prince>();
-            return prince;
+            var prince = FindObjectsOfType<Prince>();
+            if (prince.Length > 1) Debug.LogWarning("More than one prince " + prince[1].transform.position);
+            return prince[0];
+        }
+    }
+
+    public Region CurrentRegion
+    {
+        get
+        {
+            return GameGraph.Instance.FindNearest(transform.position);
         }
     }
 
@@ -23,15 +31,6 @@ public class Prince : MonoBehaviour
         movePrinceButton.SetActive(true);
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        regionlable = GameGraph.Instance.FindNearest(this.transform.position).label;
-        //print("Prince" +r.label);
-    }
-
-    
 
     void getAlive() {
     //maybe this is to check if prince still alive?

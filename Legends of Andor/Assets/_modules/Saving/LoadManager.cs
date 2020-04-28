@@ -237,7 +237,7 @@ namespace Saving
                 prince.transform.SetParent(GameObject.Find("Map").transform);
                 GameGraph.Instance.PlaceAt(prince, r);
                 Prince instance = prince.GetComponent<Prince>();
-                instance.regionlable = r;
+                //TODO what is this: instance.regionlable = r;
                 instance.inFight = jprince["princeInFight"].ToObject<bool>();
 
             }

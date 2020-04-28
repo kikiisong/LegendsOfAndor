@@ -132,7 +132,6 @@ public class HeroMoveController : MonoBehaviourPun
                 StartCoroutine(CommonRoutines.MoveTo(Prince.Instance.gameObject.transform, clicked.position, animation_time, () =>
                 {
                     //prince move counter
-                    Prince.Instance.regionlable = clicked.label;
 
                     princeMoveCounter++;
                     if (princeMoveCounter == 1)
