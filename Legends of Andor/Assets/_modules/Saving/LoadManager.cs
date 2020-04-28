@@ -227,9 +227,7 @@ namespace Saving
             {
                 int label = j["region"].ToObject<int>();
 
-                GameObject myHerb = Instantiate(herbPrefab, GameGraph.Instance.Find(label).position, Quaternion.identity);
-                HerbHandler herbManager = GameObject.FindGameObjectWithTag("manager").GetComponent<HerbHandler>();
-                herbManager.myHerb = myHerb;
+                Instantiate(herbPrefab, GameGraph.Instance.Find(label).position, Quaternion.identity);
 
             }
 
