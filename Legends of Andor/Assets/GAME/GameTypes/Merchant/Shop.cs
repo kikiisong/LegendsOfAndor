@@ -8,8 +8,13 @@ using Bag;
 
 public class Shop : MonoBehaviour
 {
-
-    private Hero hero;
+    private static Hero Hero
+    {
+        get
+        {
+            return PhotonNetwork.LocalPlayer.GetHero();
+        }
+    }
 
     public static int merchantLocation;
     public static bool isDawrf;
@@ -17,13 +22,10 @@ public class Shop : MonoBehaviour
     public GameObject messageBox;
     public TextMeshProUGUI message;
 
-    public GameObject buttonOK;
-    public GameObject buttonConfirm;
-    public GameObject buttonCancel;
-
+    public Button buttonConfirm;
+    public Button buttonClose;
 
     string itemToBuy;
-
 
     public Button SP;
     public Button WINESKIN;
@@ -38,11 +40,8 @@ public class Shop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        hero = PhotonNetwork.LocalPlayer.GetHero();
-        buttonOK.GetComponent<Button>().onClick.AddListener(() => OKClicked());
-        buttonConfirm.GetComponent<Button>().onClick.AddListener(() => ConfirmClicked(itemToBuy));
-        buttonCancel.GetComponent<Button>().onClick.AddListener(() => CancelClicked());
+        buttonConfirm.onClick.AddListener(() => ConfirmClicked(itemToBuy));
+        buttonClose.onClick.AddListener(() => CancelClicked());
 
         SP.onClick.AddListener(() => BuyItem("SP"));
         WINESKIN.onClick.AddListener(() => BuyItem("WINESKIN"));
@@ -51,27 +50,20 @@ public class Shop : MonoBehaviour
         HELM.onClick.AddListener(() => BuyItem("HELM"));
         FALCON.onClick.AddListener(() => BuyItem("FALCON"));
         TELESCOPE.onClick.AddListener(() => BuyItem("TELESCOPE"));
-
-
-
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        messageBox.SetActive(false);
     }
-
-    
 
     void BuyItem(string itemName)
     {
-
-        if (hero.GetCurrentRegion().label != merchantLocation) //hero not here
+        if (Hero.GetCurrentRegion().label != merchantLocation) //hero not here
         {
 
             messageBox.SetActive(true);
-            buttonOK.SetActive(true);
+            buttonClose.gameObject.SetActive(true);
             message.text = "You are not at this shop yet! You can purchase when you are here. Welcome back in the future!";
 
         }
@@ -79,24 +71,23 @@ public class Shop : MonoBehaviour
         {
             //set price
             price = 2;
-            if (isDawrf && hero.type == Hero.Type.DWARF)
+            if (isDawrf && Hero.type == Hero.Type.DWARF)
             {
                 price = 1;
             }
 
-
             //not enough gold
-            if (hero.data.gold < price)
+            if (Hero.data.gold < price)
             {
                 messageBox.SetActive(true);
-                buttonOK.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = itemName + " costs "+ price +" gold to purchase. " + "You don't have enough gold!";
             }
             else // enough gold
             {
                 messageBox.SetActive(true);
-                buttonConfirm.SetActive(true);
-                buttonCancel.SetActive(true);
+                buttonConfirm.gameObject.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = "Are you sure you want to buy "+ itemName + " with " + price + " gold?";
                 itemToBuy = itemName;
 
@@ -108,17 +99,10 @@ public class Shop : MonoBehaviour
         
     }
 
-
-    private void OKClicked()
-    {
-        buttonOK.SetActive(false);
-        messageBox.SetActive(false);
-    }
-
     private void CancelClicked()
     {
-        buttonCancel.SetActive(false);
-        buttonConfirm.SetActive(false);
+        buttonClose.gameObject.SetActive(false);
+        buttonConfirm.gameObject.SetActive(false);
         messageBox.SetActive(false);
         itemToBuy = null;
 
@@ -130,24 +114,24 @@ public class Shop : MonoBehaviour
         itemToBuy = null;
 
         messageBox.SetActive(false);
-        buttonConfirm.SetActive(false);
-        buttonCancel.SetActive(false);
+        buttonConfirm.gameObject.SetActive(false);
+        buttonClose.gameObject.SetActive(false);
 
         bool bought = false;
 
     
         if (itemName=="SP")
         {
-            if (hero.data.SP < 14)
+            if (Hero.data.SP < 14)
             {
-                hero.data.SP += 1;
-                hero.data.gold -= price;
+                Hero.data.SP += 1;
+                Hero.data.gold -= price;
                 bought = true;
             }
             else
             {
                 messageBox.SetActive(true);
-                buttonOK.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = "You already have full strength points!";
             }
             
@@ -160,13 +144,13 @@ public class Shop : MonoBehaviour
             if (PhotonNetwork.LocalPlayer.NumSmallItems() < 3)
             {
                 Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Wineskin);
-                hero.data.gold -= price;
+                Hero.data.gold -= price;
                 bought = true;
             }
             else
             {
                 messageBox.SetActive(true);
-                buttonOK.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = "You have no space for this item";
             }
         }
@@ -179,14 +163,14 @@ public class Shop : MonoBehaviour
             {
 
                 PhotonNetwork.LocalPlayer.ItemIncrement(ItemType.Falcon);
-                hero.data.gold -= price;
+                Hero.data.gold -= price;
                 bought = true;
             }
             else
             {
                 print("here! hasLarge");
                 messageBox.SetActive(true);
-                buttonOK.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = "You have no space for this item";
             }       
         }
@@ -198,13 +182,13 @@ public class Shop : MonoBehaviour
             if (!Bag.Helper.HasLargeItem(PhotonNetwork.LocalPlayer))
             {
                 PhotonNetwork.LocalPlayer.ItemIncrement(ItemType.Shield);
-                hero.data.gold -= price;
+                Hero.data.gold -= price;
                 bought = true;
             }
             else
             {
                 messageBox.SetActive(true);
-                buttonOK.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = "You have no space for this item";
             }
         }
@@ -213,23 +197,23 @@ public class Shop : MonoBehaviour
 
         if (itemName == "BOW")
         {
-            if (hero.type == Hero.Type.ARCHER)
+            if (Hero.type == Hero.Type.ARCHER)
             {
                 messageBox.SetActive(true);
-                buttonOK.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = "You already have a Bow";
                
             }
             else if (!Bag.Helper.HasLargeItem(PhotonNetwork.LocalPlayer))
             {
                 Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Bow);
-                hero.data.gold -= price;
+                Hero.data.gold -= price;
                 bought = true;
             }
             else
             {
                 messageBox.SetActive(true);
-                buttonOK.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = "You do not have space for this item";
             }
 
@@ -241,13 +225,13 @@ public class Shop : MonoBehaviour
             if (!Bag.Helper.HasItem(PhotonNetwork.LocalPlayer, ItemType.Helm))
             {
                 Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Helm);
-                hero.data.gold -= price;
+                Hero.data.gold -= price;
                 bought = true;
             }
             else
             {
                 messageBox.SetActive(true);
-                buttonOK.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = "You already heve a helmet.";
             }
         }
@@ -258,31 +242,23 @@ public class Shop : MonoBehaviour
             if (Bag.Helper.NumSmallItems(PhotonNetwork.LocalPlayer) < 3)
             {
                 Bag.Helper.ItemIncrement(PhotonNetwork.LocalPlayer, ItemType.Telescope);
-                hero.data.gold -= price;
+                Hero.data.gold -= price;
                 bought = true;
             }
             else
             {
                 messageBox.SetActive(true);
-                buttonOK.SetActive(true);
+                buttonClose.gameObject.SetActive(true);
                 message.text = "You do not have space for this item";
             }
         }
 
-
         if (bought)
         {
             messageBox.SetActive(true);
-            buttonOK.SetActive(true);
+            buttonClose.gameObject.SetActive(true);
             message.text = "You bought a " + itemName + "!";
             print("bought " + itemName);
         }
-
-        
-
-
-
     }
-
-
 }
