@@ -582,30 +582,30 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     [PunRPC]
-    public void showSkillResult(Player player, string skill, int result, int resultNum) {
+    public void showSkillResult(Player actplayer, string skill, int result, int resultNum) {
         if (skill.Equals("magic")) {
-            player.GetHero().data.diceNum = result;
+            actplayer.GetHero().data.diceNum = result;
             print("?"+hero.data.diceNum) ;
         }
         else if (skill.Equals("Helm"))
         {
-            player.GetHero().data.helm = resultNum;
-            player.GetHero().data.diceNum = result;
+            actplayer.GetHero().data.helm = resultNum;
+            actplayer.GetHero().data.diceNum = result;
         }
         else if (skill.Equals("HerbStrength"))
         {
-            player.GetHero().data.herb = resultNum;
-            player.GetHero().data.diceNum = result;
+            actplayer.GetHero().data.herb = resultNum;
+            actplayer.GetHero().data.diceNum = result;
         }
         else if (skill.Equals("HerbWill"))
         {
-            player.GetHero().data.herb = resultNum;
-            player.GetHero().data.diceNum = result;
+            actplayer.GetHero().data.herb = resultNum;
+            actplayer.GetHero().data.diceNum = result;
         }
         else if (skill.Equals("Brew"))
         {
-            player.GetHero().data.brew = resultNum;
-            player.GetHero().data.diceNum = result;
+            actplayer.GetHero().data.brew = resultNum;
+            actplayer.GetHero().data.diceNum = result;
         }
 
         print(player.NickName + " update " + result + "" +resultNum);

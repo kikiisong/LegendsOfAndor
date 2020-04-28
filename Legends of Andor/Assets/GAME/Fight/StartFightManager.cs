@@ -250,7 +250,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
 
     public void Click_Start()
     {
-        print("switchScene");
+        //print("switchScene");
 
         
         photonView.RPC("SwitchScene", RpcTarget.All);
@@ -258,7 +258,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
 
     [PunRPC]
     public void LightUpJoin() {
-        print("lishgtUpJoin");
+        //print("lishgtUpJoin");
         fight.SetActive(false);
         ready.SetActive(true);
     }
