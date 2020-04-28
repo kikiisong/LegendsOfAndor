@@ -618,7 +618,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        Instance.photonView.RPC("AppliedMagic", player, RpcTarget.All);
+        Instance.photonView.RPC("AppliedMagic", RpcTarget.All,player);
 
 
     }
