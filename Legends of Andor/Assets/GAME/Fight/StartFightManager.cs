@@ -35,18 +35,23 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
 
     public void Update()
     {
-        Player player = PhotonNetwork.LocalPlayer;
-        Region currentRegion = player.GetCurrentRegion();
-        update += Time.deltaTime;
-        if (update > 2.0f && !fightStart)
-        {
-            update = 0.0f;
-            Debug.Log("Update");
-            if (!player.HasConsumedHour()&&TurnManager.IsMyTurn()) {
-                
-                displayFight(player, currentRegion);
+        if (!fightStart) {
+            Player player = PhotonNetwork.LocalPlayer;
+            Region currentRegion = player.GetCurrentRegion();
+            update += Time.deltaTime;
+            if (update > 2.0f && !fightStart)
+            {
+                update = 0.0f;
+                Debug.Log("Update");
+                if (!player.HasConsumedHour() && TurnManager.IsMyTurn())
+                {
+
+                    displayFight(player, currentRegion);
+                }
             }
+
         }
+        
     }
 
     public void OnMove(Player player, Region currentRegion)
