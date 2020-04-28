@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Prince : MonoBehaviour
+public class Prince : MonoBehaviourPun
 {
     public bool inFight = false;
     private bool alive = true;
