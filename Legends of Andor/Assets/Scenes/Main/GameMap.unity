@@ -18049,7 +18049,8 @@ MonoBehaviour:
   currentEventIndex: 0
   currentEventCard: {fileID: 714773209}
   useShieldOptionPanel: {fileID: 395742088}
-  wellBackUp45: {fileID: 1167451228}
+  wellPrefab: {fileID: 1490251447576969285, guid: 674cccfaeab2e8445a2f799b9ed04e03,
+    type: 3}
   narrator: {fileID: 373802472815136271}
   usedShieldFor3: 0
   myEventCardButton: {fileID: 714773209}
@@ -23887,6 +23888,7 @@ MonoBehaviour:
   skral: {fileID: 6717272833108817557, guid: b126bebfc04f4f34aab824f3144485e2, type: 3}
   wardrak: {fileID: 6328688999872481308, guid: d265625ed029cf646bca19d77cf60361, type: 3}
   gorHerb: {fileID: 2715487355519932294, guid: f3122c4edf50def44bcd4a8df2681222, type: 3}
+  skralOnTower: {fileID: 0}
 --- !u!1001 &1167451227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23971,12 +23973,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 674cccfaeab2e8445a2f799b9ed04e03, type: 3}
---- !u!1 &1167451228 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1490251447576969285, guid: 674cccfaeab2e8445a2f799b9ed04e03,
-    type: 3}
-  m_PrefabInstance: {fileID: 1167451227}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1167451229 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5640554689278113949, guid: 674cccfaeab2e8445a2f799b9ed04e03,

@@ -15,7 +15,8 @@ public class EventCardController : MonoBehaviourPun
     public GameObject currentEventCard;
     public GameObject useShieldOptionPanel;
 
-    public GameObject wellBackUp45;
+    //public GameObject wellBackUp45;
+    public GameObject wellPrefab;
 
     public GameObject narrator;
 
@@ -290,7 +291,7 @@ public class EventCardController : MonoBehaviourPun
         }
         else
         {
-            well[0].gameObject.SetActive(false);
+            Destroy(well[0].gameObject);
         }
 
     }
@@ -465,7 +466,7 @@ public class EventCardController : MonoBehaviourPun
         if(eventNumber == 7)
         {
             print("Entered the usedShield Function ");
-            wellBackUp45.SetActive(true);
+            Instantiate(wellPrefab, GameGraph.Instance.Find(45).position, Quaternion.identity);
         }
 
         if(eventNumber == 3)
