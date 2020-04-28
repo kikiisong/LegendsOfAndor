@@ -124,7 +124,7 @@ public class FightTurnManager : MonoBehaviourPun
         //Notify
         foreach (IOnSkillCompleted onSkillCompleted in onSkillCompleteds)
         {
-            onSkillCompleted.OnSkillCompleted(player);
+            onSkillCompleted.OnSkillCompleted(player, player.GetHero().data.diceNum);
         }
     }
 
@@ -250,7 +250,7 @@ public class FightTurnManager : MonoBehaviourPun
 
     public interface IOnSkillCompleted : IEvent
     {
-        void OnSkillCompleted(Player player);
+        void OnSkillCompleted(Player player, int diceNum);
     }
 
     public interface IOnMonsterTurn : IEvent
@@ -278,9 +278,9 @@ FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield,
 {
 
 
-    public void OnSkillCompleted(Player player)
+    public void OnSkillCompleted(Player player, int diceNum)
     {
-        Debug.Log("Skill completed " + player.NickName);
+        Debug.Log("Skill completed " + player.NickName + " "+ diceNum);
     }
 
     public void OnMonsterTurn()

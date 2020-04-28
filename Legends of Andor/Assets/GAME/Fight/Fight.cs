@@ -316,10 +316,15 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     //--------ROLLFINISHED--------//
-    public void OnSkillCompleted(Player player) {
+    public void OnSkillCompleted(Player currentplayer, int diceNum) {
 
-        Hero CurrentHero = (Hero)player.GetHero();
-        hero.data.diceNum = Mathf.Max(hero.data.diceNum, CurrentHero.data.diceNum);
+
+        Hero CurrentHero = (Hero)currentplayer.GetHero();
+        if (player != currentplayer) {
+            print(hero.name + "get changed");
+            hero.data.diceNum += diceNum;
+        }
+        
         hero.data.attackNum += CurrentHero.data.SP;
         
     }
@@ -338,6 +343,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.attackNum += hero.data.diceNum;
         print("Total Damage " + hero.data.attackNum);
         if (princeInFight) {
+            print("Prince helps to add 4");
             hero.data.attackNum += 4;
         }
         fHUD.rollResult("HeroAttack " + hero.data.attackNum);
@@ -659,7 +665,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         if (fightstate == FightState.HERO&& FightTurnManager.IsMyTurn())
         {
-            Instance.photonView.RPC("displayRollResult", RpcTarget.All, player,);
+            Instance.photonView.RPC("displayRollResult", RpcTarget.All, player);
             mySkillYesButton.gameObject.SetActive(false);
             FightTurnManager.TriggerEvent_Fight();
             FightTurnManager.TriggerEvent_NewFightRound(player);
