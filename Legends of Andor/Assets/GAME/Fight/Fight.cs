@@ -266,7 +266,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
 
         }
-        print("rolling");
+        //print("rolling");
         hero.HeroRoll();
         string s;
         if (hero.type == Hero.Type.ARCHER)
@@ -284,7 +284,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void HeroRoll(Player player, string s)
     {
         Hero rolledhero = player.GetHero();
-        print("heroroll running");
+        //print("heroroll running");
         if (rolledhero.type == Hero.Type.ARCHER)
         {
             if (rolledhero == hero) {
@@ -321,16 +321,16 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
        
 
         Hero CurrentHero = (Hero)currentplayer.GetHero();
-        print(hero.name + "get changed");
+        print(hero.name + "get changed" + diceNum);
         hero.data.rollResult += diceNum;
-        
+        print("Roll"+ hero.data.rollResult);
         hero.data.attackNum += CurrentHero.data.SP;
         
     }
 
     [PunRPC]
     public void displayRollResult(Player actplayer, int diceNum) {
-        print("Act:" + actplayer.NickName + "Player" + player.NickName);
+        print("Act:" + actplayer.NickName + "Player" + player.NickName +"D "+diceNum);
         if (!actplayer.NickName.Equals(player.NickName)) {
             actplayer.GetHero().data.diceNum += diceNum;
         }
@@ -725,7 +725,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         if (fightstate == FightState.HERO&& FightTurnManager.IsMyTurn())
         {
-            int resultNum = hero.data.rollResult;
+            int resultNum = hero.data.diceNum;
             Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, resultNum);
             mySkillYesButton.gameObject.SetActive(false);
             FightTurnManager.TriggerEvent_Fight();
