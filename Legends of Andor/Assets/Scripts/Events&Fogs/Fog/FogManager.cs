@@ -12,7 +12,7 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
     public Button brewButton;
     public GameObject fogInfo;
     public GameObject herbDice;
-    public GameObject herbGorPrefab;
+    public MonsterMoveController herbGorPrefab;
     public GameObject narrator;
     public GameObject fogPrefab;
     public GameObject witchPrefab;
@@ -396,7 +396,10 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         herbDice.transform.GetChild(2).gameObject.SetActive(true);
 
         Region target = GameGraph.Instance.Find(herbAt);
-        Instantiate(herbGorPrefab, target.position, Quaternion.identity);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(herbGorPrefab.name, target.position, Quaternion.identity);
+        }
        
     }
 
