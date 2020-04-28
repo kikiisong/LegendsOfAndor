@@ -19397,7 +19397,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943947473}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e6cf671e94527346aa639edfd0ba953, type: 3}
   m_Name: 
@@ -23856,7 +23856,8 @@ MonoBehaviour:
   skral: {fileID: 6717272833108817557, guid: b126bebfc04f4f34aab824f3144485e2, type: 3}
   wardrak: {fileID: 6328688999872481308, guid: d265625ed029cf646bca19d77cf60361, type: 3}
   gorHerb: {fileID: 2715487355519932294, guid: f3122c4edf50def44bcd4a8df2681222, type: 3}
-  skralOnTower: {fileID: 0}
+  skralOnTower: {fileID: 729027944542912367, guid: 78793c09cb9d84ee3939bd2729809f77,
+    type: 3}
 --- !u!1 &1171643215
 GameObject:
   m_ObjectHideFlags: 0
