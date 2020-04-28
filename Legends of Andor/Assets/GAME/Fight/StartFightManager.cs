@@ -92,7 +92,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                         
                         //photonView.RPC("changeMonsterTofight", RpcTarget.All,hero.data.regionNumber);
                         MonsterMoveController monster = MonsterOnMap[0];
-                        monster.m.isFighted = true;
+                        monster.isFighted = true;
                         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { P.K.isFight, true }
@@ -159,7 +159,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
 
                         {
                             MonsterMoveController monster = choicesOfJoin[0];
-                            monster.m.isFighted = true;
+                            monster.isFighted = true;
                             //photonView.RPC("changeMonsterTofight", RpcTarget.All,choicesOfJoin[0].regionlabel);
                             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
@@ -187,7 +187,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
     public void changeMonsterTofight(int regionl)
     {
         MonsterMoveController monster = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(regionl)[0];
-        monster.m.isFighted = true;
+        monster.isFighted = true;
     }
 
 
@@ -205,7 +205,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
             isFight = true;
             print("join the fight");
             MonsterMoveController monster = MonsterOnMap[0];
-            monster.m.isFighted = true;
+            monster.isFighted = true;
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { P.K.isFight, true }
@@ -228,7 +228,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
                 if (MonsterOnAdjacent.Count > 0)
                 {
                     MonsterMoveController monster = MonsterOnAdjacent[0];
-                    monster.m.isFighted = true;
+                    monster.isFighted = true;
                     PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
                         {
                             { P.K.isFight, true }
