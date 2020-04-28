@@ -85,6 +85,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             if (monsterC.isFighted)
             {
                 mc = monsterC;
+                aMonster = mc.m;
                 currentWP = monsterC.m.maxWP;
                 
             }
