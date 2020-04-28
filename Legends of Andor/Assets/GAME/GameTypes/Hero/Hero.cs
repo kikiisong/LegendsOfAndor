@@ -53,7 +53,7 @@ public class Hero : ScriptableObject
         public int shield;
         public int bow; //0 or 1
         public int falcon;
-
+        public bool usedFalcon; // true if used today, flase otherwise
         //Other
         public int herb;
 
