@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class CheckMap : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class CheckMap : MonoBehaviour
 
     public void checkRegionInfo()
     {
-        regionInfoPanel.SetActive(true);
+        
         string s = "";
 
         Player[] players = PhotonNetwork.PlayerList;
@@ -35,6 +36,18 @@ public class CheckMap : MonoBehaviour
 
         s += "\r\n";
 
+        MonsterMoveController[] mmcs = GameObject.FindObjectsOfType(typeof(MonsterMoveController)) as MonsterMoveController[];
+        if (mmcs.Length > 0)
+        {
+            s += "Monster on Region: ";
+
+            foreach (MonsterMoveController mmc in mmcs)
+            {
+                s += mmc.CurrentRegion.label + "(" + mmc.type + ")";
+            }
+
+            s += "\r\n";
+        }
 
 
         Well[] wells = GameObject.FindObjectsOfType(typeof(Well)) as Well[];
@@ -44,7 +57,15 @@ public class CheckMap : MonoBehaviour
 
             foreach (Well w in wells)
             {
-                s += w.region + "  ";
+                s += w.region + "";
+                if(w.IsFilled)
+                {
+                    s += "(filled)  ";
+                }
+                else
+                {
+                    s += "(empty)  ";
+                }
             }
 
             s += "\r\n";
@@ -91,6 +112,9 @@ public class CheckMap : MonoBehaviour
         }
 
 
-        Debug.Log(s);
+
+        Text t = regionInfoPanel.transform.GetChild(1).GetComponent<Text>();
+        t.text = s;
+        regionInfoPanel.SetActive(true);
     }
 }
