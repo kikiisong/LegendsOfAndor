@@ -124,6 +124,7 @@ public class FightTurnManager : MonoBehaviourPun
     public void EndFightRound(Player player)
     {
         //Reset index, better solution?
+        int diceNum = player.GetHero().data.diceNum;
         int i = players.IndexOf(player);
         Player next = players[Helper.Mod(i + 1, players.Count)];
 
@@ -134,7 +135,7 @@ public class FightTurnManager : MonoBehaviourPun
         //Notify
         foreach (IOnSkillCompleted onSkillCompleted in onSkillCompleteds)
         {
-            onSkillCompleted.OnSkillCompleted(player, player.GetHero().data.diceNum);
+            onSkillCompleted.OnSkillCompleted(player, diceNum);
         }
     }
 
