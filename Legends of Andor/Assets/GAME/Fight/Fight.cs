@@ -317,7 +317,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     //--------ROLLFINISHED--------//
     public void OnSkillCompleted(Player currentplayer, int diceNum) {
-
+       
 
         Hero CurrentHero = (Hero)currentplayer.GetHero();
         if (player != currentplayer) {
@@ -614,7 +614,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 FightTurnManager.CurrentHero.data.diceNum = temp;
             }
 
-            Instance.photonView.RPC("showSkillResult", RpcTarget.All, "magic", temp,0);
+            Instance.photonView.RPC("showSkillResult", RpcTarget.All, player,"magic", temp,0);
 
         }
     }
@@ -645,7 +645,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         usedhelm = true;
         hero.data.helm-=1;
         int changedNum = hero.data.helm;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Helm",temp,changedNum);
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Helm",temp,changedNum);
 
     }
 
@@ -659,7 +659,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.diceNum =temp;
         hero.data.herb = 0;
         int changedNum = 0;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbStrength",temp, changedNum);
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "HerbStrength",temp, changedNum);
     }
 
     public void onHerbWClick()
@@ -672,7 +672,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.WP = temp;
         hero.data.herb = 0;
         int changedNum = 0;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "HerbWill",temp, changedNum);
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "HerbWill",temp, changedNum);
         hHUD.basicInfoUpdate(hero);
 
     }
@@ -687,7 +687,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.diceNum =temp;
         hero.data.brew -=1 ;
         int changedNum = hero.data.brew;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, hero, "Brew",temp, changedNum);
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Brew",temp, changedNum);
     }
 
     public void onSkillClick()
