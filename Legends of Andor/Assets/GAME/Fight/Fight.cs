@@ -578,9 +578,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void OnShield(Player actingplayer)
     {
         
-        if (damage - actingplayer.GetHero().data.attackNum > 0 && !actingplayer.GetHero().data.useShiled)
+        if (damage - hero.data.attackNum > 0 && !hero.data.useShiled)
         {
-            actingplayer.GetHero().data.WP -= damage - actingplayer.GetHero().data.attackNum;
+            hero.data.WP -= damage - hero.data.attackNum;
         }
         else {
             print("Damage" + damage);
