@@ -36,11 +36,11 @@ public class FightTurnManager : MonoBehaviourPun
         if (Instance == null) Instance = this;
         else Debug.LogWarning("TurnManager not singleton");
 
-        foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
+        foreach (Player player in PhotonNetwork.PlayerList)
         {
-            Player player = pair.Value;
             if (player.CustomProperties.ContainsKey(P.K.isFight))
             {
+                print("In fight" + player.NickName);
                 players.Add(player);
 
                 //if (((Hero)player.GetHero()).type == Hero.Type.WIZARD) {
@@ -52,7 +52,7 @@ public class FightTurnManager : MonoBehaviourPun
         }
 
     }
-
+    
     private void Start()
     {
         Register(new TestFightTurn());
