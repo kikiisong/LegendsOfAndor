@@ -622,10 +622,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             }
             StartFightManager.Instance.fightStart = false;
             StartFightManager.Instance.isFight = false;
-            TurnManager.TriggerEvent_EndTurn();
             SceneManager.UnloadSceneAsync("FightScene");
             if (PhotonNetwork.IsMasterClient)
             {
+                //TODO:test
+                TurnManager.TriggerEvent_EndTurn();
                 DistributionManager.DistributeWinFight(FightTurnManager.Instance.players, (ItemType.Coin, rewardc), (ItemType.WillPower, rewardw));
             }
             Leave();
