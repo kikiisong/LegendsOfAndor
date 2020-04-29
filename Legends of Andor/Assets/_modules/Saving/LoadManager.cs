@@ -2,6 +2,7 @@
 using Monsters;
 using Newtonsoft.Json.Linq;
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -112,6 +113,41 @@ namespace Saving
                                     go = PhotonNetwork.Instantiate(skralOnTower.name, GameGraph.Instance.Find(label).position, Quaternion.identity);
                                     go.GetComponent<MonsterMoveController>().InitRPC(j["data"]);
                                     go.GetComponent<MonsterMoveController>().canMove = false;
+
+                                    Player[] players = PhotonNetwork.PlayerList;
+                                    int numberOfPlayer = players.Length;
+
+                                    // TODO due to the difficulty of the room, the skral will have different sp
+                                    if (Room.Difficulty == Difficulty.Easy)
+                                    {
+                                        if (numberOfPlayer == 2)
+                                        {
+                                            go.GetComponent<MonsterMoveController>().data.sp = 10;
+                                        }
+                                        else if (numberOfPlayer == 3)
+                                        {
+                                            go.GetComponent<MonsterMoveController>().data.sp = 20;
+                                        }
+                                        else if (numberOfPlayer == 4)
+                                        {
+                                            go.GetComponent<MonsterMoveController>().data.sp = 30;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (numberOfPlayer == 2)
+                                        {
+                                            go.GetComponent<MonsterMoveController>().data.sp = 20;
+                                        }
+                                        else if (numberOfPlayer == 3)
+                                        {
+                                            go.GetComponent<MonsterMoveController>().data.sp = 30;
+                                        }
+                                        else if (numberOfPlayer == 4)
+                                        {
+                                            go.GetComponent<MonsterMoveController>().data.sp = 40;
+                                        }
+                                    }
                                 }
                                 else
                                 {
