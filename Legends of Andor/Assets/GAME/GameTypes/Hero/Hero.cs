@@ -62,7 +62,7 @@ public class Hero : ScriptableObject
         public int btimes;
         public int attackNum;
         public bool finishedFight;
-        public Dice dice;
+        //public Dice dice;
         public int diceNum;
         public int damage;
         public int blackDice;
@@ -169,29 +169,7 @@ public class Hero : ScriptableObject
         data.WP -= damage;
     }
 
-    public void HeroRoll()
-    {
-        if (type == Type.ARCHER)
-        {
-            if (data.btimes > 0)
-            {
-                data.diceNum = data.dice.getOne(true);
-                data.btimes -= 1;
-            }
-            else if (data.times > 0)
-            {
-                data.diceNum = data.dice.getOne(false);
-                data.times -= 1;
-            }
-        }
-        //TODO: did not consider how black dice is used
-        else if(data.times>0)
-        {
-            data.dice.rollDice(GetDiceNum(), data.blackDice);
-            data.diceNum = data.dice.getMax();
-            data.times = 0;
-        }
-    }
+    
 
     //Static
     public static Hero FindInResources(Type type)
