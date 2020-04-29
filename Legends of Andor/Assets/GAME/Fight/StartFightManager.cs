@@ -21,7 +21,7 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
 
     public Region storedRegion;
     public static StartFightManager Instance;
-    private bool isFight;
+    public bool isFight;
     private float update;
     public bool fightStart = false;
     public void Start()
