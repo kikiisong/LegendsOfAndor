@@ -11,27 +11,27 @@ using System.Collections.Generic;
 using Bag;
 using System.Text.RegularExpressions;
 public enum FightState
-    {
-        START,
-        HERO,
-        //hero roll dice
-        MONSTER,
-        //monster roll dice
-        CHECK,
-        //check who wins
-        COOP,
-        //wait for other seletction
-        WIN,
-        //label if hero wins
-        LOSE,
-        DECISION
+{
+    START,
+    HERO,
+    //hero roll dice
+    MONSTER,
+    //monster roll dice
+    CHECK,
+    //check who wins
+    COOP,
+    //wait for other seletction
+    WIN,
+    //label if hero wins
+    LOSE,
+    DECISION
 
-    }
+}
 
 
 public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
-, FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield, 
-    FightTurnManager.IOnSunrise,FightTurnManager.IOnLeave
+, FightTurnManager.IOnMonsterTurn, FightTurnManager.IOnShield,
+    FightTurnManager.IOnSunrise, FightTurnManager.IOnLeave
 
 // FightTurnManager.IOnMove
 {
@@ -76,12 +76,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public int damage;
     public bool magicUsed;
     bool usedhelm = false;
-    
     // Use this for initialization
     void Start()
     {
         if (Instance == null) Instance = this;
-        
+
         foreach (MonsterMoveController monsterC in GameObject.FindObjectsOfType<MonsterMoveController>())
         {
             if (monsterC.isFighted)
@@ -89,7 +88,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 mc = monsterC;
                 aMonster = mc.m;
                 currentWP = monsterC.m.maxWP;
-                
+
             }
         }
 
@@ -106,7 +105,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         Skral.SetActive(false);
         Wardrak.SetActive(false);
 
-        switch (mc.type) {
+        switch (mc.type)
+        {
             case Monsters.MonsterType.Gor:
                 Gor.SetActive(true);
                 break;
@@ -118,26 +118,29 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 break;
 
         }
-            
-        if (Prince.Instance != null && Prince.Instance.inFight) {
+
+        if (Prince.Instance != null && Prince.Instance.inFight)
+        {
             //print("Prince is in fight");
             princeInFight = true;
             prince.SetActive(true);
         }
         fightstate = FightState.START;
         FightTurnManager.Register(this);
-        
+
         StartCoroutine(setUpBattle());
-        
+
     }
 
 
     //--------START--------//
-    void plotCharacter() {
-       
+    void plotCharacter()
+    {
+
         //print("Plot");
-        foreach (Player p in PhotonNetwork.PlayerList) {
-        
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
+
             if (p.CustomProperties.ContainsKey(P.K.isFight))
             {
                 bool fight = (bool)p.CustomProperties[P.K.isFight];
@@ -145,11 +148,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 {
                     Debug.Log(p.NickName + "in fight");
                     Hero hero = (Hero)p.GetHero();
-                
+
                     switch (hero.type)
                     {
                         case Hero.Type.ARCHER:
-                            if (hero.ui.gender)archerPrefabsmale.SetActive(true);
+                            if (hero.ui.gender) archerPrefabsmale.SetActive(true);
                             else archerPrefabsfemale.SetActive(true);
                             break;
                         case Hero.Type.WARRIOR:
@@ -169,7 +172,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                     //GameObject go5 = PhotonNetwork.
                     //}
                 }
-                else {
+                else
+                {
                     Hero hero = (Hero)p.GetHero();
                     switch (hero.type)
                     {
@@ -201,14 +205,14 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     IEnumerator setUpBattle()
     {
-        
+
         myArcherYesButton.gameObject.SetActive(false);
         mySkillYesButton.gameObject.SetActive(false);
         fHUD.setFightHUD_START();
         fightstate = FightState.HERO;
         yield return new WaitForSeconds(2f);
         fHUD.setFightHUD_PLAYER();
-        
+
         plotCharacter();
         player = PhotonNetwork.LocalPlayer;
         hero = (Hero)player.GetHero();
@@ -232,16 +236,15 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.diceNum = 0;
         hero.data.rollResult = 0;
         hero.data.attackNum = 0;
-        hero.data.useShiled = false;
         damage = 0;
         magicUsed = false;
         usedhelm = false;
-        
+
 
         if (fightstate != FightState.HERO || !FightTurnManager.IsMyTurn()
             || !photonView.IsMine || !FightTurnManager.CanFight())
         {
-            
+
             print("return");
             return;
 
@@ -265,7 +268,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             print("return");
 
             print("Fight State" + (fightstate != FightState.HERO));
-            print("MyTUrn"+ !FightTurnManager.IsMyTurn());
+            print("MyTUrn" + !FightTurnManager.IsMyTurn());
             print("photonView" + !photonView.IsMine);
             print("Fight" + !FightTurnManager.CanFight());
 
@@ -279,7 +282,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             s = "Value:" + hero.data.diceNum + " Left B/R:" + hero.data.btimes + "/" + hero.data.times;
         }
-        else {
+        else
+        {
             s = dice.printArrayList() + "Max:" + hero.data.diceNum;
         }
         Instance.photonView.RPC("HeroRoll", RpcTarget.All, player, s);
@@ -372,12 +376,15 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         //print("heroroll running");
         if (rolledhero.type == Hero.Type.ARCHER)
         {
-            if (rolledhero == hero) {
+            if (rolledhero == hero)
+            {
 
-                if (hero.data.btimes > 0 || hero.data.times > 0) {
+                if (hero.data.btimes > 0 || hero.data.times > 0)
+                {
                     myArcherYesButton.gameObject.SetActive(true);
                 }
-                else {
+                else
+                {
                     OnYesClick();
                 }
 
@@ -402,20 +409,22 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     //--------ROLLFINISHED--------//
-    public void OnSkillCompleted(Player currentplayer, int diceNum) {
-       
+    public void OnSkillCompleted(Player currentplayer, int diceNum)
+    {
+
 
         Hero CurrentHero = (Hero)currentplayer.GetHero();
         print(hero.name + "get changed" + diceNum);
         hero.data.rollResult += diceNum;
-        print("Roll"+ hero.data.rollResult);
+        print("Roll" + hero.data.rollResult);
         hero.data.attackNum += CurrentHero.data.SP;
-        
+
     }
 
     [PunRPC]
-    public void displayRollResult(Player actplayer, int diceNum) {
-        print("Act:" + actplayer.NickName + "Player" + player.NickName +"D "+diceNum);
+    public void displayRollResult(Player actplayer, int diceNum)
+    {
+        print("Act:" + actplayer.NickName + "Player" + player.NickName + "D " + diceNum);
         print(FightTurnManager.IsMyTurn());
         //if(magicUsed) {
         //    if (FightTurnManager.IsMyTurn()) {
@@ -423,34 +432,37 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         //    }
         //}
         //else {
-        if (!actplayer.NickName.Equals(player.NickName) )
+        if (!actplayer.NickName.Equals(player.NickName))
         {
             print("indes");
             actplayer.GetHero().data.diceNum = diceNum;
         }
         //}
-        
-       
-        print("Noice "+actplayer.GetHero().data.diceNum);
+
+
+        print("Noice " + actplayer.GetHero().data.diceNum);
         if (actplayer.NickName.Equals(player.NickName))
         {
             fHUD.rollResult(player.NickName + "finished roll");
         }
-        else {
+        else
+        {
             fHUD.rollResult(player.NickName + "in queue");
         }
-        
+
 
     }
 
 
     //--------ATTACK--------//
 
-    public void OnMonsterTurn() {
+    public void OnMonsterTurn()
+    {
         print("Total sum of Attack" + hero.data.attackNum);
         hero.data.attackNum += hero.data.rollResult;
         print("Total Damage " + hero.data.attackNum);
-        if (princeInFight) {
+        if (princeInFight)
+        {
             print("Prince helps to add 4");
             hero.data.attackNum += 4;
         }
@@ -476,7 +488,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
 
         }
-        if (FightTurnManager.IsMyProtectedTurn()) {
+        if (FightTurnManager.IsMyProtectedTurn())
+        {
             print("only run once");
 
             dice.rollDice(aMonster.redDice, 0);
@@ -498,7 +511,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
 
         print("should not be run here");
-        
+
 
     }
 
@@ -557,52 +570,46 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     //--------CHECK--------//
     IEnumerator CheckOnShield()
-    { fHUD.rollResult("Attack By Hero: "+ hero.data.attackNum+ " Attack By Monster: " +damage);
+    {
+        fHUD.rollResult("Attack By Hero: " + hero.data.attackNum + " Attack By Monster: " + damage);
         yield return new WaitForSeconds(2f);
         if (damage > hero.data.attackNum)
         {
             //go thouth everything to check if want to use sheild
             fHUD.setFightHUD_SHIELD();
- 
+
         }
         else if (damage <= hero.data.attackNum)
         {
-           
+
             Attacked(hero.data.attackNum - damage);
-            mHUD.basicInfo(aMonster,currentWP);
+            mHUD.basicInfo(aMonster, currentWP);
             yield return new WaitForSeconds(2f);
         }
 
     }
 
-    public void OnShield(Player actingplayer)
+    public void OnShield(Player player)
     {
-        
-        if (damage - hero.data.attackNum > 0 && !hero.data.useShiled)
+        if (damage - hero.data.attackNum > 0)
         {
             hero.data.WP -= damage - hero.data.attackNum;
         }
-        else {
+        else
+        {
             print("Damage" + damage);
-            print(actingplayer.GetHero().type+ actingplayer.GetHero().data.WP);
+            print(hero.data.attackNum);
             print("why less than zero");
         }
-       
-        hHUD.basicInfoUpdate(hero);
-        Instance.photonView.RPC("finalroundupdate", RpcTarget.All, player, player.GetHero().data.WP);
-    }
 
-    [PunRPC]
-    public void finalroundupdate(Player act,int wp) {
-        act.GetHero().data.WP = wp;
-        
+        hHUD.basicInfoUpdate(hero);
     }
 
     IEnumerator Check()
     {
         yield return new WaitForSeconds(2f);
         mySkillYesButton.gameObject.SetActive(false);
-        print("MonsterWP"+currentWP);
+        print("MonsterWP" + currentWP);
         if (currentWP <= 0)
         {
             print("WIN");
@@ -614,26 +621,29 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 PhotonNetwork.Instantiate(herbPrefab.name, GameGraph.Instance.Find(mc.CurrentRegion.label).position, Quaternion.identity);
             }
 
-            
+
             int rewardc = aMonster.rewardc;
             int rewardw = aMonster.rewardw;
             print("Reward" + rewardc);
             print("Reward" + rewardw);
 
-            if (PhotonNetwork.IsMasterClient) {
+            if (PhotonNetwork.IsMasterClient)
+            {
                 PhotonNetwork.Destroy(mc.gameObject);
-    
+
             }
             Debug.Log(mc);
 
-            if (aMonster.isTower) {
+            if (aMonster.isTower)
+            {
                 //  photonView.RPC("tellCastle", RpcTarget.AllBuffered);
                 GameObject.FindObjectOfType<Castle>().GetComponent<Castle>().tellCastle();
             }
             StartFightManager.Instance.fightStart = false;
             StartFightManager.Instance.isFight = false;
             SceneManager.UnloadSceneAsync("FightScene");
-            foreach (Player player in FightTurnManager.Instance.players) {
+            foreach (Player player in FightTurnManager.Instance.players)
+            {
                 print(player.NickName);
             }
             if (PhotonNetwork.IsMasterClient)
@@ -673,7 +683,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
 
 
-    public void Leave() {
+    public void Leave()
+    {
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable
                         {
                             { P.K.isFight, false }
@@ -685,7 +696,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
 
-    public void OnLastLeave() {
+    public void OnLastLeave()
+    {
         mc.isFighted = false;
         //currentWP = aMonster.maxWP;
     }
@@ -696,7 +708,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     }
 
     [PunRPC]
-    public void showSkillResult(Player actplayer, string skill, int result, int resultNum) {
+    public void showSkillResult(Player actplayer, string skill, int result, int resultNum)
+    {
         if (skill.Equals("magic"))
         {
             actplayer.GetHero().data.diceNum = result;
@@ -722,13 +735,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             actplayer.GetHero().data.brew = resultNum;
             actplayer.GetHero().data.diceNum = result;
         }
-        else if (skill.Equals("Sheild")) {
-            actplayer.GetHero().data.shield = resultNum;
-            actplayer.GetHero().data.useShiled = true;
-        }
 
-        print(player.NickName + " update " + result + "" +resultNum);
-        fHUD.rollResult("Applied:" +skill + result);
+        print(player.NickName + " update " + result + "" + resultNum);
+        fHUD.rollResult("Applied:" + skill + result);
     }
 
     public void onMagicClick()
@@ -738,21 +747,23 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
         }
         print(FightTurnManager.CurrentHero.name + FightTurnManager.CurrentHero.type);
-        Instance.photonView.RPC("AppliedMagic", RpcTarget.All,player);
+        Instance.photonView.RPC("AppliedMagic", RpcTarget.All, player);
 
 
     }
     [PunRPC]
-    public void AppliedMagic(Player actPlayer) {
+    public void AppliedMagic(Player actPlayer)
+    {
         //FightTurnManager.IsMyTurn()
         print(FightTurnManager.IsMyTurn());
         print(FightTurnManager.CurrentHero.type);
         this.magicUsed = true;
 
-        if (FightTurnManager.IsMyTurn()) {
+        if (FightTurnManager.IsMyTurn())
+        {
             int diceNum = FightTurnManager.CurrentHero.data.diceNum;
             int temp;
-            if (diceNum < 7 && diceNum>0)
+            if (diceNum < 7 && diceNum > 0)
             {
                 temp = 7 - diceNum;
                 //FightTurnManager.CurrentHero.data.diceNum = temp;
@@ -766,7 +777,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 return;
             }
 
-            
+
 
         }
     }
@@ -780,12 +791,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
         }
         hero.data.shield -= 1;
-        int changedNum = hero.data.shield;
         damage = 0;
-        hero.data.useShiled = true;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Sheild",1,changedNum);
-        fHUD.rollResult("Applied Sheild" );
-        FightTurnManager.TriggerEvent_OnShield(player);
+        fHUD.rollResult("Applied Sheild");
+
     }
 
     public void onHelmClick()
@@ -798,9 +806,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.diceNum = temp;
 
         usedhelm = true;
-        hero.data.helm-=1;
+        hero.data.helm -= 1;
         int changedNum = hero.data.helm;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Helm",temp,changedNum);
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Helm", temp, changedNum);
 
     }
 
@@ -811,15 +819,15 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
         }
         int temp = hero.data.diceNum + hero.data.herb;
-        hero.data.diceNum =temp;
+        hero.data.diceNum = temp;
         hero.data.herb = 0;
         int changedNum = 0;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "HerbStrength",temp, changedNum);
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "HerbStrength", temp, changedNum);
     }
 
     public void onHerbWClick()
     {
-        if (fightstate != FightState.HERO||!hero.HasHerb() || !FightTurnManager.IsMyTurn())
+        if (fightstate != FightState.HERO || !hero.HasHerb() || !FightTurnManager.IsMyTurn())
         {
             return;
         }
@@ -827,7 +835,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.WP = temp;
         hero.data.herb = 0;
         int changedNum = 0;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "HerbWill",temp, changedNum);
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "HerbWill", temp, changedNum);
         hHUD.basicInfoUpdate(hero);
 
     }
@@ -839,16 +847,16 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
         }
         int temp = hero.data.diceNum * 2;
-        hero.data.diceNum =temp;
-        hero.data.brew -=1 ;
+        hero.data.diceNum = temp;
+        hero.data.brew -= 1;
         int changedNum = hero.data.brew;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Brew",temp, changedNum);
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Brew", temp, changedNum);
     }
 
     public void onSkillClick()
     {
 
-        if (fightstate == FightState.HERO&& FightTurnManager.IsMyTurn())
+        if (fightstate == FightState.HERO && FightTurnManager.IsMyTurn())
         {
             int resultNum = hero.data.diceNum;
             Instance.photonView.RPC("displayRollResult", RpcTarget.All, player, resultNum);
@@ -861,10 +869,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             FightTurnManager.TriggerEvent_OnShield(player);
         }
 
-        else {
+        else
+        {
             print("error");
         }
-        
+
     }
 
     /*
@@ -876,7 +885,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        
+
         //Initialize the mosnter
         Leave();
 
@@ -933,5 +942,3 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         StartCoroutine(Check());
     }
 }
-    
-
