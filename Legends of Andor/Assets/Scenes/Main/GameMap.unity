@@ -16042,9 +16042,9 @@ MonoBehaviour:
   WINESKIN: {fileID: 542195747}
   SHIELD: {fileID: 1342086389}
   BOW: {fileID: 1837270040}
-  HELM: {fileID: 0}
-  FALCON: {fileID: 0}
-  TELESCOPE: {fileID: 0}
+  HELM: {fileID: 1581358197}
+  FALCON: {fileID: 1216994371}
+  TELESCOPE: {fileID: 1786588490}
 --- !u!114 &736475646
 MonoBehaviour:
   m_ObjectHideFlags: 0
