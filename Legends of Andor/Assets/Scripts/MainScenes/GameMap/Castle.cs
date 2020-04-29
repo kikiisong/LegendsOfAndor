@@ -82,7 +82,7 @@ public class Castle : MonoBehaviourPun
                     if (differenceBetweenShieldAndMonsters < 0)
                     {
                       //  print("game is over");
-                      //   PhotonNetwork.LoadLevel(nextScene);
+                        PhotonNetwork.LoadLevel(nextScene);
                     }
                     else
                     {
@@ -93,7 +93,7 @@ public class Castle : MonoBehaviourPun
                 else
                 {
                    //  print("game is over");
-                   // PhotonNetwork.LoadLevel(nextScene);
+                   PhotonNetwork.LoadLevel(nextScene);
                 }
             }
         }
