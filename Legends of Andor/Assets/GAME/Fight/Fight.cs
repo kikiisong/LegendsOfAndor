@@ -267,7 +267,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         }
         //print("rolling");
-        hero.HeroRoll();
+        HeroRoll();
         string s;
         if (hero.type == Hero.Type.ARCHER)
         {
@@ -306,7 +306,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     //Fight
     public int GetDiceNum()
     {
-        switch (hero.data.type)
+        switch (hero.type)
         {
             case (Hero.Type.ARCHER):
                 if (hero.data.WP > 13)
