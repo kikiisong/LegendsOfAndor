@@ -47,6 +47,21 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
             list[k] = list[n];
             list[n] = temp;
         }
+
+        if(list[11] == 8 || list[11] == 48)
+        {
+            int curr = list[0];
+            list[0] = list[11];
+            list[11] = curr;
+        }
+        if (list[12] == 8 || list[12] == 48)
+        {
+            int curr2 = list[1];
+            list[1] = list[12];
+            list[12] = curr2;
+        }
+
+
     }
 
     // Update is called once per frame

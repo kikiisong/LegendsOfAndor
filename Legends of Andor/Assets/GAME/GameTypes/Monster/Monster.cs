@@ -19,7 +19,42 @@ public class Monster : MonoBehaviourPun
 
     public void Start()
     {
-        
+        Region temp = GameGraph.Instance.FindNearest(gameObject.transform.position);
+        if(temp.label <= 56 && temp.label >= 51)
+        {
+            Player[] players = PhotonNetwork.PlayerList;
+            int numberOfPlayer = players.Length;
+            if (Room.Difficulty == Difficulty.Easy)
+            {
+                if (numberOfPlayer == 2)
+                {
+                    maxSP = 10;
+                }
+                else if (numberOfPlayer == 3)
+                {
+                    maxSP = 20;
+                }
+                else if (numberOfPlayer == 4)
+                {
+                    maxSP = 30;
+                }
+            }
+            else
+            {
+                if (numberOfPlayer == 2)
+                {
+                    maxSP = 20;
+                }
+                else if (numberOfPlayer == 3)
+                {
+                    maxSP = 30;
+                }
+                else if (numberOfPlayer == 4)
+                {
+                    maxSP = 40;
+                }
+            }
+        }
     }
 
     public void InitRPC(MonsterData data)
