@@ -14,9 +14,11 @@ public class Castle : MonoBehaviourPun
     public static Castle Instance;
     public ExtraShield extraShiled;
     [SceneName] public string nextScene;
+    [SceneName] public string winScene;
     // [SerializeField] public GameGraph gameGraph;
     public bool isSkralOntowelDefeaded;
     public int numberOfPlayers;
+    public GameObject winManager;
 
     private void Start()
     {
@@ -106,10 +108,26 @@ public class Castle : MonoBehaviourPun
         return hasHerb;
     }
 
+    public void tellCastle()
+    {
+        photonView.RPC("defeatTheSkralOnMonster", RpcTarget.AllBuffered);
+    }
+
     // After the skrall on tower is defeated, this function should be triggered
+    [PunRPC]
     public void defeatTheSkralOnMonster()
     {
         isSkralOntowelDefeaded = true;
+        if (winManager.GetComponent<WinManager>().checkIsWinning())
+        {
+            // load win sence
+            PhotonNetwork.LoadLevel(winScene);
+        }
+        else
+        {
+            // load false sence
+            PhotonNetwork.LoadLevel(nextScene);
+        }
     }
 
     // test if the skral on tower is defeated
