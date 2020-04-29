@@ -188,12 +188,15 @@ public class TradeManager : MonoBehaviourPun
             {
                 bool isActive1 = panelOne.activeSelf;
                 bool isActive2 = panelTwo.activeSelf;
-
+                
+                panelOne.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = player1.NickName +"'s Bag";
+                panelTwo.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = player2.NickName + "'s Bag";
                 panelOne.SetActive(!isActive1);
                 panelTwo.SetActive(!isActive2);
 
                 cleanBag(panelOne);
                 cleanBag(panelTwo);
+
 
                 populateBag(player1, panelOne);
                 populateBag(player2, panelTwo);
@@ -216,7 +219,7 @@ public class TradeManager : MonoBehaviourPun
 
     private void decrItem(GameObject bag, int slotID)
     {
-        GameObject slot = bag.gameObject.transform.GetChild(1).GetChild(slotID).gameObject; //to change later
+        GameObject slot = bag.gameObject.transform.GetChild(0).GetChild(slotID).gameObject; //to change later
 
         GameObject image = slot.transform.GetChild(0).gameObject;
         Image img = image.gameObject.GetComponent<Image>();
@@ -283,7 +286,7 @@ public class TradeManager : MonoBehaviourPun
         //if we already have the element we just need to update its number
         if (empty != -1)
         {
-            GameObject text = bag.gameObject.transform.GetChild(1).GetChild(empty).GetChild(1).gameObject;
+            GameObject text = bag.gameObject.transform.GetChild(0).GetChild(empty).GetChild(1).gameObject;
             Text tx = text.gameObject.GetComponent<Text>();
 
             if (tx.text == "")
@@ -299,7 +302,7 @@ public class TradeManager : MonoBehaviourPun
         }
         else // new element to add
         {
-            GameObject image = bag.gameObject.transform.GetChild(1).GetChild(emptySlot).GetChild(0).gameObject;
+            GameObject image = bag.gameObject.transform.GetChild(0).GetChild(emptySlot).GetChild(0).gameObject;
             Image img = image.gameObject.GetComponent<Image>();
             img.sprite = spriteToLoad;
         }
@@ -309,7 +312,7 @@ public class TradeManager : MonoBehaviourPun
     //displays image of a certain item in the bag
     public void fillBag(int slotNumber, string spriteName, int parameter, GameObject bag)
     {
-        GameObject itemsList = bag.gameObject.transform.GetChild(1).gameObject;
+        GameObject itemsList = bag.gameObject.transform.GetChild(0).gameObject;
         Sprite spriteToLoad;
         if (spriteName == "UIMask")
         {
@@ -391,6 +394,8 @@ public class TradeManager : MonoBehaviourPun
             emptySlot++;
         }
 
+        //name panel's
+       // bag.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = "'s Bag";
     }
 
     //works only if there are two ppl on the same region
@@ -422,7 +427,7 @@ public class TradeManager : MonoBehaviourPun
         //  emptySlotBag = 0;
         for (int i = 5; i >= 0; i--)
         {
-            GameObject image = bag.gameObject.transform.GetChild(1).GetChild(i).GetChild(0).gameObject;
+            GameObject image = bag.gameObject.transform.GetChild(0).GetChild(i).GetChild(0).gameObject;
             Image img = image.gameObject.GetComponent<Image>();
 
             if (img.sprite.name == name)
