@@ -524,6 +524,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 photonView.RPC("tellCastle", RpcTarget.AllBuffered);
             }
             StartFightManager.Instance.fightStart = false;
+            StartFightManager.Instance.isFight = false;
 
             SceneManager.UnloadSceneAsync("FightScene");
             if (PhotonNetwork.IsMasterClient)
@@ -544,6 +545,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             //initialize everything
             Leave();
             StartFightManager.Instance.fightStart = false;
+            StartFightManager.Instance.isFight = false;
             SceneManager.UnloadSceneAsync("FightScene");
 
         }
@@ -563,7 +565,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                         {
                             { P.K.isFight, false }
                         });
-        StartFightManager.Instance.fightStart = false;
         //not possible to pass a Monster 
         FightTurnManager.TriggerRemove(player);
 
@@ -618,6 +619,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
+        print(FightTurnManager.CurrentHero.name + FightTurnManager.CurrentHero.type);
         Instance.photonView.RPC("AppliedMagic", RpcTarget.All,player);
 
 
@@ -634,7 +636,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             if (diceNum < 7 && diceNum>0)
             {
                 temp = 7 - diceNum;
-                FightTurnManager.CurrentHero.data.diceNum = temp;
+                //FightTurnManager.CurrentHero.data.diceNum = temp;
+                hero.data.diceNum = temp;
                 print("Should only turn one applied magic with value" + temp);
                 Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "magic", temp, 0);
             }
@@ -754,6 +757,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         
         //Initialize the mosnter
         Leave();
+
+        StartFightManager.Instance.fightStart = false;
+        StartFightManager.Instance.isFight = false;
         SceneManager.UnloadSceneAsync("FightScene");
 
     }
