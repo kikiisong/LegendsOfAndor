@@ -88,6 +88,7 @@ public class Castle : MonoBehaviourPun
                     {
                         
                         photonView.RPC("decreseTheShield", RpcTarget.AllBuffered, monsterOnRegion.Count);
+                        print("The monster number is " + monsterOnRegion.Count);
                     }
                 }
                 else
@@ -141,14 +142,14 @@ public class Castle : MonoBehaviourPun
     public void decreseTheShield(int a)
     {
         extraShiled.numberOfShileds = extraShiled.numberOfShileds - a;
-        Region temp = GameGraph.Instance.FindNearest(gameObject.transform.position);
-        List<MonsterMoveController> monsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(temp);
-        for(int i = 0; i < monsterOnRegion.Count; i++)
-        {
-            Destroy(monsterOnRegion[i].gameObject);
+        if (PhotonNetwork.IsMasterClient) {
+            Region temp = GameGraph.Instance.FindNearest(gameObject.transform.position);
+            List<MonsterMoveController> monsterOnRegion = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(temp);
+            for (int i = 0; i < monsterOnRegion.Count; i++)
+            {
+                PhotonNetwork.Destroy(monsterOnRegion[i].gameObject);
+            }
         }
     }
-
-
 }
 

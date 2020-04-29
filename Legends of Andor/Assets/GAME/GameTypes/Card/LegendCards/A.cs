@@ -31,7 +31,7 @@ namespace Card
                     //Monsters
                     if (PhotonNetwork.IsMasterClient)
                     {
-                        foreach (int r in new int[] { 8, 20, 21, 26, 48 })
+                        foreach (int r in new int[] {8, 20, 21, 26, 48 })
                         {
                             GameObject gor = PhotonNetwork.Instantiate(gorPrefab);
                             gor.GetComponent<MonsterMoveController>().SetParentRPC(monsterParent, buffered:false);
