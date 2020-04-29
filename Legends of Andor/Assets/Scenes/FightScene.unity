@@ -1017,7 +1017,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 23
+  viewIdField: 58
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &149529585
@@ -2650,6 +2650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelOne: {fileID: 369872781}
   panelTwo: {fileID: 1501271556}
+  panelErrMsg: {fileID: 0}
   tradeMany: {fileID: 0}
 --- !u!1 &494337466
 GameObject:
@@ -2826,7 +2827,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 14
+  viewIdField: 62
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &507070096
@@ -3417,7 +3418,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 15
+  viewIdField: 64
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &586878446
@@ -4410,7 +4411,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 24
+  viewIdField: 60
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &777019289
@@ -5664,7 +5665,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 1
+  viewIdField: 56
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1111903460
@@ -6050,7 +6051,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 25
+  viewIdField: 61
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1210335964
@@ -7171,7 +7172,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 16
+  viewIdField: 63
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1382020924
@@ -7740,7 +7741,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 18
+  viewIdField: 66
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1555140430
@@ -8593,7 +8594,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 2
+  viewIdField: 57
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1669346229
@@ -9124,7 +9125,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 17
+  viewIdField: 65
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1794003667
@@ -9747,6 +9748,7 @@ MonoBehaviour:
   prince: {fileID: 1059051691}
   currentWP: 0
   damage: 0
+  magicUsed: 0
 --- !u!4 &1987893036
 Transform:
   m_ObjectHideFlags: 0
@@ -9797,6 +9799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelOne: {fileID: 369872781}
   panelTwo: {fileID: 1501271556}
+  panelErrMsg: {fileID: 0}
   tradeMany: {fileID: 0}
 --- !u!1 &1996844394
 GameObject:
@@ -10397,7 +10400,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 22
+  viewIdField: 59
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &2083188961
@@ -10627,7 +10630,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 19
+  viewIdField: 67
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &2137849246
