@@ -604,9 +604,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                 PhotonNetwork.Instantiate(herbPrefab.name, GameGraph.Instance.Find(mc.CurrentRegion.label).position, Quaternion.identity);
             }
 
-            Leave();
+            
             int rewardc = aMonster.rewardc;
             int rewardw = aMonster.rewardw;
+            print("Reward" + rewardc);
+            print("Reward" + rewardw);
 
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Destroy(mc.gameObject);
@@ -625,6 +627,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             {
                 DistributionManager.DistributeWinFight(FightTurnManager.Instance.players, (ItemType.Coin, rewardc), (ItemType.WillPower, rewardw));
             }
+            Leave();
         }
         else if (hero.data.WP <= 0)
         {

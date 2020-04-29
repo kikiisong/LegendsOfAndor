@@ -42,7 +42,6 @@ public class StartFightManager : MonoBehaviourPun,TurnManager.IOnMove
             if (update > 2.0f && !fightStart)
             {
                 update = 0.0f;
-                Debug.Log("Update");
                 if (!player.HasConsumedHour() && TurnManager.IsMyTurn())
                 {
 

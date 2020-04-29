@@ -65,6 +65,8 @@ namespace Bag
         }
 
         public static void DistributeWinFight(List<Player> winplayers, params (ItemType type, int amount)[] pairs ) {
+            print("Player" + winplayers.Count);
+            print("Items" + pairs.Length);
             var players = winplayers;
             var array = new Player[players.Count];
             players.CopyTo(array, 0);
