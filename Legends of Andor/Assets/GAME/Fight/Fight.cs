@@ -623,6 +623,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             StartFightManager.Instance.fightStart = false;
             StartFightManager.Instance.isFight = false;
             SceneManager.UnloadSceneAsync("FightScene");
+            foreach (Player player in FightTurnManager.Instance.players) {
+                print(player.NickName);
+            }
             if (PhotonNetwork.IsMasterClient)
             {
                 //TODO:test
