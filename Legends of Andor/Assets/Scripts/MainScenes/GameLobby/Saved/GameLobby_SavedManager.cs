@@ -15,6 +15,8 @@ public class GameLobby_SavedManager : MonoBehaviourPunCallbacks
     public GameObject parent;
 
     [SceneName] public string next;
+    [SceneName] public string previous;
+
     public Button nextButton;
 
     // Start is called before the first frame update
@@ -50,4 +52,9 @@ public class GameLobby_SavedManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(next);
     }
 
+    public void Click_LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene(previous);
+    }
 }
