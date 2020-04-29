@@ -76,6 +76,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public int damage;
     public bool magicUsed;
     bool usedhelm = false;
+    
     // Use this for initialization
     void Start()
     {
@@ -231,6 +232,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.diceNum = 0;
         hero.data.rollResult = 0;
         hero.data.attackNum = 0;
+        hero.data.useShiled = false;
         damage = 0;
         magicUsed = false;
         usedhelm = false;
@@ -576,9 +578,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void OnShield(Player actingplayer)
     {
         
-        if (damage - hero.data.attackNum > 0)
+        if (damage - actingplayer.GetHero().data.attackNum > 0 && !actingplayer.GetHero().data.useShiled)
         {
-            actingplayer.GetHero().data.WP -= damage - hero.data.attackNum;
+            actingplayer.GetHero().data.WP -= damage - actingplayer.GetHero().data.attackNum;
         }
         else {
             print("Damage" + damage);
@@ -715,7 +717,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
         else if (skill.Equals("Sheild")) {
             actplayer.GetHero().data.shield = resultNum;
-            damage = 0;
+            actplayer.GetHero().data.useShiled = true;
         }
 
         print(player.NickName + " update " + result + "" +resultNum);
@@ -773,7 +775,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.shield -= 1;
         int changedNum = hero.data.shield;
         damage = 0;
-        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Sheild",0,changedNum);
+        hero.data.useShiled = true;
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Sheild",1,changedNum);
         fHUD.rollResult("Applied Sheild" );
         FightTurnManager.TriggerEvent_OnShield(player);
     }

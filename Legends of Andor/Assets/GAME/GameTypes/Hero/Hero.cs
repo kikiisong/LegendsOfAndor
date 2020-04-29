@@ -68,6 +68,8 @@ public class Hero : ScriptableObject
         public int blackDice;
         public int rollResult;
 
+        public bool useShiled;
+
         //Helper
         public int wineskinStacked;
         [JsonIgnore] public int NumHoursEffective
