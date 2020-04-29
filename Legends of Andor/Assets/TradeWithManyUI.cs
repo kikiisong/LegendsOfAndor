@@ -18,32 +18,55 @@ public class TradeWithManyUI : MonoBehaviour
     public string playerInput;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        for (int i = 1; i < 4; i++)
+
+        for (int i = 0; i < 3; i++)
         {
-            buttons[i - 1] = panel.gameObject.transform.GetChild(i).gameObject;
-            Debug.Log(buttons[i - 1].name);
+            Debug.Log("tryin got add buttons buttons");
+            buttons[i] = panel.gameObject.transform.GetChild(i).gameObject;
+            Debug.Log("buttons");
+            Debug.Log(buttons[i].name);
         }
     }
 
     //populate buttons and open the panel
-    public void Open(Player player)
-    { 
+    public void Open(Player player, bool falconTr)
+    {
+        falconTrade = falconTr;
         nameButtons(player);
         panel.SetActive(true);
     }
 
     public void nameButtons(Player player)
     {
+
+        for (int i = 0; i < 3; i++)
+        {
+            buttons[i] = panel.gameObject.transform.GetChild(i).gameObject;
+            Debug.Log(buttons[i].name);
+        }
+
+        Debug.Log("this is falcon trade " + falconTrade);
         int emptySlot = 0;
         Player[] playerList = PhotonNetwork.PlayerList;
         for (int i = 0; i < playerList.Length; i++)
         {
-            if (playerList[i] != player && playerList[i].GetCurrentRegion() == player.GetCurrentRegion())
+            if (!falconTrade)
             {
-                buttons[emptySlot].GetComponentInChildren<Text>().text = playerList[i].NickName;
-                emptySlot++;
+                if (playerList[i] != player && playerList[i].GetCurrentRegion() == player.GetCurrentRegion())
+                {
+                    buttons[emptySlot].GetComponentInChildren<Text>().text = playerList[i].NickName;
+                    emptySlot++;
+                }
+            }
+            else
+            {
+                if (playerList[i] != player )
+                {
+                    buttons[emptySlot].GetComponentInChildren<Text>().text = playerList[i].NickName;
+                    emptySlot++;
+                }
             }
         }
     }
