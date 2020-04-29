@@ -687,9 +687,10 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     [PunRPC]
     public void showSkillResult(Player actplayer, string skill, int result, int resultNum) {
-        if (skill.Equals("magic")) {
+        if (skill.Equals("magic"))
+        {
             actplayer.GetHero().data.diceNum = result;
-            print("?"+hero.data.diceNum) ;
+            print("?" + hero.data.diceNum);
         }
         else if (skill.Equals("Helm"))
         {
@@ -710,6 +711,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             actplayer.GetHero().data.brew = resultNum;
             actplayer.GetHero().data.diceNum = result;
+        }
+        else if (skill.Equals("Sheild")) {
+            actplayer.GetHero().data.shield = resultNum;
         }
 
         print(player.NickName + " update " + result + "" +resultNum);
@@ -765,9 +769,11 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             return;
         }
         hero.data.shield -= 1;
+        int changedNum = hero.data.shield;
         damage = 0;
+        Instance.photonView.RPC("showSkillResult", RpcTarget.All, player, "Sheild",0,changedNum);
         fHUD.rollResult("Applied Sheild" );
-
+        FightTurnManager.TriggerEvent_OnShield(player);
     }
 
     public void onHelmClick()
