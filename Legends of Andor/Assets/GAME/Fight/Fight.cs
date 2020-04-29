@@ -714,6 +714,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
         else if (skill.Equals("Sheild")) {
             actplayer.GetHero().data.shield = resultNum;
+            damage = 0;
         }
 
         print(player.NickName + " update " + result + "" +resultNum);
