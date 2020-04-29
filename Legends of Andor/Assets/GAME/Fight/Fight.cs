@@ -573,15 +573,16 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
     }
 
-    public void OnShield(Player player)
+    public void OnShield(Player actingplayer)
     {
+        
         if (damage - hero.data.attackNum > 0)
         {
-            hero.data.WP -= damage - hero.data.attackNum;
+            actingplayer.GetHero().data.WP -= damage - hero.data.attackNum;
         }
         else {
             print("Damage" + damage);
-            print(hero.data.attackNum);
+            print(actingplayer.GetHero().data.WP);
             print("why less than zero");
         }
        
