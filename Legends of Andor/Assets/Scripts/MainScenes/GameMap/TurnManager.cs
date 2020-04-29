@@ -61,6 +61,8 @@ public class TurnManager : MonoBehaviourPun
 
     private void Update()
     {
+        GameObject movePrinceButton = GameObject.Find("Actions").transform.Find("MovePrince").gameObject;
+        movePrinceButton.SetActive(Prince.Instance != null && IsMyTurn() && CanMove());
         endTurn.gameObject.SetActive(CanMove());
         endDay.gameObject.SetActive(IsMyTurn());
     }
