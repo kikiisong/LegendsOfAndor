@@ -11,9 +11,19 @@ public class MonsterHUD : MonoBehaviour
     public Text strengthPower;
     
     public void setMonsterHUD(Monster m,int currentWP) {
+        if (m.isSkralOnTower())
+        {
+            int maxSP = m.returnSkralOnTowerSP();
+            strengthPower.text = "" + maxSP;
+            reward.text = m.rewardc + " /" + m.rewardw;
+            currentWillpower.text = "" + currentWP;
+            return;
+        }
+
         reward.text = m.rewardc + " /" + m.rewardw;
         currentWillpower.text = ""+currentWP;
         strengthPower.text = "" + m.maxSP;
+        
 
 
     }

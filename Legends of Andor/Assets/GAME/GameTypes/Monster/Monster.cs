@@ -35,7 +35,56 @@ public class Monster : MonoBehaviourPun
     }
 
 
+    public bool isSkralOnTower()
+    {
+        Region temp = GameGraph.Instance.FindNearest(gameObject.transform.position);
+        if (temp.label <= 56 && temp.label >= 51)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
+    public int returnSkralOnTowerSP()
+    {
+        int tempSP = 0;
+        Player[] players = PhotonNetwork.PlayerList;
+        int numberOfPlayer = players.Length;
+        if (Room.Difficulty == Difficulty.Easy)
+        {
+            if (numberOfPlayer == 2)
+            {
+                tempSP = 10;
+            }
+            else if (numberOfPlayer == 3)
+            {
+                tempSP = 20;
+            }
+            else if (numberOfPlayer == 4)
+            {
+                tempSP = 30;
+            }
+        }
+        else
+        {
+            if (numberOfPlayer == 2)
+            {
+                tempSP = 20;
+            }
+            else if (numberOfPlayer == 3)
+            {
+                tempSP = 30;
+            }
+            else if (numberOfPlayer == 4)
+            {
+                tempSP = 40;
+            }
+        }
+        return tempSP;
+    }
 
     public string PrintRoll()
     {
