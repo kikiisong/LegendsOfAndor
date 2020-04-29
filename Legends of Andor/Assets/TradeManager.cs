@@ -29,66 +29,89 @@ public class TradeManager : MonoBehaviourPun
     private byte TRADEITEM = 1;
     private byte OPENWIND = 2;
     private byte OPENWINDWHENMANY = 3;
+    private byte CLOSEWIND = 4;
 
 
-    private void isFalconTrade()
+
+
+    public void Open()
     {
-        
+
+
         string name = EventSystem.current.currentSelectedGameObject.name;
-       
+
         if (name == "FalconTrade")
         {
-    
-            falconTrade = true;
+
+            // falconTrade = true;
             int falcon = PhotonNetwork.LocalPlayer.GetHero().data.falcon;
 
+            //if both panels were open, close them then
+            if (panelOne.activeSelf && panelTwo.activeSelf)
+            {
+                object[] content = new object[] { };
+
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
+                SendOptions sendOptions = new SendOptions { Reliability = true };
+                PhotonNetwork.RaiseEvent(CLOSEWIND, content, raiseEventOptions, sendOptions);
+            }
             //check whether local player has falcon to trade 
-            if (falcon == 0)
+            else if (falcon == 0)
             {
                 Text t = panelErrMsg.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
                 t.text = "You need to purchase a falcon before be able to trade with it.";
                 panelErrMsg.SetActive(true);
             }
-        }
-    }
-
-    public void Open()
-    {   
-        //check if we want to do a falcon trade
-        isFalconTrade();
-
-        //If more than 2 players on the same region, display panel allowing choosing a player you want to trade with
-        int playersOnRegion = 0;
-        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-        {
-            if (PhotonNetwork.PlayerList[i].GetCurrentRegion() == PhotonNetwork.LocalPlayer.GetCurrentRegion()) playersOnRegion++;
-        }
-        //if more there are more than 2 person on the same region and we wish to trade,
-        // we will display a panel allowing player to select a player they wish to trade with
-        if (playersOnRegion > 2)
-        {
-            tradeMany.Open(PhotonNetwork.LocalPlayer);
-        }
-        else if (playersOnRegion == 2)
-        {
-            // if only two players are on the same region, then we will trigger this function 
-            initPlayers();
-            if (player1 != null && player2 != null)
+            else if (PhotonNetwork.LocalPlayer.GetHero().data.usedFalcon)
             {
-
-                object[] content = new object[] { player1.ActorNumber, player2.ActorNumber, false };
-
-                RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
-                SendOptions sendOptions = new SendOptions { Reliability = true };
-                PhotonNetwork.RaiseEvent(OPENWIND, content, raiseEventOptions, sendOptions);
+                Text t = panelErrMsg.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
+                t.text = "You have already used falcon today. You can use it only once a day";
+                panelErrMsg.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("falcon trade");
+                tradeMany.Open(PhotonNetwork.LocalPlayer, true);
             }
         }
-        else // display error message
+        else
         {
-            Text t = panelErrMsg.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
-            t.text = "You need to be on the same region as the person you want to trade with. Otherwise, you can use falcon if you have it.";
-            panelErrMsg.SetActive(true);
+            //If more than 2 players on the same region, display panel allowing choosing a player you want to trade with
+
+            int playersOnRegion = 0;
+            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+            {
+                if (PhotonNetwork.PlayerList[i].GetCurrentRegion() == PhotonNetwork.LocalPlayer.GetCurrentRegion()) playersOnRegion++;
+            }
+            //if more there are more than 2 person on the same region and we wish to trade,
+            // we will display a panel allowing player to select a player they wish to trade with
+            if (playersOnRegion > 2)
+            {
+                Debug.Log("trade with many");
+                tradeMany.Open(PhotonNetwork.LocalPlayer, false);
+            }
+            if (playersOnRegion == 2)
+            {
+                // if only two players are on the same region, then we will trigger this function 
+                initPlayers();
+                if (player1 != null && player2 != null)
+                {
+
+                    object[] content = new object[] { player1.ActorNumber, player2.ActorNumber, false };
+
+                    RaiseEventOptions raiseEventOptions = new RaiseEventOptions { TargetActors = new int[] { player1.ActorNumber, player2.ActorNumber } };
+                    SendOptions sendOptions = new SendOptions { Reliability = true };
+                    PhotonNetwork.RaiseEvent(OPENWIND, content, raiseEventOptions, sendOptions);
+                }
+            }
+            else // display error message
+            {
+                Text t = panelErrMsg.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
+                t.text = "You need to be on the same region as the person you want to trade with. Otherwise, you can use falcon if you have it.";
+                panelErrMsg.SetActive(true);
+            }
         }
+
 
     }
 
@@ -149,8 +172,9 @@ public class TradeManager : MonoBehaviourPun
             int player2ID = (int)data[1];
             bool falconTrade = (bool)data[2];
 
+
             //update hero's parameter's 
-            if (falconTrade) PhotonNetwork.CurrentRoom.GetPlayer(player1ID).GetHero().data.usedFalcon = true; 
+          //  if (falconTrade) PhotonNetwork.CurrentRoom.GetPlayer(player1ID).GetHero().data.usedFalcon = true;
 
             if (obj.Code == OPENWIND) initPlayers();
             else // when there are multiple player's on the same region
@@ -159,10 +183,12 @@ public class TradeManager : MonoBehaviourPun
                 player1 = PhotonNetwork.CurrentRoom.GetPlayer(player1ID);
                 player2 = PhotonNetwork.CurrentRoom.GetPlayer(player2ID);
             }
+
             if (panelOne != null && panelTwo != null)
             {
                 bool isActive1 = panelOne.activeSelf;
                 bool isActive2 = panelTwo.activeSelf;
+
                 panelOne.SetActive(!isActive1);
                 panelTwo.SetActive(!isActive2);
 
@@ -173,6 +199,18 @@ public class TradeManager : MonoBehaviourPun
                 populateBag(player2, panelTwo);
             }
         }
+
+        if(obj.Code == CLOSEWIND)
+        {
+
+
+            player1.GetHero().data.usedFalcon = true;
+            //player2.Get
+
+            panelOne.SetActive(false);
+            panelTwo.SetActive(false);
+        }
+
     }
 
 
@@ -402,6 +440,7 @@ public class TradeManager : MonoBehaviourPun
     //check whethear the item can be trade using falcon
     private bool canTradeFalcon(string itemName)
     {
+        Debug.Log("inside can trade falcon");
         if (itemName != "shield" || itemName != "bow") return true;
         else
         {
