@@ -168,6 +168,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
                     //}
                 }
                 else {
+                    Hero hero = (Hero)p.GetHero();
                     switch (hero.type)
                     {
                         case Hero.Type.ARCHER:
@@ -209,7 +210,6 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         plotCharacter();
         player = PhotonNetwork.LocalPlayer;
         hero = (Hero)player.GetHero();
-        hero.data.dice = dice;
         hHUD.setHeroHUD(hero);
         mHUD.setMonsterHUD(aMonster, currentWP);
         playerTurn();
@@ -267,16 +267,95 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         }
         //print("rolling");
-        hero.HeroRoll();
+        HeroRoll();
         string s;
         if (hero.type == Hero.Type.ARCHER)
         {
             s = "Value:" + hero.data.diceNum + " Left B/R:" + hero.data.btimes + "/" + hero.data.times;
         }
         else {
-            s = hero.data.dice.printArrayList() + "Max:" + hero.data.diceNum;
+            s = dice.printArrayList() + "Max:" + hero.data.diceNum;
         }
         Instance.photonView.RPC("HeroRoll", RpcTarget.All, player, s);
+    }
+
+    public void HeroRoll()
+    {
+        if (hero.type == Hero.Type.ARCHER)
+        {
+            if (hero.data.btimes > 0)
+            {
+                hero.data.diceNum = dice.getOne(true);
+                hero.data.btimes -= 1;
+            }
+            else if (hero.data.times > 0)
+            {
+                hero.data.diceNum = dice.getOne(false);
+                hero.data.times -= 1;
+            }
+        }
+        //TODO: did not consider how black dice is used
+        else if (hero.data.times > 0)
+        {
+            dice.rollDice(GetDiceNum(), hero.data.blackDice);
+            hero.data.diceNum = dice.getMax();
+            hero.data.times = 0;
+        }
+    }
+
+    //Fight
+    public int GetDiceNum()
+    {
+        switch (hero.type)
+        {
+            case (Hero.Type.ARCHER):
+                if (hero.data.WP > 13)
+                {
+                    return 5;
+                }
+                else if (hero.data.WP > 6)
+                {
+                    return 4;
+                }
+                else
+                {
+                    return 3;
+                }
+            case (Hero.Type.DWARF):
+                if (hero.data.WP > 13)
+                {
+                    return 3;
+                }
+                else if (hero.data.WP > 6)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 1;
+                }
+            case (Hero.Type.WARRIOR):
+                if (hero.data.WP > 13)
+                {
+                    return 4;
+                }
+                else if (hero.data.WP > 6)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 2;
+                }
+            case (Hero.Type.WIZARD):
+                {
+                    return 1;
+                }
+            default:
+
+                print("Problem");
+                return 0;
+        }
     }
 
     //--------ROLL--------//
@@ -331,7 +410,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     [PunRPC]
     public void displayRollResult(Player actplayer, int diceNum) {
         print("Act:" + actplayer.NickName + "Player" + player.NickName +"D "+diceNum);
-        if (!actplayer.NickName.Equals(player.NickName)) {
+        print(FightTurnManager.IsMyTurn());
+        if (!actplayer.NickName.Equals(player.NickName) && !FightTurnManager.IsMyTurn()) {
+            print("indes");
             actplayer.GetHero().data.diceNum += diceNum;
         }
        
@@ -672,7 +753,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         {
             return;
         }
-        int temp = hero.data.dice.getSum();
+        int temp = dice.getSum();
         hero.data.diceNum = temp;
 
         usedhelm = true;
