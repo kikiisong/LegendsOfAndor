@@ -48,20 +48,6 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
             list[n] = temp;
         }
 
-        if(list[11] == 8 || list[11] == 48)
-        {
-            int curr = list[0];
-            list[0] = list[11];
-            list[11] = curr;
-        }
-        if (list[12] == 8 || list[12] == 48)
-        {
-            int curr2 = list[1];
-            list[1] = list[12];
-            list[12] = curr2;
-        }
-
-
     }
 
     // Update is called once per frame
@@ -424,9 +410,25 @@ public class FogManager : MonoBehaviourPun, TurnManager.IOnTurnCompleted, TurnMa
         List<Fog> fogOnRegion = GameGraph.Instance.FindObjectsOnRegion<Fog>(GameGraph.Instance.Find(currentRegion));
         Fog curr = fogOnRegion[0];
 
-        if(PhotonNetwork.IsMasterClient)
+        List<MonsterMoveController> mOnRegion = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(GameGraph.Instance.Find(currentRegion));
+
+        if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(gorPrefab.name, curr.transform.position, curr.transform.rotation);
+            if (mOnRegion.Count > 0)
+            {
+                int currLabel = currentRegion;
+                while (mOnRegion.Count > 0)
+                {
+                    Region neighbour = GameGraph.Instance.NextEnemyRegion(GameGraph.Instance.Find(currLabel));
+                    currLabel = neighbour.label;
+                    mOnRegion = GameGraph.Instance.FindObjectsOnRegion<MonsterMoveController>(neighbour);                    
+                }
+                PhotonNetwork.Instantiate(gorPrefab.name, GameGraph.Instance.Find(currLabel).position, Quaternion.identity);
+            }   
+            else
+            {
+                PhotonNetwork.Instantiate(gorPrefab.name, curr.transform.position, curr.transform.rotation);
+            }
         }
         
 
