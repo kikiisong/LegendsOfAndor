@@ -617,7 +617,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             Debug.Log(mc);
 
             if (aMonster.isTower) {
-                photonView.RPC("tellCastle", RpcTarget.AllBuffered);
+                //  photonView.RPC("tellCastle", RpcTarget.AllBuffered);
+                GameObject.FindObjectOfType<Castle>().GetComponent<Castle>().tellCastle();
             }
             StartFightManager.Instance.fightStart = false;
             StartFightManager.Instance.isFight = false;
