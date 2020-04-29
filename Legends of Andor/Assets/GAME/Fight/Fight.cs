@@ -584,7 +584,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
         else {
             print("Damage" + damage);
-            print(actingplayer.GetHero().data.WP);
+            print(actingplayer.GetHero().type+ actingplayer.GetHero().data.WP);
             print("why less than zero");
         }
        
