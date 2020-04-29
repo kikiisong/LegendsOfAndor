@@ -18,14 +18,10 @@ public class HeroMoveController : MonoBehaviourPun
     bool isControllingPrince = false;
     public int princeMoveCounter = 0;
 
-    public Button movePrinceButton;
-
-
     
 
     public void activateControllingPrince()
     {
-       
         if (Prince.Instance != null) isControllingPrince = true;
     }
 
@@ -63,7 +59,7 @@ public class HeroMoveController : MonoBehaviourPun
     {
         Hero hero = photonView.Owner.GetHero();
         GetComponent<SpriteRenderer>().sprite = hero.ui.GetSprite();
-        movePrinceButton = GameObject.Find("Actions").transform.Find("MovePrince").gameObject.GetComponent<Button>();
+        var movePrinceButton = GameObject.Find("Actions").transform.Find("MovePrince").gameObject.GetComponent<Button>();
   
         movePrinceButton.onClick.AddListener(activateControllingPrince);
         movePrinceButton.gameObject.SetActive(false);
