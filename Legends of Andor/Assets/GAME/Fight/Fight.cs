@@ -619,7 +619,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
             }
             StartFightManager.Instance.fightStart = false;
             StartFightManager.Instance.isFight = false;
-
+            TurnManager.TriggerEvent_EndTurn();
             SceneManager.UnloadSceneAsync("FightScene");
             if (PhotonNetwork.IsMasterClient)
             {
@@ -638,6 +638,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
             //initialize everything
             Leave();
+            TurnManager.TriggerEvent_EndTurn();
             StartFightManager.Instance.fightStart = false;
             StartFightManager.Instance.isFight = false;
             SceneManager.UnloadSceneAsync("FightScene");
@@ -855,6 +856,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
 
         StartFightManager.Instance.fightStart = false;
         StartFightManager.Instance.isFight = false;
+        TurnManager.TriggerEvent_EndTurn();
         SceneManager.UnloadSceneAsync("FightScene");
 
     }
