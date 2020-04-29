@@ -589,6 +589,13 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
        
         hHUD.basicInfoUpdate(hero);
+        Instance.photonView.RPC("finalroundupdate", RpcTarget.All, player, player.GetHero().data.WP);
+    }
+
+    [PunRPC]
+    public void finalroundupdate(Player act,int wp) {
+        act.GetHero().data.WP = wp;
+        
     }
 
     IEnumerator Check()
