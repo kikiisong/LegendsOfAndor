@@ -104,15 +104,18 @@ public class TurnManager : MonoBehaviourPun
         var hero = player.GetHero();
 
         //Reset move prince, and consume one more hour if needed
-        HeroMoveController[] controllers = GameObject.FindObjectsOfType<HeroMoveController>();
-        foreach (HeroMoveController controller in controllers)
+        if (Prince.Instance != null)
         {
-            if (controller.photonView.IsMine)
+            HeroMoveController[] controllers = GameObject.FindObjectsOfType<HeroMoveController>();
+            foreach (HeroMoveController controller in controllers)
             {
-                if (controller.PrinceMoveCounter > 0) hero.data.ConsumeHour();
-                controller.IsControllingPrince = false;
+                if (controller.photonView.IsMine)
+                {
+                    controller.IsControllingPrince = false;
+                }
             }
         }
+        
 
         //Consume hour if Pass
         if (hero.data.HoursConsumed == 0)
@@ -137,6 +140,20 @@ public class TurnManager : MonoBehaviourPun
     [PunRPC]
     public void EndDay(Player player)
     {
+
+        //Reset move prince, and consume one more hour if needed
+        if (Prince.Instance != null)
+        {
+            HeroMoveController[] controllers = GameObject.FindObjectsOfType<HeroMoveController>();
+            foreach (HeroMoveController controller in controllers)
+            {
+                if (controller.photonView.IsMine)
+                {
+                    controller.IsControllingPrince = false;
+                }
+            }
+        }
+
         //Reset index, better solution?
         int i = players.IndexOf(player);
         Player next = players[Helper.Mod(i + 1, players.Count)];
