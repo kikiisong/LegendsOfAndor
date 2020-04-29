@@ -45,7 +45,7 @@ public class FightHUD: MonoBehaviour
 
     public void setFightHUD_DICISION()
     {
-        gameState.text = "Choose one of the four buttons.";
+        gameState.text = "Choose one of the two buttons.";
     }
 
     public void setFightHUD_SHIELD()
