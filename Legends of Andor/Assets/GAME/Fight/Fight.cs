@@ -74,7 +74,8 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public GameObject prince;
     public int currentWP;
     public int damage;
-
+    public bool magicUsed;
+    bool usedhelm = false;
     // Use this for initialization
     void Start()
     {
@@ -231,6 +232,9 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         hero.data.rollResult = 0;
         hero.data.attackNum = 0;
         damage = 0;
+        magicUsed = false;
+        usedhelm = false;
+        
 
         if (fightstate != FightState.HERO || !FightTurnManager.IsMyTurn()
             || !photonView.IsMine || !FightTurnManager.CanFight())
@@ -411,10 +415,19 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void displayRollResult(Player actplayer, int diceNum) {
         print("Act:" + actplayer.NickName + "Player" + player.NickName +"D "+diceNum);
         print(FightTurnManager.IsMyTurn());
-        if (!actplayer.NickName.Equals(player.NickName) && !FightTurnManager.IsMyTurn()) {
-            print("indes");
-            actplayer.GetHero().data.diceNum += diceNum;
+        if(magicUsed) {
+            if (FightTurnManager.IsMyTurn()) {
+                actplayer.GetHero().data.diceNum += diceNum;
+            }
         }
+        else {
+            if (!actplayer.NickName.Equals(player.NickName) )
+            {
+                print("indes");
+                actplayer.GetHero().data.diceNum += diceNum;
+            }
+        }
+        
        
         print("Noice "+actplayer.GetHero().data.diceNum);
         if (actplayer.NickName.Equals(player.NickName))
@@ -710,6 +723,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         //FightTurnManager.IsMyTurn()
         print(FightTurnManager.IsMyTurn());
         print(FightTurnManager.CurrentHero.type);
+        this.magicUsed = true;
 
         if (FightTurnManager.IsMyTurn()) {
             int diceNum = FightTurnManager.CurrentHero.data.diceNum;
@@ -733,7 +747,7 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
         }
     }
 
-    bool usedhelm = false;
+
 
     public void onSheildClick()
     {
