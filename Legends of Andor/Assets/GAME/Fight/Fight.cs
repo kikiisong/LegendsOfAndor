@@ -415,18 +415,18 @@ public class Fight : MonoBehaviourPun, FightTurnManager.IOnSkillCompleted
     public void displayRollResult(Player actplayer, int diceNum) {
         print("Act:" + actplayer.NickName + "Player" + player.NickName +"D "+diceNum);
         print(FightTurnManager.IsMyTurn());
-        if(magicUsed) {
-            if (FightTurnManager.IsMyTurn()) {
-                actplayer.GetHero().data.diceNum += diceNum;
-            }
+        //if(magicUsed) {
+        //    if (FightTurnManager.IsMyTurn()) {
+        //        actplayer.GetHero().data.diceNum += diceNum;
+        //    }
+        //}
+        //else {
+        if (!actplayer.NickName.Equals(player.NickName) )
+        {
+            print("indes");
+            actplayer.GetHero().data.diceNum = diceNum;
         }
-        else {
-            if (!actplayer.NickName.Equals(player.NickName) )
-            {
-                print("indes");
-                actplayer.GetHero().data.diceNum += diceNum;
-            }
-        }
+        //}
         
        
         print("Noice "+actplayer.GetHero().data.diceNum);
