@@ -71,6 +71,28 @@ public class CheckMap : MonoBehaviour
             s += "\r\n";
         }
 
+        Merchant[] merches = GameObject.FindObjectsOfType(typeof(Merchant)) as Merchant[];
+        if (merches.Length > 0)
+        {
+            s += "Merchant on Region: ";
+
+            foreach (Merchant m in merches)
+            {
+                s += m.regionLabel + "";
+                if (m.isDawrf)
+                {
+                    s += "(Dwarf Mine)  ";
+                }
+                else
+                {
+                    s += "  ";
+                }
+            }
+
+            s += "\r\n";
+        }
+
+
         Fog[] fogs = GameObject.FindObjectsOfType(typeof(Fog)) as Fog[];
         if (fogs.Length > 0)
         {
