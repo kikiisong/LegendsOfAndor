@@ -15,7 +15,7 @@ public class Dice : MonoBehaviourPun
 
 
     public void rollDice(int numRed, int numBlack){
-        
+        a.Clear();
         for (int i = numRed; i > 0; i--)
         {
             a.Add(randGenerator(false));
@@ -91,7 +91,7 @@ public class Dice : MonoBehaviourPun
         {
             r += a[i] + " ";
         }
-        a.Clear();
+        //a.Clear();
         return r;
         
     }
