@@ -4,6 +4,7 @@
 An online multiplayer game that simulates the board game [Legends of Andor](http://legendsofandor.com/), where 2 to 4 players cooperate to win.
 
 ![map](Screenshots/Map.png)
+![ui](Screenshots/UI.png)
 
 ## How to Run
 1. Install Unity 2019.2.17f1 if necessary.
